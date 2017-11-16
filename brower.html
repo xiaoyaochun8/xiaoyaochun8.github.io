@@ -1,2 +1,8 @@
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
-<script>document.write('brower: '+navigator.userAgent);</script>
+<script>
+  $(function(){
+    var brower = 'brower: '+navigator.userAgent;
+    $('div').html(brower);
+  });
+</script>
+<div style="width:300px"></div>
