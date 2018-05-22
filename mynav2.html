@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+ <meta http-equiv="Content-type" content="text/html;charset=utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+  <title> haoIT.net - 做最好的IT导航 </title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <style>
+	@font-face {font-family:fzxk;src:url("方正行楷_GBK.ttf");} 
+
+	* {font-size:14px;margin:3px;}
+	.naviBox {margin-left:auto; margin-right:auto; width:830px;border:solid 1px lightgray}
+	.naviBox .Head {font-weight:bold;font-size:28px;height:80px}
+	.naviBox .Head .subTitle {font-family:"fzxk";font-size:15px;color:rgb(81,139,48)}
+	.naviBox .Head .search {margin-left:500px;margin-top:20px}
+	.naviBox .Box {list-style:none;margin:0;padding:0;line-height:25px;min-height:25px;height:auto}
+	.naviBox .Box .ti{clear:both;background:lightgreen}
+	.naviBox .Box .con ul {list-style:none;margin:0;;padding:0;min-height:25px;height:auto;}
+	.naviBox .Box .con ul li {float:left;width:200px;}
+	.naviBox .Box .con ul li a img {width:14px;height:14px;margin:0;padding:0;padding-right:5px}
+	.naviBox .Foot {clear:both;margin-top:50px;text-align:center;color:gray}
+  </style>
+  <script type="text/javascript">
+	function search(){
+		var keyword = document.getElementById('keyword').value;
+		var SE = document.getElementById('searchEngine').value;
+		var seachUrl = null;
+		if(SE == 'baidu'){
+			searchUrl = "http://www.baidu.com/s?wd=";
+		}else if(SE == 'google'){
+			searchUrl = "https://www.google.com.hk/#newwindow=1&q=";
+		}else if(SE == 'bing'){
+			searchUrl = "http://cn.bing.com/search?q=";
+		}else if(SE == 'yahoo'){
+			searchUrl = "http://search.yahoo.com/search;_ylt=ArWNkKzXs79B7qv8QhdHkm2bvZx4?p=";
+		}else if(SE == 'sougou'){
+			searchUrl = "http://www.sogou.com/web?query=";
+		}else if(SE == 'soso'){
+			searchUrl = "http://www.soso.com/q?w=";
+		}else if(SE == 'youdao'){
+			searchUrl = "http://www.youdao.com/search?q=";
+		}else if(SE == '360'){
+			searchUrl = "http://www.so.com/s?q=";
+		}else if(SE == 'jd'){
+			searchUrl = "http://search.jd.com/Search?enc=utf-8&keyword=";
+		}else if(SE == 'taobao'){
+			searchUrl = "http://s.taobao.com/search?q=";
+		}
+
+		//location.href = searchUrl+keyword;
+		window.open (searchUrl+keyword,'newwindow','') 
+	}
+	function search2(evt){
+		if(event.keyCode == 13){
+			search();
+		}
+	}
+  </script>
+ </head>
+
+ <body>
+	<div class="naviBox">
+		<div class="Head">
+			haoIT.net<span class="subTitle">-做最好的IT导航</span>
+			<div class="search">
+				<input type="text" id="keyword" onkeyup="search2()"/>
+				<select id="searchEngine">
+					<option value="baidu">百度</option>
+					<option value="google">google</option>
+					<option value="bing">bing</option>
+					<option value="yahoo">yahoo</option>
+					<option value="sougou">搜狗</option>
+					<option value="soso">搜搜</option>
+					<option value="youdao">有道</option>
+					<option value="360">360</option>
+					<option value="" disabled>------</option>
+					<option value="jd">京东</option>
+					<option value="taobao">淘宝</option>
+				</select>
+				<input type="button" value="search" onclick="search()"/>
+			</div>
+		</div>
+		<ul class="Box">
+		    <li class="ti">高频</li>
+            <li class="con">
+                <ul>
+                    <li><a href="https://www.csdn.net/" target="_blank">
+                        <img src="https://csdnimg.cn/public/favicon.ico"/>CSDN</a></li>
+                    <li><a href="http://www.cnblogs.com/" target="_blank">
+                        <img src="http://www.cnblogs.com/favicon.ico"/>博客园</a></li>
+                    <li><a href="https://www.zhihu.com/" target="_blank">
+                        <img src="https://www.zhihu.com/favicon.ico"/>知乎</a></li>
+                </ul>
+            </li>
+            <li class="ti">IT资源</li>
+            <li class="con">
+                <ul>
+                    <li><a href="https://pan.baidu.com/" target="_blank">
+                        <img src="https://pan.baidu.com/static/images/favicon.ico"/>百度网盘</a></li>
+                    <li><a href="https://github.com/" target="_blank">
+                        <img src="https://github.com/fluidicon.png"/>github</a></li>
+                    <li><a href="http://php.net/" target="_blank">
+                        <img src="http://php.net/favicon.ico"/>php.net</a></li>
+                </ul>
+            </li>
+            <li class="ti">IT新知</li>
+            <li class="con">
+                <ul>
+                    <li><a href="http://yijiebuyi.com/" target="_blank">
+                        <img src="http://yijiebuyi.com/favicon.ico"/>一介布衣</a></li>
+                    <li><a href="https://www.jianshu.com/" target="_blank">
+                        <img src="https://www.jianshu.com/favicon.ico"/>简书</a></li>
+                    <li><a href="https://coolshell.cn/" target="_blank">
+                        <img src="https://coolshell.cn/favicon.ico"/>酷壳</a></li>
+                    <li><a href="http://www.cocoachina.com/" target="_blank">
+                        <img src="http://www.cocoachina.com/favicon.ico"/>CocoaChina</a></li>
+                    <li><a href="http://www.code4app.com/" target="_blank">
+                        <img src="http://www.code4app.com/favicon.ico"/>Code4App</a></li>
+                    <li><a href="https://segmentfault.com/" target="_blank">
+                        <img src="https://segmentfault.com/favicon.ico"/>segmentfault</a></li>
+                    <li><a href="https://stackoverflow.com/" target="_blank">
+                        <img src="https://stackoverflow.com/favicon.ico"/>stackoverflow</a></li>
+                </ul>
+            </li>
+			<li class="ti">IT前沿</li>
+			<li class="con">
+				<ul>
+					<li><a href="http://www.php100.com/" target="_blank">
+						<img src="http://www.php100.com/favicon.ico"/>PHP100</a></li>
+					<li><a href="http://tech.it168.com/" target="_blank">
+						<img src="http://tech.it168.com/favicon.ico"/>it168</a></li>
+					<li><a href="http://www.huxiu.com/" target="_blank">
+						<img src="http://www.huxiu.com/favicon.ico"/>虎嗅</a></li>
+					<li><a href="http://www.it.com.cn/" target="_blank">
+						<img src="http://www.it.com.cn/favicon.ico"/>IT世界网</a></li>
+					<li><a href="http://www.chinaitlab.com/" target="_blank">
+						<img src="http://www.chinaitlab.com/favicon.ico"/>中国IT实验室</a></li>
+					<li><a href="http://www.gameres.com/" target="_blank">
+						<img src="http://www.gameres.com/favicon.ico"/>游资网</a></li>
+					<li><a href="http://www.csai.cn/" target="_blank">
+						<img src="http://www.csai.cn/favicon.ico"/>希赛网</a></li>
+				</ul>
+			</li>
+			<li class="ti">IT专栏</li>
+			<li class="con">
+				<ul>
+					<li><a href="http://internet.baidu.com/" target="_blank">
+						<img src="http://gss0.bdstatic.com/5foIcy0a2gI2n2jgoY3K/static/fisp_static/common/img/favicon.ico"/>百度.互联网</a></li>
+					<li><a href="http://tech.sina.com.cn/" target="_blank">
+						<img src="http://tech.sina.com.cn/favicon.ico"/>新浪.科技</a></li>
+					<li><a href="http://it.sohu.com/" target="_blank">
+						<img src="http://it.sohu.com/favicon.ico"/>搜狐.IT</a></li>
+					<li><a href="http://tech.qq.com/" target="_blank">
+						<img src="http://tech.qq.com/favicon.ico"/>腾讯.科技</a></li>
+					<li><a href="http://tech.163.com/" target="_blank">
+						<img src="http://tech.163.com/favicon.ico"/>网易.科技</a></li>
+					<li><a href="http://tech.youku.com/" target="_blank">
+						<img src="http://tech.youku.com/favicon.ico"/>优酷.科技</a></li>
+					<li><a href="http://tech.ifeng.com/" target="_blank">
+						<img src="http://tech.ifeng.com/favicon.ico"/>凤凰网.科技</a></li>
+				</ul>
+			</li>
+			<li class="ti">IT技术</li>
+			<li class="con">
+				<ul>
+					<li><a href="http://www.github.com/" target="_blank">
+						<img src="http://www.github.com/favicon.ico"/>GitHub</a></li>
+					<li><a href="http://www.linuxpk.com/" target="_blank">
+						<img src="http://www.linuxpk.com/favicon.ico"/>linuxpk-x</a></li>
+					<li><a href="https://www.linuxidc.com/" target="_blank">
+                        <img src="https://www.linuxidc.com/favicon.ico"/>linuxidc</a></li>
+					<li><a href="http://hallojs.org/" target="_blank">
+						<img src="http://hallojs.org/favicon.ico"/>hallojs</a></li>
+				</ul>
+			</li>
+			<li class="ti">ITCompany</li>
+			<li class="con">
+				<ul>
+					<li><a href="http://www.ibm.com/developerworks/cn/" target="_blank">
+						<img src="http://www.ibm.com/favicon.ico"/>IBM中国网</a></li>
+					<li><a href="http://www.microsoft.com/en-us/default.aspx" target="_blank">
+						<img src="http://www.microsoft.com/favicon.ico?v2"/>微软</a></li>
+					<li><a href="http://www.oracle.com/" target="_blank">
+						<img src="http://www.oracle.com/favicon.ico"/>甲骨文</a></li>
+					<li><a href="https://www.google.com.hk/" target="_blank">
+						<img src="https://www.google.com.hk/favicon.ico"/>谷歌</a></li>
+					<li><a href="http://www.apple.com/" target="_blank">
+						<img src="http://www.apple.com/favicon.ico"/>苹果</a></li>
+					<li><a href="http://www.mysql.com/" target="_blank">
+						<img src="http://www.mysql.com/favicon.ico"/>MySql</a></li>
+					<li><a href="http://www.zend.com/" target="_blank">
+						<img src="http://www.zend.com/favicon.ico"/>Zend</a></li>
+				</ul>
+			</li>
+			<li class="ti">EnglishStudy</li>
+			<li class="con">
+				<ul>
+					<li><a href="http://www.joyen.net/" target="_blank">
+						<img src="http://www.joyen.net/favicon.ico"/>快乐英语网</a></li>
+					<li><a href="http://www.hjenglish.com/" target="_blank">
+						<img src="http://www.hjenglish.com/favicon.ico"/>沪江英语</a></li>
+				</ul>
+			</li>
+			<li class="ti">News</li>
+			<li class="con">
+				<ul>
+					<li><a href="http://news.baidu.com/" target="_blank">
+						<img src="http://news.baidu.com/favicon.ico"/>百度新闻</a></li>
+					<li><a href="http://www.cntv.cn/" target="_blank">
+						<img src="http://www.cntv.cn/favicon.ico"/>央视网</a></li>
+					<li><a href="http://www.runsky.com/" target="_blank">
+						<img src="http://www.runsky.com/favicon.ico"/>大连天健网</a></li>
+					<li><a href="http://www.aol.com/" target="_blank">
+						<img src="http://www.aol.com/favicon.ico"/>Aol.com</a></li>
+					<li><a href="http://www.wenweipo.com/" target="_blank">
+						<img src="http://www.wenweipo.com/favicon.ico"/>香港文汇网</a></li>
+					<li><a href="http://www.reuters.com/" target="_blank">
+						<img src="http://www.reuters.com/favicon.ico"/>英国路透社</a></li>
+					<li><a href="http://www.bbc.co.uk/" target="_blank">
+						<img src="http://www.bbc.co.uk/favicon.ico"/>英国BBC</a></li>
+				</ul>
+			</li>
+		</ul>
+		<div class="Foot">
+			<hr/>
+			haoIT.net is service for me, but now, it useless for me!
+		</div>
+	</div>
+	
+ </body>
+</html>
