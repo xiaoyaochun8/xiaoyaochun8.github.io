@@ -16,7 +16,7 @@ function setHtml(){
     var searchUrl = '';
     for(var i in response.content){
       searchUrl = searchEngine+response.content[i];
-      html += '<li><a href="javascript:void(0)" onclick="window.open(\"'+searchUrl+'\")">'+response.content[i]+'</a></li>';
+      html += '<li><a href="javascript:void(0)" onclick="window.open('+searchUrl+')">'+response.content[i]+'</a></li>';
     }
     $('ul').html(html);
   }
