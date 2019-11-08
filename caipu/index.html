@@ -11,7 +11,7 @@ function setHtml(){
   $.get(url,callBack);
   function callBack(response){
     for(var i in response.content){
-      console.log(response.content[i]);
+      document.write(response.content[i]);
     }
   }
 }
