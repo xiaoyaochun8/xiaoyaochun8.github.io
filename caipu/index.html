@@ -13,8 +13,10 @@ function setHtml(){
   function callBack(response){
     var html = '';
     var searchEngine = 'https://www.baidu.com/s?wd=';
+    var searchUrl = '';
     for(var i in response.content){
-      html += '<li><a target="_blank" href="'+searchEngine+response.content[i]+'">'+response.content[i]+'</a></li>';
+      searchUrl = searchEngine+response.content[i];
+      html += '<li><a href="javascript:void(0)" onclick="window.open(\"'+searchUrl+'\")">'+response.content[i]+'</a></li>';
     }
     $('ul').html(html);
   }
