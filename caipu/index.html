@@ -4,15 +4,18 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 </head>
 <body>
-
+<ul>
+</ul>
 <script>
 function setHtml(){
   var url = location.href + 'data.json';
   $.get(url,callBack);
   function callBack(response){
+    var html = '';
     for(var i in response.content){
-      document.write(response.content[i]);
+      html += '<li>'+response.content[i]+'</li>';
     }
+    $('ul').html(html);
   }
 }
 setHtml();
