@@ -12,7 +12,7 @@ function setHtml(){
   $.get(url,callBack);
   function callBack(response){
     var html = '';
-    var searchEngine = 'https:\/\/www.baidu.com\/s?wd=';
+    var searchEngine = 'https://www.baidu.com/s?wd=';
     var searchUrl = '';
     for(var i in response.content){
       searchUrl = searchEngine+response.content[i];
