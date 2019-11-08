@@ -1,0 +1,19 @@
+<html>
+<head>
+<title>CAIPU</title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+<body>
+
+<script>
+function setHtml(){
+  var url = location.href + 'data.json';
+  $.get(url,callBack);
+  function callBack(response){
+    alert(response)
+  }
+}
+setHtml();
+</script>
+</body>
+</HTML>
