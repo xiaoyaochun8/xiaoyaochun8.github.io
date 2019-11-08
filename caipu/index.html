@@ -10,7 +10,9 @@ function setHtml(){
   var url = location.href + 'data.json';
   $.get(url,callBack);
   function callBack(response){
-    console.log(response.content[i]);
+    for(var i in response.content){
+      console.log(response.content[i]);
+    }
   }
 }
 setHtml();
