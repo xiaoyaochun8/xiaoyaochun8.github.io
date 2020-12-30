@@ -1,16 +1,26 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,user-scalable=no"/> 
+    </head>
+    <body>
+        
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
 <script>
   $(function(){
     var txt = '';
-    txt = "<p>Browser CodeName: " + navigator.appCodeName + "</p>";
-    txt+= "<p>Browser Name: " + navigator.appName + "</p>";
-    txt+= "<p>Browser Version: " + navigator.appVersion + "</p>";
-    txt+= "<p>Cookies Enabled: " + navigator.cookieEnabled + "</p>";
-    txt+= "<p>Platform: " + navigator.platform + "</p>";
-    txt+= "<p>User-agent header: " + navigator.userAgent + "</p>";
-    txt+= "<p>User-agent language: " + navigator.systemLanguage + "</p>";
+    txt = "<p><b>Browser CodeName:</b> " + navigator.appCodeName + "</p>";
+    txt+= "<p><b>Browser Name:</b> " + navigator.appName + "</p>";
+    txt+= "<p><b>Browser Version:</b> " + navigator.appVersion + "</p>";
+    txt+= "<p><b>Cookies Enabled:</b> " + navigator.cookieEnabled + "</p>";
+    txt+= "<p><b>Platform:</b> " + navigator.platform + "</p>";
+    txt+= "<p><b>User-agent header:</b> " + navigator.userAgent + "</p>";
+    txt+= "<p><b>User-agent language:</b> " + navigator.systemLanguage + "</p>";
     $('div').html(txt);
     console.log(navigator);
   });
 </script>
-<div style="width:500px"></div>
+<div style=""></div>
+
+    </body>
+</html>
