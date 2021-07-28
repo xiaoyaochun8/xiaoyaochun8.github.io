@@ -1,5 +1,8 @@
 <html>
-  <head><title></title></head>
+  <head>
+    <metaname="viewport"content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <title>我给宝宝做饭饭</title>
+  </head>
   <body>
     <div>
       <img src="162748566266799.png">
@@ -70,7 +73,7 @@
         var eatTime = new Date(tmpDate.getFullYear(), tmpDate.getMonth(), tmpDate.getDate(), eatTimeItem[0], eatTimeItem[1], eatTimeItem[2]);
         var makeFoodTime = eatTime.getTime()/1000 - subTypeArr[currTypeId][currSubTypeId]['time'] * 60*60 - tmpDate.getTime()/1000;
         var makeFoodTimeH = Math.floor(makeFoodTime / 60 / 60);
-        var makeFoodTimeM = makeFoodTime/60 % 60;
+        var makeFoodTimeM = Math.floor(makeFoodTime/60 % 60);
         var startMakeFoodTime = new Date(eatTime.getTime() - subTypeArr[currTypeId][currSubTypeId]['time'] * 60*60*1000);
 
         html+= '定时'+makeFoodTimeH+'小时'+makeFoodTimeM+'分钟即可（'+startMakeFoodTime.getHours()+'点'+startMakeFoodTime.getMinutes()+'分开始做饭）';
