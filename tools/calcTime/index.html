@@ -2,17 +2,61 @@
   <head><title></title></head>
   <body>
     <div>
-      <img src="logo.png">
+      <img src="162748566266799.png">
       <div id="type"></div>
       <div id="subType"></div>
       <div id="eatTime"></div>
       <div id="waitTime"></div>
     </div>
     <script>
+      var type = document.querySelector('#type')
+      var subType = document.querySelector('#subType')
+      var eatTime = document.querySelector('#eatTime')
+      var waitTime = document.querySelector('#waitTime')
+      
+      var currSubTypeId = 0;
+      var typeArr = ['小炖盅','电饭煲'];
+      var eatTimeArr = [
+        {name:'5点',time:'05:00:00'},
+        {name:'6点',time:'06:00:00'},
+        {name:'7点',time:'07:00:00'},
+      ];
+      var subTypeArr = [
+        [{name:'煲粥',time:1.5}],
+        [{name:'快煮饭',time:1.5}],
+      ];
+      
       function init(){
-        alert(11)
+        var typeStr = '';
+        for(var i in typeArr){
+          typeStr += '<button onclick="chooseType('+i+')">'+typeArr[i]+'</button>';
+        }
+        type.innerHTML = typeStr;
+        
+        var eatTimeStr = '我想几点开锅吃饭：';
+        for(var i in eatTimeArr){
+          eatTimeStr += '<button onclick="chooseTime('+i+')">'+eatTimeArr[i]['name']+'</button>';
+        }
+        eatTime.innerHTML = eatTimeStr;
       }
       init();
+      
+      function chooseType(typeId){
+        var subTypeStr = '';
+        var tmpArr = subTypeArr[typeId];
+        for(var i in tmpArr){
+          subTypeStr += '<button onclick="chooseSubType('+i+')">'+tmpArr[i]['name']+'</button>';
+        }
+        subType.innerHTML = subTypeStr;
+      }
+      
+      function chooseSubType(subTypeId){
+        currSubTypeId = subTypeId;
+      }
+      
+      function chooseTime(timeId){
+        waitTime.innerHTML= '定时x小时x分钟即可（x点x分开始做饭）';
+      }
     </script>
   </body>
 </html>
