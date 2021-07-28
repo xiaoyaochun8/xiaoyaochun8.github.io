@@ -14,15 +14,18 @@
       var eatTime = document.querySelector('#eatTime')
       var waitTime = document.querySelector('#waitTime')
       
+      var currTypeId = 0;
       var currSubTypeId = 0;
       var typeArr = ['小炖盅','电饭煲'];
       var eatTimeArr = [
-        {name:'5点',time:'05:00:00'},
-        {name:'6点',time:'06:00:00'},
-        {name:'7点',time:'07:00:00'},
+        {name:'明天5点',time:'05:00:00'},
+        {name:'明天5点半',time:'05:30:00'},
+        {name:'明天6点',time:'06:00:00'},
+        {name:'明天6点半',time:'06:30:00'},
+        {name:'明天7点',time:'07:00:00'},
       ];
       var subTypeArr = [
-        [{name:'煲粥',time:1.5}],
+        [{name:'煲粥',time:2.4}],
         [{name:'快煮饭',time:1.5}],
       ];
       
@@ -42,20 +45,41 @@
       init();
       
       function chooseType(typeId){
+        currTypeId = typeId;
         var subTypeStr = '';
         var tmpArr = subTypeArr[typeId];
         for(var i in tmpArr){
           subTypeStr += '<button onclick="chooseSubType('+i+')">'+tmpArr[i]['name']+'</button>';
         }
         subType.innerHTML = subTypeStr;
+        waitTime.innerHTML= '';
       }
       
       function chooseSubType(subTypeId){
         currSubTypeId = subTypeId;
+        waitTime.innerHTML= '';
       }
       
       function chooseTime(timeId){
-        waitTime.innerHTML= '定时x小时x分钟即可（x点x分开始做饭）';
+        var html = '['+typeArr[currTypeId]+']';
+        html += '['+subTypeArr[currTypeId][currSubTypeId]['name']+']';
+        //定时时长=吃饭时间-做饭时间-当前时间
+        //开始做饭时间=吃饭时间-做饭时间
+        var tmpDate = new Date();
+        var eatTimeItem = eatTimeArr[timeId]['time'].split(':');
+console.log(eatTimeItem)
+        var eatTime = new Date(tmpDate.getFullYear(), tmpDate.getMonth(), tmpDate.getDate()+1, eatTimeItem[0], eatTimeItem[1], eatTimeItem[2]);
+console.log(eatTime)
+        var makeFoodTime = eatTime.getTime() - subTypeArr[currTypeId][currSubTypeId]['time'] * 60*60*1000 - tmpDate.getTime();
+console.log(subTypeArr[currTypeId][currSubTypeId]['time'] * 60*60*1000)
+console.log(tmpDate)
+console.log(makeFoodTime)
+        var makeFoodTimeH = makeFoodTime / 1000 / 60 / 60;
+        var makeFoodTimeM = makeFoodTime % 60;
+        
+        //var startTimeH = startTime / 1;
+        html+= '定时'+makeFoodTimeH+'小时'+makeFoodTimeM+'分钟即可（x点x分开始做饭）';
+        waitTime.innerHTML = html;
       }
     </script>
   </body>
