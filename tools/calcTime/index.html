@@ -31,23 +31,23 @@
       ];
       var subTypeArr = [
         [
-          {name:'炖汤',time:3.0},
-          {name:'燕窝',time:1.3},
-          {name:'甜品',time:3.3},
-          {name:'煲粥',time:2.4},
-          {name:'蒸煮',time:2.3},
+          {name:'炖汤',time:3.0,time2:0},
+          {name:'燕窝',time:1.3,time2:0},
+          {name:'甜品',time:3.3,time2:0},
+          {name:'煲粥',time:2.4,time2:0},
+          {name:'蒸煮',time:2.3,time2:0},
         ],//2.4h
         [
-          {name:'牛羊肉',time:0.5},
-          {name:'鸡鸭肉',time:0.25},
-          {name:'豆/蹄筋',time:0.66},
-          {name:'排骨',time:0.2},
-          {name:'煲汤',time:0.3},
-          {name:'快煮饭',time:0.14},
-          {name:'杂粮饭',time:0.25},
-          {name:'八宝粥',time:0.45},
-          {name:'熬粥',time:0.33},
-          {name:'蛋糕',time:0.66},
+          {name:'牛羊肉',time:0.5,time2:0},
+          {name:'鸡鸭肉',time:0.25,time2:0},
+          {name:'豆/蹄筋',time:0.66,time2:0},
+          {name:'排骨',time:0.2,time2:0},
+          {name:'煲汤',time:0.3,time2:0},
+          {name:'快煮饭',time:0.14,time2:0.33},
+          {name:'杂粮饭',time:0.25,time2:0},
+          {name:'八宝粥',time:0.45,time2:0},
+          {name:'熬粥',time:0.33,time2:0},
+          {name:'蛋糕',time:0.66,time2:0},
         ],//10m
       ];
       
@@ -85,22 +85,27 @@
       function chooseTime(timeId){
         var html = '['+typeArr[currTypeId]+']';
         html += '['+subTypeArr[currTypeId][currSubTypeId]['name']+']';
-        //定时时长=吃饭时间-做饭时间-当前时间
+        //定时时长=吃饭时间-做饭时间-开盖时间-当前时间
         //开始做饭时间=吃饭时间-做饭时间
         var tmpDate = new Date();
         var eatTimeItem = eatTimeArr[timeId]['time'].split(':');
         var eatTime = new Date(tmpDate.getFullYear(), tmpDate.getMonth(), tmpDate.getDate()+1, eatTimeItem[0], eatTimeItem[1], eatTimeItem[2]);
-        var makeFoodTime = eatTime.getTime()/1000 - subTypeArr[currTypeId][currSubTypeId]['time'] * 60*60 - tmpDate.getTime()/1000;
+        var makeCostTime = subTypeArr[currTypeId][currSubTypeId]['time'] * 60*60;
+        var kgCostTime = subTypeArr[currTypeId][currSubTypeId]['time2'] * 60*60;
+        var makeFoodTime = eatTime.getTime()/1000 - makeCostTime - kgCostTime - tmpDate.getTime()/1000;
         var makeFoodTimeH = Math.floor(makeFoodTime / 60 / 60);
         var makeFoodTimeM = Math.floor(makeFoodTime/60 % 60);
-        var startMakeFoodTime = new Date(eatTime.getTime() - subTypeArr[currTypeId][currSubTypeId]['time'] * 60*60*1000);
+        var startMakeFoodTime = new Date(eatTime.getTime() - kgCostTime*1000 - makeCostTime*1000);
+        var startKgTime = new Date(eatTime.getTime() - kgCostTime*1000);
         var fixNote = '';
         if(makeFoodTimeH < 0){
           fixNote = '，不赶趟了啊~';
         }else if(makeFoodTimeH > 10){
           fixNote = '，着什么急啊~';
         }
-        html+= '定时'+makeFoodTimeH+'小时'+makeFoodTimeM+'分钟即可（'+startMakeFoodTime.getHours()+'点'+startMakeFoodTime.getMinutes()+'分开始做饭'+fixNote+'）';
+        html += '定时'+makeFoodTimeH+'小时'+makeFoodTimeM+'分钟即可';
+        html += '（'+startMakeFoodTime.getHours()+'点'+startMakeFoodTime.getMinutes()+'分开始做饭,'+startKgTime.getHours()+'点'+startKgTime.getMinutes()+'分等开盖';
+        html += fixNote+'）';
         waitTime.innerHTML = html;
       }
     </script>
