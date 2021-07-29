@@ -30,12 +30,29 @@
         {name:'明天7点',time:'07:00:00'},
       ];
       var subTypeArr = [
-        [{name:'煲粥',time:2.4}],
-        [{name:'快煮饭',time:1.5}],
+        [
+          {name:'炖汤',time:3.0},
+          {name:'燕窝',time:1.3},
+          {name:'甜品',time:3.3},
+          {name:'煲粥',time:2.4},
+          {name:'蒸煮',time:2.3},
+        ],//2.4h
+        [
+          {name:'牛羊肉',time:0.5},
+          {name:'鸡鸭肉',time:0.25},
+          {name:'豆/蹄筋',time:0.66},
+          {name:'排骨',time:0.2},
+          {name:'煲汤',time:0.3},
+          {name:'快煮饭',time:0.14},
+          {name:'杂粮饭',time:0.25},
+          {name:'八宝粥',time:0.45},
+          {name:'熬粥',time:0.33},
+          {name:'蛋糕',time:0.66},
+        ],//10m
       ];
       
       function init(){
-        var typeStr = '';
+        var typeStr = '我想用什么锅锅：';
         for(var i in typeArr){
           typeStr += '<button onclick="chooseType('+i+')">'+typeArr[i]+'</button>';
         }
@@ -51,7 +68,7 @@
       
       function chooseType(typeId){
         currTypeId = typeId;
-        var subTypeStr = '';
+        var subTypeStr = '我想做什么好吃的饭：';
         var tmpArr = subTypeArr[typeId];
         for(var i in tmpArr){
           subTypeStr += '<button onclick="chooseSubType('+i+')">'+tmpArr[i]['name']+'</button>';
