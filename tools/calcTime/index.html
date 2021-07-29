@@ -94,7 +94,7 @@
         var makeFoodTimeH = Math.floor(makeFoodTime / 60 / 60);
         var makeFoodTimeM = Math.floor(makeFoodTime/60 % 60);
         var startMakeFoodTime = new Date(eatTime.getTime() - subTypeArr[currTypeId][currSubTypeId]['time'] * 60*60*1000);
-        var fixNote == '';
+        var fixNote = '';
         if(makeFoodTimeH < 0){
           fixNote = '，不赶趟了啊~';
         }else if(makeFoodTimeH > 10){
