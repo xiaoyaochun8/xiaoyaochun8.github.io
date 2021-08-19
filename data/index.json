@@ -1,6 +1,24 @@
 [
     {
         "name":"$$$",
-        "url":"https://www.baidu.com"
+        "url":"https://cblvip.gitee.io/qw/"
+    },{
+        "name":"3jsDemo",
+        "url":"3jsDemo/demo.html"
+    },{
+        "name":"eat",
+        "url":"tools/calcTime/index.html"
+    },{
+        "name":"eruda",
+        "url":"mDebug/eruda.html"
+    },{
+        "name":"VConsole",
+        "url":"mDebug/VConsole.html"
+    },{
+        "name":"查询浏览器信息",
+        "url":"mDebug/brower.html"
+    },{
+        "name":"css_cut_string",
+        "url":"css_cut_string.css"
     }
 ]
