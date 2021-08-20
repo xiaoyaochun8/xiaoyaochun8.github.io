@@ -5,22 +5,22 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
  <title> Index Page </title>
  <style>
- * {border:solid 0px}
- #nav {height:10%;background:lightgreen}
- #nav #menu {font-size:48px;margin:8 8 auto}
- #nav #menu2 {font-size:48px;margin:8 8 auto;float:right}
- #main {}
- #main ol {overflow:hidden;list-style:none}
- #main ol li {height:100px;width:100px;background:#90cbee;float:left;margin:10px;}
- #main ol li .fa-paperclip {font-size:48px;margin-left:31%}
- #main ol li .name {font-size:20px;text-align:center;word-break:break-all;text-overflow:}
+  * {border:solid 0px;margin:0;padding:0}
+  #nav {background:lightgreen}
+  #nav #menu {font-size:48px;margin:0 8 auto}
+  #nav #menu2 {font-size:48px;margin:0 8 auto;float:right}
+  #main {}
+  #main ol {overflow:hidden;list-style:none}
+  #main ol li {height:100px;width:100px;background:#90cbee;float:left;margin:10px;}
+  #main ol li .fa-paperclip {font-size:48px;margin-left:31%}
+  #main ol li .name {font-size:20px;text-align:center;word-break:break-all;text-overflow}
  </style>
  <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
 </head>
 <body>
     <div id="nav">
-        <div id="menu" class="fa fa-home"></div>
+        <div id="menu" class="fa fa-reddit-alien" onclick="setThemes()"></div>
         <div id="menu2" class="fa fa-bars"></div>
     </div>
     <div id="main">
@@ -40,6 +40,26 @@
         })
         function goto(url){
             location.href = url
+        }
+        var themesArr = [
+            {bg:"#FFCCCC",nav:"#FF0000",list:"#FF9999",text:"#663333"},
+            {bg:"#CCFFCC",nav:"#00CC00",list:"#66FF66",text:"#003300"},
+            {bg:"#FFCCCC",nav:"#FF0000",list:"#FF9999",text:"#663333"},
+            {bg:"#FFCCCC",nav:"#FF0000",list:"#FF9999",text:"#663333"},
+            {bg:"#FFCCCC",nav:"#FF0000",list:"#FF9999",text:"#663333"},
+            {bg:"#FFCCCC",nav:"#FF0000",list:"#FF9999",text:"#663333"}
+        ];
+        var themesIndex = 0;
+        function setThemes(){
+            var i = themesIndex;
+            $("body").css("background",themesArr[i]['bg']);
+            $("#nav").css("background",themesArr[i]['nav']);
+            $("#main li").css("background",themesArr[i]['list']);
+            $("body").css("color",themesArr[i]['text']);
+            themesIndex += 1;
+            if(themesIndex > themesArr.length-1){
+                themesIndex = 0;
+            }
         }
     </script>
 </body>
