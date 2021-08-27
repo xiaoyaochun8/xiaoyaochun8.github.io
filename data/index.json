@@ -3,12 +3,6 @@
         "name":"$$$",
         "url":"https://cblvip.gitee.io/qw/"
     },{
-        "name":"3jsDemo",
-        "url":"3jsDemo/demo.html"
-    },{
-        "name":"eat",
-        "url":"tools/calcTime/index.html"
-    },{
         "name":"eruda",
         "url":"mDebug/eruda.html"
     },{
@@ -20,5 +14,11 @@
     },{
         "name":"css_cut_string",
         "url":"css_cut_string.css"
+    },{
+        "name":"3jsDemo",
+        "url":"3jsDemo/demo.html"
+    },{
+        "name":"eat",
+        "url":"tools/calcTime/index.html"
     }
 ]
