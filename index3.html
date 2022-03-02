@@ -12,7 +12,7 @@
             #main {}
             #main ol {overflow:hidden;list-style:none}
             #main ol li {height:100px;width:27%;background:#90cbee;float:left;margin:10px;}
-            #main ol li .fa-paperclip {font-size:48px;margin-left:31%}
+            #main ol li .myicon {font-size:48px;margin-left:31%}
             #main ol li .name {font-size:20px;text-align:center;word-break:break-all;text-overflow}
         </style>
         <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
@@ -47,10 +47,14 @@
                 var html = '';
                 for(var i in data){
                     html += '<li onclick="goto(\''+data[i]['url']+'\')">'
-                        + '<div class="fa fa-paperclip"></div>'
+                        + '<div class="myicon fa fa-paperclip"></div>'
                         + '<div class="name">'+data[i]['name']+'</div>'
                         + '</li>';
                 }
+                html += '<li onclick="location.reload()">'
+                        + '<div class="myicon fa fa-refresh"></div>'
+                        + '<div class="name">v1</div>'
+                        + '</li>';
                 $('#main ol').html(html);
             })
             function goto(url){
