@@ -11,8 +11,5 @@
     },{
         "name":"查询浏览器信息",
         "url":"mDebug/brower.html"
-    },{
-        "name":"eat",
-        "url":"tools/calcTime/index.html"
     }
 ]
