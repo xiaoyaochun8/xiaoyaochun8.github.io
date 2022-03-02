@@ -3,9 +3,6 @@
         "name":"Home",
         "url":"/"
     },{
-        "name":"index3",
-        "url":"/index3.html"
-    },{
         "name":"mDebug/VConsole",
         "url":"/mDebug/VConsole.html"
     },{
