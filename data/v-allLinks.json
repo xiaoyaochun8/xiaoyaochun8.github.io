@@ -3,11 +3,8 @@
         "name":"Home",
         "url":"/"
     },{
-        "name":"index2",
-        "url":"/index2.html"
-    },{
-        "name":"knowledge/myNav2",
-        "url":"/knowledge/myNav2.html"
+        "name":"index3",
+        "url":"/index3.html"
     },{
         "name":"mDebug/VConsole",
         "url":"/mDebug/VConsole.html"
