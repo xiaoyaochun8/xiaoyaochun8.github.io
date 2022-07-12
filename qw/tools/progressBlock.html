@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Progress Block</title>
+        <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+        <!--<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>-->
+
+        <!-- 新 Bootstrap4 核心 CSS 文件 -->
+        <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+        
+        <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+        <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+        
+        <!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+        <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+        
+        <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+        <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <style>
+        td {width:30px;height:30px}
+        </style>
+    </head>
+    <body style="background:#e3ece2">
+        <div class="container-fluid">
+            <div id="main" class="row">
+                <div class="col"><h2>下班倒计时</h2></div>
+            </div>
+            <div id="main" class="row">
+                <div class="col"><h6>快点搬砖，到点下班</h6></div>
+            </div>
+            <div id="main" class="row">
+                <div class="col-1"></div>
+                <table border=1 class="col-10">
+                    <tr style="background:lightblue">
+                        <td></td>
+                        <td>10</td>
+                        <td>20</td>
+                        <td>30</td>
+                        <td>40</td>
+                        <td>50</td>
+                        <td>60</td>
+                    </tr>
+                    <tr>
+                        <td style="background:lightblue">9</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                    </tr>
+                    <tr>
+                        <td style="background:lightblue">10</td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                    </tr>
+                    <tr>
+                        <td style="background:lightblue">11</td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                    </tr>
+                    <tr>
+                        <td style="background:lightblue">12</td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                    </tr>
+                    <tr>
+                        <td style="background:lightblue">13</td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                    </tr>
+                    <tr>
+                        <td style="background:lightblue">14</td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                    </tr>
+                    <tr>
+                        <td style="background:lightblue">15</td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                    </tr>
+                    <tr>
+                        <td style="background:lightblue">16</td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                    </tr>
+                    <tr>
+                        <td style="background:lightblue">17</td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                    </tr>
+                    <tr>
+                        <td style="background:lightblue">18</td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td class="cell"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <div class="col-1"></div>
+            </div>
+            <div class="row">
+                <div class="col" style="height:60px"></div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div id="" style="">今日上班时间已过去：</div>
+                    <div id="progressBarBox" style="border:solid 1px #ff000066;width: 100%;height: 10px">
+                        <div id="progressBar" style="width:0px;height: 10px;background:#ff000066"></div>
+                    </div>
+                    <div id="percent" style=""></div>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+        <script>
+            var progressBarLen = 254;
+            var tenMinCntOfDay = $(".cell").length;
+            
+            var currTime = new Date();
+            var startTime = new Date(currTime.getFullYear(),currTime.getMonth(),currTime.getDate(),9,30,00);
+            
+            var tenMinOfNow = Math.floor((currTime.getTime()-startTime.getTime())/1000/600);
+            var per = (tenMinOfNow/tenMinCntOfDay*100).toFixed(2);
+            
+            /*
+            if(tenMinOfNow > 15 && tenMinOfNow < 21){
+                tenMinOfNow = tenMinCntOfDay-(tenMinOfNow-15);
+            }else if(tenMinOfNow > 21){
+                tenMinOfNow = tenMinCntOfDay-12;
+            }*/
+            
+            for(var i=0;i<tenMinCntOfDay;i++){
+                if(i<15 || i>26){
+                    if(i < tenMinOfNow){
+                        $('.cell:eq('+i+')').css('background','#ff000066');
+                    }else{
+                        $('.cell:eq('+i+')').css('background','rgb(251 211 90 / 44%)');
+                    }
+                }
+            }
+            
+            $("#progressBar").css("width",per+"%");
+            $("#percent").text(per +"%");
+        </script>
+    </body>
+</html>

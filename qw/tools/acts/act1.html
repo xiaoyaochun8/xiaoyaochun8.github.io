@@ -1,0 +1,92 @@
+<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>act1</title>
+<style>
+    button {
+        width: 100px;
+        height: 50px;
+    }
+    #btn_get {
+        background: lightblue;
+    }
+    #btn_set {
+        background: lightcoral;
+    }
+    #btn_unset {
+        background: lightcoral;
+    }
+    ol li {
+        background: lightgray;
+        padding: 10px;
+        border-radius: 30px;
+        margin-top:3px;
+    }
+</style>
+<script src="https://cdn.bootcss.com/eruda/1.5.4/eruda.js" ></script>
+<script>
+  eruda.init();
+</script>
+<script>
+var nact = 'aaa'
+function getData(){
+    var jdata = Jq.getData(nact)
+    console.log(jdata)
+    return jdata
+}
+function doGet(){
+    var jdata = getData()
+    if(jdata != ''){
+        var data = JSON.parse(jdata)
+        console.log(data)
+        var htmlStr = ''
+        var status
+        var len = data.length
+        for(var i in data){
+            if(data[i]['type'] == '1'){
+                status = '我吃饭了~'
+            }else{
+                status = '我没吃饭！'
+            }
+            htmlStr += "<li><span>"+data[i]['date']+"：</span><span style='margin-left:50px'>"+status+"</span></li>"
+        }
+        console.log(htmlStr)
+        document.getElementById('list').innerHTML = htmlStr
+    }
+}
+function doSet(settype){
+    var date = new Date()
+    var month = date.getMonth()+1
+    var day = date.getDate()
+    if(month < 10){
+        month = '0'+month
+    }
+    if(day < 10){
+        day = '0'+day
+    }
+    var k = date.getFullYear().toString()+month.toString()+day.toString()
+    var kk = date.getFullYear().toString()+'-'+month.toString()+'-'+day.toString()
+    var jdata = getData()
+    var data = {}
+    if(jdata != ''){
+        data = JSON.parse(jdata)
+        data[k] = {date:kk,type:settype}
+    }else{
+        data[k] = {date:kk,type:settype}
+    }
+    var jdata = JSON.stringify(data)
+    Jq.setData(nact, jdata)
+    console.log(jdata)
+}
+</script>
+
+<h1>今天你吃饭了吗？</h1>
+
+<hr>
+
+<button id="btn_get" onclick="doGet()">历史记录</button> | 
+<button id="btn_set" onclick="doSet(1)">我今天吃了</button> | 
+<button id="btn_unset" onclick="doSet(0)">我今天没吃</button>
+
+<div id="main">
+    <ol id="list">
+    </ol>
+</div>

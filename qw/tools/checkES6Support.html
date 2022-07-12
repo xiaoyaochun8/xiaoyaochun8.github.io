@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,user-scalable=no"/> 
+        <title>checkES6Support</title>
+    </head>
+    <body>
+
+        <div id="msg"></div>
+        <script>
+			var str = "浏览器是否支持ES6的检测:<br>";
+
+			var  arrowFunction ="var t = () => {};" ;
+
+			try
+			{
+				f = new Function(arrowFunction);
+				str += "当前浏览器支持ES6!";
+			}
+			catch (e)
+			{
+				str += "不支持ES6! "+e;
+			}
+			document.getElementById('msg').innerHTML = str;
+        </script>
+
+    </body>
+</html>
