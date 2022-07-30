@@ -1,13 +1,19 @@
 [
     {
+        "name":"【nav】index3",
+        "url":"/index3.html"
+    },{
+        "name":"【nav】knowledge/myNav",
+        "url":"/knowledge/myNav.html"
+    },{
+        "name":"【nav】knowledge/myNav2",
+        "url":"/knowledge/myNav2.html"
+    },{
         "name":"Home",
         "url":"/"
     },{
         "name":"index2",
         "url":"/index2.html"
-    },{
-        "name":"【nav】index3",
-        "url":"/index3.html"
     },{
         "name":"css_cut_string",
         "url":"/css_cut_string.html"
@@ -35,12 +41,6 @@
     },{
         "name":"knowledge/myBookMarks2",
         "url":"/knowledge/myBookMarks2.html"
-    },{
-        "name":"【nav】knowledge/myNav",
-        "url":"/knowledge/myNav.html"
-    },{
-        "name":"【nav】knowledge/myNav2",
-        "url":"/knowledge/myNav2.html"
     },{
         "name":"knowledge/pframes",
         "url":"/knowledge/pframes.html"
