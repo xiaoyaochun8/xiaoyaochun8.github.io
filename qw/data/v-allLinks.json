@@ -1,5 +1,11 @@
 [
     {
+        "name":"【nav】*knowledge/steps",
+        "url":"/knowledge/steps.html"
+    },{
+        "name":"【nav】*knowledge/hv",
+        "url":"/knowledge/hv.html"
+    },{
         "name":"【nav】index3",
         "url":"/index3.html"
     },{
@@ -8,12 +14,6 @@
     },{
         "name":"【nav】knowledge/myNav2",
         "url":"/knowledge/myNav2.html"
-    },{
-        "name":"【nav】knowledge/hv",
-        "url":"/knowledge/hv.html"
-    },{
-        "name":"【nav】knowledge/steps",
-        "url":"/knowledge/steps.html"
     },{
         "name":"Home",
         "url":"/"
