@@ -13,7 +13,7 @@
 	</style>
 </head>
 <body>
-
+<div id="box"></box>
 <script>
 var mArr = [31,28,31,30,31,30,31,31,30,31,30,31]
 var date = new Date()
@@ -37,7 +37,7 @@ for(var m=1;m<=12;m++){
 	str += "</tr>"
 }
 str += "</table>"
-document.write(str)
+document.getElementById('box').innerHTML = str
 </script>
 
 </body>
