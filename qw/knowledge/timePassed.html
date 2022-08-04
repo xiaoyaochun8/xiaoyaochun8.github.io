@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>time passed</title>
+</head>
+<body>
+<style>
+	* {margin:0;padding:0}
+	table {transform:rotate(90deg); margin-top:500px margin-left:-160px}
+	td {border:solid 1px gray; padding:10px}
+	.text {transform:rotate(-90deg)}
+	.passed {background:lightgreen}
+</style>
+<script>
+var mArr = [31,28,31,30,31,30,31,31,30,31,30,31]
+var date = new Date()
+month = date.getMonth()+1
+day = date.getDate()
+var str = "<table>"
+var mStr = ""
+for(var m=1;m<=12;m++){
+	str += "<tr><td><div class='text'>*"+m+"*</div></td>"
+	for(var d=1;d<=31;d++){
+		if(m < month || (m == month && d <= day)){
+			mStr = "<td class='passed'><div class='text'>"+d+"</div></td>"
+		}else{
+			mStr = "<td class=''><div class='text'>"+d+"</div></td>"
+		}
+		if(d > mArr[m-1]){
+			mStr = "<td></td>"
+		}
+		str += mStr
+	}
+	str += "</tr>"
+}
+str += "</table>"
+document.write(str)
+</script>
+
+</body>
+</html>
