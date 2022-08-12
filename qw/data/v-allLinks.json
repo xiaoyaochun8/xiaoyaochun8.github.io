@@ -1,5 +1,8 @@
 [
     {
+        "name":"【nav】*knowledge/up",
+        "url":"/knowledge/up.html"
+    },{
         "name":"【nav】*knowledge/np",
         "url":"/knowledge/np.html"
     },{
