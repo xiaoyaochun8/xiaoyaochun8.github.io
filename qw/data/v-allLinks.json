@@ -12,8 +12,8 @@
         "name":"【nav】*knowledge/table",
         "url":"/knowledge/table.html"
     },{
-        "name":"【nav】*knowledge/np",
-        "url":"/knowledge/np.html"
+        "name":"【nav】*knowledge/goTop",
+        "url":"/knowledge/goTop.html"
     },{
         "name":"【nav】*knowledge/timePassed",
         "url":"/knowledge/timePassed.html"
