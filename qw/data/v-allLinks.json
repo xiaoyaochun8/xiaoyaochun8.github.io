@@ -3,9 +3,6 @@
         "name":"【nav】*knowledge/up",
         "url":"/knowledge/up.html"
     },{
-        "name":"【nav】*knowledge/np",
-        "url":"/knowledge/np.html"
-    },{
         "name":"【nav】*knowledge/steps",
         "url":"/knowledge/steps.html"
     },{
@@ -14,6 +11,9 @@
     },{
         "name":"【nav】*knowledge/table",
         "url":"/knowledge/table.html"
+    },{
+        "name":"【nav】*knowledge/np",
+        "url":"/knowledge/np.html"
     },{
         "name":"【nav】*knowledge/timePassed",
         "url":"/knowledge/timePassed.html"
