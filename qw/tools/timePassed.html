@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
+    <title>time passed</title>
+	<style>
+	* {margin:0;padding:0}
+	#box {margin-top:150px; margin-left:0px; transform:rotate(90deg); }
+	table {}
+	td {border:solid 1px gray; padding:1px;font-size:8px}
+	.text {transform:rotate(-90deg)}
+	.passed {background:lightgreen}
+	.bg_yellow {background:orange}
+	</style>
+</head>
+<body>
+<div id="box"></div>
+<script>
+var mArr = [31,28,31,30,31,30,31,31,30,31,30,31]
+var date = new Date()
+month = date.getMonth()+1
+day = date.getDate()
+var str = "<table>"
+var mStr = ""
+for(var m=1;m<=12;m++){
+	str += "<tr><td><div class='text bg_yellow'>"+m+"</div></td>"
+	for(var d=1;d<=31;d++){
+		if(m < month || (m == month && d <= day)){
+			mStr = "<td class='passed'><div class='text'>"+d+"</div></td>"
+		}else{
+			mStr = "<td class=''><div class='text'>"+d+"</div></td>"
+		}
+		if(d > mArr[m-1]){
+			mStr = "<td></td>"
+		}
+		str += mStr
+	}
+	str += "</tr>"
+}
+str += "</table>"
+document.getElementById('box').innerHTML = str
+</script>
+
+</body>
+</html>
