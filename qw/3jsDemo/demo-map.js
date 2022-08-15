@@ -137,12 +137,26 @@ function initCube2() {
     mesh.position = new THREE.Vector3(-100,0,0);
     scene.add(mesh);
     
+    var geometry = new THREE.BoxGeometry( 200, 100, 100 );
+    for ( var i = 0; i < geometry.faces.length; i += 2 ) {
+        var hex = Math.random() * 0xffffff;
+        geometry.faces[ i ].color.setHex( hex );
+        geometry.faces[ i + 1 ].color.setHex( hex );
+
+    }
     var mesh = new THREE.Mesh( geometry,material);
-    mesh.position = new THREE.Vector3(-100,-100,0);
+    mesh.position = new THREE.Vector3(0,0,0);
     scene.add(mesh);
     
+    var geometry = new THREE.BoxGeometry( 300, 100, 100 );
+    for ( var i = 0; i < geometry.faces.length; i += 2 ) {
+        var hex = Math.random() * 0xffffff;
+        geometry.faces[ i ].color.setHex( hex );
+        geometry.faces[ i + 1 ].color.setHex( hex );
+
+    }
     var mesh = new THREE.Mesh( geometry,material);
-    mesh.position = new THREE.Vector3(-100,-100,-100);
+    mesh.position = new THREE.Vector3(0,0,0);
     scene.add(mesh);
 }
 function initGrid(){
