@@ -112,7 +112,7 @@
         html += '['+subTypeArr[currTypeId][currSubTypeId]['name']+']';
         html += '[耗时'+subTypeArr[currTypeId][currSubTypeId]['time']+'h]';
         html += '[在'+eatTimeArr[timeId]['name']+']吃饭';
-        html += '<br>定时'+makeFoodTimeH+'小时'+makeFoodTimeM+'分钟即可<br>';
+        html += '<br> &gt;定时'+makeFoodTimeH+'小时'+makeFoodTimeM+'分钟即可&lt; <br>';
         html += '（'+startMakeFoodTime.getHours()+'点'+startMakeFoodTime.getMinutes()+'分开始做饭,'+startKgTime.getHours()+'点'+startKgTime.getMinutes()+'分等开盖';
         html += fixNote+'）';
         waitTime.innerHTML = html;
