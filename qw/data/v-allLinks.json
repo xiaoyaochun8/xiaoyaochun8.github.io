@@ -48,6 +48,9 @@
         "name":"3jsDemo/demo-person",
         "url":"/3jsDemo/demo-person.html"
     },{
+        "name":"3jsDemo/demo-map",
+        "url":"/3jsDemo/demo-map.html"
+    },{
         "name":"demos/h5demo",
         "url":"/demos/h5demo.html"
     },{
