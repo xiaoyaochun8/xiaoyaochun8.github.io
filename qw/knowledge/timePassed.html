@@ -11,6 +11,7 @@
 	td {border:solid 1px gray; padding:0px;font-size:8px}
 	.text {transform:rotate(-90deg)}
 	.passed {background:lightgreen}
+	.bg_yellow {background:orange}
 	</style>
 </head>
 <body>
@@ -23,7 +24,7 @@ day = date.getDate()
 var str = "<table>"
 var mStr = ""
 for(var m=1;m<=12;m++){
-	str += "<tr><td><div class='text'>*"+m+"*</div></td>"
+	str += "<tr><td><div class='text bg_yellow'>"+m+"</div></td>"
 	for(var d=1;d<=31;d++){
 		if(m < month || (m == month && d <= day)){
 			mStr = "<td class='passed'><div class='text'>"+d+"</div></td>"
