@@ -12,11 +12,11 @@
         "name":"【nav】*knowledge/table",
         "url":"/knowledge/table.html"
     },{
-        "name":"【nav】*knowledge/goTop",
-        "url":"/knowledge/goTop.html"
+        "name":"【nav】*tools/goTop",
+        "url":"/tools/goTop.html"
     },{
-        "name":"【nav】*knowledge/timePassed",
-        "url":"/knowledge/timePassed.html"
+        "name":"【nav】*tools/timePassed",
+        "url":"/tools/timePassed.html"
     },{
         "name":"【nav】index3",
         "url":"/index3.html"
