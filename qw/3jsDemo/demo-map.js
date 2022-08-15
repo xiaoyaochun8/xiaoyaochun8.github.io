@@ -124,6 +124,27 @@ function initCube() {
     mesh.position = new THREE.Vector3(0,0,0);
     scene.add(mesh);
 }
+function initCube2() {
+    var geometry = new THREE.BoxGeometry( 100, 100, 100 );
+    for ( var i = 0; i < geometry.faces.length; i += 2 ) {
+        var hex = Math.random() * 0xffffff;
+        geometry.faces[ i ].color.setHex( hex );
+        geometry.faces[ i + 1 ].color.setHex( hex );
+
+    }
+    var material = new THREE.MeshBasicMaterial( { vertexColors: THREE.FaceColors} );
+    var mesh = new THREE.Mesh( geometry,material);
+    mesh.position = new THREE.Vector3(-100,0,0);
+    scene.add(mesh);
+    
+    var mesh = new THREE.Mesh( geometry,material);
+    mesh.position = new THREE.Vector3(-100,-100,0);
+    scene.add(mesh);
+    
+    var mesh = new THREE.Mesh( geometry,material);
+    mesh.position = new THREE.Vector3(-100,-100,-100);
+    scene.add(mesh);
+}
 function initGrid(){
     var helper = new THREE.GridHelper( 1000, 50 );
     //helper.setColors( 0x0000ff, 0x808080 );
@@ -135,6 +156,7 @@ function threeStart() {
     initScene();
     initLight();
     initCube();
+    initCube2();
     initGrid();
     initPOSLine();
     animation();
