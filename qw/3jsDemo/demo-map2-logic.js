@@ -10,24 +10,8 @@
 
 
 function initCube() {
-	var geometry = new THREE.BoxGeometry( 100, 100, 100 );
-	for ( var i = 0; i < geometry.faces.length; i += 2 ) {
-		var hex = Math.random() * 0xffffff;
-		geometry.faces[ i ].color.setHex( hex );
-		geometry.faces[ i + 1 ].color.setHex( hex );
-	}
-	var material = new THREE.MeshBasicMaterial( { vertexColors: THREE.FaceColors} );
-	mesh = new THREE.Mesh( geometry,material);
-	mesh.position = new THREE.Vector3(0,0,0);
-	scene.add(mesh);
-
-	mesh.position.x = 0
-	mesh.position.y = 0
-	mesh.position.z = 0
-
-	mesh.rotation.x = 0
-	mesh.rotation.y = 0
-	mesh.rotation.z = 0
+	var material = new THREE.MeshBasicMaterial( { vertexColors: THREE.FaceColors} )	
+	mesh = createMesh(createBox(100, 100, 100), material, 0, 0, 0, 0, 0, 0)
 }
 function initCube2() {
 	
