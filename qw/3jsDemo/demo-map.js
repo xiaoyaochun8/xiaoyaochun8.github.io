@@ -136,6 +136,7 @@ function initCube2() {
     var mesh = new THREE.Mesh( geometry,material);
     mesh.position = new THREE.Vector3(-100,0,0);
     scene.add(mesh);
+    mesh.position.z = 100
     
     var geometry = new THREE.BoxGeometry( 300, 100, 100 );
     for ( var i = 0; i < geometry.faces.length; i += 2 ) {
@@ -147,6 +148,7 @@ function initCube2() {
     var mesh = new THREE.Mesh( geometry,material);
     mesh.position = new THREE.Vector3(0,0,0);
     scene.add(mesh);
+    mesh.position.z = 200
     
     var geometry = new THREE.BoxGeometry( 600, 100, 100 );
     for ( var i = 0; i < geometry.faces.length; i += 2 ) {
@@ -158,6 +160,7 @@ function initCube2() {
     var mesh = new THREE.Mesh( geometry,material);
     mesh.position = new THREE.Vector3(0,50,0);
     scene.add(mesh);
+    mesh.position.z = 300
 }
 function initGrid(){
     var helper = new THREE.GridHelper( 1000, 50 );
