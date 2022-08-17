@@ -2,21 +2,21 @@
 <html>
 	<head>
         <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">-->
-		<meta charset="UTF-8">
-		<title>demo3D-移动</title>
-		<script src="three.js"></script>
-        <script src="stats.js"></script>
-		<style type="text/css">
-			div#canvas-frame {
-				border: none;
-				cursor: pointer;
-				width: 100%;
-				height: 600px;
-				background-color: #EEEEEE;
-			}
+	<meta charset="UTF-8">
+	<title>demo3D-cube移动</title>
+	<script src="three.js"></script>
+	<script src="stats.js"></script>
+	<style type="text/css">
+		div#canvas-frame {
+			border: none;
+			cursor: pointer;
+			width: 100%;
+			height: 600px;
+			background-color: #EEEEEE;
+		}
 
-		</style>
-		<script>
+	</style>
+	<script>
             var renderer;
             var stats;
             function initThree() {
@@ -253,21 +253,21 @@
                     }
                 }
             }
-		</script>
+	</script>
 	</head>
-    <style>
-        /*#control_1{widht: 100%;list-style:none}
-        #control_1 li{widht: 25%;height:60px;float:left;margin-left:10px;padding:10px;border:solid 1px red}
-        #control_2{widht: 100%;list-style:none}
-        #control_2 li{widht: 25%;height:60px;float:left;margin-left:10px;padding:10px;border:solid 1px green}
-        #box li{clean:both;list-style:none}
-        #box li{clean:both;width:100%}
+    	<style>
+		/*#control_1{widht: 100%;list-style:none}
+		#control_1 li{widht: 25%;height:60px;float:left;margin-left:10px;padding:10px;border:solid 1px red}
+		#control_2{widht: 100%;list-style:none}
+		#control_2 li{widht: 25%;height:60px;float:left;margin-left:10px;padding:10px;border:solid 1px green}
+		#box li{clean:both;list-style:none}
+		#box li{clean:both;width:100%}
 
-        * {border:solid 1px red;font-size:30px}*/
-        table {margin:0 auto;width:40%}
-    </style>
+		* {border:solid 1px red;font-size:30px}*/
+		table {margin:0 auto;width:40%}
+    	</style>
 	<body onload="threeStart();">
-		<div id="canvas-frame"></div>
+	<div id="canvas-frame"></div>
         <table border="0">
             <tr>
                 <td><button onclick="moveObj('mesh','up')">cube上</button></td>
