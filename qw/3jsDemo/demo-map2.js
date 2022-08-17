@@ -248,6 +248,7 @@ function doMoveObj(){
 
 var cube;
 var mesh;
+var flag;
 function initCube() {
     var geometry = new THREE.BoxGeometry( 100, 100, 100 );
     for ( var i = 0; i < geometry.faces.length; i += 2 ) {
@@ -272,9 +273,9 @@ function initCube() {
 function initCube2() {
 	
 	/////////////////////////////////
-	camera.position.x = 0;
-    camera.position.y = 500;
-    camera.position.z = 1300;
+	camera.position.x = -100;
+    camera.position.y = 600;
+    camera.position.z = 1700;
 	
 	camera.up.x = 0;
     camera.up.y = 0;
@@ -295,8 +296,7 @@ function initCube2() {
 	createMesh(createBox(700, 120, 60), material, -300, 10, -50, 0, 300, 0)
 	createMesh(createBox(700, 120, 60), material, 300, 10, -50, 0, 300, 0)
 	
-	//地板
-	createMesh(createBox(1300, 1, 1300, 0xfaa800), material, 0, 0, 0, 0, 0, 0)
+	
 	//墙
 	createMesh(createBox(1000, 120, 10), material, 0, 10, 0, 0, 0, 0)
 	createMesh(createBox(10, 120, 1000), material, 0, 10, 0, 0, 0, 0)
@@ -306,11 +306,65 @@ function initCube2() {
 	createMesh(createBox(100, 50, 30), material, 550, 0, 60, 0, 0, 0)
 	createMesh(createBox(50, 20, 30), material, 550, 0, 90, 0, 0, 0)
 	
+	//标记
+	flag = createMesh(createBox(10, 10, 100), material, -50, 500, 1300, 0, 120, 0)
+	
+	var material = new THREE.MeshBasicMaterial( { map:new THREE.TextureLoader().load("res/caodi.jpeg") } );
+	//地板
+	createMesh(createBox(1600, 1, 1600), material, 0, 0, 0, 0, 0, 0)
 
 	//移动cube
 	//setInterval(function(){
 	//	mesh.position.x += 1
 	//},50)
+	
+	//var modelUrl = 'res/GroundVehicle.glb';     //定义所使用模型路径
+	//var loader = new THREE.GLTFLoader()
+	//loader.load( modelUrl, function ( gltf ) {
+    //    gltf.scene.name = '3dmodel';
+    //    this.setContent(gltf.scene);
+    //    
+    //    scene.add( gltf.scene );
+    //}, undefined, function ( e ) {
+    //    console.error( e );
+    //} );
+	
+	//var mtlLoader = new THREE.MTLLoader();//mtl材质加载器 
+	//mtlLoader.load( 'box.mtl', mtl);//加载.mtl文件，执行mtl函数 
+	//function mtl( material ) { 
+	//	var objLoader = new THREE.OBJLoader();//obj模型加载器 
+	//	objLoader.setMaterials( material );//mtl材质赋值给obj模型 
+	//	objLoader.load( 'box.obj',obj );//加载.obj文件，执行obj函数 
+	//} 
+	//function obj( object3D ) { 
+	//	object3D.scale.set(100,100,100);//放大object3D对象 
+	//	scene.add( object3D );//object3D对象插入场景对象 
+	//}
+
+}
+function moveToBack2(){
+	//调整照相机
+	camera.position.x = 0//-100;
+    camera.position.y = 150//600;
+    camera.position.z = 1300//1700;
+	flag.position.x = 0//-100;
+	flag.position.y = 150//600;
+    flag.position.z = 1000//1700;
+	camera.up.x = 0;
+    camera.up.y = 0;
+    camera.up.z = 0;//1;
+    camera.lookAt({
+        x : 0,
+        y : 0,
+        z : 0
+    });
+	//飞越地图
+	setInterval(function(){
+		camera.position.z -= 1//2
+		camera.rotation.z -= 0.01
+		flag.position.z -= 1//2
+		flag.rotation.z -= 0.3
+	},50)
 }
 function moveToBack(){
 	//调整照相机
@@ -328,6 +382,7 @@ function moveToBack(){
 	//飞越地图
 	setInterval(function(){
 		camera.position.z -= 2
+		flag.position.z -= 2
 	},50)
 }
 function moveToRight(){
@@ -369,7 +424,6 @@ function roundEarth(){
 function createBox(lenth, width, height, color){
     var geometry = new THREE.BoxGeometry( lenth, width, height );//长宽高
     for ( var i = 0; i < geometry.faces.length; i += 2 ) {
-		console.log(i)
         var hex = (i+3)/10 * 0xffffff;
 		if(color){
 			hex = color
@@ -393,4 +447,6 @@ function createMesh(geometry, material, px, py, pz, rx, ry, rz){
 	mesh.rotation.x = rx
 	mesh.rotation.y = ry
 	mesh.rotation.z = rz
+	
+	return mesh
 }
