@@ -3,7 +3,7 @@
 	<head>
         <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">-->
 		<meta charset="UTF-8">
-		<title>demo3D-旋转</title>
+		<title>demo3D-地图</title>
 		<script src="three.js"></script>
     <script src="stats.js"></script>
 		<style type="text/css">
@@ -14,19 +14,26 @@
 				height: 600px;
 				background-color: #EEEEEE;
 			}
-
+			button {
+				width: 60px;
+				height: 60px;
+			}
 		</style>
 	</head>
     <style>
-        table {margin:0 auto;width:40%}
+        table {margin:0 auto;width:50%}
     </style>
 	<body onload="threeStart();">
 		<div id="canvas-frame"></div>
         <table border="0">
 			<tr>
-                <td><button onclick="roundEarth()">旋转地图</button></td>
                 <td><button onclick="moveToRight()">平移地图</button></td>
                 <td><button onclick="moveToBack()">飞越地图</button></td>
+				<td><button onclick="moveToBack2()">飞越地图2</button></td>
+				<td><button onclick="roundEarth()">顶部旋转地图</button></td>
+            </tr>
+			<tr>
+                <td colspan="6">&nbsp;</td>
             </tr>
             <tr>
                 <td><button onclick="moveObj('mesh','a')">cube向前旋转</button></td>
@@ -40,12 +47,12 @@
                 <td colspan="6">&nbsp;</td>
             </tr>
             <tr>
-                <td><button onclick="moveObj('camera','up')">camera旋转视角抬高</button></td>
-                <td><button onclick="moveObj('camera','down')">camera旋转视角降低</button></td>
-                <td><button onclick="moveObj('camera','right')">camera旋转视角右移</button></td>
-                <td><button onclick="moveObj('camera','left')">camera旋转视角左移</button></td>
-                <td><button onclick="moveObj('camera','backward')">camera视角后移</button></td>
-                <td><button onclick="moveObj('camera','forward')">camera视角前移</button></td>
+                <td><button onclick="moveObj('camera','up')">抬头</button></td>
+                <td><button onclick="moveObj('camera','down')">低头</button></td>
+				<td><button onclick="moveObj('camera','left')">看左边</button></td>
+                <td><button onclick="moveObj('camera','right')">看右边</button></td>
+                <td><button onclick="moveObj('camera','backward')">瞻前</button></td>
+                <td><button onclick="moveObj('camera','forward')">顾后</button></td>
             </tr>
             <tr>
                 <td colspan="6">&nbsp;</td>
