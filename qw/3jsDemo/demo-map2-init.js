@@ -1,5 +1,16 @@
 var renderer;
 var stats;
+var camera;
+var scene;
+var light;
+var mesh;
+var flag;
+
+var stop = true;
+var lookAt = {x:0, y:0, z:0};
+var currObj = mesh;
+var currType = 'left';
+
 function initThree() {
     width = document.getElementById('canvas-frame').clientWidth;
     height = document.getElementById('canvas-frame').clientHeight;
@@ -17,7 +28,6 @@ function initThree() {
     //document.getElementById('canvas-frame').appendChild(stats.domElement);
 }
 
-var camera;
 function initCamera() {
     camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
     camera.position.x = 100;
@@ -33,12 +43,10 @@ function initCamera() {
     });
 }
 
-var scene;
 function initScene() {
     scene = new THREE.Scene();
 }
 
-var light;
 function initLight() {
     light = new THREE.DirectionalLight(0xFF0000, 1.0, 0);
     light.position.set(100, 100, 200);
@@ -46,7 +54,6 @@ function initLight() {
 }
 
 function initPOSLine() {
-
     var geometry = new THREE.Geometry();
     var material = new THREE.LineBasicMaterial( { vertexColors: true } );
     var color1 = new THREE.Color( 0x000000 ), color2 = new THREE.Color( 0x000000 );
@@ -121,7 +128,7 @@ function threeStart() {
     initScene();
     initLight();
     initCube();
-	initCube2();
+    initCube2();
     initGrid();
     initPOSLine();
     animation();
@@ -132,7 +139,7 @@ function threeStart() {
 
 /***************************************************************************************************************/
 
-var stop = true;
+
 function animation()
 {
     //renderer.clear();
@@ -147,8 +154,7 @@ function animation()
 
     //stats.update();
 }
-var currObj = mesh;
-var currType = 'left';
+
 function moveObj(obj,type){
     stop = false;
     currObj = obj;
@@ -170,7 +176,7 @@ function resetObjs(){
     });
     lookAt = {x:0, y:0, z:0};
 }
-var lookAt = {x:0, y:0, z:0};
+
 function doMoveObj(){
     var obj = currObj;
     var type = currType;
