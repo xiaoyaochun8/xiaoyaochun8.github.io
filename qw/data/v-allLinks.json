@@ -54,6 +54,9 @@
         "name":"3jsDemo/demo-map2",
         "url":"/3jsDemo/demo-map2.html"
     },{
+        "name":"3jsDemo/demo-tpl-min",
+        "url":"/3jsDemo/demo-tpl-min.html"
+    },{
         "name":"demos/h5demo",
         "url":"/demos/h5demo.html"
     },{
