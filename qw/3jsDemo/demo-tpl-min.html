@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta charset="UTF-8">
     <title>demo3D-tpl-min</title>
     <script src="three.js"></script>
@@ -12,13 +12,18 @@
             border: none;
             cursor: pointer;
             width: 100%;
-            height: 700px;
+            height: 500px;
             background-color: #EEEEEE;
+            text-align:center;
+        }
+        div#textBox {
+            text-align:center;
         }
     </style>
     </head>
     <body onload="threeStart();">
-    <div id="canvas-frame"></div>
+    <div id="textBox"><h2 id="text">慢速</h2></div>
+    <div id="canvas-frame" onclick="changeSpeed()"></div>
     <script src="demo-tpl-min.js"></script>
     </body>
 </html>

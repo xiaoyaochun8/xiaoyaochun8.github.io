@@ -98,8 +98,18 @@ function initWorldObjects() {
     mesh.rotation.z = 0;
 }
 
+var speed = 0.005;
 function changeWorldObjs(){
-    mesh.rotation.y -= 0.005;
+    mesh.rotation.y -= speed;
 }
 
-
+function changeSpeed(){
+    var text = '慢速'
+    if(speed == 0.005){
+        speed = 0.1
+        text = '快速';
+    }else{
+        speed = 0.005
+    }
+    document.getElementById('text').innerHTML = text;
+}
