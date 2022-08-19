@@ -104,10 +104,10 @@ function changeWorldObjs(){
 }
 
 function changeSpeed(){
-    var text = '慢速'
+    var text = '慢'
     if(speed == 0.005){
         speed = 0.1
-        text = '快速';
+        text = '快';
     }else{
         speed = 0.005
     }

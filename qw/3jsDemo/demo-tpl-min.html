@@ -18,12 +18,14 @@
         }
         div#textBox {
             text-align:center;
+            border:solid 1px gray;
         }
     </style>
     </head>
     <body onload="threeStart();">
-    <div id="textBox"><h2 id="text">慢速</h2></div>
-    <div id="canvas-frame" onclick="changeSpeed()"></div>
+    <div id="canvas-frame"></div>
     <script src="demo-tpl-min.js"></script>
+    
+    <div id="textBox"><h2 id="text" onclick="changeSpeed()">慢</h2></div>
     </body>
 </html>
