@@ -57,6 +57,9 @@
         "name":"3jsDemo/demo-tpl-min",
         "url":"/3jsDemo/demo-tpl-min.html"
     },{
+        "name":"3jsDemo/demo-tpl-min-eg-1",
+        "url":"/3jsDemo/demo-tpl-min-eg-1.html"
+    },{
         "name":"demos/h5demo",
         "url":"/demos/h5demo.html"
     },{
