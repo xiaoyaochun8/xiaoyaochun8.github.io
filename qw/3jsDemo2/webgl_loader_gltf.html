@@ -21,9 +21,9 @@
 		<script type="module">
 			import * as THREE from 'three';
 
-			import { OrbitControls } from './jsm/controls/OrbitControls.js';
-			import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
-			import { RGBELoader } from './jsm/loaders/RGBELoader.js';
+			import { OrbitControls } from './OrbitControls.js';
+			import { GLTFLoader } from './GLTFLoader.js';
+			import { RGBELoader } from './RGBELoader.js';
 
 			let camera, scene, renderer;
 
@@ -39,33 +39,18 @@
 				camera.position.set( - 1.8, 0.6, 2.7 );
 
 				scene = new THREE.Scene();
-				
-				new RGBELoader()
-					.setPath( 'textures/equirectangular/' )
-					.load( 'royal_esplanade_1k.hdr', function ( texture ) {
 
-						texture.mapping = THREE.EquirectangularReflectionMapping;
+				var light = new THREE.DirectionalLight(0xFF0000, 1.0, 0);
+			    light.position.set(100, 100, 200);
+			    scene.add(light);
 
-						scene.background = texture;
-						scene.environment = texture;
+				// model
+				const loader = new GLTFLoader();
+				loader.load( 'scene.glb', function ( gltf ) {
+					scene.add( gltf.scene );
+					render();
 
-						render();
-
-						// model
-						const loader = new GLTFLoader()//.setPath( 'models/gltf/DamagedHelmet/glTF/' );
-						//loader.load( 'models/gltf/DamagedHelmet/glTF/DamagedHelmet.gltf', function ( gltf ) {
-						//loader.load( 'models/gltf/Flower/Flower.glb', function ( gltf ) {
-						//loader.load( 'models/gltf/IridescenceLamp.glb', function ( gltf ) {
-						loader.load( 'models/gltf/SheenChair.glb', function ( gltf ) {
-						//loader.load( 'models/gltf/Soldier.glb', function ( gltf ) {
-						//loader.load( 'models/gltf/Xbot.glb', function ( gltf ) {
-							scene.add( gltf.scene );
-							render();
-
-						} );
-
-					} );
-				
+				} );	
 				
 
 				renderer = new THREE.WebGLRenderer( { antialias: true } );
