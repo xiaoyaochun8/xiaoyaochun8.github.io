@@ -23,7 +23,6 @@
 
 			import { OrbitControls } from './OrbitControls.js';
 			import { GLTFLoader } from './GLTFLoader.js';
-			import { RGBELoader } from './RGBELoader.js';
 
 			let camera, scene, renderer;
 
@@ -41,12 +40,12 @@
 				scene = new THREE.Scene();
 
 				var light = new THREE.DirectionalLight(0xFF0000, 1.0, 0);
-			    light.position.set(100, 100, 200);
-			    scene.add(light);
+			        light.position.set(100, 100, 200);
+			        scene.add(light);
 
 				// model
 				const loader = new GLTFLoader();
-				loader.load( 'scene.glb', function ( gltf ) {
+				loader.load( 'scene.gltf', function ( gltf ) {
 					scene.add( gltf.scene );
 					render();
 
