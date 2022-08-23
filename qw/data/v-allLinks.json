@@ -66,6 +66,9 @@
         "name":"3jsDemo2/webgl_loader_obj",
         "url":"/3jsDemo2/webgl_loader_obj.html"
     },{
+        "name":"3jsDemo2/webgl_loader_obj2",
+        "url":"/3jsDemo2/webgl_loader_obj2.html"
+    },{
         "name":"demos/h5demo",
         "url":"/demos/h5demo.html"
     },{
