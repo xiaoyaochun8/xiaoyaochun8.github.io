@@ -60,6 +60,9 @@
         "name":"3jsDemo/demo-tpl-min-eg-1",
         "url":"/3jsDemo/demo-tpl-min-eg-1.html"
     },{
+        "name":"3jsDemo2/webgl_geometries",
+        "url":"/3jsDemo2/webgl_geometries.html"
+    },{
         "name":"3jsDemo2/webgl_loader_gltf",
         "url":"/3jsDemo2/webgl_loader_gltf.html"
     },{
