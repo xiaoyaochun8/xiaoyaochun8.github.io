@@ -27,6 +27,7 @@
 
 			import * as THREE from 'three';
 
+            import { OrbitControls } from './controls/OrbitControls.js';
 			import { OBJLoader } from './loaders/OBJLoader.js';
 
 			let container;
@@ -56,10 +57,10 @@
 
 				scene = new THREE.Scene();
 
-				const ambientLight = new THREE.AmbientLight( 0xcccccc, 0.4 );
+				const ambientLight = new THREE.AmbientLight( 0xcccccc, 0.2 );
 				scene.add( ambientLight );
 
-				const pointLight = new THREE.PointLight( 0xffffff, 0.8 );
+				const pointLight = new THREE.PointLight( 0x00ffff, 1.0 );
 				camera.add( pointLight );
 				scene.add( camera );
 
@@ -67,6 +68,9 @@
 
 				const loader = new OBJLoader(  );
 				loader.load( 'models/j20.obj', function ( obj ) {
+					obj.scale.x = 0.5;
+					obj.scale.y = 0.5;
+					obj.scale.z = 0.5;
 					scene.add( obj );
 				});
 
@@ -75,34 +79,17 @@
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
-				renderer.setClearColor(0xFFFFFF, 1.0);
+				renderer.setClearColor(0xffffff, 1.0);
 				container.appendChild( renderer.domElement );
-
-				document.addEventListener( 'mousemove', onDocumentMouseMove );
 
 				//
 
-				window.addEventListener( 'resize', onWindowResize );
-
-			}
-
-			function onWindowResize() {
-
-				windowHalfX = window.innerWidth / 2;
-				windowHalfY = window.innerHeight / 2;
-
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
-
-				renderer.setSize( window.innerWidth, window.innerHeight );
-
-			}
-
-			function onDocumentMouseMove( event ) {
-
-				mouseX = ( event.clientX - windowHalfX ) / 2;
-				mouseY = ( event.clientY - windowHalfY ) / 2;
-
+				const controls = new OrbitControls( camera, renderer.domElement );
+				controls.addEventListener( 'change', render ); // use if there is no animation loop
+				//controls.minDistance = 2;
+				//controls.maxDistance = 10;
+				//controls.target.set( 0, 0, - 0.2 );
+				controls.update();
 			}
 
 			//
@@ -113,10 +100,6 @@
 			}
 
 			function render() {
-
-				camera.position.x += ( mouseX - camera.position.x ) * .05;
-				camera.position.y += ( - mouseY - camera.position.y ) * .05;
-
 				camera.lookAt( scene.position );
 				renderer.render( scene, camera );
 			}
