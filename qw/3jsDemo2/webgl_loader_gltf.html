@@ -30,6 +30,8 @@
 
 			let camera, scene, renderer;
 
+			let object;
+
 			init();
 			render();
 
@@ -55,6 +57,7 @@
 					gltf.scene.scale.z = 0.5;
 					scene.add( gltf.scene );
 					render();
+					object = gltf;
 				} );
 				
 
@@ -77,6 +80,11 @@
 
 			//
 			function render() {
+				if(object && object.scene.scale.x > 0){
+					object.scene.scale.x -= 0.001;
+					object.scene.scale.y -= 0.001;
+					object.scene.scale.z -= 0.001;
+				}
 				renderer.render( scene, camera );
 			}
 		</script>
