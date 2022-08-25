@@ -36,15 +36,15 @@
 
 				camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
 				camera.position.y = 400;
-                camera.position.z = 1400;
+				camera.position.z = 1400;
 
 				scene = new THREE.Scene();
 
 				let object;
-                
-                var grid = new THREE.GridHelper( 1000, 50 );
-                //grid.setColors( 0x0000ff, 0x808080 );
-                scene.add( grid );
+				
+				var grid = new THREE.GridHelper( 1000, 50 );
+				//grid.setColors( 0x0000ff, 0x808080 );
+				scene.add( grid );
 
 				const ambientLight = new THREE.AmbientLight( 0xcccccc, 0.4 );
 				scene.add( ambientLight );
@@ -143,7 +143,7 @@
 			}
 
 			function render() {
-                camera.lookAt( scene.position );
+				camera.lookAt( scene.position );
 				renderer.render( scene, camera );
 			}
 

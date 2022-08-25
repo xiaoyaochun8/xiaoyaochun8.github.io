@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>three.js webgl - loaders - OBJ loader - Safa</title>
+		<title>Safa - three.js webgl - loaders - OBJ + MTL + TGA loader</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 	</head>
 
 	<body>
 		<div id="info">
-		<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - OBJLoader test
+		<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - OBJLoader + MTLLoader + TGALoader test
 		</div>
 
 		<!-- Import maps polyfill -->
@@ -27,8 +27,10 @@
 
 			import * as THREE from 'three';
 
-            import { OrbitControls } from './controls/OrbitControls.js';
+			import { OrbitControls } from './controls/OrbitControls.js';
+			import { MTLLoader } from './loaders/MTLLoader.js';
 			import { OBJLoader } from './loaders/OBJLoader.js';
+			import { TGALoader } from './loaders/TGALoader.js';
 
 			let container;
 
@@ -57,7 +59,7 @@
 
 				scene = new THREE.Scene();
 
-				const ambientLight = new THREE.AmbientLight( 0xcccccc, 0.2 );
+				const ambientLight = new THREE.AmbientLight( 0xffffff, 0.4 );
 				scene.add( ambientLight );
 
 				const pointLight = new THREE.PointLight( 0xffffff, 1.0 );
@@ -66,32 +68,65 @@
 
 				//
 
-				function loadModel() {
-					object.traverse( function ( child ) {
-						if ( child.isMesh ) 
-							child.material.map = texture;
+			//	function loadModel() {
+			//		object.traverse( function ( child ) {
+			//			if ( child.isMesh ) 
+			//				child.material.map = texture;
+			//		} );
+			//		//scene.background = texture;
+			//		//object.position.y = - 75;
+			//		//scene.add( object );
+			//
+			//	}
+			//	const manager = new THREE.LoadingManager( loadModel );
+			//
+			//	// texture
+			//	const textureLoader = new THREE.TextureLoader( manager );
+			//	const texture = textureLoader.load( 'textures/uv_grid_opengl.jpg' );
+			//	//const texture = textureLoader.load( 'textures/uv_grid_opengl.jpg' );
+			//
+			//	// model
+			//	const loader = new OBJLoader( manager );
+			//	loader.load( 'models/ketingshafa.obj/file.obj', function ( obj ) {
+			//		obj.scale.x = 0.05;
+			//		obj.scale.y = 0.05;
+			//		obj.scale.z = 0.05;
+			//		object = obj;
+			//		//scene.add( object );
+			//	});
+				
+				
+				
+					
+				new TGALoader()
+					.load( 'models/ketingshafa.obj/Map__251_Raytrace.tga', function( texture2 ){
+					
+						new MTLLoader()
+							.setPath( 'models/ketingshafa.obj/' )
+							.load( 'file.mtl', function ( materials ) {
+
+								materials.preload();
+
+								new OBJLoader()
+									.setMaterials( materials )
+									.setPath( 'models/ketingshafa.obj/' )
+									.load( 'file.obj', function ( object ) {
+										object.scale.x = 0.05;
+										object.scale.y = 0.05;
+										object.scale.z = 0.05;
+										//object.position.y = - 95;
+										
+										object.traverse( function ( child ) {
+											//if ( child.isMesh ) 
+											//	child.material.map = texture2;
+										} );
+										
+										scene.add( object );
+
+									} );
+
+							} );
 					} );
-					//scene.background = texture;
-					//object.position.y = - 75;
-					//scene.add( object );
-
-				}
-				const manager = new THREE.LoadingManager( loadModel );
-
-				// texture
-				const textureLoader = new THREE.TextureLoader( manager );
-                const texture = textureLoader.load( 'textures/uv_grid_opengl.jpg' );
-				//const texture = textureLoader.load( 'textures/uv_grid_opengl.jpg' );
-
-				// model
-				const loader = new OBJLoader( manager );
-				loader.load( 'models/ketingshafa.obj/file.obj', function ( obj ) {
-					obj.scale.x = 0.05;
-					obj.scale.y = 0.05;
-					obj.scale.z = 0.05;
-					object = obj;
-                    //scene.add( object );
-				});
 
 				//
 

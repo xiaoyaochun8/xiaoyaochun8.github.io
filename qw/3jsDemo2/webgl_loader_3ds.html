@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js webgl - loaders - 3DS loader</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	</head>
+
+	<body>
+		<div id="info">
+			<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - 3DS loader
+		</div>
+
+		<!-- Import maps polyfill -->
+		<!-- Remove this when import maps will be widely supported -->
+		<script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+
+		<script type="importmap">
+			{
+				"imports": {
+					"three": "./three.module.js"
+				}
+			}
+		</script>
+
+		<script type="module">
+
+			import * as THREE from 'three';
+
+			import { TrackballControls } from './controls/TrackballControls.js';
+			import { TDSLoader } from './loaders/TDSLoader.js';
+			import { DDSLoader } from './loaders/DDSLoader.js';
+
+			let container, controls;
+			let camera, scene, renderer;
+			
+			init();
+			animate();
+
+			function init() {
+
+				container = document.createElement( 'div' );
+				document.body.appendChild( container );
+
+				//camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 10 );
+				//camera.position.z = 2;
+				
+				camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
+				camera.position.z = 250;
+				camera.position.set( 0, 0, 15 );
+
+				scene = new THREE.Scene();
+				scene.add( new THREE.HemisphereLight() );
+
+				const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+				//directionalLight.position.set( 0, 0, 2 );
+				directionalLight.position.set(-150, 150, 100);
+				scene.add( directionalLight );
+				
+				const axisHelper = new THREE.AxesHelper(100)
+				scene.add(axisHelper)
+
+				const grid = new THREE.GridHelper( 10, 50 );
+				//grid.setColors( 0x0000ff, 0x808080 );
+				scene.add(grid);
+
+
+				//
+				let texture1;
+				let texture2;
+				let texture3;
+				let texture4;
+				let texture5;
+				let texture6;
+				let texture7;
+				let texture8;
+				
+				new DDSLoader().load( 'models/97103.3ds/00000000.dds', function ( texture ) {
+					texture1 = texture;
+				} );
+				new DDSLoader().load( 'models/97103.3ds/0fcd2c7a.dds', function ( texture ) {
+					texture2 = texture;
+				} );
+				new DDSLoader().load( 'models/97103.3ds/50ecb23a.dds', function ( texture ) {
+					texture3 = texture;
+				} );
+				new DDSLoader().load( 'models/97103.3ds/401b0361.dds', function ( texture ) {
+					texture4 = texture;
+				} );
+				new DDSLoader().load( 'models/97103.3ds/1240e1ca.dds', function ( texture ) {
+					texture5 = texture;
+				} );
+				new DDSLoader().load( 'models/97103.3ds/da97ccc4.dds', function ( texture ) {
+					texture6 = texture;
+				} );
+				new DDSLoader().load( 'models/97103.3ds/e0238e35.dds', function ( texture ) {
+					texture7 = texture;
+				} );
+				new DDSLoader().load( 'models/97103.3ds/fe45139a.dds', function ( texture ) {
+					texture8 = texture;
+				} );
+				
+				setTimeout( function () {
+
+					new TDSLoader().load( 'models/97103.3ds/file.3ds', function ( object ) {
+
+						object.traverse( function ( child ) {
+						
+							if ( child.isMesh ) {
+						
+								//child.material.specular.setScalar( 0.1 );
+								//child.material.normalMap = texture;
+								
+								child.material[0].map = texture2;
+								
+								//child.material[0].map = texture1;
+								//child.material[1].map = texture2;
+								//child.material[2].map = texture3;
+								//child.material[3].map = texture4;
+								//child.material[4].map = texture5;
+								//child.material[5].map = texture6;
+								//child.material[6].map = texture7;
+								//child.material[7].map = texture8;
+							}
+						
+						} );
+
+						object.scale.x = 0.001;
+						object.scale.y = 0.001;
+						object.scale.z = 0.001;
+	 
+						object.rotation.x = 4.7;
+						object.position.y = -1;
+						
+						scene.add( object );
+
+					} );
+					
+				}, 2000);
+				
+				
+				//
+
+				renderer = new THREE.WebGLRenderer();
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.setClearColor(0xFFFFFF, 1.0);
+				renderer.outputEncoding = THREE.sRGBEncoding;
+				container.appendChild( renderer.domElement );
+
+				controls = new TrackballControls( camera, renderer.domElement );
+			}
+
+			function animate() {
+
+				controls.update();
+				renderer.render( scene, camera );
+
+				requestAnimationFrame( animate );
+
+			}
+		</script>
+
+	</body>
+</html>
