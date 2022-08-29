@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js webgl - simple text from json</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				background-color: #f0f0f0;
+				color: #444;
+			}
+			a {
+				color: #08f;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="info">
+			<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - simple text from json fonts
+		</div>
+
+		<!-- Import maps polyfill -->
+		<!-- Remove this when import maps will be widely supported -->
+		<script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+
+		<script type="importmap">
+			{
+				"imports": {
+					"three": "./three.module.js"
+				}
+			}
+		</script>
+
+		<script type="module">
+
+			import * as THREE from 'three';
+
+			import { OrbitControls } from './controls/OrbitControls.js';
+			import { FontLoader } from './loaders/FontLoader.js';
+
+			let camera, scene, renderer;
+
+			init();
+			
+			function addText(font, pos, str){
+				var message = '   Three.js\nSimple text.';
+				if(str != '')
+					message = str;
+					
+				const color = 0x006699;
+				const matLite = new THREE.MeshBasicMaterial( {
+					color: color,
+					transparent: true,
+					opacity: 0.6,
+					side: THREE.DoubleSide
+				} );
+				const shapes = font.generateShapes( message, 10 );
+				const geometry = new THREE.ShapeGeometry( shapes );
+				geometry.computeBoundingBox();
+				const xMid = - 0.5 * ( geometry.boundingBox.max.x - geometry.boundingBox.min.x );
+				geometry.translate( xMid, 0, 0 );
+
+				const text = new THREE.Mesh( geometry, matLite );
+				//text.position.set( pos );
+				text.position.x = pos[0];
+				text.position.y = pos[1];
+				text.position.z = pos[2];
+				scene.add( text );
+			}
+			
+			function addText2(font, pos, str){
+				var message = '   Three.js\nSimple text.';
+				if(str != '')
+					message = str;
+					
+				function getTextCanvas(text){ 
+					var width=512, height=256; 
+					var canvas = document.createElement('canvas');
+					canvas.width = width;
+					canvas.height = height;
+					var ctx = canvas.getContext('2d');
+					ctx.fillStyle = '#C3C3C3';
+					ctx.fillRect(0, 0, width, height);
+					ctx.font = 50+'px " bold';
+					ctx.fillStyle = '#2891FF';
+					ctx.textAlign = 'center';
+					ctx.textBaseline = 'middle';
+					ctx.fillText(text, width/2,height/2); 
+					return canvas;
+				}
+				var materials = [ 
+					new THREE.MeshBasicMaterial( { color: 'blue' } ), // right
+					new THREE.MeshBasicMaterial( { color: 'yellow' } ), // left
+					new THREE.MeshBasicMaterial( { map: new THREE.CanvasTexture(getTextCanvas('Leo Test Label')) } ), // top
+					new THREE.MeshBasicMaterial( { color: 'black' } ), // bottom
+					new THREE.MeshBasicMaterial( { color: 'green' } ), // back
+					new THREE.MeshBasicMaterial( { color: 'red' } ) // front 
+				];
+				var cubeSidesMaterial = new THREE.MultiMaterial( materials );
+							
+				const geometry = new THREE.BoxGeometry( 1,1,1 );
+				const text = new THREE.Mesh( geometry, cubeSidesMaterial );
+				//text.position.set( pos );
+				text.position.x = pos[0];
+				text.position.y = pos[1];
+				text.position.z = pos[2];
+				scene.add( text );
+			}
+
+			function init( ) {
+
+				camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
+				camera.position.set( 30, 70, 600 );
+
+				scene = new THREE.Scene();
+				scene.background = new THREE.Color( 0xf0f0f0 );
+				
+				const grid = new THREE.GridHelper( 1000, 50, 0xdad0d0, 0xdad0d0);
+				scene.add(grid);
+				
+				const axisHelper = new THREE.AxesHelper(1000)
+				scene.add(axisHelper)
+
+				const loader = new FontLoader();
+				loader.load( './../three.js-dev/examples/fonts/helvetiker_regular.typeface.json', function ( font ) {
+
+					addText(font, [0, 100, -150], '');
+					addText(font, [-100, 100, 50], 'Java Script');
+					addText(font, [-200, 0, -50], 'Go');
+					addText(font, [-200, 200, -50], 'Java');
+					addText(font, [200, 100, -150], 'C++');
+					addText(font, [200, 0, -100], 'C#');
+
+					render();
+
+				} ); //end load function
+
+				renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				document.body.appendChild( renderer.domElement );
+
+				const controls = new OrbitControls( camera, renderer.domElement );
+				controls.target.set( 0, 0, 0 );
+				controls.update();
+
+				controls.addEventListener( 'change', render );
+			} // end init
+
+			function render() {
+				renderer.render( scene, camera );
+			}
+
+		</script>
+
+	</body>
+</html>
