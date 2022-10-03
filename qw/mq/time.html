@@ -6,7 +6,7 @@
 		<title>时钟</title>
 		<style type="text/css">
 			#txt1,#txt2 {
-				font-size: 160px;
+				font-size: 160px; font-weight: bold;
 			}
 			#txt1 {    
 				border-top: solid 1px;
@@ -14,7 +14,7 @@
     			color: red;
     		}
 			table {
-				width: 100%; margin-top: 50px;
+				width: 100%; margin-top: 60px;
 			}
 		</style>
 	</head>
@@ -34,15 +34,15 @@
 		</table>
 
 		<script>
-			var cnt = 0;
+// 			var cnt = 0;
 			function setTime(){
-				if(cnt > 23){
-					return
-				}
+// 				if(cnt > 23){
+// 					return
+// 				}
 
 				console.log('setTime');
 				var date = new Date();
-				var h = cnt//date.getHours()
+				var h = date.getHours()
 				var m = date.getMinutes()
 				if(h == 0){
 					h = 12;
@@ -54,7 +54,7 @@
 				document.getElementById('txt1').innerHTML = h;
 				document.getElementById('txt2').innerHTML = m;
 
-				cnt++;
+// 				cnt++;
 			}
 			setTime();
 			setInterval("setTime()", 1000);
