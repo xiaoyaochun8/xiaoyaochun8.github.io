@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="shortcut icon " href="time.ico" type="image/x-icon">
+		<title>十二生肖</title>
+		<style type="text/css">
+			table {
+				width: 100%; height: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<table>
+			<tr>
+				<td align="center">
+					<img id="img" onclick="setAnimal()">
+				</td>
+			</tr>
+		</table>
+
+		<script>
+			var cnt = 1;
+			function setAnimal(){
+				if(cnt > 12){
+					cnt = 1;
+				}
+				document.getElementById('img').src = cnt+".png";
+				cnt++;
+			}
+			setAnimal();
+		</script>
+	</body>
+</html>
