@@ -50,6 +50,9 @@
 				if(h > 12){
 					h = h - 12;
 				}
+				if(m < 10){
+					m = "0"+m
+				}
 				document.getElementById('img').src = h+".png";
 				document.getElementById('txt1').innerHTML = h;
 				document.getElementById('txt2').innerHTML = m;
