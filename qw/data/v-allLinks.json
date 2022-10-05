@@ -114,6 +114,9 @@
         "name":"mq/test",
         "url":"/mq/test.html"
     },{
+        "name":"mq/test2",
+        "url":"/mq/test2.html"
+    },{
         "name":"mq/time",
         "url":"/mq/time.html"
     },{
