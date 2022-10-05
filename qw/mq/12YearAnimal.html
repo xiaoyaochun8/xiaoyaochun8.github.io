@@ -6,27 +6,48 @@
 		<link rel="shortcut icon " href="1.png" type="image/png">
 		<title>十二生肖</title>
 		<style type="text/css">
-			table {
-				width: 100%; height: 700px;
-			}
+			* {margin: 0; padding: 0; border: solid 0px red;}
+			#box {width: 100%;}
 		</style>
 	</head>
 	<body>
-		<table ontouchstart="setAnimal()">
+		<table id="box">
 			<tr>
-				<td align="center" valign="middle">
-					<img id="img">
-				</td>
+				<td align="right" valign="bottom"><img id="img_1" ontouchstart="setAnimal()"></td>
+				<td align="center" valign="bottom"><img id="img_2" ontouchstart="setAnimal()"></td>
+				<td align="left" valign="bottom"><img id="img_3" ontouchstart="setAnimal()"></td>
+			</tr>
+			<tr>
+				<td align="right" valign="middle"><img id="img_4" ontouchstart="setAnimal()"></td>
+				<td align="center" valign="middle"><img id="img_5" ontouchstart="setAnimal()"></td>
+				<td align="left" valign="middle"><img id="img_6" ontouchstart="setAnimal()"></td>
+			</tr>
+			<tr>
+				<td align="right" valign="top"><img id="img_7" ontouchstart="setAnimal()"></td>
+				<td align="center" valign="top"><img id="img_8" ontouchstart="setAnimal()"></td>
+				<td align="left" valign="top"><img id="img_9" ontouchstart="setAnimal()"></td>
 			</tr>
 		</table>
+		<script type="text/javascript">
+			function init(){
+				document.getElementById('box').style.height = window.innerHeight + 'px';
+			}
+			init();
 
-		<script>
 			var cnt = 1;
 			function setAnimal(){
-				if(cnt > 12){
+				var random = Math.ceil(Math.random()*10);
+				if (random == 10) {
+					random = 5;
+				}
+				for(var i=1;i<=9;i++){
+					document.getElementById('img_'+i).style.display = 'none';
+				}
+				if (cnt > 12) {
 					cnt = 1;
 				}
-				document.getElementById('img').src = cnt+".png";
+				document.getElementById('img_'+random).src = cnt+".png";
+				document.getElementById('img_'+random).style.display = 'block';
 				cnt++;
 			}
 			setAnimal();
