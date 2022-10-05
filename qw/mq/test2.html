@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "UTF-8">
+		<meta name = "viewport" content = "width = device-width, initial-scale = 1, shrink-to-fit = no">
+		<link rel = "shortcut icon " href = "" type = "image/png">
+		<title>test2</title>
+		<style type = "text/css">
+			* {margin: 0; padding: 0; border: solid 1px red;}
+			#box {width: 100%;}
+		</style>
+	</head>
+	<body>
+		<table id="box">
+			<tr>
+				<td align="left" valign="top">1</td>
+				<td align="center" valign="top">2</td>
+				<td align="right" valign="top">3</td>
+			</tr>
+			<tr>
+				<td align="left" valign="middle">4</td>
+				<td align="center" valign="middle">5</td>
+				<td align="right" valign="middle">6</td>
+			</tr>
+			<tr>
+				<td align="left" valign="bottom">7</td>
+				<td align="center" valign="bottom">8</td>
+				<td align="right" valign="bottom">9</td>
+			</tr>
+		</table>
+		<script type="text/javascript">
+			function init(){
+				document.getElementById('box').style.height = window.innerHeight + 'px';
+			}
+			init();
+		</script>
+	</body>
+</html>
