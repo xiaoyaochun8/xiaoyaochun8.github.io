@@ -14,6 +14,7 @@
 		<button onclick = "setText()" style="width:30%;height:30px">Get</button><br><br>
 		<button onclick = "addLine()" style="width:30%;height:30px">addLine</button><br><br>
 		<div id = "txt"></div>
+		<div id = "txt2"></div>
 		<script>
 			function setText(){
 				var str  =  "screen.height = "+screen.height+"<br>"
@@ -32,7 +33,7 @@
 			}
 			function addLine(){
 				var str  =  "body<br>";
-				document.getElementById('txt').innerHTML  =  document.getElementById('txt').innerHTML + str;
+				document.getElementById('txt2').innerHTML  =  document.getElementById('txt2').innerHTML + str;
 			}
 			setText();
 		</script>
