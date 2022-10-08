@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "UTF-8">
+		<!--<meta name = "viewport" content = "width = device-width, initial-scale = 1, shrink-to-fit = no">-->
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+		<link rel = "shortcut icon " href = "" type = "image/png">
+		<title>颜色</title>
+		<style type = "text/css">
+			* {  
+			-webkit-touch-callout:none;  
+			-webkit-user-select:none;  
+			-khtml-user-select:none;  
+			-moz-user-select:none;  
+			-ms-user-select:none;  
+			user-select:none;  
+			}  
+			input {	  
+			-webkit-user-select:auto; /*webkit浏览器*/	 
+			} 
+			* {margin: 0; padding: 0; }
+			#box {width: 100%; background-color: lightgray; font-size: 20px}
+		</style>
+	</head>
+	<body>
+		<table id="box">
+			<tr>
+				<td align="left" valign="top">1</td>
+				<td align="center" valign="top">2</td>
+				<td align="right" valign="top">3</td>
+			</tr>
+			<tr>
+				<td align="left" valign="middle">4</td>
+				<td id="t5" ontouchstart="changeColor()" align="center" valign="middle">&nbsp;5&nbsp;</td>
+				<td align="right" valign="middle">6</td>
+			</tr>
+			<tr>
+				<td align="left" valign="bottom">7</td>
+				<td align="center" valign="bottom">8</td>
+				<td align="right" valign="bottom">9</td>
+			</tr>
+		</table>
+		<script type="text/javascript">
+			window.addEventListener('contextmenu', function(e){  
+			e.preventDefault();  
+			}); 
+			function init(){
+				document.getElementById('box').style.height = window.innerHeight + 'px';
+			}
+			init();
+			var colorIndex = 0;
+			var colors = [
+				'rgba(255,0,0,1)',
+				'rgba(0,255,0,1)',
+				'rgba(0,0,255,1)',
+				'rgba(0,0,0,1)',
+				'rgba(255,255,255,1)'
+			];
+			function changeColor(){
+				if(colorIndex >= colors.length){
+					colorIndex = 0;
+				}
+			   document.getElementById('t5').style.backgroundColor = colors[colorIndex];
+			   colorIndex ++;
+			}
+			changeColor();
+		</script>
+	</body>
+</html>
