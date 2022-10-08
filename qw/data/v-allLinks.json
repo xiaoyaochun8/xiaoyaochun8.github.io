@@ -122,5 +122,14 @@
     },{
         "name":"mq/12YearAnimal",
         "url":"/mq/12YearAnimal.html"
+    },{
+        "name":"mq/colors",
+        "url":"/mq/colors.html"
+    },{
+        "name":"mq/alphas",
+        "url":"/mq/alphas.html"
+    },{
+        "name":"mq/numbers",
+        "url":"/mq/numbers.html"
     }
 ]
