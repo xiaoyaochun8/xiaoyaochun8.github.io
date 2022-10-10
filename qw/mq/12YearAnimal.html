@@ -35,7 +35,7 @@
 			}
 			init();
 
-			var cnt = 1;
+			var cnt = -1;
 			function setAnimal(){
 				var random = Math.ceil(Math.random()*10);
 				if (random == 10) {
@@ -47,9 +47,30 @@
 				if (cnt > 12) {
 					cnt = 1;
 				}
-				document.getElementById('img_'+random).src = cnt+".png";
+				var fName;
+				if (cnt < 1) {
+					fName = 0;
+				} else {
+					fName = cnt;
+				}
+				playSound(fName);
+				document.getElementById('img_'+random).src = fName+".png";
 				document.getElementById('img_'+random).style.display = 'block';
 				cnt++;
+			}
+			function playSound(i){
+				var audio = new Audio();
+				audio3 = audio;
+				audio.src = "text2audio_"+i+".mp3";
+				audio.loop = false;
+				audio.id = 'myAudio3';
+				audio.autoplay = true;
+				audio.addEventListener('canplay', canPlay, false);
+				//audio.play();
+			}
+			function canPlay(){
+				console.log('canplay')
+				audio3.play();
 			}
 			setAnimal();
 		</script>
