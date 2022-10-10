@@ -65,6 +65,9 @@
 				cnt++;
 			}
 			function playSound(i){
+				if (i < 1 || i > 12) {
+					return;
+				}
 				var audio = new Audio();
 				audio3 = audio;
 				audio.src = "text2audio_"+i+".mp3";
