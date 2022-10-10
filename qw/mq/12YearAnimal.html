@@ -9,24 +9,25 @@
 		<style type="text/css">
 			* {margin: 0; padding: 0; border: solid 0px red;}
 			#box {width: 100%;}
+			div {font-size: 60px;}
 		</style>
 	</head>
 	<body>
 		<table id="box">
 			<tr>
-				<td align="right" valign="bottom"><img id="img_1" ontouchstart="setAnimal()"></td>
-				<td align="center" valign="bottom"><img id="img_2" ontouchstart="setAnimal()"></td>
-				<td align="left" valign="bottom"><img id="img_3" ontouchstart="setAnimal()"></td>
+				<td align="right" valign="bottom"><div id="txt_1"></div><img id="img_1" ontouchstart="setAnimal()"></td>
+				<td align="center" valign="bottom"><div id="txt_2"></div><img id="img_2" ontouchstart="setAnimal()"></td>
+				<td align="left" valign="bottom"><div id="txt_3"></div><img id="img_3" ontouchstart="setAnimal()"></td>
 			</tr>
 			<tr>
-				<td align="right" valign="middle"><img id="img_4" ontouchstart="setAnimal()"></td>
-				<td align="center" valign="middle"><img id="img_5" ontouchstart="setAnimal()"></td>
-				<td align="left" valign="middle"><img id="img_6" ontouchstart="setAnimal()"></td>
+				<td align="right" valign="middle"><div id="txt_4"></div><img id="img_4" ontouchstart="setAnimal()"></td>
+				<td align="center" valign="middle"><div id="txt_5"></div><img id="img_5" ontouchstart="setAnimal()"></td>
+				<td align="left" valign="middle"><div id="txt_6"></div><img id="img_6" ontouchstart="setAnimal()"></td>
 			</tr>
 			<tr>
-				<td align="right" valign="top"><img id="img_7" ontouchstart="setAnimal()"></td>
-				<td align="center" valign="top"><img id="img_8" ontouchstart="setAnimal()"></td>
-				<td align="left" valign="top"><img id="img_9" ontouchstart="setAnimal()"></td>
+				<td align="right" valign="top"><div id="txt_7"></div><img id="img_7" ontouchstart="setAnimal()"></td>
+				<td align="center" valign="top"><div id="txt_8"></div><img id="img_8" ontouchstart="setAnimal()"></td>
+				<td align="left" valign="top"><div id="txt_9"></div><img id="img_9" ontouchstart="setAnimal()"></td>
 			</tr>
 		</table>
 		<script type="text/javascript">
@@ -35,6 +36,7 @@
 			}
 			init();
 
+			var names = ['','鼠','牛','虎','兔','龙','蛇','马','羊','猴','鸡','狗','猪'];
 			var cnt = -1;
 			function setAnimal(){
 				var random = Math.ceil(Math.random()*10);
@@ -42,6 +44,7 @@
 					random = 5;
 				}
 				for(var i=1;i<=9;i++){
+					document.getElementById('txt_'+i).style.display = 'none';
 					document.getElementById('img_'+i).style.display = 'none';
 				}
 				if (cnt > 12) {
@@ -54,8 +57,11 @@
 					fName = cnt;
 				}
 				playSound(fName);
+				document.getElementById('txt_'+random).innerHTML = names[fName];
 				document.getElementById('img_'+random).src = fName+".png";
+				document.getElementById('txt_'+random).style.display = 'block';
 				document.getElementById('img_'+random).style.display = 'block';
+				
 				cnt++;
 			}
 			function playSound(i){
