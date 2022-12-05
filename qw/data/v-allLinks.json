@@ -57,8 +57,8 @@
         "name":"mDebug/eruda",
         "url":"/mDebug/eruda.html"
     },{
-        "name":"mDebug/brower",
-        "url":"/mDebug/brower.html"
+        "name":"mDebug/BrowserInfo",
+        "url":"/mDebug/BrowserInfo.html"
     },{
         "name":"mDebug/checkES6Support",
         "url":"/mDebug/checkES6Support.html"
