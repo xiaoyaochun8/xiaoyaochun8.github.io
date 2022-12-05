@@ -63,9 +63,6 @@
         "name":"tools/calcTime",
         "url":"/tools/calcTime/index.html"
     },{
-        "name":"tools/browerTB",
-        "url":"/tools/browerTB.html"
-    },{
         "name":"tools/checkES6Support",
         "url":"/tools/checkES6Support.html"
     },{
