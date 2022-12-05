@@ -54,17 +54,17 @@
         "name":"mDebug/VConsole",
         "url":"/mDebug/VConsole.html"
     },{
-        "name":"mDebug/brower",
-        "url":"/mDebug/brower.html"
-    },{
         "name":"mDebug/eruda",
         "url":"/mDebug/eruda.html"
     },{
+        "name":"mDebug/brower",
+        "url":"/mDebug/brower.html"
+    },{
+        "name":"mDebug/checkES6Support",
+        "url":"/mDebug/checkES6Support.html"
+    },{
         "name":"tools/calcTime",
         "url":"/tools/calcTime/index.html"
-    },{
-        "name":"tools/checkES6Support",
-        "url":"/tools/checkES6Support.html"
     },{
         "name":"tools/progressBlock",
         "url":"/tools/progressBlock.html"
