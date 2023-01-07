@@ -7,7 +7,7 @@
 		<title>打字机</title>
 		<style type="text/css">
 			body {
-				background: rgba(0,0,0,0.3);
+				background: rgba(0,0,0,0.4);
 			}
 			#txt1,#txt2 {
 				font-size: 20px; font-weight: normal;
@@ -100,6 +100,10 @@
 			    var text = $(this).text();
 			    console.log(text);
 			    setText(text);
+			})
+			$('#textBox').click(function(){
+				txt = '';
+			    setText('');
 			})
 		</script>
 	</body>
