@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="shortcut icon " href="time.ico" type="image/x-icon">
+		<title>Open API</title>
+		<style>
+			button {width: 45px; height:40px;}
+		</style>
+	</head>
+	<body>
+
+		<h2>Open API</h2>
+
+		<script
+		  src="https://code.jquery.com/jquery-3.7.0.min.js"
+		  integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+		  crossorigin="anonymous"></script>
+
+		<button onclick="getData('cat')">猫</button>
+		<button onclick="getData('dog')">狗</button>
+		<button onclick="getData('words_en')">words_en</button>
+		<button onclick="getData('words_cn')">words_cn</button>
+		<button onclick="getData('joke_en')">joke_en</button>
+		<button onclick="getData('joke_cn')">joke_cn</button>
+		<button onclick="getData('people')">people</button>
+
+		<textarea id="txt" style="width: 100%; height: 30px" ></textarea>
+		<textarea id="txt2" style="width: 100%; height: 100px" ></textarea>
+		<img id="img" src="" style="width: 90%" />
+
+		<script type="text/javascript">
+			var urls = {}
+			urls['cat'] = 'https://api.thecatapi.com/v1/images/search?size=full'
+			urls['dog'] = 'https://api.thedogapi.com/v1/images/search?size=full'
+			urls['words_en'] = 'https://api.quotable.io/random'
+			urls['words_cn'] = 'https://api.xygeng.cn/one'
+			urls['joke_en'] = 'https://api.chucknorris.io/jokes/random'
+			urls['joke_cn'] = 'https://api.vvhan.com/api/joke'
+			urls['people'] = 'https://randomuser.me/api/'
+			function getData(type){
+				$.get(urls[type], function(res){
+					console.log(res)
+					$('#txt').text(res)
+					$('#txt2').hide()
+					if(type == 'cat'){
+						var data = JSON.parse(res)
+						console.log(data)
+						$('#img').attr('src', data[0]['url'])
+					}else if(type == 'dog'){
+						var data = JSON.parse(res)
+						$('#img').attr('src', data[0]['url'])
+					}else if(type == 'people'){
+						var data = JSON.parse(res)
+						$('#img').attr('src', data['results'][0]['picture']['large'])
+					}else if(type == 'words_en'){
+						var data = JSON.parse(res)
+						$('#txt2').text(data['content'])
+						$('#txt2').show()
+					}else if(type == 'words_cn'){
+						var data = JSON.parse(res)
+						$('#txt2').text(data['data']['content'])
+						$('#txt2').show()
+					}else if(type == 'joke_en'){
+						$('#txt2').text(res)
+						$('#txt2').show()
+					}else if(type == 'joke_cn'){
+						$('#txt2').text(res)
+						$('#txt2').show()
+					}
+				}, 'text')
+			}	
+		</script>
+	</body>
+</html>
