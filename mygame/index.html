@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>game-index</title>
+    <style>
+        body {
+            background:aliceblue;
+            margin:0;
+            padding:0;
+        }
+        .con {
+            border:dotted 1px lightgray;
+            background:lavender;
+            height:100vh;
+        }
+        .title {
+            border:dotted 1px lightgray;
+            margin:0 auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: space-around;
+        }
+        .nav {
+            border:dotted 1px lightgray;
+            margin:1rem auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: space-around;
+            cursor:pointer;
+        }
+        .list {
+            border:dotted 1px lightgray;
+            margin:5rem auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: space-around;
+        }
+        .list .item {
+            border:dotted 1px lightgray;
+            width:30%;
+            height:20px;
+            text-align:center;
+            background:#afbee7;
+            cursor:pointer;
+        }
+    </style>
+    <script>
+        function goTo(name){
+            location.href = './'+name+'.html';
+        }
+    </script>
+</head>
+<body>
+    <div class="con">
+        <div class="title">index</div>
+        <div class="list">
+            <div class="item" onclick="goTo('9rotate')">9rotate</div>
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+        <div class="list">
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+        <div class="list">
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+    </div>
+</body>
+</html>
