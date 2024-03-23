@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>game-index</title>
+    <style>
+        body {
+            background:aliceblue;
+            margin:0;
+            padding:0;
+        }
+        .con {
+            border:dotted 1px lightgray;
+            background:lavender;
+            height:100vh;
+        }
+        .title {
+            border:dotted 1px lightgray;
+            margin:0 auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: space-around;
+        }
+        .nav {
+            border:dotted 1px lightgray;
+            margin:1rem auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: space-around;
+            cursor:pointer;
+        }
+        .list {
+            border:dotted 1px lightgray;
+            margin:4rem auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: space-around;
+        }
+        .list .item {
+            border:dotted 1px lightgray;
+            width:30%;
+            height:20px;
+            text-align:center;
+            background:#afbee7;
+            cursor:pointer;
+        }
+    </style>
+    <script>
+        function goTo(name){
+            location.href = './'+name+'.html';
+        }
+        function goTo2(name){
+            location.href = 'https://xiaoyaochun8.github.io/qw/mq/'+name+'.html';
+        }
+        function goTo3(name){
+            location.href = 'https://xiaoyaochun8.github.io/'+name+'.html';
+        }
+    </script>
+</head>
+<body>
+    <div class="con">
+        <div class="title">index</div>
+        <div class="list">
+            <div class="item" onclick="goTo('9rotate')">9rotate</div>
+            <div class="item" onclick="goTo('9scale')">9scale</div>
+            <div class="item" onclick="goTo('9translate')">9translate</div>
+        </div>
+        <div class="list">
+            <div class="item" onclick="goTo('9skew')">9skew</div>
+            <div class="item" onclick="goTo('9rotateX')">9rotateX</div>
+            <div class="item" onclick="goTo('9rotateY')">9rotateY</div>
+        </div>
+        <div class="list">
+            <div class="item" onclick="goTo('9rotateZ')">9rotateZ</div>
+            <div class="item" onclick="goTo2('12YearAnimal')">十二生肖</div>
+            <div class="item" onclick="goTo2('time')">时钟</div>
+        </div>
+        <div class="list">
+            <div class="item" onclick="goTo2('colors')">颜色</div>
+            <div class="item" onclick="goTo2('numbers')">数字</div>
+            <div class="item" onclick="goTo2('writer')">打字机</div>
+        </div>
+        <div class="list">
+            <div class="item" onclick="goTo2('alphas')">透明度</div>
+            <div class="item" onclick="goTo('dev')">立方体</div>
+            <div class="item" onclick="goTo3('qw/demos/Anim/test')">ctrl</div>
+        </div>
+    </div>
+</body>
+</html>
