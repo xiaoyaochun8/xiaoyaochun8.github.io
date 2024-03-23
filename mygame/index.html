@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html font-size="62.5%">
 <head>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>game-index</title>
@@ -8,6 +8,7 @@
             background:aliceblue;
             margin:0;
             padding:0;
+            font-size:1.5rem;
         }
         .con {
             border:dotted 1px lightgray;
@@ -31,7 +32,7 @@
         }
         .list {
             border:dotted 1px lightgray;
-            margin:4rem auto;
+            margin:3rem auto;
             background:#e3fae7;
             display:flex;
             justify-content: space-around;
@@ -39,10 +40,13 @@
         .list .item {
             border:dotted 1px lightgray;
             width:30%;
-            height:20px;
+            height:2rem;
             text-align:center;
             background:#afbee7;
             cursor:pointer;
+            display:flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
     <script>
@@ -61,17 +65,17 @@
     <div class="con">
         <div class="title">index</div>
         <div class="list">
-            <div class="item" onclick="goTo('9rotate')">9rotate</div>
-            <div class="item" onclick="goTo('9scale')">9scale</div>
-            <div class="item" onclick="goTo('9translate')">9translate</div>
+            <div class="item" onclick="goTo('9rotate')">9转圈</div>
+            <div class="item" onclick="goTo('9scale')">9变大变小</div>
+            <div class="item" onclick="goTo('9translate')">9上上下下</div>
         </div>
         <div class="list">
-            <div class="item" onclick="goTo('9skew')">9skew</div>
-            <div class="item" onclick="goTo('9rotateX')">9rotateX</div>
-            <div class="item" onclick="goTo('9rotateY')">9rotateY</div>
+            <div class="item" onclick="goTo('9skew')">9变形</div>
+            <div class="item" onclick="goTo('9rotateX')">9转圈X</div>
+            <div class="item" onclick="goTo('9rotateY')">9转圈Y</div>
         </div>
         <div class="list">
-            <div class="item" onclick="goTo('9rotateZ')">9rotateZ</div>
+            <div class="item" onclick="goTo('9rotateZ')">9转圈Z</div>
             <div class="item" onclick="goTo2('12YearAnimal')">十二生肖</div>
             <div class="item" onclick="goTo2('time')">时钟</div>
         </div>
