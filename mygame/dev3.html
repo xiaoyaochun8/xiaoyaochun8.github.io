@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta charset="utf-8">
-        <title>My Scene</title>
+        <title>日出</title>
         <style>
             body { margin: 0; }
         </style>
+        <script src="https://cdn.bootcss.com/eruda/1.5.4/eruda.js" ></script>
+        <script>
+          eruda.init();
+        </script>
     </head>
     <body>
         <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
@@ -73,23 +78,6 @@
 
             //灯光========================================
 
-            //环境光
-            // var light = new THREE.AmbientLight( 0xffffff ); // 柔和的白光
-            // scene.add( light );
-
-            //聚光灯
-            // var spotLight = new THREE.SpotLight( 0xffffff );
-            // spotLight.position.set( 0, 5, 0 );
-            // scene.add( spotLight );
-            
-            // //点光源
-            // var light = new THREE.PointLight( 0xffffff, 1, 80, 2);
-            // light.position.set( 50, 30, 50 );
-            // if(Config.shadow){
-            //     light.castShadow = true;//shadowA
-            // }
-            // scene.add( light );
-
             //不要光
             var material = new THREE.MeshNormalMaterial();
             // var texture = new THREE.TextureLoader().load( "./300.jpeg" );
@@ -98,9 +86,6 @@
             	scene.overrideMaterial = material;
             }
             
-
-
-
             
             //内容========================================
             //太阳光月亮光
@@ -182,22 +167,22 @@
                 var geometry = new THREE.SphereGeometry( 3, 32, 32 );
                 var material = new THREE.MeshBasicMaterial( { color: 0xFF5151 } );
                 var sun = new THREE.Mesh( geometry, material );
-                sun.position.x = -120;
+                sun.position.x = -90;
                 var geometry = new THREE.SphereGeometry( 2.3, 32, 32 );
                 var material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
                 var moon = new THREE.Mesh( geometry, material );
-                moon.position.x = 120;
+                moon.position.x = 90;
                 sunMoonGroup.add(sun);
                 sunMoonGroup.add(moon);
                 sunMoonGroup.rotation.z = 4;
                 scene.add(sunMoonGroup);
                 var lightSun = new THREE.PointLight( 0xffffff, 1, 10000 );
-                lightSun.position.set( -120, 0, 0 );
+                lightSun.position.set( -90, 0, 0 );
                 if(Config.shadow){
                     lightSun.castShadow = true;//shadowA
                 }
                 var lightMoon = new THREE.PointLight( 0xffffff, 1, 160 );
-                lightMoon.position.set( 120, 0, 0 );
+                lightMoon.position.set( 90, 0, 0 );
                 if(Config.shadow){
                     lightMoon.castShadow = true;//shadowA
                 }
@@ -208,38 +193,6 @@
                 if(Config.isDev){
                 	lightGroup.visible = false;
                 }
-            }
-            function makeRiver(){
-                var riverGroup = new THREE.Group();
-                var geometry = new THREE.PlaneGeometry( 6, 10 );
-                var material = new THREE.MeshBasicMaterial( {color: 0x0000ff, side: THREE.DoubleSide} );
-                var plane = new THREE.Mesh( geometry, material );
-                if(Config.shadow){
-                    //plane.castShadow = true; //shadowA
-                }
-                riverGroup.add( plane );
-                plane = new THREE.Mesh( geometry, material );
-                plane.position.y = 10;
-                riverGroup.add( plane );
-                plane = new THREE.Mesh( geometry, material );
-                plane.position.y = 20;
-                riverGroup.add( plane );
-                scene.add(riverGroup);
-                plane = new THREE.Mesh( geometry, material );
-                plane.position.y = 30;
-                riverGroup.add( plane );
-                scene.add(riverGroup);
-                plane = new THREE.Mesh( geometry, material );
-                plane.position.y = 40;
-                riverGroup.add( plane );
-                scene.add(riverGroup);
-                plane = new THREE.Mesh( geometry, material );
-                plane.position.y = 50;
-                riverGroup.add( plane );
-                scene.add(riverGroup);
-                riverGroup.rotation.x = 4.755;
-                riverGroup.position.y = 0;
-                riverGroup.position.z = 45;
             }
             function makeTree(x, z, y){
                 var group = new THREE.Group();
