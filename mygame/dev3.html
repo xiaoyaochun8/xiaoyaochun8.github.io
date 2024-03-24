@@ -43,8 +43,8 @@
             //相机
             const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
             if(Config.viewFrom == 'front'){
-                camera.position.z = 170;
-                camera.position.y = 25;//0.1;
+                camera.position.z = 190;
+                camera.position.y = 45;//0.1;
             }else if(Config.viewFrom == 'back'){
                 camera.position.z = -170;
                 camera.position.y = 25;//0.1;
@@ -167,28 +167,30 @@
                 var geometry = new THREE.SphereGeometry( 3, 32, 32 );
                 var material = new THREE.MeshBasicMaterial( { color: 0xFF5151 } );
                 var sun = new THREE.Mesh( geometry, material );
-                sun.position.x = -90;
+                sun.position.x = -80;
                 var geometry = new THREE.SphereGeometry( 2.3, 32, 32 );
                 var material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
                 var moon = new THREE.Mesh( geometry, material );
-                moon.position.x = 90;
+                moon.position.x = 80;
                 sunMoonGroup.add(sun);
                 sunMoonGroup.add(moon);
                 sunMoonGroup.rotation.z = 4;
+                sunMoonGroup.position.y = -40;
                 scene.add(sunMoonGroup);
                 var lightSun = new THREE.PointLight( 0xffffff, 1, 10000 );
-                lightSun.position.set( -90, 0, 0 );
+                lightSun.position.set( -80, 0, 0 );
                 if(Config.shadow){
                     lightSun.castShadow = true;//shadowA
                 }
-                var lightMoon = new THREE.PointLight( 0xffffff, 1, 160 );
-                lightMoon.position.set( 90, 0, 0 );
+                var lightMoon = new THREE.PointLight( 0xffffff, 1, 90 );
+                lightMoon.position.set( 80, 0, 0 );
                 if(Config.shadow){
                     lightMoon.castShadow = true;//shadowA
                 }
                 lightGroup.add(lightSun);
                 lightGroup.add(lightMoon);
                 lightGroup.rotation.z = 4;
+                lightGroup.position.y = -40;
                 scene.add( lightGroup );
                 if(Config.isDev){
                 	lightGroup.visible = false;
@@ -249,13 +251,14 @@
                 group.scale.z = 0.5;
             }
             function makeLand(){
-                var geometry = new THREE.BoxGeometry( 200, 50, 200);
+                var geometry = new THREE.BoxGeometry( 500, 50, 200);
                 //var material = new THREE.MeshNormalMaterial();
                 //var material = new THREE.MeshBasicMaterial({color:0xba8448});
                 var material = new THREE.MeshStandardMaterial({color:0xccff00});//shadowA
                 //material.wireframe = true;
                 var cube = new THREE.Mesh( geometry, material );
                 if(Config.shadow){
+                    cube.castShadow = true; //shadowA
                     cube.receiveShadow = true;//shadowA
                 }
                 scene.add( cube );
