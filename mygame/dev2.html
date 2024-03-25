@@ -6,13 +6,36 @@
         <title>小世界</title>
         <style>
             body { margin: 0; }
+            button {
+                position:absolute;
+                top: 20%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size:2rem;
+                border-radius:5rem;
+                background:red;
+            }
         </style>
         <script src="https://cdn.bootcss.com/eruda/1.5.4/eruda.js" ></script>
         <script>
           eruda.init();
+          var isPlay = true;
+          function playStop(){
+            var btn = document.getElementById('btnPlayStop');
+            if(btn.innerHTML == '停止'){
+                isPlay = false;
+                btn.innerHTML = '开始';
+                btn.style.background = 'green';
+            }else{
+                isPlay = true;
+                btn.innerHTML = '停止';
+                btn.style.background = 'red';
+            }
+          }
         </script>
     </head>
     <body>
+        <button id="btnPlayStop" onclick="playStop()">停止</button>
         <script src="https://cdn.bootcdn.net/ajax/libs/three.js/0.156.1/three.js"></script>
         <script>
             console.log('Threejs-Version: '+THREE.REVISION);
@@ -32,7 +55,7 @@
             //相机
             const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
             if(Config.viewFrom == 'front'){
-                camera.position.z = 170;
+                camera.position.z = 200;
                 camera.position.y = 25;//0.1;
             }else if(Config.viewFrom == 'back'){
                 camera.position.z = -170;
@@ -75,9 +98,13 @@
             
             
             //内容========================================
+            var cameraGroup = new THREE.Group();
+            makeCameraGroup();
+            
             //太阳光月亮光
             var sunMoonGroup = new THREE.Group();
             var lightGroup = new THREE.Group();
+            
 
             makeLand();
             makeTree(10, 40);
@@ -98,10 +125,25 @@
                     sunMoonGroup.rotation.z += 0.002;
                     lightGroup.rotation.z = sunMoonGroup.rotation.z;
                 }
+                if(isPlay){
+                    cameraGroup.rotation.y += 0.002;
+                }
                 renderer.render( scene, camera );
             };
 
             animate();
+            
+            function makeCameraGroup(){
+                var geometry = new THREE.SphereGeometry( 3, 32, 32 );
+                var material = new THREE.MeshBasicMaterial( { color: 0xFF5151 } );
+                var ss = new THREE.Mesh( geometry, material );
+                ss.position.z = -200;
+                ss.position.y = 25;
+                ss.visible = false;
+                cameraGroup.add(ss);
+                cameraGroup.add(camera);
+                scene.add(cameraGroup);
+            }
             
             function makeMotian(){
                 var group = new THREE.Group();
@@ -228,7 +270,7 @@
                 group.scale.z = 0.5;
             }
             function makeLand(){
-                var geometry = new THREE.BoxGeometry( 200, 50, 200);
+                var geometry = new THREE.BoxGeometry( 130, 30, 130);
                 //var material = new THREE.MeshNormalMaterial();
                 //var material = new THREE.MeshBasicMaterial({color:0xba8448});
                 var material = new THREE.MeshStandardMaterial({color:0xccff00});//shadowA
@@ -238,7 +280,7 @@
                     cube.receiveShadow = true;//shadowA
                 }
                 scene.add( cube );
-                cube.position.y = -25;
+                cube.position.y = -15;
                 //cube.visible = false;
             }
 
