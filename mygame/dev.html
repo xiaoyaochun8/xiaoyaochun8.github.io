@@ -6,13 +6,36 @@
         <title>旋转立方体</title>
         <style>
             body { margin: 0; }
+            button {
+                position:absolute;
+                top: 15%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size:2rem;
+                border-radius:5rem;
+                background:red;
+            }
         </style>
         <script src="https://cdn.bootcss.com/eruda/1.5.4/eruda.js" ></script>
         <script>
           eruda.init();
+          var isPlay = true;
+          function playStop(){
+            var btn = document.getElementById('btnPlayStop');
+            if(btn.innerHTML == '停止'){
+                isPlay = false;
+                btn.innerHTML = '开始';
+                btn.style.background = 'green';
+            }else{
+                isPlay = true;
+                btn.innerHTML = '停止';
+                btn.style.background = 'red';
+            }
+          }
         </script>
     </head>
     <body>
+        <button id="btnPlayStop" onclick="playStop()">停止</button>
         <script src="https://cdn.bootcdn.net/ajax/libs/three.js/0.156.1/three.js"></script>
         <script type="module">
             const scene = new THREE.Scene();
@@ -43,10 +66,10 @@
 
             function animate() {
                 requestAnimationFrame( animate );
-
-                cube.rotation.x += 0.01;
-                cube.rotation.y += 0.01;
-
+                if(isPlay){
+                    cube.rotation.x += 0.01;
+                    cube.rotation.y += 0.01;
+                }
                 renderer.render( scene, camera );
             };
 
