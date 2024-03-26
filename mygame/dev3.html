@@ -32,6 +32,7 @@
                 btn.style.background = 'red';
             }
           }
+          console.log('appVer:1.001');
         </script>
     </head>
     <body>
@@ -194,7 +195,7 @@
                 sunMoonGroup.add(sun);
                 sunMoonGroup.add(moon);
                 sunMoonGroup.rotation.z = 4;
-                sunMoonGroup.position.y = -15;
+                sunMoonGroup.position.y = -25;
                 scene.add(sunMoonGroup);
                 var lightSun = new THREE.PointLight( 0xffffff, 1, 10000 );
                 lightSun.position.set( -80, 0, 0 );
