@@ -32,7 +32,6 @@
                 btn.style.background = 'red';
             }
           }
-          console.log('appVer:1.001');
         </script>
     </head>
     <body>
@@ -48,10 +47,10 @@
         }
         </script>
         
-        
         <script type="module">
             import * as THREE from 'three';
             console.log('Threejs-Version: '+THREE.REVISION);
+            console.log('appVer:1.001');
             //开关
             const Config = {
                 fog: false,
@@ -195,14 +194,14 @@
                 sunMoonGroup.add(sun);
                 sunMoonGroup.add(moon);
                 sunMoonGroup.rotation.z = 4;
-                sunMoonGroup.position.y = -25;
+                sunMoonGroup.position.y = -20;
                 scene.add(sunMoonGroup);
                 var lightSun = new THREE.PointLight( 0xffffff, 1, 10000 );
                 lightSun.position.set( -80, 0, 0 );
                 if(Config.shadow){
                     lightSun.castShadow = true;//shadowA
                 }
-                var lightMoon = new THREE.PointLight( 0xffffff, 1, 90 );
+                var lightMoon = new THREE.PointLight( 0xffffff, 1, 95 );
                 lightMoon.position.set( 80, 0, 0 );
                 if(Config.shadow){
                     lightMoon.castShadow = true;//shadowA
