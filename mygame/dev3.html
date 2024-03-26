@@ -194,7 +194,7 @@
                 sunMoonGroup.add(sun);
                 sunMoonGroup.add(moon);
                 sunMoonGroup.rotation.z = 4;
-                sunMoonGroup.position.y = 0;
+                sunMoonGroup.position.y = -15;
                 scene.add(sunMoonGroup);
                 var lightSun = new THREE.PointLight( 0xffffff, 1, 10000 );
                 lightSun.position.set( -80, 0, 0 );
@@ -208,8 +208,8 @@
                 }
                 lightGroup.add(lightSun);
                 lightGroup.add(lightMoon);
-                lightGroup.rotation.z = 4;
-                lightGroup.position.y = 0;
+                lightGroup.rotation.z = sunMoonGroup.rotation.z;
+                lightGroup.position.y = sunMoonGroup.position.y;
                 scene.add( lightGroup );
                 if(Config.isDev){
                 	lightGroup.visible = false;
