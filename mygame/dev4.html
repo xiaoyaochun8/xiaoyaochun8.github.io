@@ -47,14 +47,13 @@
         }
         </script>
         
-        
         <script type="module">
             import * as THREE from 'three';
             console.log('Threejs-Version: '+THREE.REVISION);
             //开关
             const Config = {
                 fog: true,
-                shadow: true,
+                shadow: false,//雾天没有阳光没有阴影，有环境光路灯车灯；晨雾暮雾夜雾
                 viewFrom: 'front', //front,back,top,botton,left,right
                 isDev: false,
             };
