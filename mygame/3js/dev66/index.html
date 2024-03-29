@@ -15,6 +15,24 @@
                 border-radius:5rem;
                 background:red;
             }
+            #ipt1 {
+                position:absolute;
+                top: 5%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size:2rem;
+                border-radius:5rem;
+                background:red;
+            }
+            #ipt2 {
+                position:absolute;
+                top: 10%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size:2rem;
+                border-radius:5rem;
+                background:red;
+            }
         </style>
         <script src="https://cdn.bootcss.com/eruda/1.5.4/eruda.js" ></script>
         <script>
@@ -32,9 +50,21 @@
                 btn.style.background = 'red';
             }
           }
+          var speed = 0.2;
+          var speed2 = 0.1;
+          function setSpeed(type, obj){
+            console.log(obj.value)
+            if(type == 1){
+                speed = obj.value;
+            }else{
+                speed2 = obj.value;
+            }
+          }
         </script>
     </head>
     <body>
+        <input type="range" value="0.2" min="0" max="5" step="0.01" id="ipt1" onchange="setSpeed(1,this)" />
+        <input type="range" value="0.1" min="0" max="5" step="0.01" id="ipt2" onchange="setSpeed(2,this)" />
         <button id="btnPlayStop" onclick="playStop()">停止</button>
         <script src="bundle.js"></script>
     </body>
