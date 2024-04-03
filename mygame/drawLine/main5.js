@@ -7,7 +7,7 @@ function main() {
     const canvas = document.getElementById("canvas");
     // 设置画布的宽高
     canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.height = window.innerHeight-5;
     
     const ctx = canvas.getContext("2d");
     

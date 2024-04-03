@@ -29,7 +29,7 @@ function main() {
         startY = event.touches[0].clientY;
         isDrawing = true;
         
-        console.log(event.touches);
+        console.log(event.touches); //最多5指
         for(var i in event.touches){
             console.log(i);
             console.log(event.touches[i].clientX);
