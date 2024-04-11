@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html font-size="62.5%">
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>game-index</title>
+    <link href="../common/css/noUserSelect.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="../common/js/noContextmenu.js"></script>
+    <link href="../common/css/fontColorful.css" type="text/css" rel="stylesheet">
+    <style>
+        body {
+            background:aliceblue;
+            margin:0;
+            padding:0;
+            font-size:1.5rem;
+        }
+        .con {
+            border:dotted 1px lightgray;
+            background:lavender;
+            height:100vh;
+        }
+        .title {
+            border:dotted 1px lightgray;
+            margin:0 auto;
+            /*background:#e3fae7;*/
+            display:flex;
+            justify-content: space-around;
+        }
+        .nav {
+            border:dotted 1px lightgray;
+            margin:1rem auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: space-around;
+            cursor:pointer;
+        }
+        .list {
+            border:dotted 1px lightgray;
+            margin:1rem auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: space-around;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        .list .item {
+            border:dotted 1px lightgray;
+            height:2rem;
+            fontStyle1-align:center;
+            /*background:#afbee7;*/
+            cursor:pointer;
+            display:flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem;
+            letter-spacing: 0.25rem;
+        }
+    </style>
+    <script>
+        function goTo(name){
+            location.href = './'+name+'.html';
+        }
+        //不可选择、无菜单、彩色、ontouchstart、使用rem替换px
+    </script>
+</head>
+<body>
+    <div class="con">
+        <div class="title fontStyle2">index</div>
+        <div class="list">
+            <div class="item fontStyle1" ontouchstart="goTo('zhuzhou')">煮粥</div>
+        </div>
+        <div class="list">
+
+        </div>
+    </div>
+</body>
+</html>
