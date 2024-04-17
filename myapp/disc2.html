@@ -37,32 +37,47 @@
     <div class="list"></div>
     <div class="list"></div>
     <div class="list"></div>
-    <div class="list" style="font-size:1rem"></div>
-    <div class="list" style="font-size:10px"></div>
+    <div class="list"></div>
+    <div class="list"></div>
+    <div class="list"></div>
+    <div class="list"></div>
+    <div class="list"></div>
+    <div class="list"></div>
+    <div class="list"></div>
+    <div class="list"></div>
     <script type="text/javascript">
         function renderDisc(no, data){
+            var title = data[0];
+            var data = data[1].split('-');
             var step = 360 / data.length;
             var html = '';
             for(var i=1;i<=data.length;i++){
                 html += '<div class="item" style="transform: rotate('+(i*step)+'deg)">'+data[i-1]+'</div>';
             }
+            html += '<div class="item" style="transform: translate(0rem,2.5rem);font-size:1.5rem;color:gray">-'+title+'-</div>';
             document.getElementsByClassName('list')[no-1].innerHTML = html;
         }
         var data = [
-            '西-北-东-南',
-            '春-夏-秋-冬',
-            '青龙-白虎-朱雀-玄武',
-            '金-木-水-火-土',
-            '甲-乙-丙-丁-戊-己-庚-辛-壬-癸',
-            '子-丑-寅-卯-辰-巳-午-未-申-酉-戌-亥',
-            '鼠-牛-虎-兔-龙-蛇-马-羊-猴-鸡-狗-猪',
-            '夜半-鸡鸣-平旦-日出-食时-隅中-日中-日昳-晡时-日入-黄昏-人定',
-            '7-8-9-10-11-12-1-2-3-4-5-6',
-            '立春-雨水-惊蛰-春分-清明-谷雨-立夏-小满-芒种-夏至-小暑-大暑-立秋-处暑-白露-秋分-寒露-霜降-立冬-小雪-大雪-冬至-小寒-大寒',
-            '史记-汉书-后汉书-三国志-晋书-宋书-南齐书-梁书-陈书-魏书-北齐书-周书-隋书-南史-北史-旧唐书-新唐书-旧五代史-新五代史-宋史-辽史-金史-元史-明史',
+            ['无极','无极'],
+            ['一元','太极'],
+            ['两仪','阴-阳'],
+            ['三才','天-地-人'],
+            ['四象','地-火-水-风'],
+            ['四象','青龙-白虎-朱雀-玄武'],
+            ['四象','木-金-火-水'],
+            ['四象','东-西-南-北'],
+            ['四象','少阳-太阳-少阴-太阴'],
+            ['四象','风-雨-雷-电'],
+            ['五行','金-木-水-火-土'],
+            ['六合','上-下-左-右-前-后'],
+            ['七星','天枢-天璇-天玑-天权-开阳-摇光'],
+            ['八卦','乾-坎-艮-震-巽-离-坤-兑'],
+            ['八卦','☰-☵-☶-☳-☴-☲-☷-☱'],
+            ['九宫','乾宫-坎宫-艮宫-震宫-巽宫-离宫-坤宫-兑宫-中宫'],
+            ['十方','上天-下地-东-西-南-北-生门-死位-过去-未来'],
         ];
         for(var i=0;i<data.length;i++){
-            renderDisc(i+1, data[i].split('-'));
+            renderDisc(i+1, data[i]);
         }
     </script>
 </body>
