@@ -43,13 +43,13 @@
         function renderDisc(no, data){
             var step = 360 / data.length;
             var html = '';
-            for(var i=1;i<=data.length;i++){
-                html += '<div class="item" style="transform: rotate('+(i*step)+'deg)">'+data[i-1]+'</div>';
+            for(var i=0;i<data.length;i++){
+                html += '<div class="item" style="transform: rotate('+(i*step)+'deg)">'+data[i]+'</div>';
             }
             document.getElementsByClassName('list')[no-1].innerHTML = html;
         }
         var data = [
-            '西-北-东-南',
+            '南-西-北-东',
             '春-夏-秋-冬',
             '青龙-白虎-朱雀-玄武',
             '金-木-水-火-土',

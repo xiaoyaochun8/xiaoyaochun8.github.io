@@ -51,8 +51,8 @@
             var data = data[1].split('-');
             var step = 360 / data.length;
             var html = '';
-            for(var i=1;i<=data.length;i++){
-                html += '<div class="item" style="transform: rotate('+(i*step)+'deg)">'+data[i-1]+'</div>';
+            for(var i=0;i<data.length;i++){
+                html += '<div class="item" style="transform: rotate('+(i*step)+'deg)">'+data[i]+'</div>';
             }
             html += '<div class="item" style="transform: translate(0rem,2.5rem);font-size:1.5rem;color:gray">-'+title+'-</div>';
             document.getElementsByClassName('list')[no-1].innerHTML = html;
