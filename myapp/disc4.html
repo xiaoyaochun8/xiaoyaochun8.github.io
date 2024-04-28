@@ -5,7 +5,7 @@
         <title>罗盘size</title>
     </head>
     <body>
-        <templateN id="fullScreen" style="background: lightblue">
+        <templateN id="fullScreen" style="background: lightblue" ontouchstart="stopRound()">
             <view class="list"></view>
             <view class="list"></view>
             <view class="list"></view>
@@ -47,6 +47,21 @@
                     document.getElementsByClassName('list')[no-1].style = "background:lightgray;width:"+no*scaleStep+"vw;height:"+no*scaleStep+"vw;border-radius:"+no*scaleStep/2+"vw;z-index: "+(rawData.length-no);
                 }
             }
+            function stopRound(){
+                isStop = !isStop;
+            }
+            function goRound(){
+                if(!isStop){
+                    dom.style = "transform: rotate("+arc+"deg)";
+                    arc += 1;
+                }
+                requestAnimationFrame(goRound);
+            }
+            requestAnimationFrame(goRound);
+            
+            var dom = document.getElementById('fullScreen');
+            var arc = 0;
+            var isStop = true;
             var data = [
                 ['无极','无极'],
                 ['一元','太极'],
@@ -72,15 +87,15 @@
         </script>
         
         <style>
-			html,body,templateN {
-				width:200%;
-				height:100%;
-				margin:0;
-				padding:0;
+            html,body,templateN {
+                width:200%;
+                height:100%;
+                margin:0;
+                padding:0;
                 display:flex;
                 justify-content: center;
                 align-items: center;
-			}
+            }
             .list {
                 border:dotted 1px gray;
                 margin:5rem auto;
