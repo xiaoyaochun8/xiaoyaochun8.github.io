@@ -13,12 +13,12 @@
         <templateN class="con" id="indexApp">
             <view class="title fontStyle2">{{navName}}</view>
             <view class="list">
-                <view class="item fontStyle1" v-for="(menu,index) in menuList" v-on:click="goTo2(index)" :key="index">
+                <view class="item fontStyle4" v-for="(menu,index) in menuList" v-on:click="goTo2(index)" :key="index">
                     {{menu[1]}}
                 </view>
             </view>
             <view class="list">
-                <view class="item fontStyle1" v-for="(menu,index) in menuList2" v-on:click="goTo22(index)" :key="index">
+                <view class="item fontStyle4" v-for="(menu,index) in menuList2" v-on:click="goTo22(index)" :key="index">
                     {{menu[1]}}
                 </view>
             </view>
