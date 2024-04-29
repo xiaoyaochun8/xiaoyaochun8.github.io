@@ -18,7 +18,9 @@
                 </view>
             </view>
             <view class="list">
-                <view class="item fontStyle1">test</view>
+                <view class="item fontStyle1" v-for="(menu,index) in menuList2" v-on:click="goTo22(index)" :key="index">
+                    {{menu[1]}}
+                </view>
             </view>
         </templateN>
 
@@ -31,12 +33,13 @@
                   navName: 'index',
                   menuList: [
                     ['zhuzhou', '煮粥'],
+                  ],
+                  menuList2: [
                     ['huatu', '画图'],
                     ['disc', 'disc'],
                     ['disc2', 'disc2'],
                     ['disc3', 'disc3'],
                     ['disc4', '罗盘'],
-                    ['disc5', '时钟'],
                   ]
                 }
               },
@@ -46,6 +49,9 @@
                 },
                 goTo2(index){
                     rpUtil.gotoPage(this.menuList[index][0]);
+                },
+                goTo22(index){
+                    rpUtil.gotoPage(this.menuList2[index][0]);
                 }
               }
             }

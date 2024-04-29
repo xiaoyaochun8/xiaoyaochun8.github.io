@@ -4,5 +4,8 @@ const rpUtil = {
     },
     gotoPage: function(pageName){
         location.href = pageName + '.html';
+    },
+    gotoPageWithPath: function(pageName){
+        location.href = 'https://xiaoyaochun8.github.io/'+pageName+'.html';
     }
 }

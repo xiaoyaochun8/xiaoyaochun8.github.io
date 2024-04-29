@@ -5,27 +5,34 @@
         <!--<meta name = "viewport" content = "width = device-width, initial-scale = 1, shrink-to-fit = no">-->
         <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
         <link rel="stylesheet" href="style.css">
+        <script type="text/javascript" src="../common/js/rpUtil.js"></script>
     </head>
     <body>
         <div class="box">
           <div class="column">
-            <span class="item "><a href="https://xiaoyaochun8.github.io/mynav/mynav1.html">名博</a></span>
-            <span class="item "><a href="https://xiaoyaochun8.github.io/mynav/mynav2.html">名站</a></span>
+            <span class="item "><a href="javascript:goTo3('mynav/mynav1')">名博</a></span>
+            <span class="item "><a href="javascript:goTo3('mynav/mynav2')">名站</a></span>
           </div>
           <div class="column">
-            <span class="item "><a href="https://xiaoyaochun8.github.io/mynav/mynav4.html">名文</a></span>
+            <span class="item "><a href="javascript:goTo3('mynav/mynav4')">名文</a></span>
           </div>
           <div class="column">
-            <span class="item "><a href="https://xiaoyaochun8.github.io/qw/knowledge/myNav2.html">myNavPage</a></span>
-            <span class="item "><a href="https://xiaoyaochun8.github.io/mygame/index.html">mygame</a></span>
+            <span class="item "><a href="javascript:goTo3('qw/knowledge/myNav2')">myNavPage</a></span>
+            <span class="item "><a href="javascript:goTo3('mygame/index')">mygame</a></span>
           </div>
           <div class="column">
-            <span class="item "><a href="https://xiaoyaochun8.github.io/myapp/index.html">myapp</a></span>
-            <span class="item "><a href="https://xiaoyaochun8.github.io/mytest/index.html">mytest</a></span>
+            <span class="item "><a href="javascript:goTo3('myapp/index')">myapp</a></span>
+            <span class="item "><a href="javascript:goTo3('mytest/index')">mytest</a></span>
             </div>
           <div class="column">
             <span class="item "><a href="https://ruanyf.github.io/es-checker/index.cn.html">es-checker</a></span>
           </div>
         </div>
+        
+        <script>
+            function goTo3(name){
+                rpUtil.gotoPageWithPath(name);
+            }
+        </script>
     </body>
 </html>
