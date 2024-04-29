@@ -5,7 +5,7 @@
         <title>罗盘size</title>
     </head>
     <body>
-        <templateN id="fullScreen" style="background: lightblue" ontouchstart="stopRound()">
+        <templateN id="fullScreen" style="background: none" ontouchstart="stopRound()">
             <view class="list"></view>
             <view class="list"></view>
             <view class="list"></view>
@@ -84,6 +84,16 @@
             for(var i=0;i<data.length;i++){
                 renderDisc(i+1, data[i], data);
             }
+            
+            //anim
+            dom.addEventListener('click', function() {
+                let state = dom.style['animationPlayState'];
+                if(state === 'paused') {
+                    dom.style['animationPlayState'] = 'running';
+                } else {
+                    dom.style['animationPlayState'] = 'paused';
+                }
+            });
         </script>
         
         <style>
@@ -137,16 +147,16 @@
             {
                 animation-name: myfirst;
                 animation-duration: 5s;
-                animation-timing-function: ease;
+                animation-timing-function: linear;
                 animation-delay: 1s;
-                animation-iteration-count: 1;
+                animation-iteration-count: 100;
                 animation-direction: normal;
                 animation-play-state: running;
             }
             @keyframes myfirst
             {
                 0%   {}
-                100% {transform:rotate(545deg)}
+                100% {transform:rotate(360deg)}
             }
         </style>
     </body>
