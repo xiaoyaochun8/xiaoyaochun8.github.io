@@ -58,7 +58,7 @@
 				}
 				playSound(fName);
 				document.getElementById('txt_'+random).innerHTML = names[fName];
-				document.getElementById('img_'+random).src = fName+".png";
+				document.getElementById('img_'+random).src = 'res/'+fName+".png";
 				document.getElementById('txt_'+random).style.display = 'block';
 				document.getElementById('img_'+random).style.display = 'block';
 				
@@ -70,7 +70,7 @@
 				}
 				var audio = new Audio();
 				audio3 = audio;
-				audio.src = "text2audio_"+i+".mp3";
+				audio.src = 'res/'+"text2audio_"+i+".mp3";
 				audio.loop = false;
 				audio.id = 'myAudio3';
 				audio.autoplay = true;
