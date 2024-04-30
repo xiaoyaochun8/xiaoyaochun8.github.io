@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>anim-move</title>
+    
+</head>
+<body>
+    <templateN id="fullScreen" style="background: lightblue">
+        <div class="box">
+            <div class="role">
+                <div class="subrole">
+                    <div class="subrole"></div>
+                </div>
+            </div>
+        </div>
+        <button ontouchstart="hideBox()">显示/隐藏边框</button>
+    </templateN>
+    
+    <script>
+        //anim
+        var box = document.querySelector('.box');
+        var dom = document.querySelector('.role');
+        var dom2 = document.querySelector('.subrole');
+        box.addEventListener('touchstart', function() {
+            let state = dom.style['animationPlayState'];
+            if(state === 'paused') {
+                dom.style['animationPlayState'] = 'running';
+                dom2.style['animationPlayState'] = 'running';
+            } else {
+                dom.style['animationPlayState'] = 'paused';
+                dom2.style['animationPlayState'] = 'paused';
+            }
+        });
+        function hideBox(){
+            if(dom.className.includes('border')){
+                dom.className = 'role';
+                dom2.className = 'subrole';
+            }else{
+                dom.className = 'role border';
+                dom2.className = 'subrole border';
+            }
+        }
+    </script>
+    
+    <style>
+        * {margin:0;padding:0;box-sizing:border-box;}
+        .border {
+            border: solid 1px red;
+        }
+        .box {
+            width: 100vw;
+            height: 100vw;
+            border: solid 1px red;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .role, .subrole
+        {
+            width: 50%;
+            height: 50%;
+            justify-content: flex-start;
+            align-items: center;
+            border-radius: 50%;
+        }
+        .role .subrole .subrole {
+            width: 5vw;
+            height: 5vw;
+            background: green;
+        }
+        .role
+        {
+            animation-name: myfirst;
+            animation-duration: 5s;
+            animation-timing-function: linear;
+            animation-delay: 1s;
+            animation-iteration-count: 9999;
+            animation-direction: normal;
+            animation-play-state: running;
+        }
+        .role .subrole
+        {
+            animation-name: myfirst;
+            animation-duration: 1s;
+            animation-timing-function: linear;
+            animation-delay: 1s;
+            animation-iteration-count: 9999;
+            animation-direction: normal;
+            animation-play-state: running;
+        }
+        @keyframes myfirst
+        {
+            0%   {}
+            100% {transform:rotate(360deg)}
+        }
+    </style>
+</body>
+</html>
