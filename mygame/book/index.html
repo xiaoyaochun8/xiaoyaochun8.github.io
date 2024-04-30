@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <title>html5超逼真翻书效果</title>
+        <link rel="stylesheet" type="text/css" href="res/book.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="component">
+                <ul class="align">
+                    <li>
+                        <figure class='book'>
+                            <!-- Front -->
+                            <ul class='hardcover_front'>
+                                <li>
+                                    <div class="coverDesign yellow" ontouchstart="openBook()">
+                                        <span class="ribbon">NEW</span>
+                                        <h1>魔法书</h1>
+                                        <p>开卷有益</p>
+                                    </div>
+                                </li>
+                                <li></li>
+                            </ul>
+                            <!-- Pages -->
+                            <ul class='page'>
+                                <li></li>
+                                <li id="bookCon">
+                                    <b>dafdsfe</b>
+                                </li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                            <!-- Back -->
+                            <ul class='hardcover_back'>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                            <ul class='book_spine'>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                            <figcaption>
+                                <h1>CSS Ninja</h1>
+                                <span>By Marco Barría for Codrops</span>
+                                <p>Tomatillo water chestnut mustard cabbage yarrow sierra leone bologi. Watercress green bean groundnut earthnut pea dandelion radicchio.</p>
+                            </figcaption>
+                        </figure>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <script>
+            var index = 0;
+            var dataArr = [
+                '<span style="font-size:90px;">风</span>',
+                '<span style="font-size:90px;">雨</span>',
+                '<span style="font-size:90px;">雷</span>',
+                '<span style="font-size:90px;">电</span>',
+                '<img src="https://xiaoyaochun8.github.io/qw/mq/res/1.png" style="width:80%"/>',
+                '<img src="https://xiaoyaochun8.github.io/qw/mq/res/2.png" style="width:80%"/>',
+                '<img src="https://xiaoyaochun8.github.io/qw/mq/res/3.png" style="width:80%"/>',
+                '<img src="https://xiaoyaochun8.github.io/qw/mq/res/4.png" style="width:80%"/>',
+                '<div style="width:40%;height:40%;background:red"></div>',
+                '<div style="width:40%;height:40%;background:green"></div>',
+                '<div style="width:40%;height:40%;background:blue"></div>',
+            ];
+            var bookCon = document.querySelector('#bookCon');
+            function openBook(){
+                console.log(111)
+                bookCon.innerHTML = dataArr[index];
+                index ++;
+                if(index > dataArr.length - 1){
+                    index = 0;
+                }
+            }
+        </script>
+        
+        <style>
+            #bookCon {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        </style>
+    </body>
+</html>
