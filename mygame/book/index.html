@@ -28,7 +28,7 @@
                             <ul class='page'>
                                 <li></li>
                                 <li id="bookCon">
-                                    <b>dafdsfe</b>
+                                    <b></b>
                                 </li>
                                 <li></li>
                                 <li></li>
@@ -66,12 +66,12 @@
             ];
             var bookCon = document.querySelector('#bookCon');
             function openBook(){
-                console.log(111)
+                index = Math.floor(Math.random()*dataArr.length);
                 bookCon.innerHTML = dataArr[index];
-                index ++;
-                if(index > dataArr.length - 1){
-                    index = 0;
-                }
+                //index ++;
+                //if(index > dataArr.length - 1){
+                //    index = 0;
+                //}
             }
         </script>
         
