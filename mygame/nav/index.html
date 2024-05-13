@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html font-size="62.5%">
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>game</title>
+    <link href="../common/css/noUserSelect.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="../common/js/noContextmenu.js"></script>
+    <script type="text/javascript" src="../common/js/rpUtil.js"></script>
+    <link href="../common/css/fontColorful.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+    <div class="con">
+        <div class="title fontStyle2">index</div>
+        <div class="list">
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/book/index')">魔法书</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/clock/index')">准时钟</div>
+        </div>
+        <div class="list">
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/drawLine/index5')">画图</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('qw/mq/colors')">颜色</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('qw/mq/alphas')">透明度</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('qw/mq/press')">多指触摸</div>
+        </div>
+        <div class="list">
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/anim2')">直线运动</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/anim')">曲线运动</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/anim3')">曲线运动3</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/anim4')">曲线运动4</div>
+        </div>
+        <div class="list">
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/9rotate')">9转圈</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/9scale')">9变大变小</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/9translate')">9上上下下</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/9skew')">9变形</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/9rotateX')">9转圈X</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/9rotateY')">9转圈Y</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/9rotateZ')">9转圈Z</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('qw/demos/Anim/test')">ctrl</div>
+        </div>
+        <div class="list">
+            <div class="item fontStyle5" ontouchstart="goTo3('qw/mq/time')">数字时钟</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/disc5')">指针时钟</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('qw/mq/numbersRaw')">数字</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('qw/mq/numbers')">数字增长</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('qw/mq/numbers2')">数字随机</div>
+        </div>
+        <div class="list">
+            <div class="item fontStyle5" ontouchstart="goTo3('qw/mq/12YearAnimal')">十二生肖</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('qw/mq/writer')">打字机</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('qw/mq/wordsRaw')">文字</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('qw/mq/wordsRaw2')">文字对</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/disc42')">转盘</div>
+        </div>
+        <div class="list">
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/3js/dev')">立方体</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/3js/dev2')">小世界</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/3js/dev33/index')">日出</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/3js/dev44/index')">雾</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/3js/dev66/index')">探照灯</div>
+        </div>
+    </div>
+        
+    <script>
+        //isNav
+        function goTo3(name){
+            rpUtil.gotoPageWithPath(name);
+        }
+        //不可选择、无菜单、彩色、ontouchstart、使用rem替换px
+    </script>
+    
+    <style>
+        body {
+            background:aliceblue;
+            margin:0;
+            padding:0;
+            font-size:1.5rem;
+        }
+        .con {
+            border:dotted 1px lightgray;
+            background:lavender;
+            height:100vh;
+        }
+        .title {
+            border:dotted 1px lightgray;
+            margin:0 auto;
+            /*background:#e3fae7;*/
+            display:flex;
+            justify-content: space-around;
+        }
+        .nav {
+            border:dotted 1px lightgray;
+            margin:1rem auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: space-around;
+            cursor:pointer;
+        }
+        .list {
+            border:dotted 1px lightgray;
+            margin:1rem auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: space-around;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        .list .item {
+            border:dotted 1px lightgray;
+            height:2rem;
+            fontStyle5-align:center;
+            /*background:#afbee7;*/
+            cursor:pointer;
+            display:flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem;
+            letter-spacing: 0.25rem;
+        }
+    </style>
+</body>
+</html>
