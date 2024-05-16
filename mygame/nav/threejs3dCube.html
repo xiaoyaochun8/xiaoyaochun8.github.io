@@ -107,6 +107,7 @@
             border:dotted 0px lightgray;
             background:lavender;
             height:100vh;
+            opacity:0.8;
         }
         .title {
             border:dotted 0px lightgray;
@@ -153,7 +154,23 @@
         canvas {
             position: absolute;
             top: 0;
-            z-index: 8;
+            z-index: -1;
+        }
+        
+        .con{
+            transform:scale(0.01,0.01);
+            animation-name: myfirst;
+            animation-duration: 10s;
+            animation-timing-function: cubic-bezier(0, 0.05, 0, 0.97);
+            animation-delay: 3s;
+            animation-iteration-count: 99;
+            animation-direction: normal;
+            animation-play-state: running;
+        }
+        @keyframes myfirst
+        {
+            0%   {}
+            100% {transform:scale(1,1)}
         }
     </style>
 </body>
