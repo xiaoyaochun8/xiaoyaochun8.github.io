@@ -2,7 +2,7 @@
 <html font-size="62.5%">
 <head>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>game-nav-css3d</title>
+    <title>game</title>
     <link href="../../common/css/noUserSelect.css" type="text/css" rel="stylesheet">
     <script type="text/javascript" src="../../common/js/noContextmenu.js"></script>
     <script type="text/javascript" src="../../common/js/rpUtil.js"></script>
@@ -58,47 +58,64 @@
             <div class="item fontStyle5" ontouchstart="goTo3('mygame/3js/dev44/index')">雾</div>
             <div class="item fontStyle5" ontouchstart="goTo3('mygame/3js/dev66/index')">探照灯</div>
         </div>
-        <div class="wrap">
-            <div class="cube">
-                <div class="front">前</div>
-                <div class="back">后</div>
-                <div class="top">上</div>
-                <div class="bottom">下</div>
-                <div class="left">左</div>
-                <div class="right">右</div>
-            </div>
-        </div>
     </div>
         
+    <script src="https://cdn.bootcdn.net/ajax/libs/three.js/0.160.0/three.js"></script>
     <script>
         //isNav
         function goTo3(name){
             rpUtil.gotoPageWithPath(name);
         }
         //不可选择、无菜单、彩色、ontouchstart、使用rem替换px
+        //scene
+        const scene = new THREE.Scene();
+        //camera
+        const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+        camera.position.z = 150;
+        camera.position.y = 80;
+        camera.lookAt(scene.position);
+        //renderer
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        document.body.appendChild( renderer.domElement );
+
+        const geometry = new THREE.BoxGeometry( 30, 30, 30);
+        const material = new THREE.MeshNormalMaterial();
+        const cube = new THREE.Mesh( geometry, material );
+        scene.add( cube );
+
+        function animate() {
+            requestAnimationFrame( animate );
+            
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+            
+            renderer.render( scene, camera );
+        };
+        animate();
     </script>
     
     <style>
         body {
-            background:aliceblue;
+            background:black;
             margin:0;
             padding:0;
             font-size:1.5rem;
         }
         .con {
-            border:dotted 1px lightgray;
+            border:dotted 0px lightgray;
             background:lavender;
             height:100vh;
         }
         .title {
-            border:dotted 1px lightgray;
+            border:dotted 0px lightgray;
             margin:0 auto;
             /*background:#e3fae7;*/
             display:flex;
             justify-content: space-around;
         }
         .nav {
-            border:dotted 1px lightgray;
+            border:dotted 0px lightgray;
             margin:1rem auto;
             background:#e3fae7;
             display:flex;
@@ -106,84 +123,36 @@
             cursor:pointer;
         }
         .list {
-            border:dotted 1px lightgray;
+            border:dotted 0px lightgray;
             margin:1rem auto;
-            background:#e3fae7;
+            background:black;
             display:flex;
             justify-content: space-around;
             flex-direction: row;
             flex-wrap: wrap;
+            z-index:9;
         }
         .list .item {
-            border:dotted 1px lightgray;
+            border:dotted 0px lightgray;
             height:2rem;
-            fontStyle5-align:center;
-            /*background:#afbee7;*/
+            text-align:center;
+            background:#afbee7;
             cursor:pointer;
             display:flex;
             align-items: center;
             justify-content: center;
             margin: 1rem;
             letter-spacing: 0.25rem;
-            z-index: 9;
+            z-index:9;
         }
-
+        .fontStyle2, .fontStyle5 {
+            color: white;
+        }
         
-        
-        .wrap {
-            perspective: 800px;
-            perspective-origin: 50% -200px;
+        canvas {
             position: absolute;
-            left: 25%;
-            top: 20%;
+            top: 0;
             z-index: 8;
-        }
-        .cube {
-            position: relative;
-            width: 200px;
-            transform-style: preserve-3d;
-        }
-        .cube div {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            opacity: 0.1;
-        }
-        .back {
-            transform: translateZ(-100px) rotateY(180deg);
-            background:red;
-        }
-        .right {
-            transform: rotateY(-270deg) translateX(100px);
-            transform-origin: top right;
-            background:green;
-        }
-        .left {
-            transform: rotateY(270deg) translateX(-100px);
-            transform-origin: center left;
-            background:green;
-        }
-        .top {
-            transform: rotateX(-90deg) translateY(-100px);
-            transform-origin: top center;
-            background:blue;
-        }
-        .bottom {
-            transform: rotateX(90deg) translateY(100px);
-            transform-origin: bottom center;
-            background:blue;
-        }
-        .front {
-            transform: translateZ(100px);
-            background:red;
-        }
-        @keyframes spin {
-            from { transform: rotateY(0); }
-            to { transform: rotateY(-360deg); }
-        }
-
-        .cube {
-            animation: spin 20s infinite linear;
         }
     </style>
 </body>
