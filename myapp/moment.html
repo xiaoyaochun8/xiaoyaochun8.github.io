@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+        <title>此刻</title>
+    </head>
+    <body>
+        <templateN id="fullScreen" style="background: lightblue">
+            此刻
+            <view class="item" id="item1">0</view>
+            <view class="item" id="item2">0</view>
+            <view class="item" id="item3">0</view>
+            <view class="item" id="item4">0</view>
+            <button ontouchstart="reloadData()">刷新</button>
+        </templateN>
+
+        <script>
+            function calcTime(){
+                var date = new Date();
+                var y = date.getFullYear();
+                var m = date.getMonth()+1;
+                var d = date.getDate();
+                var h = date.getHours();
+                var i = date.getMinutes();
+                var s = date.getSeconds();
+                var w = date.getDay();
+                var wNw = getMonthWeek(y, m, d);
+                var wNy = getYearWeek(y, m, d);
+                
+                setCon('#item1', '年：'+y+'<br>月：'+m+'<br>日：'+d+'<br>星期：'+w+'<br>周数：'+wNw+'<br>周数：'+wNy);
+                setCon('#item2', '小时：'+h+'<br>分钟：'+i+'<br>秒数：'+s);
+
+            }
+            function setCon(e, html){
+                document.querySelector(e).innerHTML = html;
+            }
+            function reloadData(){
+                location.reload();
+            }
+            
+            var getMonthWeek = function (a, b, c) { 
+                /* 
+                a = d = 当前日期 
+                b = 6 - w = 当前周的还有几天过完(不算今天) 
+                a + b 的和在除以7 就是当天是当前月份的第几周 
+                */
+                var date = new Date(a, parseInt(b) - 1, c), w = date.getDay(), d = date.getDate(); 
+                return Math.ceil( 
+                (d + 6 - w) / 7 
+                ); 
+            };
+            var getYearWeek = function (a, b, c) { 
+                /* 
+                date1是当前日期 
+                date2是当年第一天 
+                d是当前日期是今年第多少天 
+                用d + 当前年的第一天的周差距的和在除以7就是本年第几周 
+                */
+                var date1 = new Date(a, parseInt(b) - 1, c), date2 = new Date(a, 0, 1), 
+                d = Math.round((date1.valueOf() - date2.valueOf()) / 86400000); 
+                return Math.ceil( 
+                (d + ((date2.getDay() + 1) - 1)) / 7 
+                ); 
+            }; 
+
+            calcTime();
+        </script>
+        
+        <style type="text/css">
+            * {
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+            }
+            #fullScreen {
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                font-size:2rem;
+            }
+            .item {
+                width: 80%;
+                background:antiquewhite;
+                border:solid 1px blue;
+                display: flex;
+                justify-content: center;
+                align-items: flex-end;
+            }
+            button {
+                font-size:2rem;
+            }
+        </style>
+    </body>
+</html>
