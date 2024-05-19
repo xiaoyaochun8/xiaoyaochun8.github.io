@@ -11,6 +11,9 @@
             <view class="item" id="item2">0</view>
             <view class="item" id="item3">0</view>
             <view class="item" id="item4">0</view>
+            <view class="item" id="item4">年进度：<br>
+                <view class="barBg"><view class="bar" id="bar1"></view></view>
+            </view>
             <button ontouchstart="reloadData()">刷新</button>
         </templateN>
 
@@ -27,12 +30,20 @@
                 var wNw = getMonthWeek(y, m, d);
                 var wNy = getYearWeek(y, m, d);
                 
-                setCon('#item1', '年：'+y+'<br>月：'+m+'<br>日：'+d+'<br>星期：'+w+'<br>周数：'+wNw+'<br>周数：'+wNy);
+                var yearDayPer = (date.getTime() - new Date(y+' 00:').getTime()) / 1000 / 3600 / 24 / 365 * 100;
+                
+                setCon('#item1', '年：'+y+'<br>月：'+m+'<br>日：'+d);
                 setCon('#item2', '小时：'+h+'<br>分钟：'+i+'<br>秒数：'+s);
+                setCon('#item3', '星期：'+w+'<br>周数：'+wNw+'<br>周数：'+wNy);
+                getE('.bar').style.width = yearDayPer+'%';
+                setCon('#bar1', Math.floor(yearDayPer)+'%');
 
             }
             function setCon(e, html){
-                document.querySelector(e).innerHTML = html;
+                getE(e).innerHTML = html;
+            }
+            function getE(e){
+                return document.querySelector(e);
             }
             function reloadData(){
                 location.reload();
@@ -78,7 +89,7 @@
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                font-size:2rem;
+                font-size:1rem;
             }
             .item {
                 width: 80%;
@@ -90,6 +101,19 @@
             }
             button {
                 font-size:2rem;
+            }
+            .barBg {
+                height:2rem;
+                width:80%;
+                border:solid 1px red;
+                background:white;
+            }
+            .bar {
+                display:block;
+                height:2rem;
+                width:80%;
+                border:solid 1px red;
+                background:green;
             }
         </style>
     </body>
