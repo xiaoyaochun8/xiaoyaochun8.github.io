@@ -9,12 +9,25 @@
             此刻
             <view class="item" id="item1">0</view>
             <view class="item" id="item2">0</view>
-            <view class="item" id="item3">0</view>
-            <view class="item" id="item4">0</view>
-            <view class="item" id="item4">年进度：<br>
+            <view class="item" id="">本年进度：
                 <view class="barBg"><view class="bar" id="bar1"></view></view>
             </view>
-            <button ontouchstart="reloadData()">刷新</button>
+            <view class="item" id="">本月进度：
+                <view class="barBg"><view class="bar" id="bar2"></view></view>
+            </view>
+            <view class="item" id="">本周进度(星期数)：
+                <view class="barBg"><view class="bar" id="bar3"></view></view>
+            </view>
+            <view class="item" id="item3">0</view>
+            <view class="item" id="">本日进度(小时数)：
+                <view class="barBg"><view class="bar" id="bar4"></view></view>
+            </view>
+            <view class="item" id="">本小时进度(分钟数)：
+                <view class="barBg"><view class="bar" id="bar5"></view></view>
+            </view>
+            <view class="item" id="">本分钟进度(秒数)：
+                <view class="barBg"><view class="bar" id="bar6"></view></view>
+            </view>
         </templateN>
 
         <script>
@@ -29,14 +42,39 @@
                 var w = date.getDay();
                 var wNw = getMonthWeek(y, m, d);
                 var wNy = getYearWeek(y, m, d);
+
+                setCon('#item1', '周数：'+wNy+'<br>周数：'+wNw+'<br>星期：'+w);
+                setCon('#item2', '年：'+y+'<br>月：'+m+'<br>日：'+d);
+                setCon('#item3', '小时：'+h+'<br>分钟：'+i+'<br>秒数：'+s);
                 
-                var yearDayPer = (date.getTime() - new Date(y+' 00:').getTime()) / 1000 / 3600 / 24 / 365 * 100;
+                //var yearDayPer = (date.getTime() - new Date(y+' 00:').getTime()) / 1000 / 3600 / 24 / 365 * 100;
+                var startTime = new Date(y+' 00:').getTime();
+                var nextTime = new Date((y+1)+' 00:').getTime();
+                var dayPerOfYear = (date.getTime() - startTime) / (nextTime - startTime) * 100;
+                getE('#bar1').style.width = dayPerOfYear+'%';
+                setCon('#bar1', Math.floor(dayPerOfYear)+'%');
                 
-                setCon('#item1', '年：'+y+'<br>月：'+m+'<br>日：'+d);
-                setCon('#item2', '小时：'+h+'<br>分钟：'+i+'<br>秒数：'+s);
-                setCon('#item3', '星期：'+w+'<br>周数：'+wNw+'<br>周数：'+wNy);
-                getE('.bar').style.width = yearDayPer+'%';
-                setCon('#bar1', Math.floor(yearDayPer)+'%');
+                var startTime = new Date(y+'/'+m+' 00:').getTime();
+                var nextTime = new Date(y+'/'+(m+1)+' 00:').getTime();
+                var dayPerOfMonth = (date.getTime() - startTime) / (nextTime - startTime) * 100;
+                getE('#bar2').style.width = dayPerOfMonth+'%';
+                setCon('#bar2', Math.floor(dayPerOfMonth)+'%');
+                
+                var dayPerOfWeek = (w) / (7) * 100;
+                getE('#bar3').style.width = dayPerOfWeek+'%';
+                setCon('#bar3', Math.floor(dayPerOfWeek)+'%');
+                
+                var hourPerOfDay = (h) / (24) * 100;
+                getE('#bar4').style.width = hourPerOfDay+'%';
+                setCon('#bar4', Math.floor(hourPerOfDay)+'%');
+                
+                var minPerOfHour = (i) / (60) * 100;
+                getE('#bar5').style.width = minPerOfHour+'%';
+                setCon('#bar5', Math.floor(minPerOfHour)+'%');
+                
+                var secPerOfMin = (s) / (60) * 100;
+                getE('#bar6').style.width = secPerOfMin+'%';
+                setCon('#bar6', Math.floor(secPerOfMin)+'%');
 
             }
             function setCon(e, html){
@@ -44,9 +82,6 @@
             }
             function getE(e){
                 return document.querySelector(e);
-            }
-            function reloadData(){
-                location.reload();
             }
             
             var getMonthWeek = function (a, b, c) { 
@@ -74,7 +109,13 @@
                 ); 
             }; 
 
-            calcTime();
+            function setDelayTimer(){
+                setTimeout(function(){
+                    calcTime();
+                    setDelayTimer();
+                },1000);
+            }
+            setDelayTimer();
         </script>
         
         <style type="text/css">
@@ -94,26 +135,27 @@
             .item {
                 width: 80%;
                 background:antiquewhite;
-                border:solid 1px blue;
-                display: flex;
-                justify-content: center;
-                align-items: flex-end;
+                border:solid 1px lightgray;
+                border-radius: 30px;
+                padding: 10px;
             }
             button {
                 font-size:2rem;
             }
             .barBg {
-                height:2rem;
+                display:block;
                 width:80%;
                 border:solid 1px red;
                 background:white;
+                border-radius: 20px;
             }
             .bar {
                 display:block;
-                height:2rem;
                 width:80%;
                 border:solid 1px red;
-                background:green;
+                background:lightgreen;
+                border-radius: 20px;
+                padding:3px;
             }
         </style>
     </body>
