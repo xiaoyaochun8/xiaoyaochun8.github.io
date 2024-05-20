@@ -6,6 +6,7 @@
     </head>
     <body>
         <templateN id="fullScreen" style="background: lightblue">
+            =此刻=
             <view class="item" id="item1">0</view>
             <view class="item" id="">本周进度(星期数)：
                 <view class="barBg"><view class="bar" id="bar3"></view></view>
@@ -26,9 +27,9 @@
             <view class="item" id="">本小时进度(分钟数)：
                 <view class="barBg"><view class="bar" id="bar5"></view></view>
             </view>
-            <view class="item" id="">本分钟进度(秒数)：
+            <!--<view class="item" id="">本分钟进度(秒数)：
                 <view class="barBg"><view class="bar" id="bar6"></view></view>
-            </view>
+            </view>-->
             =此刻=
             <view class="item" id="">本工作日进度(时间)：
                 <view class="barBg"><view class="bar" id="bar7"></view></view>
@@ -48,9 +49,9 @@
                 var wNw = getMonthWeek(y, m, d);
                 var wNy = getYearWeek(y, m, d);
 
-                setCon('#item1', '周数：'+wNy+'<br>周数：'+wNw+'<br>星期：'+w);
-                setCon('#item2', '年：'+y+'<br>月：'+m+'<br>日：'+d);
-                setCon('#item3', '小时：'+h+'<br>分钟：'+i+'<br>秒数：'+s);
+                setCon('#item1', '周数：'+wNy+'，周数：'+wNw+'，星期：'+w);
+                setCon('#item2', y+' 年 '+m+' 月 '+d+' 日');
+                setCon('#item3', h+' : '+i+' : '+s);
                 
                 //var yearDayPer = (date.getTime() - new Date(y+' 00:').getTime()) / 1000 / 3600 / 24 / 365 * 100;
                 var startTime = new Date(y+' 00:').getTime();
@@ -77,9 +78,9 @@
                 getE('#bar5').style.width = minPerOfHour+'%';
                 setCon('#bar5', Math.floor(minPerOfHour)+'%');
                 
-                var secPerOfMin = (s) / (60) * 100;
-                getE('#bar6').style.width = secPerOfMin+'%';
-                setCon('#bar6', Math.floor(secPerOfMin)+'%');
+                //var secPerOfMin = (s) / (60) * 100;
+                //getE('#bar6').style.width = secPerOfMin+'%';
+                //setCon('#bar6', Math.floor(secPerOfMin)+'%');
                 
                 var startTime = new Date(y+'/'+m+'/'+d+' 09:30').getTime();
                 var nextTime = new Date(y+'/'+m+'/'+d+' 18:30').getTime();
@@ -121,11 +122,13 @@
             }; 
 
             function setDelayTimer(){
+                console.log('setDelayTimer');
                 setTimeout(function(){
                     calcTime();
                     setDelayTimer();
                 },1000);
             }
+            calcTime();
             setDelayTimer();
         </script>
         
