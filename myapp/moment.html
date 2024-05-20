@@ -6,8 +6,10 @@
     </head>
     <body>
         <templateN id="fullScreen" style="background: lightblue">
-            此刻
             <view class="item" id="item1">0</view>
+            <view class="item" id="">本周进度(星期数)：
+                <view class="barBg"><view class="bar" id="bar3"></view></view>
+            </view>
             <view class="item" id="item2">0</view>
             <view class="item" id="">本年进度：
                 <view class="barBg"><view class="bar" id="bar1"></view></view>
@@ -15,9 +17,7 @@
             <view class="item" id="">本月进度：
                 <view class="barBg"><view class="bar" id="bar2"></view></view>
             </view>
-            <view class="item" id="">本周进度(星期数)：
-                <view class="barBg"><view class="bar" id="bar3"></view></view>
-            </view>
+            此刻
             <view class="item" id="item3">0</view>
             <view class="item" id="">本日进度(小时数)：
                 <view class="barBg"><view class="bar" id="bar4"></view></view>
@@ -137,17 +137,14 @@
                 background:antiquewhite;
                 border:solid 1px lightgray;
                 border-radius: 30px;
-                padding: 10px;
-            }
-            button {
-                font-size:2rem;
+                padding: 8px;
             }
             .barBg {
                 display:block;
-                width:80%;
                 border:solid 1px red;
                 background:white;
                 border-radius: 20px;
+                font-size:0.6rem;
             }
             .bar {
                 display:block;
