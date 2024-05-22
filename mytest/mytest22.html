@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta charset="utf-8">
+        <title>3js-module-impoort</title>
+        <style>
+            body { margin: 0; }
+        </style>
+        <script src="https://cdn.bootcss.com/eruda/1.5.4/eruda.js" ></script>
+        <script>
+          eruda.init();
+        </script>
+    </head>
+    <body>
+        <script type="module">
+            import * as THREE from 'https://unpkg.com/three@latest/build/three.module.js';
+            console.log('threejs version:'+THREE.REVISION);
+        </script>
+    </body>
+</html>
