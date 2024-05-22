@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta charset="utf-8">
+        <title>刻度线</title>
+        <script src="https://cdn.bootcss.com/eruda/1.5.4/eruda.js" ></script>
+        <script>
+          eruda.init();
+        </script>
+    </head>
+    <body>
+
+        <div id="aaa"></div>
+        <div id="bbb" style="margin-top:50px;width:50%"></div>
+        <script type="module">
+            import { initDividRule } from './viewDividRule.module.js';
+            initDividRule('#aaa', 10, 1);
+            initDividRule('#bbb', 10, 1);
+        </script>
+        
+        
+    </body>
+</html>
