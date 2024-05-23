@@ -7,22 +7,26 @@
     <body>
         <templateN id="fullScreen" style="background: lightblue">
             =此刻=日
-            <view class="item" id="item1">0</view>
-            <view class="item" id="">本年进度：
-                <view class="barBg"><view class="bar" id="bar1"></view></view>
-            </view>
-            <view class="item" id="">本月进度：
-                <view class="barBg"><view class="bar" id="bar2"></view></view>
-            </view>
-            <view class="item" id="">本周进度(星期数)：
-                <view class="barBg"><view class="bar" id="bar3"></view></view>
-            </view>
+            <view class="item" id="item3">0</view>
             <view class="item" id="">本日进度(小时数)：
                 <view class="barBg"><view class="bar" id="bar4"></view></view>
             </view>
+            <view class="item" id="">本小时进度(分钟数)：
+                <view class="barBg"><view class="bar" id="bar5"></view></view>
+            </view>
+            <view class="item" id="">本分钟进度(秒数)：
+                <view class="barBg"><view class="bar" id="bar6"></view></view>
+            </view>
+            =此刻=
+            <view class="item" id="">本工作日进度(时间)：
+                <view id="barSeg"></view>
+                <view class="barBg"><view class="bar" id="bar7"></view></view>
+            </view>
         </templateN>
 
-        <script>
+        <script type="module">
+            import { DividRule } from './../mytest/viewDividRule.module.js';
+            DividRule.init('#barSeg', 8, [0,0,1], [3,4]);
             function calcTime(){
                 var date = new Date();
                 var y = date.getFullYear();
@@ -34,30 +38,28 @@
                 var w = date.getDay();
                 var wNw = getMonthWeek(y, m, d);
                 var wNy = getYearWeek(y, m, d);
-                
-                setCon('#item1', y+' 年 '+m+' 月 '+d+' 日 星期 '+w);
-                
-                //var yearDayPer = (date.getTime() - new Date(y+' 00:').getTime()) / 1000 / 3600 / 24 / 365 * 100;
-                var startTime = new Date(y+' 00:').getTime();
-                var nextTime = new Date((y+1)+' 00:').getTime();
-                var dayPerOfYear = (date.getTime() - startTime) / (nextTime - startTime) * 100;
-                getE('#bar1').style.width = dayPerOfYear+'%';
-                setCon('#bar1', Math.floor(dayPerOfYear)+'%');
-                
-                var startTime = new Date(y+'/'+m+' 00:').getTime();
-                var nextTime = new Date(y+'/'+(m+1)+' 00:').getTime();
-                var dayPerOfMonth = (date.getTime() - startTime) / (nextTime - startTime) * 100;
-                getE('#bar2').style.width = dayPerOfMonth+'%';
-                setCon('#bar2', Math.floor(dayPerOfMonth)+'%');
-                
-                var dayPerOfWeek = (w) / (7) * 100;
-                getE('#bar3').style.width = dayPerOfWeek+'%';
-                setCon('#bar3', Math.floor(dayPerOfWeek)+'%');
+
+                setCon('#item3', h+' : '+i+' : '+s);
                 
                 var hourPerOfDay = (h) / (24) * 100;
                 getE('#bar4').style.width = hourPerOfDay+'%';
                 setCon('#bar4', Math.floor(hourPerOfDay)+'%');
-
+                
+                var minPerOfHour = (i) / (60) * 100;
+                getE('#bar5').style.width = minPerOfHour+'%';
+                setCon('#bar5', Math.floor(minPerOfHour)+'%');
+                
+                var secPerOfMin = (s) / (60) * 100;
+                getE('#bar6').style.width = secPerOfMin+'%';
+                setCon('#bar6', Math.floor(secPerOfMin)+'%');
+                
+                var startTime = new Date(y+'/'+m+'/'+d+' 09:30').getTime();
+                var nextTime = new Date(y+'/'+m+'/'+d+' 18:30').getTime();
+                var timePerOfWorkDay = (date.getTime() - startTime) / (nextTime - startTime) * 100;
+                if(date.getTime() > startTime && date.getTime() < nextTime){
+                    getE('#bar7').style.width = timePerOfWorkDay+'%';
+                    setCon('#bar7', Math.floor(timePerOfWorkDay)+'%');
+                }
             }
             function setCon(e, html){
                 getE(e).innerHTML = html;
@@ -99,7 +101,7 @@
                 },1000);
             }
             calcTime();
-            //setDelayTimer();
+            setDelayTimer();
         </script>
         
         <style type="text/css">
@@ -129,6 +131,7 @@
                 background:#dcdde1;
                 border-radius: 20px;
                 font-size:0.6rem;
+                margin-top:0.2rem;
             }
             .bar {
                 display:block;

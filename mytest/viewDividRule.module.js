@@ -72,7 +72,7 @@ var style = `
     justify-content: space-around;
 }
 .drLineBox {
-    border-bottom: solid 1px gray;
+    border-bottom: solid 0px gray;
     display: flex;
     width: 100%;
     flex-wrap: nowrap;
@@ -118,9 +118,10 @@ var style = `
 }
 .drLineDot {
     border: solid 1px #4cd137;
+    border-radius:8px;
     background: #4cd137;
     width: 9%;
-    height: 0.1rem;
+    height: 0.2rem;
 }
 .empty {
     background: white;

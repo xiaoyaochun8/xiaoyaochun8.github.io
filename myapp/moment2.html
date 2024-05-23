@@ -7,14 +7,10 @@
     <body>
         <templateN id="fullScreen" style="background: lightblue">
             =此刻=周
-            <view class="item" id="item1">0</view>
-            <view class="item" id="">本年进度：
-                <view class="barBg"><view class="bar" id="bar1"></view></view>
-            </view>
+            <view class="item" id="item2">0</view>
             <view class="item" id="">本月进度：
                 <view class="barBg"><view class="bar" id="bar2"></view></view>
             </view>
-            <view class="item" id="item2">0</view>
             <view class="item" id="">本周进度(星期数)：
                 <view class="barBg"><view class="bar" id="bar3"></view></view>
             </view>
@@ -38,7 +34,6 @@
                 var ary = ['前端','golang','java','android','u3d','php'];
                 var quyu = wNy % ary.length;
 
-                setCon('#item1', y+' 年 '+m+' 月 '+d+' 日');
                 setCon('#item2', '周数：'+wNy+'，周数：'+wNw+'，星期：'+w);
                 setCon('#item3', '周数 % '+ary.length+' = '+quyu);
                 
@@ -51,13 +46,6 @@
                     }
                 }
                 setCon('#item4', tmpHtml);
-                
-                //var yearDayPer = (date.getTime() - new Date(y+' 00:').getTime()) / 1000 / 3600 / 24 / 365 * 100;
-                var startTime = new Date(y+' 00:').getTime();
-                var nextTime = new Date((y+1)+' 00:').getTime();
-                var dayPerOfYear = (date.getTime() - startTime) / (nextTime - startTime) * 100;
-                getE('#bar1').style.width = dayPerOfYear+'%';
-                setCon('#bar1', Math.floor(dayPerOfYear)+'%');
                 
                 var startTime = new Date(y+'/'+m+' 00:').getTime();
                 var nextTime = new Date(y+'/'+(m+1)+' 00:').getTime();
