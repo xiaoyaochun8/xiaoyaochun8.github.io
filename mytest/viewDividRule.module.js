@@ -1,4 +1,13 @@
-function initDividRule(e, cnt, isShowNum){
+var DividRule = {}
+DividRule.inArray = function(str, ary){
+    for(var i in ary){
+        if(str == ary[i]){
+            return true;
+        }
+    }
+    return false;
+}
+DividRule.init = function (e, cnt, isShow, emptySegmentAry){
                 initHtml(e);
                 initStyle();
                 var html = '';
@@ -15,17 +24,34 @@ function initDividRule(e, cnt, isShowNum){
                     extClass = '';
                     html2 += '<div class="drNum">'+(i)+'</div>';
                 }
-                var drLineBox = document.querySelector(e+' .drBox .drLineBox');
-                drLineBox.innerHTML = html;
-                if(isShowNum){
+                var html3 = '';
+                var segWidthPer = 9;
+                for(var i=0;i<=cnt;i++){
+                    extClass = '';
+                    if(DividRule.inArray(i, emptySegmentAry)){
+                        extClass = 'empty';
+                    }
+                    html3 += '<div class="drLineDot '+extClass+'" style="width:'+segWidthPer+'%"></div>';
+                }
+                if(isShow[0]==1){
+                    var drLineBox = document.querySelector(e+' .drBox .drLineBox');
+                    drLineBox.innerHTML = html;
+                }
+                if(isShow[1]==1){
                     var drNumBox = document.querySelector(e+' .drBox .drNumBox');
                     drNumBox.innerHTML = html2;
+                }
+                if(isShow[2]==1){
+                    var drLineDotBox = document.querySelector(e+' .drBox .drLineDotBox');
+                    drLineDotBox.innerHTML = html3;
                 }
             }
             function initHtml(e){
 var html = `
 <div class="drBox">
     <div class="drLineBox">
+    </div>
+    <div class="drLineDotBox">
     </div>
     <div class="drNumBox">
     </div>
@@ -40,8 +66,10 @@ var style = `
 <style id="drBoxStyle">
 .drBox {
     width: 100%;
-    height: 30px;
-    border: solid 1px blue;
+    border: solid 0px blue;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 .drLineBox {
     border-bottom: solid 1px gray;
@@ -79,10 +107,29 @@ var style = `
     font-size: 0.5rem;
     text-align: center;
 }
+.drLineDotBox {
+    border-bottom: solid 0px red;
+    display: flex;
+    width: 100%;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.drLineDot {
+    border: solid 1px #4cd137;
+    background: #4cd137;
+    width: 9%;
+    height: 0.1rem;
+}
+.empty {
+    background: white;
+    border: solid 1px #4cd137;
+}
 <style>`;
 document.querySelector('body').insertAdjacentHTML('beforeend', style);
             }
             
 export {
-    initDividRule
+    DividRule
 }

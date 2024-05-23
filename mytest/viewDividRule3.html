@@ -13,10 +13,16 @@
 
         <div id="aaa"></div>
         <div id="bbb" style="margin-top:50px;width:50%"></div>
+        <div id="ccc" style="margin-top:50px;width:70%"></div>
+        <div id="ddd" style="margin-top:50px;width:70%"></div>
+
+
         <script type="module">
-            import { initDividRule } from './viewDividRule.module.js';
-            initDividRule('#aaa', 10, 1);
-            initDividRule('#bbb', 10, 1);
+            import { DividRule } from './viewDividRule.module.js';
+            DividRule.init('#aaa', 10, [1]);
+            DividRule.init('#bbb', 10, [1,1]);
+            DividRule.init('#ccc', 10, [1,1,1]);
+            DividRule.init('#ddd', 8, [0,0,1], [3,4]);
         </script>
         
         

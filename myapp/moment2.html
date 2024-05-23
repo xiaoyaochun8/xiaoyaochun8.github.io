@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
-        <title>此刻</title>
+        <title>此刻周</title>
     </head>
     <body>
         <templateN id="fullScreen" style="background: lightblue">
-            =此刻=
+            =此刻=周
             <view class="item" id="item1">0</view>
             <view class="item" id="">本年进度：
                 <view class="barBg"><view class="bar" id="bar1"></view></view>
@@ -35,7 +35,7 @@
                 var wNw = getMonthWeek(y, m, d);
                 var wNy = getYearWeek(y, m, d);
                 
-                var ary = ['前端','golang','java','android','u3d'];
+                var ary = ['前端','golang','java','android','u3d','php'];
                 var quyu = wNy % ary.length;
 
                 setCon('#item1', y+' 年 '+m+' 月 '+d+' 日');
