@@ -28,7 +28,7 @@ DividRule.init = function (e, cnt, isShow, emptySegmentAry, segWPer){
                 var segWidthPer = segWPer ? segWPer : 9;
                 for(var i=0;i<=cnt;i++){
                     extClass = '';
-                    if(DividRule.inArray(i, emptySegmentAry)){
+                    if(this.inArray(i, emptySegmentAry)){
                         extClass = 'empty';
                     }
                     html3 += '<div class="drLineDot '+extClass+'" style="width:'+segWidthPer+'%"></div>';
