@@ -7,7 +7,7 @@ DividRule.inArray = function(str, ary){
     }
     return false;
 }
-DividRule.init = function (e, cnt, isShow, emptySegmentAry){
+DividRule.init = function (e, cnt, isShow, emptySegmentAry, segWPer){
                 initHtml(e);
                 initStyle();
                 var html = '';
@@ -25,7 +25,7 @@ DividRule.init = function (e, cnt, isShow, emptySegmentAry){
                     html2 += '<div class="drNum">'+(i)+'</div>';
                 }
                 var html3 = '';
-                var segWidthPer = 9;
+                var segWidthPer = segWPer ? segWPer : 9;
                 for(var i=0;i<=cnt;i++){
                     extClass = '';
                     if(DividRule.inArray(i, emptySegmentAry)){
