@@ -19,11 +19,6 @@
             <view class="item" id="">本分钟进度(秒数)：
                 <view class="barBg"><view class="bar" id="bar6"></view></view>
             </view>
-            =此刻=
-            <view class="item" id="">本工作日进度(时间)：
-                <view id="barSeg"></view>
-                <view class="barBg"><view class="bar" id="bar7"></view></view>
-            </view>
         </templateN>
 
         <script type="module">
@@ -56,14 +51,6 @@
                 var secPerOfMin = (s) / (60) * 100;
                 getE('#bar6').style.width = secPerOfMin+'%';
                 setCon('#bar6', Math.floor(secPerOfMin)+'%');
-                
-                var startTime = new Date(y+'/'+m+'/'+d+' 09:30').getTime();
-                var nextTime = new Date(y+'/'+m+'/'+d+' 18:30').getTime();
-                var timePerOfWorkDay = (date.getTime() - startTime) / (nextTime - startTime) * 100;
-                if(date.getTime() > startTime && date.getTime() < nextTime){
-                    getE('#bar7').style.width = timePerOfWorkDay+'%';
-                    setCon('#bar7', Math.floor(timePerOfWorkDay)+'%');
-                }
             }
             function setCon(e, html){
                 getE(e).innerHTML = html;
