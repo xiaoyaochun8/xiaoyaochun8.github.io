@@ -10,6 +10,16 @@
 </head>
 <body>
     <div class="con">
+        <div class="wrap">
+            <div class="cube">
+                <div class="front">前</div>
+                <div class="back">后</div>
+                <div class="top">上</div>
+                <div class="bottom">下</div>
+                <div class="left">左</div>
+                <div class="right">右</div>
+            </div>
+        </div>
         <div class="title fontStyle2">index</div>
         <div class="list">
             <div class="item fontStyle5" ontouchstart="goTo3('mygame/book/index')">魔法书</div>
@@ -57,16 +67,6 @@
             <div class="item fontStyle5" ontouchstart="goTo3('mygame/3js/dev33/index')">日出</div>
             <div class="item fontStyle5" ontouchstart="goTo3('mygame/3js/dev44/index')">雾</div>
             <div class="item fontStyle5" ontouchstart="goTo3('mygame/3js/dev66/index')">探照灯</div>
-        </div>
-        <div class="wrap">
-            <div class="cube">
-                <div class="front">前</div>
-                <div class="back">后</div>
-                <div class="top">上</div>
-                <div class="bottom">下</div>
-                <div class="left">左</div>
-                <div class="right">右</div>
-            </div>
         </div>
     </div>
         
@@ -133,10 +133,11 @@
         .wrap {
             perspective: 800px;
             perspective-origin: 50% -200px;
-            position: absolute;
+            position: relative;
             left: 25%;
             top: 20%;
             z-index: 8;
+            height: inherit;
         }
         .cube {
             position: relative;
@@ -147,7 +148,10 @@
             position: absolute;
             width: 200px;
             height: 200px;
-            opacity: 0.1;
+            opacity: 0.8;
+            font-size: 8rem;
+            font-weight: bold;
+            color: white;
         }
         .back {
             transform: translateZ(-100px) rotateY(180deg);
