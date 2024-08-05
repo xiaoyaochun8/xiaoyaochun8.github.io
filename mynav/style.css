@@ -13,16 +13,16 @@
 .item {
   padding: 2%;
 }
-.column:nth-child(odd) span:nth-child(1) {
+.column:nth-child(odd) span:nth-child(odd) {
     background: #c7edcc;
 }
-.column:nth-child(odd) span:nth-child(2) {
+.column:nth-child(odd) span:nth-child(even) {
     background: #dce2f1;
 }
-.column:nth-child(even) span:nth-child(1) {
+.column:nth-child(even) span:nth-child(odd) {
     background: #dce2f1;
 }
-.column:nth-child(even) span:nth-child(2) {
+.column:nth-child(even) span:nth-child(even) {
     background: #c7edcc;
 }
 
