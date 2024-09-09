@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta charset="utf-8">
+        <title>旋转立方体</title>
+        <link href="../../common/css/noUserSelect.css" type="text/css" rel="stylesheet">
+        <style>
+            body { margin: 0; }
+            button {
+                position:absolute;
+                top: 15%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size:2rem;
+                border-radius:5rem;
+                background:red;
+            }
+        </style>
+        <script src="https://cdn.bootcss.com/eruda/1.5.4/eruda.js" ></script>
+        <script>
+          eruda.init();
+          var isPlay = true;
+          function playStop(){
+            var btn = document.getElementById('btnPlayStop');
+            if(btn.innerHTML == '停止'){
+                isPlay = false;
+                btn.innerHTML = '开始';
+                btn.style.background = 'green';
+            }else{
+                isPlay = true;
+                btn.innerHTML = '停止';
+                btn.style.background = 'red';
+            }
+          }
+        </script>
+    </head>
+    <body>
+        <button id="btnPlayStop" ontouchstart="playStop()">停止</button>
+        <script src="https://cdn.bootcdn.net/ajax/libs/three.js/0.156.1/three.js"></script>
+        <script type="module">
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+            
+            const light = new THREE.PointLight( 0xff0000, 1, 100 );
+            light.position.set( 50, 50, 50 );
+            scene.add( light );
+
+            const renderer = new THREE.WebGLRenderer();
+            renderer.setSize( window.innerWidth, window.innerHeight );
+            document.body.appendChild( renderer.domElement );
+
+            const geometry = new THREE.BoxGeometry( 30, 30, 30);
+            //const material = new THREE.MeshBasicMaterial( { color: 0xff00ff } );
+            const material = new THREE.MeshNormalMaterial();
+            
+            const cube = new THREE.Mesh( geometry, material );
+            scene.add( cube );
+            //cube.visible = false;
+            cube.position.y = 40;
+            
+            makeLand();
+
+            camera.position.z = 150;
+            camera.position.y = 80;
+            camera.lookAt(scene.position);
+
+            function animate() {
+                requestAnimationFrame( animate );
+                if(isPlay){
+                    cube.rotation.x += 0.01;
+                    cube.rotation.y += 0.01;
+                }
+                renderer.render( scene, camera );
+            };
+
+            animate();
+            
+            function makeLand(){
+                var geometry = new THREE.BoxGeometry( 100, 1, 100);
+                var material = new THREE.MeshNormalMaterial();
+                //material.wireframe = true;
+                var cube = new THREE.Mesh( geometry, material );
+                scene.add( cube );
+                //cube.visible = false;
+            }
+
+        </script>
+    </body>
+</html>

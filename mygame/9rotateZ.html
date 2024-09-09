@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>game-9rotateZ</title>
+    <style>
+        body {
+            background:aliceblue;
+            margin:0;
+            padding:0;
+        }
+        .con {
+            border:dotted 1px lightgray;
+            background:lavender;
+            height:100vh;
+        }
+        .title {
+            border:dotted 1px lightgray;
+            margin:0 auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: space-around;
+        }
+        .nav {
+            border:dotted 1px lightgray;
+            margin:1rem auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: space-around;
+            cursor:pointer;
+        }
+        .list {
+            border:dotted 1px lightgray;
+            margin:5rem auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: space-around;
+        }
+        .list .item {
+            border:dotted 1px lightgray;
+            width:30%;
+            height:120px;
+            background:#afbee7;
+            cursor:pointer;
+            transition: transform 1s;
+        }
+        .list .item:hover {
+            transform: rotateZ(150deg);
+        }
+    </style>
+    <script>
+        function goBack(){
+            location.href = './index.html';
+        }
+    </script>
+</head>
+<body>
+    <div class="con">
+        <div class="title">9rotateZ</div>
+        <div class="nav" onclick="goBack()">back</div>
+        <div class="list">
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+        <div class="list">
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+        <div class="list">
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+    </div>
+</body>
+</html>

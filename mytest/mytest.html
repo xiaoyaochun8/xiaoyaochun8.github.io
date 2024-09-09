@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta charset="utf-8">
+        <title>3js-script引用</title>
+        <style>
+            body { margin: 0; }
+        </style>
+        <script src="https://cdn.bootcss.com/eruda/1.5.4/eruda.js" ></script>
+        <script>
+          eruda.init();
+        </script>
+    </head>
+    <body>
+        <script src="https://cdn.bootcdn.net/ajax/libs/three.js/0.156.1/three.js"></script>
+        <script type="module">
+            const scene = new THREE.Scene();
+            console.log(scene);
+        </script>
+    </body>
+</html>

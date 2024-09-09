@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html font-size="62.5%">
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>game</title>
+    <link href="../../common/css/noUserSelect.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="../../common/js/noContextmenu.js"></script>
+    <script type="text/javascript" src="../../common/js/rpUtil.js"></script>
+    <link href="../../common/css/fontColorful.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+    <div class="con">
+        <div class="title fontStyle2">index</div>
+        <div class="list">
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/book/index')">魔法书</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/clock/index')">准时钟</div>
+        </div>
+        <div class="list">
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/drawLine/index5')">画图</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('qw/mq/colors')">颜色</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('qw/mq/alphas')">透明度</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('qw/mq/press')">多指触摸</div>
+        </div>
+        <div class="list">
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/anim2')">直线运动</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/anim')">曲线运动</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/anim3')">曲线运动3</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/anim4')">曲线运动4</div>
+        </div>
+        <div class="list">
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/9rotate')">9转圈</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/9scale')">9变大变小</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/9translate')">9上上下下</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/9skew')">9变形</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/9rotateX')">9转圈X</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/9rotateY')">9转圈Y</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/9rotateZ')">9转圈Z</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('qw/demos/Anim/test')">ctrl</div>
+        </div>
+        <div class="list">
+            <div class="item fontStyle5" ontouchstart="goTo3('qw/mq/time')">数字时钟</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/disc5')">指针时钟</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('qw/mq/numbersRaw')">数字</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('qw/mq/numbers')">数字增长</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('qw/mq/numbers2')">数字随机</div>
+        </div>
+        <div class="list">
+            <div class="item fontStyle5" ontouchstart="goTo3('qw/mq/12YearAnimal')">十二生肖</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('qw/mq/writer')">打字机</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('qw/mq/wordsRaw')">文字</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('qw/mq/wordsRaw2')">文字对</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/disc42')">转盘</div>
+        </div>
+        <div class="list">
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/3js/dev')">立方体</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/3js/dev2')">小世界</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/3js/dev3')">日出</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/3js/dev4')">雾</div>
+            <div class="item fontStyle5" ontouchstart="goTo3('mygame/3js/dev6')">探照灯</div>
+        </div>
+    </div>
+        
+    <script src="https://cdn.bootcdn.net/ajax/libs/three.js/0.160.0/three.js"></script>
+    <script>
+        //isNav
+        function goTo3(name){
+            rpUtil.gotoPageWithPath(name);
+        }
+        //不可选择、无菜单、彩色、ontouchstart、使用rem替换px
+        //scene
+        const scene = new THREE.Scene();
+        //camera
+        const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+        camera.position.z = 150;
+        camera.position.y = 80;
+        camera.lookAt(scene.position);
+        //renderer
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setClearColor(0xe19f8a,1.0);
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        document.body.appendChild( renderer.domElement );
+
+        const geometry = new THREE.BoxGeometry( 30, 30, 30);
+        const material = new THREE.MeshNormalMaterial();
+        const cube = new THREE.Mesh( geometry, material );
+        scene.add( cube );
+
+        function animate() {
+            requestAnimationFrame( animate );
+            
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+            
+            renderer.render( scene, camera );
+        };
+        animate();
+    </script>
+    
+    <style>
+        body {
+            background:#e19f8a;
+            margin:0;
+            padding:0;
+            font-size:1.5rem;
+        }
+        .con {
+            border:dotted 0px lightgray;
+            background:lavender;
+            height:100vh;
+            opacity:0.8;
+        }
+        .title {
+            border:dotted 0px lightgray;
+            margin:0 auto;
+            /*background:#e3fae7;*/
+            display:flex;
+            justify-content: space-around;
+        }
+        .nav {
+            border:dotted 0px lightgray;
+            margin:1rem auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: space-around;
+            cursor:pointer;
+        }
+        .list {
+            border:dotted 0px lightgray;
+            margin:1rem auto;
+            background:#e19f8a;
+            display:flex;
+            justify-content: space-around;
+            flex-direction: row;
+            flex-wrap: wrap;
+            z-index:9;
+        }
+        .list .item {
+            border:dotted 0px lightgray;
+            height:2rem;
+            text-align:center;
+            background:#afbee7;
+            cursor:pointer;
+            display:flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem;
+            letter-spacing: 0.25rem;
+            z-index:9;
+        }
+        .fontStyle2, .fontStyle5 {
+            color: white;
+        }
+        
+        canvas {
+            position: absolute;
+            top: 0;
+            z-index: -1;
+        }
+        
+        .con{
+            transform:scale(0.01,0.01);
+            animation-name: myfirst;
+            animation-duration: 10s;
+            animation-timing-function: cubic-bezier(0, 0.05, 0, 0.97);
+            animation-delay: 3s;
+            animation-iteration-count: 99;
+            animation-direction: normal;
+            animation-play-state: running;
+        }
+        @keyframes myfirst
+        {
+            0%   {}
+            100% {transform:scale(1,1)}
+        }
+    </style>
+</body>
+</html>

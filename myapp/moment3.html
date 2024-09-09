@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+        <title>此刻日</title>
+    </head>
+    <body>
+        <templateN id="fullScreen" style="background: lightblue">
+            =此刻=日
+            <view class="item" id="item3">0</view>
+            <view class="item" id="">本日进度(小时数)：
+                <view id="barSeg2"></view>
+                <view class="barBg"><view class="bar" id="bar4"></view></view>
+            </view>
+            <view class="item" id="">本小时进度(分钟数)：
+                <view id="barSeg3"></view>
+                <view class="barBg"><view class="bar" id="bar5"></view></view>
+            </view>
+            <view class="item" id="">本分钟进度(秒数)：
+                <view class="barBg"><view class="bar" id="bar6"></view></view>
+            </view>
+        </templateN>
+
+        <script type="module">
+            import { DividRule } from './../mytest/viewDividRule.module.js';
+            DividRule.init('#barSeg2', 3, [0,0,1], [], 23);
+            DividRule.init('#barSeg3', 3, [0,0,1], [], 23);
+            function calcTime(){
+                var date = new Date();
+                var y = date.getFullYear();
+                var m = date.getMonth()+1;
+                var d = date.getDate();
+                var h = date.getHours();
+                var i = date.getMinutes();
+                var s = date.getSeconds();
+                var w = date.getDay();
+                var wNw = getMonthWeek(y, m, d);
+                var wNy = getYearWeek(y, m, d);
+
+                setCon('#item3', h+' : '+i+' : '+s);
+                
+                var hourPerOfDay = (h) / (24) * 100;
+                getE('#bar4').style.width = hourPerOfDay+'%';
+                setCon('#bar4', Math.floor(hourPerOfDay)+'%');
+                
+                var minPerOfHour = (i) / (60) * 100;
+                getE('#bar5').style.width = minPerOfHour+'%';
+                setCon('#bar5', Math.floor(minPerOfHour)+'%');
+                
+                var secPerOfMin = (s) / (60) * 100;
+                getE('#bar6').style.width = secPerOfMin+'%';
+                setCon('#bar6', Math.floor(secPerOfMin)+'%');
+            }
+            function setCon(e, html){
+                getE(e).innerHTML = html;
+            }
+            function getE(e){
+                return document.querySelector(e);
+            }
+            
+            var getMonthWeek = function (a, b, c) { 
+                /* 
+                a = d = 当前日期 
+                b = 6 - w = 当前周的还有几天过完(不算今天) 
+                a + b 的和在除以7 就是当天是当前月份的第几周 
+                */
+                var date = new Date(a, parseInt(b) - 1, c), w = date.getDay(), d = date.getDate(); 
+                return Math.ceil( 
+                (d + 6 - w) / 7 
+                ); 
+            };
+            var getYearWeek = function (a, b, c) { 
+                /* 
+                date1是当前日期 
+                date2是当年第一天 
+                d是当前日期是今年第多少天 
+                用d + 当前年的第一天的周差距的和在除以7就是本年第几周 
+                */
+                var date1 = new Date(a, parseInt(b) - 1, c), date2 = new Date(a, 0, 1), 
+                d = Math.round((date1.valueOf() - date2.valueOf()) / 86400000); 
+                return Math.ceil( 
+                (d + ((date2.getDay() + 1) - 1)) / 7 
+                ); 
+            }; 
+
+            function setDelayTimer(){
+                console.log('setDelayTimer');
+                setTimeout(function(){
+                    calcTime();
+                    setDelayTimer();
+                },1000);
+            }
+            calcTime();
+            setDelayTimer();
+        </script>
+        
+        <style type="text/css">
+            * {
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+            }
+            #fullScreen {
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                font-size:1rem;
+            }
+            .item {
+                width: 80%;
+                background:antiquewhite;
+                border:solid 1px lightgray;
+                border-radius: 30px;
+                padding: 8px;
+            }
+            .barBg {
+                display:block;
+                border:solid 0px red;
+                background:#dcdde1;
+                border-radius: 20px;
+                font-size:0.6rem;
+                margin-top:0.2rem;
+            }
+            .bar {
+                display:block;
+                width:80%;
+                border:solid 0px red;
+                background:#4cd137;
+                border-radius: 20px;
+                padding:3px;
+            }
+        </style>
+    </body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta charset="utf-8">
+        <title>h5手势</title>
+        <script src="https://cdn.bootcss.com/eruda/1.5.4/eruda.js" ></script>
+        <script>
+          eruda.init();
+        </script>
+    </head>
+    <body>
+		<div id="box"></div>
+		
+        <script>
+			var box = document.getElementById('box');
+			
+            box.addEventListener("click", eventA);
+			function eventA(){
+				console.log('click')
+			}
+			
+			box.addEventListener("touchstart", eventB);
+			function eventB(){
+				console.log('touchstart')
+			}
+			
+			box.addEventListener("touchmove", eventC);
+			function eventC(){
+				console.log('touchmove')
+			}
+			
+			box.addEventListener("touchend", eventD);
+			function eventD(){
+				console.log('touchend')
+			}
+			
+			box.addEventListener("touchcancel", eventE);
+			function eventE(){
+				console.log('touchcancel')
+			}
+			
+			box.addEventListener("gesturestart", eventF);
+			function eventF(){
+				console.log('gesturestart')
+				box.innerHTML = "触摸点个数为2";
+			}
+			
+			box.addEventListener("gesturechange", eventG);
+			function eventG(event){
+				console.log('gesturechange')
+				box.innerHTML = "手指的旋转度为" + event.rotation +"，缩放值为"+ event.scale;
+			}
+			
+
+
+        </script>
+		
+		<style>
+			html,body,div {
+				width:100%;
+				height:100%;
+				background:lightgray;
+			}
+		</style>
+    </body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>anim-move</title>
+    
+</head>
+<body>
+    <templateN id="fullScreen" style="background: lightblue">
+        <div class="box">
+            <div class="role"></div>
+        </div>
+    </templateN>
+
+    <script>
+        //anim
+        var templateN = document.querySelector('#fullScreen');
+        var dom = document.querySelector('.role');
+        templateN.addEventListener('touchstart', function() {
+            let state = dom.style['animationPlayState'];
+            if(state === 'paused') {
+                dom.style['animationPlayState'] = 'running';
+            } else {
+                dom.style['animationPlayState'] = 'paused';
+            }
+        });
+    </script>
+    
+    <style>
+        * {margin:0;padding:0;box-sizing:border-box;}
+        .box {
+            width: 100%;
+            height: 100vw;
+            border: solid 1px red;
+            display: flex;
+        }
+        .role
+        {
+            width: 30vw;
+            height: 30vw;
+            background: green;
+            animation-name: myfirst;
+            animation-duration: 5s;
+            animation-timing-function: ease;
+            animation-delay: 1s;
+            animation-iteration-count: 100;
+            animation-direction: normal;
+            animation-play-state: running;
+        }
+        @keyframes myfirst
+        {
+            0%   {transform:translate(0vw,0vw)}
+            25%  {transform:translate(70vw,0vw)}
+            50%  {transform:translate(70vw,70vw)}
+            75%  {transform:translate(0vw,70vw)}
+            100% {transform:translate(0vw,0vw)}
+        }
+    </style>
+</body>
+</html>

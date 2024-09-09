@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "UTF-8">
+        <!--<meta name = "viewport" content = "width = device-width, initial-scale = 1, shrink-to-fit = no">-->
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+        <link rel="shortcut icon " href="res/numbers.jpeg" type="image/jpeg">
+        <title>文字</title>
+        <link href="../.././common/css/noUserSelect.css" type="text/css" rel="stylesheet">
+        <script type="text/javascript" src="../.././common/js/noContextmenu.js"></script>
+        <style type = "text/css">
+            * {margin: 0; padding: 0; }
+            #box {width: 100%; background-color: lightgray; font-size: 150px}
+            #t5 {
+                -webkit-background-clip: text;
+                  -webkit-text-fill-color: transparent;
+            }
+            .color_0 {
+                background: linear-gradient(to right, red, blue);
+            }
+            .color_1 {
+                background: linear-gradient(to right, red, green);
+            }
+            .color_2 {
+                background: linear-gradient(to right, red, yellow);
+            }
+            .color_3 {
+                background: linear-gradient(to right, red, gray);
+            }
+            .color_4 {
+                background: linear-gradient(to right, red, pink);
+            }
+        </style>
+    </head>
+    <body>
+        <table id="box" >
+            <tr>
+                <td align="left" valign="top"></td>
+                <td align="center" valign="top"></td>
+                <td align="right" valign="top"></td>
+            </tr>
+            <tr>
+                <td align="left" valign="middle"></td>
+                <td id="t5" class="color_0" align="center" valign="middle">上下</td>
+                <td align="right" valign="middle"></td>
+            </tr>
+            <tr>
+                <td align="left" valign="bottom"></td>
+                <td align="center" valign="bottom"></td>
+                <td align="right" valign="bottom"></td>
+            </tr>
+        </table>
+        <script type="text/javascript">
+            const box = document.getElementById("box");
+            box.addEventListener("touchstart", (event) => {
+                //console.log(event)
+                if(event.touches.length >= 2){
+                    changeNumber();
+                }
+            });
+            function init(){
+                document.getElementById('box').style.height = window.innerHeight + 'px';
+            }
+            init();
+            var number = 1;
+            var wordsArr = [
+                '上下',
+                '左右',                
+                '前后',
+                '大小',
+                '多少',
+                '东南西北',
+                '一二三四五',
+                '六七八九十',
+                '消防车',
+                '工程车',
+                '大米',
+                '小米',
+                '火山',
+                '火车',
+                '水龙头',
+                '土山',
+                '农田',
+                '小汽车',
+                '巴巴爸爸',
+                '巴巴妈妈',
+                '中国',
+            ];
+            function changeNumber(){
+                if(number >= wordsArr.length){
+                    number = 0;
+                }
+                document.getElementById('t5').className = 'color_' + number%5;
+               document.getElementById('t5').innerHTML = wordsArr[number];
+               number ++;
+            }
+        </script>
+    </body>
+</html>

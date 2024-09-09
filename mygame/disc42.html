@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <title>罗盘size</title>
+    </head>
+    <body>
+        <templateN id="fullScreen" style="background: none" ontouchstart="stopRound()">
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+        </templateN>
+
+        <script type="text/javascript">
+            function renderDisc(no, data, rawData){
+                var title = data[0];
+                var data = data[1].split('-');
+                var step = 360 / data.length;
+                var html = '';
+                var scaleStep = 14;
+                for(var i=0;i<data.length;i++){
+                    html += '<view class="item" style="transform: rotate('+(i*step)+'deg);width:'+no*scaleStep+'vw;height:'+no*scaleStep+'vw">'+data[i]+'</view>';
+                    if(no > 2){
+                        html += '<view class="line" style="transform: rotate('+(i*step+step/2)+'deg);width:1px;height:'+no*scaleStep+'vw"><view></view></view>';
+                    }
+                }
+                //html += '<view class="item" style="transform: translate(0rem,2.5rem);font-size:1.5rem;color:gray">-'+title+'-</view>';
+                document.getElementsByClassName('list')[no-1].innerHTML = html;
+                document.getElementsByClassName('list')[no-1].style = "width:"+no*scaleStep+"vw;height:"+no*scaleStep+"vw;border-radius:"+no*scaleStep/2+"vw;z-index: "+(rawData.length-no);
+                if(no % 2 == 0){
+                    document.getElementsByClassName('list')[no-1].style = "width:"+no*scaleStep+"vw;height:"+no*scaleStep+"vw;border-radius:"+no*scaleStep/2+"vw;z-index: "+(rawData.length-no);
+                }else{
+                    document.getElementsByClassName('list')[no-1].style = "background:lightgray;width:"+no*scaleStep+"vw;height:"+no*scaleStep+"vw;border-radius:"+no*scaleStep/2+"vw;z-index: "+(rawData.length-no);
+                }
+            }
+            function stopRound(){
+                isStop = !isStop;
+            }
+            function goRound(){
+                //if(!isStop){
+                //    dom.style = "transform: rotate("+arc+"deg)";
+                //    arc += 1;
+                //}
+                //requestAnimationFrame(goRound);
+            }
+            requestAnimationFrame(goRound);
+            
+            var dom = document.getElementById('fullScreen');
+            var arc = 0;
+            var isStop = true;
+            var data = [
+                ['无极','无极'],
+                ['一元','太极'],
+                ['两仪','阴-阳'],
+                ['三才','天-地-人'],
+                //['四象','地-火-水-风'],
+                //['四象','青龙-白虎-朱雀-玄武'],
+                //['四象','木-金-火-水'],
+                ['四象','南-西-北-东'],
+                //['四象','少阳-太阳-少阴-太阴'],
+                //['四象','风-雨-雷-电'],
+                ['五行','金-木-水-火-土'],
+                ['六合','上-下-左-右-前-后'],
+                ['七星','天枢-天璇-天玑-天权-玉衡-开阳-摇光'],
+                ['八卦','乾-坎-艮-震-巽-离-坤-兑'],
+                ['八卦','☰-☵-☶-☳-☴-☲-☷-☱'],
+                ['九宫','乾宫-坎宫-艮宫-震宫-巽宫-离宫-坤宫-兑宫-中宫'],
+                ['十方','上天-下地-东-西-南-北-生门-死位-过去-未来'],
+            ];
+            for(var i=0;i<data.length;i++){
+                renderDisc(i+1, data[i], data);
+            }
+            
+            //anim
+            dom.addEventListener('click', function() {
+                let state = dom.style['animationPlayState'];
+                if(state === 'paused') {
+                    dom.style['animationPlayState'] = 'running';
+                } else {
+                    dom.style['animationPlayState'] = 'paused';
+                }
+            });
+        </script>
+        
+        <style>
+            html,body,templateN {
+                width:200%;
+                height:100%;
+                margin:0;
+                padding:0;
+                display:flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .list {
+                border:dotted 1px gray;
+                margin:5rem auto;
+                background:#e3fae7;
+                width:70vw;
+                height:70vw;
+                border-radius: 45vw;
+                display:flex;
+                justify-content: space-around;
+                font-size: 1rem;
+                position:absolute;
+            }
+            .list .item {
+                position:absolute;
+                border:dotted 0px lightgray;
+                width:70vw;
+                height:70vw;
+                display:flex;
+                align-items: flex-end;
+                justify-content: center;
+            }
+            .list .line {
+                position:absolute;
+                border:dotted 0px gray;
+                width:1px;
+                height:70vw;
+                display:flex;
+                align-items: flex-end;
+                justify-content: center;
+            }
+            .list .line view {
+                border:dotted 0px gray;
+                background:gray;
+                width:100%;
+                height:50%;
+            }
+            
+            templateN
+            {
+                animation-name: myfirst;
+                animation-duration: 5s;
+                animation-timing-function: linear;
+                animation-delay: 1s;
+                animation-iteration-count: 100;
+                animation-direction: normal;
+                animation-play-state: running;
+            }
+            @keyframes myfirst
+            {
+                0%   {}
+                100% {transform:rotate(360deg)}
+            }
+        </style>
+    </body>
+</html>

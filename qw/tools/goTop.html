@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>goTop</title>
+    <style>
+        #box {
+			border: solid 1px lightgreen;
+			transform: rotateX(180deg);
+			margin-top: 200px;
+			height:auto;
+        }
+        .cell {
+			border: solid 0px lightgreen;
+			width:0.5px;
+			float:left;
+		}
+		.gray {
+			background:lightgray
+		}
+		.green {
+			background:lightgreen
+		}
+		.nofill {
+			background:#007eff9c
+		}
+    </style>
+</head>
+<body>
+    <div id="box" style=""></div>
+	<div style="clear:both"></div>
+	<div id="text" style=""></div>
+	
+	<br>
+	
+	<div>工作更优秀</div>
+	<div>刷题备考<->达成架构目标</div>
+	<div>夯实基础</div>
+	<div>学习新技术</div>
+	<div>提升英语水平</div>
+	
+	<br>
+	？
+        
+	<script>
+		draw()
+		function draw(){
+			var html = ""
+			var fillColor = ""
+			var height = 0
+			var daysLeft = (new Date(2023,7,9)-new Date()) / (3600*24*1000)
+			for(var i=1;i<600;i++){
+				height = (i+Math.random()*10)/5
+				if(i<120){
+					fillColor = "gray"
+				}else if(i<120+365-daysLeft){
+					fillColor = "green"
+				}else if(i<120+365){
+					fillColor = "nofill"
+				}else{
+					fillColor = "gray"
+				}
+				html += "<div class='cell "+fillColor+"' style='height:"+height+"px'></div>"
+			}
+			document.getElementById("box").innerHTML = html
+			document.getElementById("text").innerHTML = "你好登峰者，已过去："+(365-daysLeft)+"/365天"
+		}
+	</script>
+</body>
+</html>

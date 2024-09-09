@@ -1,0 +1,23 @@
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+
+<div id="main" class="row">
+	<ol class="col">
+	</ol>
+</div>
+
+<script>
+	var domain = location.protocol+"//"+location.host
+	$.get(domain+'/data/v-allLinks.json',function(data){
+		var html = '';
+		for(var i in data){
+			html += '<li onclick="goto(\''+data[i]['url']+'\')">'
+				+ '<div class="fa fa-paperclip"></div>'
+				+ '<div class="name">'+data[i]['name']+'</div>'
+				+ '</li>';
+		}
+		$('#main ol').html(html);
+	})
+	function goto(url){
+		location.href = domain+url;
+	}
+</script>

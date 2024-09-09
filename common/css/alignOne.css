@@ -1,0 +1,47 @@
+
+.alignTopLeft {}
+.alignTopCenter {
+    position:absolute;
+    top:0%;
+    left:50%;
+    transform:translate(-50%,0%);
+}
+.alignTopRight {
+    position:absolute;
+    right:0%;
+}
+
+.alignMidLeft {
+    position:absolute;
+    top:50%;
+    left:0%;
+    transform:translate(0%,-50%);
+}
+.alignMidCenter {
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+}
+.alignMidRight {
+    position:absolute;
+    top:50%;
+    right:0%;
+    transform:translate(0%,-50%);
+}
+
+.alignBottomLeft {
+    position:absolute;
+    bottom:0%;
+}
+.alignBottomCenter {
+    position:absolute;
+    bottom:0%;
+    left:50%;
+    transform:translate(-50%,0%);
+}
+.alignBottomRight {
+    position:absolute;
+    bottom:0%;
+    right:0%;
+}

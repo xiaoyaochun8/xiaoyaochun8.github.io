@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+        <title>煮粥</title>
+    </head>
+    <body>
+        <templateN id="fullScreen" style="background: lightblue">
+            6点半开锅
+            <view class="item" id="item1">撒气25分钟</view>
+            <view class="item" id="item2">煮粥25分钟</view>
+            <view class="item" id="item3">定时7小时</view>
+            <view class="item" id="item4">当前时间：</view>
+            <button ontouchstart="reloadData()">刷新</button>
+        </templateN>
+
+        <script>
+            function calcTime(){
+                var date = new Date();
+                var y = date.getFullYear();
+                var m = date.getMonth()+1;
+                var d = date.getDate();
+                var targetTime = (new Date(y+'/'+m+'/'+d)).getTime()+86400*1000+6.5*3600*1000;
+                console.log(new Date(targetTime));
+                var bookTime = targetTime - 25*60*1000*2 - date.getTime();
+                var h = Math.floor(bookTime / 1000 / 3600);
+                var min = Math.floor((bookTime - h * 3600 * 1000) / 1000 / 60);
+                document.getElementById('item3').innerHTML = '定时'+h+'小时'+min+'分钟';
+                document.getElementById('item4').innerHTML = '当前时间：'+y+'-'+m+'-'+d+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
+            }
+            function reloadData(){
+                location.reload();
+            }
+            calcTime();
+        </script>
+        
+        <style type="text/css">
+            * {
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+            }
+            #fullScreen {
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                font-size:2rem;
+            }
+            .item {
+                width: 80%;
+                height: 10%;
+                background:antiquewhite;
+                border:solid 1px blue;
+                display: flex;
+                justify-content: center;
+                align-items: flex-end;
+                border-radius: 20px;
+            }
+            #item3 {
+                height: 50%;
+                color:red;
+            }
+            #item4 {
+                font-size:1.2rem;
+            }
+            button {
+                font-size:2rem;
+                border-radius: 20px;
+            }
+        </style>
+    </body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <title>盘1~10</title>
+    </head>
+    <body>
+        <templateN id="fullScreen" style="background: lightblue">
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+        </templateN>
+
+        <script type="text/javascript">
+            function renderDisc(no, data){
+                var title = data[0];
+                var data = data[1].split('-');
+                var step = 360 / data.length;
+                var html = '';
+                for(var i=0;i<data.length;i++){
+                    html += '<view class="item" style="transform: rotate('+(i*step)+'deg)">'+data[i]+'</view>';
+                }
+                html += '<view class="item" style="transform: translate(0rem,2.5rem);font-size:1.5rem;color:gray">-'+title+'-</view>';
+                document.getElementsByClassName('list')[no-1].innerHTML = html;
+            }
+            var data = [
+                ['无极','无极'],
+                ['一元','太极'],
+                ['两仪','阴-阳'],
+                ['三才','天-地-人'],
+                ['四象','地-火-水-风'],
+                ['四象','青龙-白虎-朱雀-玄武'],
+                ['四象','木-金-火-水'],
+                ['四象','东-西-南-北'],
+                ['四象','少阳-太阳-少阴-太阴'],
+                ['四象','风-雨-雷-电'],
+                ['五行','金-木-水-火-土'],
+                ['六合','上-下-左-右-前-后'],
+                ['七星','天枢-天璇-天玑-天权-开阳-摇光'],
+                ['八卦','乾-坎-艮-震-巽-离-坤-兑'],
+                ['八卦','☰-☵-☶-☳-☴-☲-☷-☱'],
+                ['九宫','乾宫-坎宫-艮宫-震宫-巽宫-离宫-坤宫-兑宫-中宫'],
+                ['十方','上天-下地-东-西-南-北-生门-死位-过去-未来'],
+            ];
+            for(var i=0;i<data.length;i++){
+                renderDisc(i+1, data[i]);
+            }
+        </script>
+        
+        <style>
+			html,body,.list {
+				width:100%;
+				height:100%;
+				margin:0;
+				padding:0;
+			}
+            .list {
+                border:dotted 1px lightgray;
+                margin:5rem auto;
+                background:#e3fae7;
+                width:70vw;
+                height:70vw;
+                border-radius: 45vw;
+                display:flex;
+                justify-content: space-around;
+                font-size: 2rem;
+            }
+            .list .item {
+                position:absolute;
+                border:dotted 0px lightgray;
+                width:70vw;
+                height:70vw;
+                display:flex;
+                align-items: flex-end;
+                justify-content: center;
+            }
+        </style>
+    </body>
+</html>

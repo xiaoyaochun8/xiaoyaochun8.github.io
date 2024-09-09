@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>joy</title>
+        <style>
+            * {border:solid 0px}
+            button {height:100px}
+            #div1,#div2 {width:350px;height:70px;padding:10px;border:1px solid #aaaaaa;}
+        </style>
+        <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+        <!--<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>-->
+
+        <!-- 新 Bootstrap4 核心 CSS 文件 -->
+        <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+        
+        <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+        <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+        
+        <!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+        <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+        
+        <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+        <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container-fluid" style="">
+            <div id="" class="row">
+                <video id="video1" width="420" onclick="playPause()">
+                    <source src="https://www.runoob.com/try/demo_source/mov_bbb.mp4" type="video/mp4">
+                    <source src="https://www.runoob.com/try/demo_source/mov_bbb.ogg" type="video/ogg">
+                    您的浏览器不支持 HTML5 video 标签。
+                </video>
+            </div>
+            <div id="" class="row">
+                <audio id="sound" src="https://www.runoob.com/try/demo_source/horse.ogg" controls="controls" preload hidden></audio>
+                <button class="col-3" onclick="doPlayMusic()">sound</button>
+            </div>
+            <div id="" class="row">
+                <button class="col-3" onclick="doVibrate()">vibrate</button>
+            </div>
+            <div id="" class="row">
+                <button class="col-3" onclick="getLocation()">getLocation</button>
+            </div>
+            <div id="" class="row">
+                <div id="myPos" class="col">111</div>
+            </div>
+            <div id="" class="row">
+                <button class="col-3" onclick="">Drag 和 Drop</button>
+            </div>
+            <div id="" class="row">
+                <div class="col">
+                    <p>拖动 RUNOOB.COM 图片到矩形框中:</p>
+                    <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    <br>
+                    <img id="drag1" src="https://www.runoob.com/images/logo.png" draggable="true" ondragstart="drag(event)" width="336" height="69">
+                </div>
+            </div>
+            <div id="" class="row">
+                <button class="col-3" onclick="">Canvas</button>
+            </div>
+            <div id="" class="row">
+                <button class="col-3" onclick="">内联 SVG</button>
+            </div>
+        </div>
+        
+        <script>
+            //video
+            var myVideo=document.getElementById("video1"); 
+            function playPause(){ 
+                if (myVideo.paused) 
+                    myVideo.play(); 
+                else 
+                    myVideo.pause(); 
+            }
+            //audio
+            function doPlayMusic(){
+                var audio = document.getElementById('sound');
+                if(audio!==null){
+                    audio.currentTime = 0;
+                    audio.play();
+                }
+            }
+            //vibrate
+            setTimeout(()=>{
+                navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+                if(navigator.vibrate) {
+                    //alert("支持设备震动！");
+                }
+            },1000)
+            function doVibrate(){
+                navigator.vibrate(1000)
+            }
+            //getLocation
+            var x=document.getElementById("myPos");
+            function getLocation()
+            {alert(x)
+                if (navigator.geolocation)
+                {
+                    navigator.geolocation.getCurrentPosition(showPosition, showError);
+                    x.innerHTML="Loading...";
+                }
+                else
+                {
+                    x.innerHTML="该浏览器不支持获取地理位置。";
+                }
+            }
+            function showPosition(position)
+            {alert(2)
+                x.innerHTML="纬度: " + position.coords.latitude + 
+                "<br>经度: " + position.coords.longitude;    
+            }
+            function showError(error)
+            {
+                switch(error.code) 
+                {
+                    case error.PERMISSION_DENIED:
+                        x.innerHTML="用户拒绝对获取地理位置的请求。"
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        x.innerHTML="位置信息是不可用的。"
+                        break;
+                    case error.TIMEOUT:
+                        x.innerHTML="请求用户地理位置超时。"
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        x.innerHTML="未知错误。"
+                        break;
+                }
+            }
+            //drag-drop
+            function allowDrop(ev)
+            {
+                ev.preventDefault();
+            }
+            function drag(ev)
+            {
+                ev.dataTransfer.setData("Text",ev.target.id);
+            }
+            function drop(ev)
+            {
+                ev.preventDefault();
+                var data=ev.dataTransfer.getData("Text");
+                ev.target.appendChild(document.getElementById(data));
+            }
+        </script>
+    </body>
+</html>

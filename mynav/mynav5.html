@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>mynav5</title>
+        <!--<meta name = "viewport" content = "width = device-width, initial-scale = 1, shrink-to-fit = no">-->
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" href="style.css">
+        <style>
+            .box {
+                display: flex;
+                flex-wrap: nowrap;
+                align-content: space-around;
+                height: 100%;
+                background: #ff5e0059;
+                justify-content: space-between;
+                align-items: flex-start;
+            }
+            .column {
+                flex-basis: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .col2 {
+                margin-top: 2rem;
+                align-items: flex-end;
+            }
+            span {
+                margin-top: 1rem;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="box">
+          <div class="column">
+            <span class="item "><a href="https://www.daodejing.org/">道德经网</a></span>
+            <span class="item "><a href="https://www.quanxue.cn/index.html">劝学网</a></span>
+            <span class="item "><a href="https://www.gushiwen.cn/">古诗文网</a></span>
+          </div>
+          <div class="column col2">
+            <span class="item "><a href="https://www.daodejing.org/">道德经</a></span>
+            <span class="item "><a href="https://www.quanxue.cn/ct_fojia/xinjing/xinjing01.html">心经</a></span>
+            <span class="item "><a href="https://www.gushiwen.cn/GuShiWen_0550b33cad.aspx">滕王阁序</a></span>
+          </div>
+        </div>
+    </body>
+</html>

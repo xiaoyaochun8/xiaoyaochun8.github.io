@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="shortcut icon " href="res/time.ico" type="image/x-icon">
+		<title>时钟</title>
+		<style type="text/css">
+			#txt1,#txt2 {
+				font-size: 160px; font-weight: bold;
+			}
+			#txt1 {	
+				border-top: solid 1px;
+				border-bottom: solid 1px;
+				color: red;
+			}
+			table {
+				width: 100%; margin-top: 60px;
+			}
+		</style>
+	</head>
+	<body>
+		<table>
+			<tr>
+				<td align="center">
+					<img id="img">
+				</td>
+			</tr>
+			<tr>
+				<td id="txt1" align="center">8</td>
+			</tr>
+			<tr>
+				<td id="txt2" align="center">18</td>
+			</tr>
+		</table>
+
+		<script>
+// 			var cnt = 0;
+			function setTime(){
+// 				if(cnt > 23){
+// 					return
+// 				}
+
+				console.log('setTime');
+				var date = new Date();
+				var h = date.getHours()
+				var m = date.getMinutes()
+				if(h == 0){
+					h = 12;
+				}
+				if(h > 12){
+					h = h - 12;
+				}
+				if(m < 10){
+					m = "0"+m
+				}
+				document.getElementById('img').src = "res/"+h+".png";
+				document.getElementById('txt1').innerHTML = h;
+				document.getElementById('txt2').innerHTML = m;
+
+// 				cnt++;
+			}
+			setTime();
+			setInterval("setTime()", 1000);
+		</script>
+	</body>
+</html>

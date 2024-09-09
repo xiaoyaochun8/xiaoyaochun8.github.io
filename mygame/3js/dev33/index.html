@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta charset="utf-8">
+        <title>日出</title>
+        <link href="../../../common/css/noUserSelect.css" type="text/css" rel="stylesheet">
+        <style>
+            body { margin: 0; }
+            button {
+                position:absolute;
+                top: 20%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size:2rem;
+                border-radius:5rem;
+                background:red;
+            }
+        </style>
+        <script src="https://cdn.bootcss.com/eruda/1.5.4/eruda.js" ></script>
+        <script>
+          eruda.init();
+          var isPlay = true;
+          function playStop(){
+            var btn = document.getElementById('btnPlayStop');
+            if(btn.innerHTML == '停止'){
+                isPlay = false;
+                btn.innerHTML = '开始';
+                btn.style.background = 'green';
+            }else{
+                isPlay = true;
+                btn.innerHTML = '停止';
+                btn.style.background = 'red';
+            }
+          }
+        </script>
+    </head>
+    <body>
+        <button id="btnPlayStop" ontouchstart="playStop()">停止</button>
+        <script src="bundle.js"></script>
+    </body>
+</html>

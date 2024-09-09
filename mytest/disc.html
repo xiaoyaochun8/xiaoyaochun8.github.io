@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <title>disc</title>
+    </head>
+    <body>
+        <templateN id="fullScreen" style="background: lightblue">
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list"></view>
+            <view class="list" style="font-size:0.5rem"></view>
+            <view class="list" style="font-size:0.1rem"></view>
+        </templateN>
+        
+        <script type="text/javascript">
+            function renderDisc(no, data){
+                var step = 360 / data.length;
+                var html = '';
+                for(var i=0;i<data.length;i++){
+                    html += '<view class="item" style="transform: rotate('+(i*step)+'deg)">'+data[i]+'</view>';
+                }
+                document.getElementsByClassName('list')[no-1].innerHTML = html;
+            }
+            var data = [
+                '南-西-北-东',
+                '春-夏-秋-冬',
+                '青龙-白虎-朱雀-玄武',
+                '金-木-水-火-土',
+                '甲-乙-丙-丁-戊-己-庚-辛-壬-癸',
+                '子-丑-寅-卯-辰-巳-午-未-申-酉-戌-亥',
+                '鼠-牛-虎-兔-龙-蛇-马-羊-猴-鸡-狗-猪',
+                '夜半-鸡鸣-平旦-日出-食时-隅中-日中-日昳-晡时-日入-黄昏-人定',
+                '6-7-8-9-10-11-12-1-2-3-4-5',
+                '立春-雨水-惊蛰-春分-清明-谷雨-立夏-小满-芒种-夏至-小暑-大暑-立秋-处暑-白露-秋分-寒露-霜降-立冬-小雪-大雪-冬至-小寒-大寒',
+                '史记-汉书-后汉书-三国志-晋书-宋书-南齐书-梁书-陈书-魏书-北齐书-周书-隋书-南史-北史-旧唐书-新唐书-旧五代史-新五代史-宋史-辽史-金史-元史-明史',
+            ];
+            for(var i=0;i<data.length;i++){
+                renderDisc(i+1, data[i].split('-'));
+            }
+        </script>
+        
+        <style>
+			html,body,.list {
+				width:100%;
+				height:100%;
+				margin:0;
+				padding:0;
+			}
+            .list {
+                border:dotted 1px lightgray;
+                margin:5rem auto;
+                background:#e3fae7;
+                width:70vw;
+                height:70vw;
+                border-radius: 45vw;
+                display:flex;
+                justify-content: space-around;
+                font-size: 2rem;
+            }
+            .list .item {
+                position:absolute;
+                border:dotted 0px lightgray;
+                width:70vw;
+                height:70vw;
+                display:flex;
+                align-items: flex-end;
+                justify-content: center;
+            }
+        </style>
+    </body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <title>html5超逼真翻书效果</title>
+        <link rel="stylesheet" type="text/css" href="res/book.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="component">
+                <ul class="align">
+                    <li>
+                        <figure class='book'>
+                            <!-- Front -->
+                            <ul class='hardcover_front'>
+                                <li>
+                                    <div class="coverDesign yellow" ontouchstart="openBook()">
+                                        <span class="ribbon">NEW</span>
+                                        <h1>魔法书</h1>
+                                        <p>开卷有益</p>
+                                    </div>
+                                </li>
+                                <li></li>
+                            </ul>
+                            <!-- Pages -->
+                            <ul class='page'>
+                                <li></li>
+                                <li id="bookCon">
+                                    <b></b>
+                                </li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                            <!-- Back -->
+                            <ul class='hardcover_back'>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                            <ul class='book_spine'>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                        </figure>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <script>
+            var index = 0;
+            var dataArr = [
+                '<span style="font-size:90px;">风</span>',
+                '<span style="font-size:90px;">雨</span>',
+                '<span style="font-size:90px;">雷</span>',
+                '<span style="font-size:90px;">电</span>',
+				'<span style="font-size:90px;">大</span>',
+				'<span style="font-size:90px;">小</span>',
+				'<span style="font-size:90px;">多</span>',
+				'<span style="font-size:90px;">少</span>',
+				'<span style="font-size:90px;">上</span>',
+				'<span style="font-size:90px;">下</span>',
+				'<span style="font-size:90px;">左</span>',
+				'<span style="font-size:90px;">右</span>',
+                '<img src="https://xiaoyaochun8.github.io/qw/mq/res/1.png" style="width:80%"/>',
+                '<img src="https://xiaoyaochun8.github.io/qw/mq/res/2.png" style="width:80%"/>',
+                '<img src="https://xiaoyaochun8.github.io/qw/mq/res/3.png" style="width:80%"/>',
+                '<img src="https://xiaoyaochun8.github.io/qw/mq/res/4.png" style="width:80%"/>',
+                '<img src="https://xiaoyaochun8.github.io/qw/mq/res/5.png" style="width:80%"/>',
+                '<img src="https://xiaoyaochun8.github.io/qw/mq/res/6.png" style="width:80%"/>',
+                '<img src="https://xiaoyaochun8.github.io/qw/mq/res/7.png" style="width:80%"/>',
+                '<img src="https://xiaoyaochun8.github.io/qw/mq/res/8.png" style="width:80%"/>',
+                '<img src="https://xiaoyaochun8.github.io/qw/mq/res/9.png" style="width:80%"/>',
+                '<img src="https://xiaoyaochun8.github.io/qw/mq/res/10.png" style="width:80%"/>',
+                '<img src="https://xiaoyaochun8.github.io/qw/mq/res/11.png" style="width:80%"/>',
+                '<img src="https://xiaoyaochun8.github.io/qw/mq/res/12.png" style="width:80%"/>',
+                '<div style="width:40%;height:40%;background:red"></div>',
+                '<div style="width:40%;height:40%;background:green"></div>',
+                '<div style="width:40%;height:40%;background:blue"></div>',
+                '<div style="width:40%;height:40%;background:yellow"></div>',
+                '<div style="width:40%;height:40%;background:black"></div>',
+                '<div style="width:40%;height:40%;background:white"></div>',
+            ];
+            var bookCon = document.querySelector('#bookCon');
+            function openBook(){
+                index = Math.floor(Math.random()*dataArr.length);
+                bookCon.innerHTML = dataArr[index];
+                //index ++;
+                //if(index > dataArr.length - 1){
+                //    index = 0;
+                //}
+            }
+        </script>
+        
+        <style>
+            #bookCon {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        </style>
+    </body>
+</html>

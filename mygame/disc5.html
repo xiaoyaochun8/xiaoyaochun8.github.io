@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <title>时钟</title>
+    </head>
+    <body>
+        <templateN id="fullScreen" style="background: lightblue" ontouchstart="stopTime()">
+            <view class="list pan"></view>
+            <view class="list zz" style="background:none;">
+                <view class="zz"><view></view></view>
+            </view>
+            <view class="list zz2" style="background:none;">
+                <view class="zz2"><view></view></view>
+            </view>
+            <view class="list zz3" style="background:none;">
+                <view class="zz3"><view></view></view>
+            </view>
+        </templateN>
+        
+        <script type="text/javascript">
+            function renderDisc(no, data){
+                var step = 360 / data.length;
+                var html = '';
+                for(var i=0;i<data.length;i++){
+                    html += '<view class="item" style="transform: rotate('+(i*step)+'deg)">'+data[i]+'</view>';
+                }
+                document.getElementsByClassName('list')[no-1].innerHTML = html;
+            }
+            function stopTime(){
+                isStop = !isStop;
+            }
+            function runTime(){
+                if(!isStop){
+                    hDom.style = "transform: rotate("+hArc+"deg)";
+                    mDom.style = "transform: rotate("+mArc+"deg)";
+                    sDom.style = "transform: rotate("+sArc+"deg)";
+                    hArc += 0.15;
+                    mArc += 1;
+                    sArc += 6;
+                }
+                //setTimeout(function(){
+                //    runTime();
+                //},10);
+                requestAnimationFrame(runTime);
+            }
+            requestAnimationFrame(runTime);
+            
+            var hDom = document.getElementsByClassName('list zz')[0];
+            var mDom = document.getElementsByClassName('list zz2')[0];
+            var sDom = document.getElementsByClassName('list zz3')[0];
+            
+            var hArc = 0;
+            var mArc = 0;
+            var sArc = 0;
+            var isStop = false;
+            var data = [
+                '6-7-8-9-10-11-12-1-2-3-4-5',
+            ];
+            for(var i=0;i<data.length;i++){
+                renderDisc(i+1, data[i].split('-'));
+            }
+            //runTime();
+        </script>
+        
+        <style>
+            html,body,templateN {
+                width:100%;
+                height:100%;
+                margin:0;
+                padding:0;
+                display:flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .list {
+                border:dotted 1px lightgray;
+                margin:5rem auto;
+                background:none;
+                width:70vw;
+                height:70vw;
+                border-radius: 45vw;
+                display:flex;
+                justify-content: space-around;
+                font-size: 2rem;
+                position:absolute;
+            }
+            .list .item {
+                position:absolute;
+                border:dotted 0px lightgray;
+                width:70vw;
+                height:70vw;
+                display:flex;
+                align-items: flex-end;
+                justify-content: center;
+            }
+            .list .zz {
+                position:absolute;
+                border:dotted 0px lightgray;
+                width:10px;
+                height:80%;
+                display:flex;
+                align-items: flex-end;
+                justify-content: center;
+            }
+            .list .zz view {
+                border:dotted 1px lightgray;
+                background: blue;
+                width:100%;
+                height:50%;
+            }
+            .list .zz2 {
+                position:absolute;
+                border:dotted 0px lightgray;
+                width:15px;
+                height:90%;
+                display:flex;
+                align-items: flex-end;
+                justify-content: center;
+            }
+            .list .zz2 view {
+                border:dotted 1px lightgray;
+                background: green;
+                width:100%;
+                height:60%;
+            }.list .zz3 {
+                position:absolute;
+                border:dotted 0px lightgray;
+                width:3px;
+                height:100%;
+                display:flex;
+                align-items: flex-end;
+                justify-content: center;
+            }
+            .list .zz3 view {
+                border:dotted 0px lightgray;
+                background: red;
+                width:100%;
+                height:70%;
+            }
+            .list.pan {
+                background: white;
+            }
+            .list.zz {
+                transform: rotate(0deg);
+            }
+            .list.zz2 {
+                transform: rotate(0deg);
+            }
+            .list.zz3 {
+                transform: rotate(0deg);
+            }
+        </style>
+    </body>
+</html>

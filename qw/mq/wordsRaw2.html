@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "UTF-8">
+        <!--<meta name = "viewport" content = "width = device-width, initial-scale = 1, shrink-to-fit = no">-->
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+        <link rel="shortcut icon " href="res/numbers.jpeg" type="image/jpeg">
+        <title>文字对</title>
+        <link href="../.././common/css/noUserSelect.css" type="text/css" rel="stylesheet">
+        <script type="text/javascript" src="../.././common/js/noContextmenu.js"></script>
+        <style type = "text/css">
+            * {margin: 0; padding: 0; }
+            #box {width: 100%; background-color: lightgray; font-size: 100px}
+            #t2,#t5,#t8 {
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .color_0 {
+                background: linear-gradient(to right, red, blue);
+            }
+            .color_1 {
+                background: linear-gradient(to right, red, green);
+            }
+            .color_2 {
+                background: linear-gradient(to right, red, yellow);
+            }
+            .color_3 {
+                background: linear-gradient(to right, red, gray);
+            }
+            .color_4 {
+                background: linear-gradient(to right, red, pink);
+            }
+        </style>
+    </head>
+    <body>
+        <table id="box" >
+            <tr>
+                <td align="left" valign="top"></td>
+                <td id="t2" class="color_0" align="center" valign="top"></td>
+                <td align="right" valign="top"></td>
+            </tr>
+            <tr>
+                <td align="left" valign="middle"></td>
+                <td id="t5" class="color_0" align="center" valign="middle">|<br>对<br>|</td>
+                <td align="right" valign="middle"></td>
+            </tr>
+            <tr>
+                <td align="left" valign="bottom"></td>
+                <td id="t8" class="color_0" align="center" valign="bottom"></td>
+                <td align="right" valign="bottom"></td>
+            </tr>
+        </table>
+        <script type="text/javascript">
+            //《声律启蒙》与《笠翁对韵》
+            const box = document.getElementById("box");
+            box.addEventListener("touchstart", (event) => {
+                //console.log(event)
+                if(event.touches.length >= 2){
+                    changeNumber();
+                }
+            });
+            function init(){
+                document.getElementById('box').style.height = window.innerHeight + 'px';
+            }
+            init();
+            var number = 0;
+            var wordsArr = [
+                '天对地',
+                '雨对风',
+                '大陆对长空',
+                '山花对海树',
+                '赤日对苍穹',
+                '日下对天中',
+                '河对汉',
+                '绿对红',
+                '雨伯对雷公',
+                '烟楼对雪洞',
+                '月殿对天宫',
+                '山对海',
+                '华对嵩',
+                '四岳对三公',
+                '宫花对禁柳',
+                '塞雁对江龙',
+                '云对雨',
+                '雪对风',
+                '贫对富',
+                '塞对通',
+                '春对夏',
+                '秋对冬',
+                '明对暗',
+                '淡对浓',
+                '茶对酒',
+                '赋对诗',
+                '来对往',
+                '密对稀',
+                '声对色',
+                '饱对饥',
+                '无对有',
+                '实对虚',
+                '终对始',
+                '疾对徐',
+                '麟对凤',
+                '鳖对鱼',
+                '贤对圣',
+                '智对愚',
+                '熊对虎',
+                '象对犀',
+                '城对市',
+                '巷对街',
+                '增对损',
+                '闭对开',
+                '邪对正',
+                '假对真',
+                '哀对乐',
+                '富对贫',
+                '家对国',
+                '武对文',
+                '欹对正',
+                '见对闻',
+                '幽对显',
+                '寂对喧',
+                '儿对女',
+                '子对孙',
+                '歌对舞',
+                '德对恩',
+            ];
+            function changeNumber(){
+                if(number >= wordsArr.length){
+                    number = 0;
+                }
+                var className = 'color_' + number%5;
+                var textArr = wordsArr[number].split('对');
+                document.getElementById('t2').className = className;
+                document.getElementById('t5').className = className;
+                document.getElementById('t8').className = className;
+                document.getElementById('t2').innerHTML = textArr[0];
+                document.getElementById('t8').innerHTML = textArr[1];
+                number ++;
+            }
+        </script>
+    </body>
+</html>

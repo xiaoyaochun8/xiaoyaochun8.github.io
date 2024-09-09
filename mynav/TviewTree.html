@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <title>TviewTree</title>
+    </head>
+    <body>
+        <div class="box outBox">
+            <span class="title titleB">全部</span>
+            <div class="box">
+                <span class="title titleB">业务逻辑</span>
+            </div>
+            <div class="box">
+                <span class="title titleB">计算机基础</span>
+            </div>
+            <div class="box">
+                <span class="title titleB">架构</span>
+            </div>
+            <div class="box">
+                <span class="title titleB">竞赛</span>
+            </div>
+            <div class="box">
+                <span class="title titleB">OpenGL</span>
+                <div class="box">
+                    <span class="title titleB">WebGL</span>
+                    <div class="box">
+                        <span class="title titleB">threejs</span>
+                    </div>
+                </div>
+            </div>
+            <div class="box">
+                <span class="title titleB">后端</span>
+                <div class="box">
+                    <span class="title titleB">php/swoole</span>
+                </div>
+                <div class="box">
+                    <span class="title titleB">golang</span>
+                </div>
+                <div class="box">
+                    <span class="title titleB">java</span>
+                </div>
+                <div class="box">
+                    <span class="title titleB">mysql</span>
+                </div>
+                <div class="box">
+                    <span class="title titleB">redis</span>
+                </div>
+            </div>
+            <div class="box">
+                <span class="title titleB">前端</span>
+                <div class="box">
+                    <span class="title titleB">h5</span>
+                </div>
+                <div class="box">
+                    <span class="title titleB">小程序</span>
+                </div>
+                <div class="box">
+                    <span class="title titleB">安卓app</span>
+                </div>
+                <div class="box">
+                    <span class="title titleB">前端工程化</span>
+                    <div class="box">
+                        <span class="title titleB">nodejs/npm</span>
+                    </div>
+                    <div class="box">
+                        <span class="title titleB">vue</span>
+                    </div>
+                    <div class="box">
+                        <span class="title titleB">react</span>
+                    </div>
+                    <div class="box">
+                        <span class="title titleB">webpack</span>
+                    </div>
+                    <div class="box">
+                        <span class="title titleB">vite</span>
+                    </div>
+                </div>
+                <div class="box">
+                    <span class="title titleB">game</span>
+                    <div class="box">
+                        <span class="title titleB">unity</span>
+                    </div>
+                    <div class="box">
+                        <span class="title titleB">ue</span>
+                    </div>
+                    <div class="box">
+                        <span class="title titleB">babylonjs</span>
+                    </div>
+                    <div class="box">
+                        <span class="title titleB">playcanvas</span>
+                    </div>
+                </div>
+                <div class="box">
+                    <span class="title titleB">web</span>
+                    <div class="box">
+                        <span class="title titleB">html</span>
+                    </div>
+                    <div class="box">
+                        <span class="title titleB">css</span>
+                    </div>
+                    <div class="box">
+                        <span class="title titleB">js</span>
+                    </div>
+                    <div class="box">
+                        <span class="title titleB">浏览器</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+            $('.title').on('click', function(evt){
+                var obj = $(evt.currentTarget);
+                if(obj.hasClass('titleA')){
+                    obj.removeClass('titleA');
+                    obj.addClass('titleB');
+                    obj.parent().find('div').show();
+                }else{
+                    obj.addClass('titleA');
+                    obj.removeClass('titleB');
+                    obj.parent().find('div').hide();
+                }
+            });
+        </script>
+
+        <style>
+            .box{
+                margin-left: 30px;
+                margin-top: 5px;
+            }
+            .outBox{
+                margin-left: 0px;
+                margin-top: 5px;
+            }
+            .box .title{
+                border: solid 1px red;
+                background: lightblue;
+            }
+            .box .titleA:before{
+                content: "+ ";
+                background: white;
+            }
+            .box .titleB:before{
+                content: "- ";
+                background: white;
+            }
+        </style>
+    </body>
+</html>

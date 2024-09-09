@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "UTF-8">
+        <meta name = "viewport" content = "width = device-width, initial-scale = 1, shrink-to-fit = no">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+        <link rel="shortcut icon " href="res/numbers.jpeg" type="image/jpeg">
+        <title>数字随机</title>
+        <style type = "text/css">
+            * {  
+            -webkit-touch-callout:none;  
+            -webkit-user-select:none;  
+            -khtml-user-select:none;  
+            -moz-user-select:none;  
+            -ms-user-select:none;  
+            user-select:none;  
+            }  
+            input {      
+            -webkit-user-select:auto; /*webkit浏览器*/     
+            } 
+            * {margin: 0; padding: 0; }
+            #box {width: 100%; background-color: lightgray; font-size: 50px}
+            #t5 {font-size:120px}
+        </style>
+    </head>
+    <body>
+        <table id="box">
+            <tr>
+                <td align="left" valign="top"></td>
+                <td align="center" valign="top" id="p1" ontouchstart="changeNumber(1)">妈妈</td>
+                <td align="right" valign="top"></td>
+            </tr>
+            <tr>
+                <td align="left" valign="middle"></td>
+                <td id="t5" align="center" valign="middle">0</td>
+                <td align="right" valign="middle"></td>
+            </tr>
+            <tr>
+                <td align="left" valign="bottom" id="p2" ontouchstart="changeNumber(2)">爸爸</td>
+                <td align="center" valign="bottom"></td>
+                <td align="right" valign="bottom" id="p3" ontouchstart="changeNumber(3)">米奇</td>
+            </tr>
+        </table>
+        <script type="text/javascript">
+            window.addEventListener('contextmenu', function(e){  
+            e.preventDefault();  
+            }); 
+            function init(){
+                document.getElementById('box').style.height = window.innerHeight + 'px';
+            }
+            init();
+            var number = 1;
+            var next = 0;
+            function changeNumber(pN){
+                if(next > 0 && pN != next){
+                    return;
+                }
+                next = pN + 1;
+                if(next > 3){
+                    next = 1;
+                }
+                for(var i=1;i<=3;i++){
+                    if(i == next){
+                        document.getElementById('p'+i).style.background = 'lightgreen';
+                    }else{
+                        document.getElementById('p'+i).style.background = 'lightgray';
+                    }
+                }
+                if(number.toString().endsWith('3')){
+                    document.getElementById('t5').style.background = 'red';
+                }else{
+                    document.getElementById('t5').style.background = 'lightgray';
+                }
+               document.getElementById('t5').innerHTML = number;
+               number = Math.ceil(Math.random() * 100);
+            }
+        </script>
+    </body>
+</html>

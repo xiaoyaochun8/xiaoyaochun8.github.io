@@ -1,0 +1,122 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>我给宝宝做饭饭</title>
+    <style> * {font-size:30px} </style>
+  </head>
+  <body>
+    <div>
+      <img src="162748566266799.png">
+      <div id="type"></div>
+      <div id="subType"></div>
+      <div id="eatTime"></div>
+      <hr>
+      <div id="waitTime"></div>
+    </div>
+    <script>
+      var type = document.querySelector('#type')
+      var subType = document.querySelector('#subType')
+      var eatTime = document.querySelector('#eatTime')
+      var waitTime = document.querySelector('#waitTime')
+      
+      var currTypeId = 0;
+      var currSubTypeId = 0;
+      var typeArr = ['小炖盅','电饭煲'];
+      var eatTimeArr = [
+        {name:'明天5点',time:'05:00:00'},
+        {name:'明天5点半',time:'05:30:00'},
+        {name:'明天6点',time:'06:00:00'},
+        {name:'明天6点半',time:'06:30:00'},
+        {name:'明天7点',time:'07:00:00'},
+      ];
+      var subTypeArr = [
+        [
+          {name:'炖汤',time:3.0,time2:0},//3.0h
+          {name:'燕窝',time:1.3,time2:0},//1.3h
+          {name:'甜品',time:3.3,time2:0},//3.3h
+          {name:'煲粥',time:2.4,time2:0},//2.4h
+          {name:'蒸煮',time:2.3,time2:0},//2.3h
+        ],//2.4h
+        [
+          {name:'牛羊肉',time:0.5,time2:0},//30m
+          {name:'鸡鸭肉',time:0.25,time2:0},//15m
+          {name:'豆/蹄筋',time:0.66,time2:0},//40m
+          {name:'排骨',time:0.2,time2:0},//12m
+          {name:'煲汤',time:0.3,time2:0},//20m
+          {name:'快煮饭',time:0.14,time2:0.33},//11m
+          {name:'杂粮饭',time:0.25,time2:0},//15m
+          {name:'八宝粥',time:0.45,time2:0},//25m
+          {name:'熬粥',time:0.33,time2:0},//20m
+          {name:'蛋糕',time:0.66,time2:0},//40m
+        ],//10m
+      ];
+      
+      function init(){
+        var typeStr = '我想用什么锅锅：<br>';
+        for(var i in typeArr){
+          typeStr += '<button id="btype_'+i+'" class="btype" onclick="chooseType('+i+')">'+typeArr[i]+'</button>';
+        }
+        type.innerHTML = typeStr;
+        //document.querySelector('#btype_0').style.background = 'lightgreen'
+        
+        var eatTimeStr = '我想几点开锅吃饭：<br>';
+        for(var i in eatTimeArr){
+          eatTimeStr += '<button id="btime_'+i+'" class="btime" onclick="chooseTime('+i+')">'+eatTimeArr[i]['name']+'</button>';
+        }
+        eatTime.innerHTML = eatTimeStr;
+      }
+      init();
+      
+      function chooseType(typeId){
+        //for(var i in document.querySelectorAll('.btype')){
+        //    document.querySelectorAll('.btype')[i].style.background = ''
+        //}
+        //document.querySelector('#btype_'+typeId).style.background = 'lightgreen'
+        currTypeId = typeId;
+        var subTypeStr = '我想做什么好吃的饭：<br>';
+        var tmpArr = subTypeArr[typeId];
+        for(var i in tmpArr){
+          subTypeStr += '<button id="bsubType_'+i+'" class="bsubType" onclick="chooseSubType('+i+')">'+tmpArr[i]['name']+'</button>';
+        }
+        subType.innerHTML = subTypeStr;
+        waitTime.innerHTML= '';
+      }
+      
+      function chooseSubType(subTypeId){
+        currSubTypeId = subTypeId;
+        waitTime.innerHTML= '';
+      }
+      
+      function chooseTime(timeId){
+        //定时时长=吃饭时间-做饭时间-开盖时间-当前时间
+        //开始做饭时间=吃饭时间-做饭时间
+        var tmpDate = new Date();
+        var eatTimeItem = eatTimeArr[timeId]['time'].split(':');
+        var eatTime = new Date(tmpDate.getFullYear(), tmpDate.getMonth(), tmpDate.getDate()+1, eatTimeItem[0], eatTimeItem[1], eatTimeItem[2]);
+        var makeCostTime = subTypeArr[currTypeId][currSubTypeId]['time'] * 60*60;
+        var kgCostTime = subTypeArr[currTypeId][currSubTypeId]['time2'] * 60*60;
+        var makeFoodTime = eatTime.getTime()/1000 - makeCostTime - kgCostTime - tmpDate.getTime()/1000;
+        var makeFoodTimeH = Math.floor(makeFoodTime / 60 / 60);
+        var makeFoodTimeM = Math.floor(makeFoodTime/60 % 60);
+        var startMakeFoodTime = new Date(eatTime.getTime() - kgCostTime*1000 - makeCostTime*1000);
+        var startKgTime = new Date(eatTime.getTime() - kgCostTime*1000);
+        var fixNote = '';
+        if(makeFoodTimeH < 0){
+          fixNote = '，不赶趟了啊~';
+        }else if(makeFoodTimeH > 10){
+          fixNote = '，着什么急啊~';
+        }
+
+        var html = '['+typeArr[currTypeId]+']';
+        html += '['+subTypeArr[currTypeId][currSubTypeId]['name']+']';
+        html += '[耗时'+subTypeArr[currTypeId][currSubTypeId]['time']+'h]';
+        html += '[在'+eatTimeArr[timeId]['name']+']吃饭';
+        html += '<br> &gt;定时'+makeFoodTimeH+'小时'+makeFoodTimeM+'分钟即可&lt; <br>';
+        html += '（'+startMakeFoodTime.getHours()+'点'+startMakeFoodTime.getMinutes()+'分开始做饭,'+startKgTime.getHours()+'点'+startKgTime.getMinutes()+'分等开盖';
+        html += fixNote+'）';
+        waitTime.innerHTML = html;
+      }
+    </script>
+  </body>
+</html>

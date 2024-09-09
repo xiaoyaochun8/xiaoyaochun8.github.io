@@ -1,0 +1,41 @@
+.box {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+  height: 100%;
+  background: #ff5e0059;
+}
+.column {
+  flex-basis: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.item {
+  padding: 2%;
+}
+.column:nth-child(odd) span:nth-child(odd) {
+    background: #c7edcc;
+}
+.column:nth-child(odd) span:nth-child(even) {
+    background: #dce2f1;
+}
+.column:nth-child(even) span:nth-child(odd) {
+    background: #dce2f1;
+}
+.column:nth-child(even) span:nth-child(even) {
+    background: #c7edcc;
+}
+
+
+.item1 {
+    background: #c7edcc;
+}
+.item2 {
+    background: #dce2f1;
+}
+.item3 {
+    background: #faf9de;
+}
+.item4 {
+    background: #fde6e0;
+}

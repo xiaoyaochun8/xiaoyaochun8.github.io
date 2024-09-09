@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html font-size="62.5%">
+    <head>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <title>-高效工具箱-</title>
+        <link href="../common/css/noUserSelect.css" type="text/css" rel="stylesheet">
+        <script type="text/javascript" src="../common/js/noContextmenu.js"></script>
+        <script type="text/javascript" src="../common/js/rpUtil.js"></script>
+        <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/vue/3.2.31/vue.global.min.js"></script>
+        <link href="../common/css/fontColorful.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+        <templateN class="con" id="indexApp">
+            <view class="title fontStyle2">{{navName}}</view>
+            <view class="list">
+                <view class="item fontStyle4" v-for="(menu,index) in menuList" v-on:click="goTo2(index)" :key="index">
+                    {{menu[1]}}
+                </view>
+            </view>
+            <view class="list">
+                <view class="item fontStyle4" v-for="(menu,index) in menuList2" v-on:click="goTo22(index)" :key="index">
+                    {{menu[1]}}
+                </view>
+            </view>
+        </templateN>
+
+        <script>
+            //isNav
+            rpUtil.log('pageInit');
+            //不可选择、无菜单、彩色、ontouchstart、使用rem替换px
+            const IndeApp = {
+              data() {
+                return {
+                  navName: 'index',
+                  menuList: [
+                    ['zhuzhou', '煮粥'],
+                    ['moment', '此刻'],
+                    ['moment2', '此刻周'],
+                    ['moment3', '此刻日'],
+                  ],
+                  menuList2: [
+                    ['huatu', '画图'],
+                  ]
+                }
+              },
+              methods: {
+                goTo(name){
+                    rpUtil.gotoPage(name);
+                },
+                goTo2(index){
+                    rpUtil.gotoPage(this.menuList[index][0]);
+                },
+                goTo22(index){
+                    rpUtil.gotoPage(this.menuList2[index][0]);
+                }
+              }
+            }
+            const vm = Vue.createApp(IndeApp).mount('#indexApp');
+        </script>
+        
+        <style>
+            body {
+                background:aliceblue;
+                margin:0;
+                padding:0;
+                font-size:1.5rem;
+            }
+            view {
+                border-radius:5rem;
+                padding:0.5rem;
+            }
+            .con {
+                border:dotted 1px lightgray;
+                background:lavender;
+                height:100vh;
+            }
+            .title {
+                border:dotted 1px lightgray;
+                margin:0 auto;
+                /*background:#e3fae7;*/
+                display:flex;
+                justify-content: space-around;
+            }
+            .nav {
+                border:dotted 1px lightgray;
+                margin:1rem auto;
+                background:#e3fae7;
+                display:flex;
+                justify-content: space-around;
+                cursor:pointer;
+            }
+            .list {
+                border:dotted 1px lightgray;
+                margin:1rem auto;
+                background:#e3fae7;
+                display:flex;
+                justify-content: space-around;
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            .list .item {
+                border:dotted 1px lightgray;
+                height:2rem;
+                fontStyle1-align:center;
+                /*background:#afbee7;*/
+                cursor:pointer;
+                display:flex;
+                align-items: center;
+                justify-content: center;
+                margin: 1rem;
+                letter-spacing: 0.25rem;
+            }
+        </style>
+    </body>
+</html>

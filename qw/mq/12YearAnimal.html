@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<!--<meta name = "viewport" content = "width = device-width, initial-scale = 1, shrink-to-fit = no">-->
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+		<link rel="shortcut icon " href="1.png" type="image/png">
+		<title>十二生肖</title>
+		<style type="text/css">
+			* {margin: 0; padding: 0; border: solid 0px red;}
+			#box {width: 100%;}
+			div {font-size: 60px;}
+		</style>
+	</head>
+	<body>
+		<table id="box">
+			<tr>
+				<td align="right" valign="bottom"><div id="txt_1"></div><img id="img_1" ontouchstart="setAnimal()"></td>
+				<td align="center" valign="bottom"><div id="txt_2"></div><img id="img_2" ontouchstart="setAnimal()"></td>
+				<td align="left" valign="bottom"><div id="txt_3"></div><img id="img_3" ontouchstart="setAnimal()"></td>
+			</tr>
+			<tr>
+				<td align="right" valign="middle"><div id="txt_4"></div><img id="img_4" ontouchstart="setAnimal()"></td>
+				<td align="center" valign="middle"><div id="txt_5"></div><img id="img_5" ontouchstart="setAnimal()"></td>
+				<td align="left" valign="middle"><div id="txt_6"></div><img id="img_6" ontouchstart="setAnimal()"></td>
+			</tr>
+			<tr>
+				<td align="right" valign="top"><div id="txt_7"></div><img id="img_7" ontouchstart="setAnimal()"></td>
+				<td align="center" valign="top"><div id="txt_8"></div><img id="img_8" ontouchstart="setAnimal()"></td>
+				<td align="left" valign="top"><div id="txt_9"></div><img id="img_9" ontouchstart="setAnimal()"></td>
+			</tr>
+		</table>
+		<script type="text/javascript">
+			function init(){
+				document.getElementById('box').style.height = window.innerHeight + 'px';
+			}
+			init();
+
+			var names = ['','鼠','牛','虎','兔','龙','蛇','马','羊','猴','鸡','狗','猪'];
+			var cnt = -1;
+			function setAnimal(){
+				var random = Math.ceil(Math.random()*10);
+				if (random == 10) {
+					random = 5;
+				}
+				for(var i=1;i<=9;i++){
+					document.getElementById('txt_'+i).style.display = 'none';
+					document.getElementById('img_'+i).style.display = 'none';
+				}
+				if (cnt > 12) {
+					cnt = 1;
+				}
+				var fName;
+				if (cnt < 1) {
+					fName = 0;
+				} else {
+					fName = cnt;
+				}
+				playSound(fName);
+				document.getElementById('txt_'+random).innerHTML = names[fName];
+				document.getElementById('img_'+random).src = 'res/'+fName+".png";
+				document.getElementById('txt_'+random).style.display = 'block';
+				document.getElementById('img_'+random).style.display = 'block';
+				
+				cnt++;
+			}
+			function playSound(i){
+				if (i < 1 || i > 12) {
+					return;
+				}
+				var audio = new Audio();
+				audio3 = audio;
+				audio.src = 'res/'+"text2audio_"+i+".mp3";
+				audio.loop = false;
+				audio.id = 'myAudio3';
+				audio.autoplay = true;
+				audio.addEventListener('canplay', canPlay, false);
+				//audio.play();
+			}
+			function canPlay(){
+				console.log('canplay')
+				audio3.play();
+			}
+			setAnimal();
+		</script>
+	</body>
+</html>

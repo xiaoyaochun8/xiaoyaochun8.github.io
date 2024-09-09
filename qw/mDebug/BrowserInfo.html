@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,user-scalable=no"/> 
+        <title>BrowserInfo</title>
+    </head>
+    <body>
+        
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+<script>
+  $(function(){
+    var txt = '';
+    txt = "<p><b>Browser CodeName:</b> " + navigator.appCodeName + "</p>";
+    txt+= "<p><b>Browser Name:</b> " + navigator.appName + "</p>";
+    txt+= "<p><b>Browser Version:</b> " + navigator.appVersion + "</p>";
+    txt+= "<p><b>Cookies Enabled:</b> " + navigator.cookieEnabled + "</p>";
+    txt+= "<p><b>Platform:</b> " + navigator.platform + "</p>";
+    txt+= "<p><b>User-agent header:</b> " + navigator.userAgent + "</p>";
+    txt+= "<p><b>User-agent language:</b> " + navigator.systemLanguage + "</p>";
+    $('div').html(txt);
+    console.log(navigator);
+  });
+</script>
+<div style=""></div>
+
+    </body>
+</html>

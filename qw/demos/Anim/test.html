@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta charset="utf-8">
+		<title>Anim Base</title>
+		<style>
+			* {}
+			table {width:100%;height:700px;}
+			a {border:solid 1px gray;background:lightgray;padding:1px;text-decoration:none;}
+			#box {width:70%;height:80px;border:solid 1px red;background-image:linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet);}
+			#num {font-size:30px;width:70%;}
+			#ran {width:50%;height:20px;maigin:0;padding:0;}
+		</style>
+	</head>
+	<body>
+		<table style="">
+			<tr valign="middle" style="height:350px;">
+				<td align="center">
+					<div id="box">Hello World!</div>
+				</td>
+			</tr>
+			<tr>
+				<td align="center">
+					<input type="range" id="ran" min="0" max="1" step="1" value="0" onmousemove="show()" ontouchmove="show()"/>
+				</td>
+			</tr>
+			<tr>
+				<td align="center">
+					<input type="text" id="num" disabled/>
+				</td>
+			</tr>
+			<tr>
+				<td align="center">
+					matrix 
+					<a href="javascript:setTranslate();">Translate</a> 
+					<a href="javascript:setRotate();">Rotate</a> 
+					<a href="javascript:setScale();">Scale</a> 
+					<a href="javascript:setSkew();">Skew</a><br><br>
+					matrix3d 
+					<a href="javascript:setRotateX();">RotateX</a> 
+					<a href="javascript:setRotateY();">RotateY</a> 
+					<a href="javascript:setRotateZ();">RotateZ</a><br><br>
+					other  
+					<a href="javascript:setOpacity();">Opacity</a> 
+				</td>
+			</tr>
+		</table>
+	</body>
+	<script type="text/javascript">
+		var ran = document.getElementById("ran");
+		ran.max =360;
+		ran.step = 1;
+		var type = 'setTranslate';
+		var num = document.getElementById("num");
+		var e = document.getElementById('box');
+		function setTranslate(){
+			ran.max =360;
+			ran.step = 1;
+			type = 'setTranslate';
+		}
+		function setRotate(){
+			ran.max =360;
+			ran.step = 1;
+			type = 'setRotate';
+		}
+		function setScale(){
+			ran.max =1.5;
+			ran.step = 0.01;
+			type = 'setScale';
+		}
+		function setSkew(){
+			ran.max =45;
+			ran.step = 1;
+			type = 'setSkew';
+		}
+		function setRotateX(){
+			ran.max =360;
+			ran.step = 1;
+			type = 'setRotateX';
+		}
+		function setRotateY(){
+			ran.max =360;
+			ran.step = 1;
+			type = 'setRotateY';
+		}
+		function setRotateZ(){
+			ran.max =360;
+			ran.step = 1;
+			type = 'setRotateZ';
+		}
+		function setOpacity(){
+			ran.max =1;
+			ran.step = 0.01;
+			type = 'setOpacity';
+		}
+		function show(){
+			num.value = ran.value;
+			show2(ran);
+		}
+		function show2(ran){
+			if(type == 'setTranslate'){
+				e.style.transform = 'translate('+ran.value+'px,0px)';
+			}else if(type == 'setRotate'){
+				e.style.transform = 'rotate('+ran.value+'deg)';
+			}else if(type == 'setScale'){
+				e.style.transform = 'scale('+ran.value+','+ran.value+')';
+			}else if(type == 'setSkew'){
+				e.style.transform = 'skew('+ran.value+'deg,'+ran.value+'deg)';
+			}else if(type == 'setRotateX'){
+				e.style.transform = 'rotateX('+ran.value+'deg)';
+			}else if(type == 'setRotateY'){
+				e.style.transform = 'rotateY('+ran.value+'deg)';
+			}else if(type == 'setRotateZ'){
+				e.style.transform = 'rotateZ('+ran.value+'deg)';
+			}else if(type == 'setOpacity'){
+				e.style.opacity = ran.value;
+			}else{
+				e.style.transform = 'translate('+ran.value+'px,0px)';
+			}
+			
+		}
+	</script>
+</html>

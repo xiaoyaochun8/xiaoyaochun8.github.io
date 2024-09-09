@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "UTF-8">
+		<!--<meta name = "viewport" content = "width = device-width, initial-scale = 1, shrink-to-fit = no">-->
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+		<link rel="shortcut icon " href="res/colors.jpeg" type="image/jpeg">
+		<title>颜色</title>
+		<style type = "text/css">
+			* {  
+			-webkit-touch-callout:none;  
+			-webkit-user-select:none;  
+			-khtml-user-select:none;  
+			-moz-user-select:none;  
+			-ms-user-select:none;  
+			user-select:none;  
+			}  
+			input {	  
+			-webkit-user-select:auto; /*webkit浏览器*/	 
+			} 
+			* {margin: 0; padding: 0; }
+			#box {width: 100%; background-color: lightgray; font-size: 20px}
+		</style>
+	</head>
+	<body>
+		<table id="box" ontouchstart="changeColor()">
+			<tr>
+				<td align="center" valign="bottom"><div id="t2" style="width:50%;height:50%"></div></td>
+			</tr>
+			<tr>
+				<td align="center" valign="top"><div id="t8" style="width:50%;height:50%"></div></td>
+			</tr>
+		</table>
+		<script type="text/javascript">
+			window.addEventListener('contextmenu', function(e){  
+			e.preventDefault();  
+			}); 
+			function init(){
+				document.getElementById('box').style.height = window.innerHeight + 'px';
+			}
+			init();
+			
+			/*红绿蓝黑白*/
+			var colorIndex = 0;
+			var colors = [
+				'rgba(255,0,0,1)',
+				'rgba(0,255,0,1)',
+				'rgba(0,0,255,1)',
+				'rgba(0,0,0,1)',
+				'rgba(255,255,255,1)'
+			];
+			function changeColor(){
+				if(colorIndex >= colors.length){
+					//colorIndex = 0;
+					var r = Math.ceil(Math.random()*255);
+					var g = Math.ceil(Math.random()*255);
+					var b = Math.ceil(Math.random()*255);
+					document.getElementById('t8').style.backgroundColor = 'rgba('+r+','+g+','+b+',1)';
+				}else{
+					document.getElementById('t2').style.backgroundColor = colors[colorIndex];
+					colorIndex ++;
+				}
+			}
+			changeColor();
+			
+			/*rgb全色*/
+			/*var color2Index = 0;
+			var colors2 = [];
+			for(var r=0;r<=255;r++){
+				for(var g=0;g<=255;g++){
+					for(var b=0;b<=255;b++){
+						//console.log(r,g,b)
+						colors2.push({r,g,b})
+					}
+				}
+			}
+			function changeColor2(){
+				if(color2Index >= 16581375){
+					color2Index = 0;
+				}
+				var tmp = colors2[color2Index];
+				document.getElementById('t2').style.backgroundColor = 'rgba('+tmp.r+','+tmp.g+','+tmp.b+',1)';
+				color2Index ++;
+			}
+			setInterval("changeColor2()",1);*/
+			
+			/*黑->白*/
+			var rVal = gVal = bVal = 0;
+			function changeColor22(){
+				document.getElementById('t2').style.backgroundColor = 'rgba('+rVal+','+gVal+','+bVal+',1)';
+				if(rVal < 255){
+					rVal ++;
+				}else if(gVal < 255){
+					gVal ++;
+				}else if(bVal < 255){
+					bVal ++;
+				}else{
+					rVal = gVal = bVal = 0;
+				}
+				/*if(rVal < 255){
+					rVal ++;
+				}else{
+					rVal = 0;
+				}
+				if(gVal < 255){
+					gVal ++;
+				}else{
+					gVal = 0;
+				}
+				if(bVal < 255){
+					bVal ++;
+				}else{
+					bVal = 0;
+				}*/
+			}
+			//setInterval("changeColor22()",10);
+			
+			/*随机色*/
+			function changeColor3(){
+				var r = Math.ceil(Math.random()*255);
+				var g = Math.ceil(Math.random()*255);
+				var b = Math.ceil(Math.random()*255);
+				document.getElementById('t8').style.backgroundColor = 'rgba('+r+','+g+','+b+',1)';
+			}
+			//changeColor3();
+		</script>
+	</body>
+</html>
