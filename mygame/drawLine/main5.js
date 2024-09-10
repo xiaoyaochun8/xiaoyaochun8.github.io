@@ -2,7 +2,10 @@ window.onload = (event) => {
     // console.log(event);
     main();
 }
-
+var currColor = 'red'
+function setColor(color){
+    currColor = color
+}
 function main() {
     const canvas = document.getElementById("canvas");
     // 设置画布的宽高
@@ -33,7 +36,7 @@ function main() {
     canvas.addEventListener("touchmove", (event) => {
         //console.log('touchmove', event);
         if (isDrawing) {
-            drawLine(ctx, "green", 3, startX, startY, event.touches[0].clientX, event.touches[0].clientY);
+            drawLine(ctx, currColor, 5, startX, startY, event.touches[0].clientX, event.touches[0].clientY);
             x2 = event.touches[0].clientX;
             y2 = event.touches[0].clientY;
             //isDrawing = false;

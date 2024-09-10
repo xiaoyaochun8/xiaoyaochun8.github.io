@@ -25,10 +25,62 @@
             right: 0;
             font-size:2rem;
         }
+        .colorSelector {
+            position:absolute;
+            bottom: 0;
+            left: 0;
+            font-size:2rem;
+            width: 100vw;
+            height: 4rem;
+        }
+        .colorSelector .red {
+            background: red;
+            width: 2rem;
+            height: 2rem;
+            left: 1rem;
+        }
+        .colorSelector .green {
+            background: green;
+            width: 2rem;
+            height: 2rem;
+            left: 4rem;
+        }
+        .colorSelector .blue {
+            background: blue;
+            width: 2rem;
+            height: 2rem;
+            left: 7rem;
+        }
+        .colorSelector .yellow {
+            background: yellow;
+            width: 2rem;
+            height: 2rem;
+            left: 10rem;
+        }
+        .colorSelector .white {
+            background: white;
+            width: 2rem;
+            height: 2rem;
+            left: 13rem;
+        }
+        .colorSelector .black {
+            background: black;
+            width: 2rem;
+            height: 2rem;
+            left: 16rem;
+        }
         </style>
     </head>
     <body>
         <button value="清除" onclick="main()">清除</button>
+        <div class="colorSelector">
+            <button class="red" onclick="setColor('red')"></button>
+            <button class="green" onclick="setColor('green')"></button>
+            <button class="blue" onclick="setColor('blue')"></button>
+            <button class="yellow" onclick="setColor('yellow')"></button>
+            <button class="white" onclick="setColor('white')"></button>
+            <button class="black" onclick="setColor('black')"></button>
+        </div>
         <span class="fontStyle7">画布</span>
         <canvas id="canvas"></canvas>
         <script src="main5.js"></script>
