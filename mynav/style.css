@@ -8,7 +8,7 @@
 .column {
   flex-basis: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 .item {
   padding: 2%;
