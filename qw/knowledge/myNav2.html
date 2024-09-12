@@ -4,42 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>我的导航页</title>
-    <style>
-        #top {
-            width: 100%;
-        }
-        #searchBox {
-            width: 80%;
-            margin:20px auto;
-        }
-        #groupsBox {
-            display: grid;
-            grid-template-columns: 49% 49%;
-            grid-template-rows: auto auto;
-            grid-row-gap: 1%;
-            grid-column-gap: 1%;
-        }
-        .groups {
-            display: grid;
-            grid-template-columns: 100%;
-            grid-template-rows: fill;
-            grid-auto-flow: row;
-            grid-row-gap: 2%;
-            grid-column-gap: 1%;
-            border: solid 0px lightgray;
-            height: fit-content;
-        }
-        .item {
-            border: solid 1px lightgray;
-            height: fit-content;
-        }
-        .item * {
-            display: block;
-        }
-        #bottom {
-            margin-top: 40px;
-        }
-    </style>
 </head>
 <body>
     <div id="top">
@@ -57,13 +21,13 @@
     <div class="groups" style="">
         <div class="item">
             【Groups】
+            <a href="https://www.ruanyifeng.com/blog/">阮一峰</a>
             <a href="https://www.csdn.net">CSDN</a>
             <a href="https://www.cnblogs.com">博客园</a>
             <a href="https://shumeipai.nxez.com/">树莓派实验室</a>
             <a href="https://yijiebuyi.com">一介布衣</a>
             <a href="https://www.zhihu.com">知乎</a>
             <a href="https://www.shejidaren.com">设计达人</a>
-            <a href="https://www.ruanyifeng.com/blog/">阮一峰</a>
             <a href="https://www.liaoxuefeng.com/">廖雪峰</a>
             <a href="https://www.williamlong.info/">月光博客</a>
         </div>
@@ -131,5 +95,42 @@
             open(protocol + url);
         }
     </script>
+
+    <style>
+        #top {
+            width: 100%;
+        }
+        #searchBox {
+            width: 80%;
+            margin:20px auto;
+        }
+        #groupsBox {
+            display: grid;
+            grid-template-columns: 49% 49%;
+            grid-template-rows: auto auto;
+            grid-row-gap: 1%;
+            grid-column-gap: 1%;
+        }
+        .groups {
+            display: grid;
+            grid-template-columns: 100%;
+            grid-template-rows: fill;
+            grid-auto-flow: row;
+            grid-row-gap: 2%;
+            grid-column-gap: 1%;
+            border: solid 0px lightgray;
+            height: fit-content;
+        }
+        .item {
+            border: solid 1px lightgray;
+            height: fit-content;
+        }
+        .item * {
+            display: block;
+        }
+        #bottom {
+            margin-top: 40px;
+        }
+    </style>
 </body>
 </html>
