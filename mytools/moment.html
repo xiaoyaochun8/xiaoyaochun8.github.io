@@ -11,6 +11,8 @@
             <view class="item" id="item1">0</view>
             <view class="item" id="item2">0</view>
             <view class="item" id="item3">0</view>
+            <view class="item" id="item4">0</view>
+            <view class="item" id="item5">0</view>
         </templateN>
 
         <script type="module">
@@ -20,7 +22,7 @@
             function getE(e){
                 return document.querySelector(e);
             }
-            var getMonthWeek = function (a, b, c) { 
+            var getMonthWeekNo = function (a, b, c) { 
                 /* 
                 a = d = 当前日期 
                 b = 6 - w = 当前周的还有几天过完(不算今天) 
@@ -31,7 +33,7 @@
                 (d + 6 - w) / 7 
                 ); 
             };
-            var getYearWeek = function (a, b, c) { 
+            var getYearWeekNo = function (a, b, c) { 
                 /* 
                 date1是当前日期 
                 date2是当年第一天 
@@ -44,6 +46,16 @@
                 (d + ((date2.getDay() + 1) - 1)) / 7 
                 ); 
             }; 
+            var getYearDayNo = function (a, b, c) { 
+                /* 
+                date1是当前日期 
+                date2是当年第一天 
+                d是当前日期是今年第多少天 
+                */
+                var date1 = new Date(a, parseInt(b) - 1, c), date2 = new Date(a, 0, 1), 
+                d = Math.round((date1.valueOf() - date2.valueOf()) / 86400000); 
+                return d; 
+            };
 
             function calcTime(){
                 var date = new Date();
@@ -54,8 +66,9 @@
                 var i = date.getMinutes();
                 var s = date.getSeconds();
                 var w = date.getDay();
-                var wNw = getMonthWeek(y, m, d);
-                var wNy = getYearWeek(y, m, d);
+                var wNw = getMonthWeekNo(y, m, d);
+                var wNy = getYearWeekNo(y, m, d);
+                var dNy = getYearDayNo(y, m, d);
                 if(h < 10){
                     h = '0'+h
                 }
@@ -68,7 +81,9 @@
                 setCon('#item', date);
                 setCon('#item1', y+' 年 '+m+' 月 '+d+' 日');
                 setCon('#item2', h+' : '+i+' : '+s);
-                setCon('#item3', '本年第'+wNy+'周，本月第'+wNw+'周，星期：'+w);
+                setCon('#item3', '星期：'+w);
+                setCon('#item4', '本月第'+d+'天，本月第'+wNw+'周');
+                setCon('#item5', '本年第'+dNy+'天，本年第'+wNy+'周');
             }
             function setDelayTimer(){
                 setTimeout(function(){
