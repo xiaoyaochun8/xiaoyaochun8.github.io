@@ -7,67 +7,6 @@
 		<title>打字机</title>
         <link href="../.././common/css/noUserSelect.css" type="text/css" rel="stylesheet">
         <script type="text/javascript" src="../.././common/js/noContextmenu.js"></script>
-		<style type="text/css">
-            * {margin:0;padding:0}
-			body {
-				background: rgba(0,0,0,0.4);
-			}
-			#txt1,#txt2 {
-				font-size: 20px; font-weight: normal;
-			}
-			#txt1 {	
-			}
-			#textBox {
-				font-size: 60px; 
-				font-weight: bold;
-				color: red;
-				overflow: scroll;
-				height: 48vh;
-				width: 100vw;
-				background: black;
-				word-break: break-all;
-			}
-			table {
-				width: 100%; margin-top: 0px;
-				border-spacing: 0px;
-			}
-			table.keys {
-				border: solid 1px rgba(0,0,0,1);
-			}
-			table.keys td {
-				border: solid 1px rgba(0,0,0,1);
-				text-align: center;
-			}
-            .scrollView {
-                overflow: scroll;
-				height: 50vh;
-				width: 100vw;
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: flex-start;
-            }
-            .grid {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: flex-start;
-				align-content: flex-start
-            }
-			.grid1 {
-				width: 85vw;
-            }
-			.grid2 {
-				width: 15vw;
-            }
-            .grid .item {
-				width: 4rem;
-				height: 4rem;
-                font-size: 3rem;
-                border: solid 1px gray;
-            }
-			.grid .br {
-				width: 100vw;
-            }
-		</style>
 	</head>
 	<body>
 		<table>
@@ -115,6 +54,18 @@
 					'9',
 				],
 				[
+					'一',
+					'二',
+					'三',
+					'四',
+					'五',
+					'六',
+					'七',
+					'八',
+					'九',
+					'十',
+				],
+				[
 					'大',
 					'小',
 					'多',
@@ -140,6 +91,101 @@
 					'我',
 					'你',
 					'他',
+					'她',
+					'它',
+				],
+				[
+					'东',
+					'南',
+					'西',
+					'北',
+					'中',
+				],
+				[
+					'金',
+					'木',
+					'水',
+					'火',
+					'土',
+				],
+				[
+					'风',
+					'雨',
+					'雷',
+					'电',
+				],
+				[
+					'日',
+					'月',
+					'星',
+					'水',
+					'火',
+					'风',
+					'天',
+					'地',
+					'人',
+				],
+				[
+					'♡',
+					'月☆',
+					'星□',
+					'水◇',
+					'火△',
+					'风○',
+					'天☼',
+					'地☽',
+					'，',
+					'。',
+					'？',
+					'！',
+					'＋',
+					'－',
+					'＝',
+					'＜',
+					'＞',
+					'≤',
+					'≥',
+					'≈',
+					'≠',
+					'✔',
+					'✘',
+				],
+				[
+					'♡',
+					'☆',
+					'□',
+					'◇',
+					'△',
+					'○',
+					'☼',
+					'☽',
+					'☺',
+					'☹',
+					'♩',
+					'♪',
+					'♫',
+					'♬',
+					'§',
+					'☂',
+					'☁',
+					'✉',
+					'✈',
+					'✄',
+					'❀',
+				],
+				[
+					'Ⅰ',
+					'Ⅱ',
+					'Ⅲ',
+					'Ⅳ',
+					'Ⅴ',
+					'Ⅵ',
+					'Ⅶ',
+					'Ⅷ',
+					'Ⅸ',
+					'Ⅹ',
+					'Ⅺ',
+					'Ⅻ',
 				],
 			];
 			var htmlStr = '';
@@ -167,5 +213,67 @@
 			    setText('');
 			})
 		</script>
+
+		<style type="text/css">
+			* {margin:0;padding:0}
+			body {
+				background: rgba(0,0,0,0.4);
+			}
+			#txt1,#txt2 {
+				font-size: 20px; font-weight: normal;
+			}
+			#txt1 {	
+			}
+			#textBox {
+				font-size: 60px; 
+				font-weight: bold;
+				color: red;
+				overflow: scroll;
+				height: 48vh;
+				width: 100vw;
+				background: black;
+				word-break: break-all;
+			}
+			table {
+				width: 100%; margin-top: 0px;
+				border-spacing: 0px;
+			}
+			table.keys {
+				border: solid 1px rgba(0,0,0,1);
+			}
+			table.keys td {
+				border: solid 1px rgba(0,0,0,1);
+				text-align: center;
+			}
+			.scrollView {
+				overflow: scroll;
+				height: 50vh;
+				width: 100vw;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: flex-start;
+			}
+			.grid {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: flex-start;
+				align-content: flex-start
+			}
+			.grid1 {
+				width: 85vw;
+			}
+			.grid2 {
+				width: 15vw;
+			}
+			.grid .item {
+				width: 4rem;
+				height: 4rem;
+				font-size: 3rem;
+				border: solid 1px gray;
+			}
+			.grid .br {
+				width: 100vw;
+			}
+		</style>
 	</body>
 </html>
