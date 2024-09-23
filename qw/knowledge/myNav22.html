@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>我的导航页</title>
+</head>
+<body>
+
+    <div id="mask">
+        <table>
+            <tr>
+                <td>明</td><td>明</td><td>事</td><td>万</td>
+            </tr>
+            <tr>
+                <td>日</td><td>日</td><td>事</td><td>事</td>
+            </tr>
+            <tr>
+                <td>复</td><td>何</td><td>等</td><td>成</td>
+            </tr>
+            <tr>
+                <td>明</td><td>其</td><td>明</td><td>蹉</td>
+            </tr>
+            <tr>
+                <td>日</td><td>多</td><td>日</td><td>跎</td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="top">
+        <div id="searchBox" style="">
+            <select id="protocol" style="height:45px;">
+                <option value="https://">https://</option>
+                <option value="http://">http://</option>
+            </select>
+            <textarea id="gotoUrl" onkeyup="checkVal(this)" placeholder="url..." rows="3" style="width:150px;height:40px;vertical-align:middle;"></textarea> 
+            <button onclick="gotoUrl()" style="width:45px;height:45px;">Go</button><br>
+        </div>
+    </div>
+
+    <div id="groupsBox" style="">
+    <div class="groups" style="">
+        <div class="item">
+            【Groups】
+            <a href="https://www.ruanyifeng.com/blog/">阮一峰</a>
+            <a href="https://www.csdn.net">CSDN</a>
+            <a href="https://www.cnblogs.com">博客园</a>
+            <a href="https://shumeipai.nxez.com/">树莓派实验室</a>
+            <a href="https://yijiebuyi.com">一介布衣</a>
+            <a href="https://www.zhihu.com">知乎</a>
+            <a href="https://www.shejidaren.com">设计达人</a>
+            <a href="https://www.liaoxuefeng.com/">廖雪峰</a>
+            <a href="https://www.williamlong.info/">月光博客</a>
+        </div>
+        <div class="item">
+            【Links】
+            <a href="https://www.runoob.com/w3cnote/android-tutorial-intro.html">安卓开发教程</a>
+            <a href="https://flutterchina.club/">flutter开发教程</a>
+            <a href="https://developers.weixin.qq.com/miniprogram/dev/framework/">小程序开发教程</a>
+            <a href="https://taro-docs.jd.com/taro/docs/README/index.html">taro开发教程</a>
+            <a href="https://element.eleme.cn/#/zh-CN/component/installation">elementUI</a>
+        </div>
+        <div class="item">
+            【marks】
+            <a href="http://scvip.asuscomm.com:8899/mytest/wordpress/">wordpress</a>
+            <a href="http://4srosf6oxw5h.ngrok2.xiaomiqiu.cn/blog">typecho</a>
+            <a href="http://cblvip.gitee.io/qw/knowledge/myBookMarks2.html">bookMarks(U)</a>
+        </div>
+    </div>
+    
+    <div class="groups" style="">
+        <div class="item">
+            【快餐】
+            <a href="https://www.runoob.com">runoob</a>
+            <a href="http://www.codebaoku.com/">编程宝库</a>
+            <a href="https://www.w3school.com.cn/">w3school</a>
+            <a href="http://c.biancheng.net/">c.biancheng</a>
+            <a href="https://www.bccn.net/">编程中国</a>
+            <a href="http://www.pfan.cn/">编程爱好者</a>
+            <a href="http://www.phpxs.com/">编程学习网</a>
+        </div>
+        <div class="item">
+            【SearchEngines】
+            <a href="https://www.google.com.hk">Google</a>
+            <a href="https://cn.bing.com">Bing</a>
+            <a href="https://www.baidu.com">百度</a>
+            <a href="https://www.so.com">360</a>
+            <a href="https://www.sogou.com">搜狗</a>
+        </div>
+        <div class="item">
+            【代码】
+            <a href="https://www.github.com">GitHub</a>
+            <a href="https://gitee.com/">gitee</a>
+            <a href="https://segmentfault.com">segmentfault</a>
+        </div>
+        <div class="item">
+            【P】
+            <a href="http://cblvip.gitee.io/qw/knowledge/pframes.html">dsbd(U)</a>
+        </div>
+    </div>
+    </div>
+
+    <div id="bottom" style="">
+        <marquee scrollamount="3">吾生也有涯，而知也无涯</marquee>
+        <marquee scrollamount="3">多喝水~</marquee>
+        <marquee scrollamount="3">整点站起来走走~</marquee>
+    </div>
+
+    <script>
+        function checkVal(obj){
+            obj.value = obj.value.replaceAll(' ','')
+        }
+        function gotoUrl(){
+            var protocol = document.getElementById('protocol').value;
+            var url = document.getElementById('gotoUrl').value;
+            open(protocol + url);
+        }
+        var items = document.getElementsByTagName('td');
+        var p = '';
+        for(var i in items){
+            items[i].addEventListener("click", function(){
+                p = p + this.innerHTML;
+                if(encodeURIComponent(p) == '%E6%98%8E%E6%97%A5%E4%BA%8B'){
+                    document.getElementById('mask').style.display = 'none';
+                }
+            });
+        }
+    </script>
+
+    <style>
+        #top {
+            width: 100%;
+        }
+        #searchBox {
+            width: 80%;
+            margin:20px auto;
+        }
+        #groupsBox {
+            display: grid;
+            grid-template-columns: 49% 49%;
+            grid-template-rows: auto auto;
+            grid-row-gap: 1%;
+            grid-column-gap: 1%;
+        }
+        .groups {
+            display: grid;
+            grid-template-columns: 100%;
+            grid-template-rows: fill;
+            grid-auto-flow: row;
+            grid-row-gap: 2%;
+            grid-column-gap: 1%;
+            border: solid 0px lightgray;
+            height: fit-content;
+        }
+        .item {
+            border: solid 1px lightgray;
+            height: fit-content;
+        }
+        .item * {
+            display: block;
+        }
+        #bottom {
+            margin-top: 40px;
+        }
+        #mask {
+            width:100%;
+            height:100%;
+            background:lightgray;
+            position:absolute;
+            z-index:999;
+            margin:-8px;
+        }
+        #mask table{
+            width:100%;
+            height:100%;
+            font-family: cursive;
+            font-size:90px;
+            text-align:center;
+        }
+        #mask table td{
+            border-right:solid 1px red;
+        }
+    </style>
+</body>
+</html>
