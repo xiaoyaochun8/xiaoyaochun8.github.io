@@ -20,7 +20,7 @@
                     <div class="scrollView">
                         <div class="grid grid1">
                             <div class="item">米</div>
-                            <div class="item">七</div>
+                            <div class="item">米</div>
                         </div>
 						<div class="grid grid2">
                         </div>
@@ -33,6 +33,11 @@
 		<script>
 			var aryWords = [
 				[
+					'空',
+					'换',
+					'删',
+				],
+				[
 					'米',
 					'奇',
 				],
@@ -40,6 +45,30 @@
 					'陈',
 					'翊',
 					'阳',
+				],
+				[
+					'看',
+					'见',
+					'想',
+					'好',
+					'走',
+					'来',
+					'头',
+					'豆',
+					'口',
+					'只',
+				],
+				[
+					'猫',
+					'画',
+					'爱',
+					'吹',
+					'见',
+					'先',
+					'朵',
+					'后',
+					'家',
+					'回',
 				],
 				[
 					'0',
@@ -52,6 +81,17 @@
 					'7',
 					'8',
 					'9',
+					'＋',
+					'－',
+					'＝',
+					'＜',
+					'＞',
+					'≤',
+					'≥',
+					'≈',
+					'≠',
+					'✔',
+					'✘',
 				],
 				[
 					'一',
@@ -133,17 +173,6 @@
 					'。',
 					'？',
 					'！',
-					'＋',
-					'－',
-					'＝',
-					'＜',
-					'＞',
-					'≤',
-					'≥',
-					'≈',
-					'≠',
-					'✔',
-					'✘',
 				],
 				[
 					'♡',
@@ -193,10 +222,18 @@
 			$('.grid1').html(htmlStr);
  			var txt = '';
 			function setText(text){
-				txt += text;
+				if(text == '删'){
+					txt = txt.substr(0, txt.length-1);
+				}else{
+					if(text == '换'){
+						text = '<br>';
+					}else if(text == '空'){
+						text = '&nbsp;';
+					}
+					txt += text;
+				}
 				document.getElementById('textBox').innerHTML = txt;
 				document.getElementById('textBox').scrollTop = 999999999;
-
 			}
 			$('.item').click(function(){
 			    var text = $(this).text();
