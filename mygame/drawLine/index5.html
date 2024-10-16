@@ -7,23 +7,56 @@
         <link href="../../common/css/noUserSelect.css" type="text/css" rel="stylesheet">
         <script type="text/javascript" src="../../common/js/noContextmenu.js"></script>
         <link href="../../common/css/fontColorful.css" type="text/css" rel="stylesheet">
+        
+    </head>
+    <body>
+        <input type="range" value="5" min="1" max="50" step="1" id="ipt1" onchange="setLineWidth(this.value)" />
+        <button class="topBtn btnClean" value="清除" onclick="clean()">清除</button>
+        <div class="colorSelector">
+            <div class="gName">笔颜色</div>
+            <button class="red" onclick="setColor('red')"></button>
+            <button class="green" onclick="setColor('green')"></button>
+            <button class="blue" onclick="setColor('blue')"></button>
+            <button class="yellow" onclick="setColor('yellow')"></button>
+            <button class="white" onclick="setColor('white')"></button>
+            <button class="black" onclick="setColor('black')"></button>
+        </div>
+        <div class="colorSelector2">
+            <div class="gName">背景色</div>
+            <button class="red" onclick="setBgColor('red')"></button>
+            <button class="green" onclick="setBgColor('green')"></button>
+            <button class="blue" onclick="setBgColor('blue')"></button>
+            <button class="yellow" onclick="setBgColor('yellow')"></button>
+            <button class="white" onclick="setBgColor('white')"></button>
+            <button class="black" onclick="setBgColor('black')"></button>
+        </div>
+        <span class="title fontStyle7">画布</span>
+        <canvas id="canvas"></canvas>
+        <script src="main5.js"></script>
+        
         <style>
         * {
             margin:0;
             padding:0;
         }
-        #canvas {
-            border: solid 0px red;
-        }
-        span {
-            position:absolute;
-            font-size:5rem;
-            z-index:-1;
-        }
-        button {
+        .btnClean {
             position:absolute;
             right: 0;
             font-size:2rem;
+        }
+        #ipt1 {
+            position:absolute;
+            font-size:2rem;
+            left:1rem;
+            top:1rem;
+        }
+        #canvas {
+            border: solid 0px red;
+        }
+        .title {
+            position:absolute;
+            font-size:5rem;
+            z-index:-1;
         }
         .colorSelector {
             position:absolute;
@@ -32,57 +65,59 @@
             font-size:2rem;
             width: 100vw;
             height: 4rem;
+            display:flex;
+            justify-content: space-evenly;
         }
-        .colorSelector .red {
+        .colorSelector2 {
+            position:absolute;
+            top: 82vh;
+            left: 0;
+            font-size:2rem;
+            width: 100vw;
+            height: 4rem;
+            display:flex;
+            justify-content: space-evenly;
+        }
+        .gName {
+            display:inline-block;
+            width: 3rem;
+            height: 2rem;
+            font-size:1rem;
+        }
+        .red {
             background: red;
             width: 2rem;
             height: 2rem;
-            left: 1rem;
         }
-        .colorSelector .green {
+        .green {
             background: green;
             width: 2rem;
             height: 2rem;
-            left: 4rem;
         }
-        .colorSelector .blue {
+        .blue {
             background: blue;
             width: 2rem;
             height: 2rem;
-            left: 7rem;
         }
-        .colorSelector .yellow {
+        .yellow {
             background: yellow;
             width: 2rem;
             height: 2rem;
-            left: 10rem;
         }
-        .colorSelector .white {
+         .white {
             background: white;
             width: 2rem;
             height: 2rem;
-            left: 13rem;
         }
-        .colorSelector .black {
+        .black {
             background: black;
             width: 2rem;
             height: 2rem;
-            left: 16rem;
+        }
+        .topBtn {
+            background-image:linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet);
+            color:white;
         }
         </style>
-    </head>
-    <body>
-        <button value="清除" onclick="main()">清除</button>
-        <div class="colorSelector">
-            <button class="red" onclick="setColor('red')"></button>
-            <button class="green" onclick="setColor('green')"></button>
-            <button class="blue" onclick="setColor('blue')"></button>
-            <button class="yellow" onclick="setColor('yellow')"></button>
-            <button class="white" onclick="setColor('white')"></button>
-            <button class="black" onclick="setColor('black')"></button>
-        </div>
-        <span class="fontStyle7">画布</span>
-        <canvas id="canvas"></canvas>
-        <script src="main5.js"></script>
     </body>
 </html>

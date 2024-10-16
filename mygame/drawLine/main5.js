@@ -2,9 +2,22 @@ window.onload = (event) => {
     // console.log(event);
     main();
 }
-var currColor = 'red'
+var currColor = 'red';
+var bgColor = 'white';
+var lineWidth = 5;
 function setColor(color){
     currColor = color
+}
+function setBgColor(color){
+    bgColor = color
+    main();
+}
+function setLineWidth(width){
+    lineWidth = width
+}
+function clean(){
+    bgColor = 'white';
+    main();
 }
 function main() {
     const canvas = document.getElementById("canvas");
@@ -15,6 +28,9 @@ function main() {
     const ctx = canvas.getContext("2d");
     
     if (!ctx) return;
+    
+    ctx.fillStyle = bgColor;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     
     let isDrawing = false;
     let x = 0;
@@ -36,7 +52,7 @@ function main() {
     canvas.addEventListener("touchmove", (event) => {
         //console.log('touchmove', event);
         if (isDrawing) {
-            drawLine(ctx, currColor, 5, startX, startY, event.touches[0].clientX, event.touches[0].clientY);
+            drawLine(ctx, currColor, lineWidth, startX, startY, event.touches[0].clientX, event.touches[0].clientY);
             x2 = event.touches[0].clientX;
             y2 = event.touches[0].clientY;
             //isDrawing = false;
