@@ -9,6 +9,9 @@ function setColor(color){
     currColor = color
 }
 function setBgColor(color){
+    if (!confirm("你确定要清除画布并更换背景颜色吗？")) {
+        return;
+    }
     bgColor = color
     main();
 }
@@ -16,6 +19,9 @@ function setLineWidth(width){
     lineWidth = width
 }
 function clean(){
+    if (!confirm("你确定要清除吗？")) {
+        return;
+    }
     bgColor = 'white';
     main();
 }

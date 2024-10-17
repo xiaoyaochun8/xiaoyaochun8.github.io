@@ -7,25 +7,9 @@
         <link href="../../common/css/noUserSelect.css" type="text/css" rel="stylesheet">
         <script type="text/javascript" src="../../common/js/noContextmenu.js"></script>
         <link href="../../common/css/fontColorful.css" type="text/css" rel="stylesheet">
-        
     </head>
     <body>
-        <!--<input type="range" value="5" min="1" max="50" step="1" id="ipt1" onchange="setLineWidth(this.value)" />
-        <button class="btnClean" value="清除" onclick="clean()">清除</button>-->
         <div class="topBar">
-            <input type="range" value="5" min="1" max="50" step="1" onchange="setLineWidth(this.value)" />
-            <button class="btnClean" value="清除" onclick="clean()">清除</button>
-        </div>
-        <div class="colorSelector">
-            <div class="gName">笔颜色</div>
-            <button class="red" onclick="setColor('red')"></button>
-            <button class="green" onclick="setColor('green')"></button>
-            <button class="blue" onclick="setColor('blue')"></button>
-            <button class="yellow" onclick="setColor('yellow')"></button>
-            <button class="white" onclick="setColor('white')"></button>
-            <button class="black" onclick="setColor('black')"></button>
-        </div>
-        <div class="colorSelector2">
             <div class="gName">背景色</div>
             <button class="red" onclick="setBgColor('red')"></button>
             <button class="green" onclick="setBgColor('green')"></button>
@@ -33,6 +17,19 @@
             <button class="yellow" onclick="setBgColor('yellow')"></button>
             <button class="white" onclick="setBgColor('white')"></button>
             <button class="black" onclick="setBgColor('black')"></button>
+            <button class="btnClean" value="清除" onclick="clean()">清除</button>
+        </div>
+        <div class="selector2">
+            <input class="rangeBar" type="range" value="5" min="1" max="100" step="1" onchange="setLineWidth(this.value)" />
+        </div>
+        <div class="selector">
+            <div class="gName">笔颜色</div>
+            <button class="red" onclick="setColor('red')"></button>
+            <button class="green" onclick="setColor('green')"></button>
+            <button class="blue" onclick="setColor('blue')"></button>
+            <button class="yellow" onclick="setColor('yellow')"></button>
+            <button class="white" onclick="setColor('white')"></button>
+            <button class="black" onclick="setColor('black')"></button>
         </div>
         <span class="title fontStyle7">画布</span>
         <canvas id="canvas"></canvas>
@@ -43,17 +40,6 @@
             margin:0;
             padding:0;
         }
-        .btnClean {
-            height: 3rem;
-            width: 5rem;
-            font-size:2rem;
-        }
-        /*#ipt1 {
-            position:absolute;
-            font-size:2rem;
-            left:1rem;
-            top:1rem;
-        }*/
         #canvas {
             border: solid 0px red;
         }
@@ -64,7 +50,7 @@
         }
         .topBar {
             position:absolute;
-            top: 0;
+            top: 0.5rem;
             left: 0;
             font-size:2rem;
             width: 100vw;
@@ -72,7 +58,7 @@
             display:flex;
             justify-content: space-between;
         }
-        .colorSelector {
+        .selector {
             position:absolute;
             bottom: 0;
             left: 0;
@@ -82,7 +68,7 @@
             display:flex;
             justify-content: space-evenly;
         }
-        .colorSelector2 {
+        .selector2 {
             position:absolute;
             top: 82vh;
             left: 0;
@@ -131,6 +117,12 @@
         .btnClean {
             background-image:linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet);
             color:white;
+            height: 3rem;
+            width: 5rem;
+            font-size:2rem;
+        }
+        .rangeBar {
+            width: 80%;
         }
         </style>
     </body>
