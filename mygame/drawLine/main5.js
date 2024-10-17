@@ -1,6 +1,7 @@
 window.onload = (event) => {
     // console.log(event);
-    main();
+    var img=document.getElementById("pic1");
+    main(img);
 }
 var currColor = 'red';
 var bgColor = 'white';
@@ -25,7 +26,7 @@ function clean(){
     bgColor = 'white';
     main();
 }
-function main() {
+function main(img) {
     const canvas = document.getElementById("canvas");
     // 设置画布的宽高
     canvas.width = window.innerWidth;
@@ -37,6 +38,10 @@ function main() {
     
     ctx.fillStyle = bgColor;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    if(img){
+        ctx.drawImage(img,-40,150);
+    }
     
     let isDrawing = false;
     let x = 0;
