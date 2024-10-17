@@ -20,9 +20,6 @@
             <button class="btnClean" value="清除" onclick="clean()">清除</button>
         </div>
         <div class="selector2">
-            <input class="rangeBar" type="range" value="5" min="1" max="100" step="1" onchange="setLineWidth(this.value)" />
-        </div>
-        <div class="selector">
             <div class="gName">笔颜色</div>
             <button class="red" onclick="setColor('red')"></button>
             <button class="green" onclick="setColor('green')"></button>
@@ -30,6 +27,9 @@
             <button class="yellow" onclick="setColor('yellow')"></button>
             <button class="white" onclick="setColor('white')"></button>
             <button class="black" onclick="setColor('black')"></button>
+        </div>
+        <div class="selector">
+            <input class="rangeBar" type="range" value="5" min="1" max="100" step="1" onchange="setLineWidth(this.value)" />
         </div>
         <span class="title fontStyle7">画布</span>
         <canvas id="canvas"></canvas>
