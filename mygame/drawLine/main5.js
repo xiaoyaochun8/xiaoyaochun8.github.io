@@ -24,9 +24,11 @@ function popPicSelector(){
     popPicSelector.style.display = 'flex';
 }
 function selectPic(obj){
-    console.log(obj.src)
+    console.log(obj.id)
     var popPicSelector = document.querySelector(".popPicSelector");
     popPicSelector.style.display = 'none';
+    var img=document.getElementById(obj.id);
+    main(img);
 }
 function clean(){
     if (!confirm("你确定要清除吗？")) {
@@ -49,7 +51,7 @@ function main(img) {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
     if(img){
-        ctx.drawImage(img,-40,150);
+        ctx.drawImage(img,0,100);
     }
     
     let isDrawing = false;
