@@ -19,6 +19,15 @@ function setBgColor(color){
 function setLineWidth(width){
     lineWidth = width
 }
+function popPicSelector(){
+    var popPicSelector = document.querySelector(".popPicSelector");
+    popPicSelector.style.display = 'flex';
+}
+function selectPic(obj){
+    console.log(obj.src)
+    var popPicSelector = document.querySelector(".popPicSelector");
+    popPicSelector.style.display = 'none';
+}
 function clean(){
     if (!confirm("你确定要清除吗？")) {
         return;

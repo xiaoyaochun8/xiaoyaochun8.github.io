@@ -17,6 +17,7 @@
             <button class="yellow" onclick="setBgColor('yellow')"></button>
             <button class="white" onclick="setBgColor('white')"></button>
             <button class="black" onclick="setBgColor('black')"></button>
+            <button class="" onclick="popPicSelector()">选择图片</button>
             <button class="btnClean" value="清除" onclick="clean()">清除</button>
         </div>
         <div class="selector2">
@@ -30,6 +31,12 @@
         </div>
         <div class="selector">
             <input class="rangeBar" type="range" value="5" min="1" max="100" step="1" onchange="setLineWidth(this.value)" />
+        </div>
+        <div class="popPicSelector">
+            <div class="con">
+                <img class="" src="pic1.jpg" onclick="selectPic(this)"/>
+                <img class="" src="pic1.jpg" onclick="selectPic(this)"/>
+            </div>
         </div>
         <span class="title fontStyle7">画布</span>
         <canvas id="canvas"></canvas>
@@ -127,6 +134,21 @@
         }
         .rangeBar {
             width: 80%;
+        }
+        .popPicSelector {
+            position:absolute;
+            width: 100vw;
+            height: 100vh;
+            background: lightgray;
+            display:none;
+            justify-content: center;
+        }
+        .popPicSelector .con {
+            width: 90%;
+            height: 90%;
+        }
+        .popPicSelector .con img {
+            width: 100%;
         }
         </style>
     </body>
