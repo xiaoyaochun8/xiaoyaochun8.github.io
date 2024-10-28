@@ -98,30 +98,43 @@
     }
 
     function move(param) {
-	console.log(param)
         // 利用transform属性做到移动
         ele.style.transform = "translate3d(" + param.x + "px, " + param.y + "px, 0)"
     }
 	
 	function updateBoxState(x, y){
+		var state = 'none';
 		if(x < -300){
-			console.log('left');
-			document.querySelector('#state').innerHTML = 'left';
+			state = 'left';
 		}else if(x > 50){
-			console.log('right');
-			document.querySelector('#state').innerHTML = 'right';
+			state = 'right';
 		}else if(y < -600){
-			console.log('top');
-			document.querySelector('#state').innerHTML = 'top';
+			state = 'top';
 		}else if(y > 50){
-			console.log('bottom');
-			document.querySelector('#state').innerHTML = 'bottom';
+			state = 'bottom';
 		}
+		
+		console.log(state);
+		document.querySelector('#state').innerHTML = state;
+		ws.send(state);
 	}
 	
 	function resetBox(){
 		location.reload();
 	}
+	
+	
+
+	var ws = new WebSocket('ws://localhost:9502');
+	ws.onopen = function () {
+		console.log('ws onopen');
+		ws.send('from client: hello');
+	};
+	ws.onmessage = function (e) {
+		console.log('ws onmessage');
+		console.log('from server: ' + e.data);
+	};
+
 
 </script>
 
