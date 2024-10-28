@@ -26,11 +26,16 @@
             color: grey;
             -webkit-tap-highlight-color: transparent;
         }
+		#state {
+			
+		}
     </style>
 </head>
 
 <body>
     <a href="#" id="backToTop" class="backToTop">top</a>
+	<div id="state">a</div>
+	<button onclick="resetBox()">复位</button>
 </body>
 <script>
     var ele = document.getElementById("backToTop");
@@ -84,16 +89,39 @@
         // 所以判断如果是moveFlag = false时候就直接退出
         currentPosition.x += offset.x
         currentPosition.y += offset.y
+		console.log(currentPosition.x, currentPosition.y)
         // 对于无意义累加问题，当然也可以通过把offset置位o来解决
         // offset = { x: 0, y: 0 };
         moveFlag = false;
-
+		
+		updateBoxState(currentPosition.x, currentPosition.y);
     }
 
     function move(param) {
+	console.log(param)
         // 利用transform属性做到移动
         ele.style.transform = "translate3d(" + param.x + "px, " + param.y + "px, 0)"
     }
+	
+	function updateBoxState(x, y){
+		if(x < -300){
+			console.log('left');
+			document.querySelector('#state').innerHTML = 'left';
+		}else if(x > 50){
+			console.log('right');
+			document.querySelector('#state').innerHTML = 'right';
+		}else if(y < -600){
+			console.log('top');
+			document.querySelector('#state').innerHTML = 'top';
+		}else if(y > 50){
+			console.log('bottom');
+			document.querySelector('#state').innerHTML = 'bottom';
+		}
+	}
+	
+	function resetBox(){
+		location.reload();
+	}
 
 </script>
 
