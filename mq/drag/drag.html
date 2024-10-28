@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            height: 90vh;
+        }
+
+        .backToTop {
+            background-color: #fff;
+            border: 1px solid grey;
+            border-radius: 50%;
+            height: 130px;
+            width: 130px;
+            line-height: 30px;
+            position: fixed;
+            right: 0px;
+            bottom: 0px;
+            text-align: center;
+            text-decoration: none;
+            color: grey;
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#" id="backToTop" class="backToTop">top</a>
+</body>
+<script>
+    var ele = document.getElementById("backToTop");
+
+    // 记录的是元素当前位置
+    var currentPosition = { x: 0, y: 0 };
+
+    // 手指偏移位置，是touchmove中的坐标减去刚触摸时候的坐标得到并更新
+    var offset = {};
+
+    // 手指刚触摸时候的坐标
+    var touchStartPositon = {};
+
+    // 移动标志，主要用来解决touchend中currentPosition无意义累加的问题，下方会说明什么是无意义累加
+    var moveFlag = false;
+
+    // 监听，冒泡
+    ele.addEventListener('touchstart', touchStart, false)
+    ele.addEventListener('touchmove', touchMove, false)
+    ele.addEventListener('touchend', touchEnd, false)
+
+    function touchStart(e) {
+        var touch = e.targetTouches[0];
+        // 触摸时候记录手指初始位置
+        touchStartPositon.x = touch.pageX;
+        touchStartPositon.y = touch.pageY;
+    }
+    function touchMove(e) {
+        moveFlag = true;
+
+        // 屏蔽默认函数，当有上下滚动条时候，touchMove默认的是滚动屏幕
+        e.preventDefault();
+        var touch = e.changedTouches[0];
+
+        // 得到用户拖动的相对x y距离，记录在offset中
+        offset.x = touch.pageX - touchStartPositon.x;
+        offset.y = touch.pageY - touchStartPositon.y;
+
+        // offset + currentPostion就是css要移动的距离
+        move({ x: currentPosition.x + offset.x, y: currentPosition.y + offset.y });
+
+    }
+    function touchEnd(e) {
+        
+        if (!moveFlag) return;
+
+        // 无意义累加就在这里：
+        // 用户第一次操作：完成一次拖动，此时offset中x y是有值的
+        // 用户第二次操作：点击元素但是没有拖动，currentPostion就会加上offset中的值
+        // 用户第三次操作：再次拖动，currentPositon中的值就不准了，因为多加了一次offset
+        // 所以判断如果是moveFlag = false时候就直接退出
+        currentPosition.x += offset.x
+        currentPosition.y += offset.y
+        // 对于无意义累加问题，当然也可以通过把offset置位o来解决
+        // offset = { x: 0, y: 0 };
+        moveFlag = false;
+
+    }
+
+    function move(param) {
+        // 利用transform属性做到移动
+        ele.style.transform = "translate3d(" + param.x + "px, " + param.y + "px, 0)"
+    }
+
+</script>
+
+</html>
