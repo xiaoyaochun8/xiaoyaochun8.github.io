@@ -25,6 +25,7 @@
             text-decoration: none;
             color: grey;
             -webkit-tap-highlight-color: transparent;
+			display: block;
         }
 		#state {
 			
@@ -38,7 +39,7 @@
 	<button onclick="resetBox()">复位</button>
 </body>
 <script>
-	var pName = 'center';
+	var pName = 'left';
 	
     var ele = document.getElementById("backToTop");
 
@@ -78,7 +79,7 @@
 
         // offset + currentPostion就是css要移动的距离
         move({ x: currentPosition.x + offset.x, y: currentPosition.y + offset.y });
-		
+
 		var state = 'none';
 		var sendMsg = 'jump,'+pName+','+state+','+(currentPosition.x + offset.x)+','+(currentPosition.y + offset.y);
 		ws.send(sendMsg);
@@ -142,7 +143,7 @@
 		console.log('from server: ' + e.data);
 		
 		var msgArr = e.data.split(',');
-		if(msgArr[0] == 'jump' && msgArr[1] == 'left'){
+		if(msgArr[0] == 'jump' && msgArr[1] == 'center'){
 			//A
 			//if(msgArr[2] == 'left'){
 			//	document.querySelector('#backToTop').style.display = 'block';
