@@ -6,8 +6,8 @@ const rpUtil = {
         location.href = pageName + '.html';
     },
     gotoPageWithPath: function(pageName){
-        //location.href = 'https://xiaoyaochun8.github.io/'+pageName+'.html';
-        location.href = '../'+pageName+'.html';
+        location.href = 'https://xiaoyaochun8.github.io/'+pageName+'.html';
+        //location.href = '../'+pageName+'.html';
     },
     dom: function(domSelector){
         return document.querySelector(domSelector);
