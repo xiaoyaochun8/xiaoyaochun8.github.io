@@ -13,9 +13,9 @@
         </script>
     </head>
     <body>
+        <button id="btn" onclick="doThis()">button</button>
         <script>
             async function doThis(){
-            
                 const port = await navigator.serial.requestPort()
                 console.log(port)
                 async function readSerial(port) {
