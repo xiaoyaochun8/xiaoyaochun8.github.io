@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta charset="utf-8">
+        <title>web api</title>
+        <style>
+            body { margin: 0; }
+        </style>
+        <script src="https://cdn.bootcss.com/eruda/1.5.4/eruda.js" ></script>
+        <script>
+          eruda.init();
+        </script>
+    </head>
+    <body>
+        <script>
+            const port = await navigator.serial.requestPort()
+            console.log(port)
+            async function readSerial(port) {
+              while (port.readable) {
+                const reader = port.readable.getReader();
+                try {
+                  for await (const { value, done } of reader) {
+                    if (done) {
+                      // |reader| 已取消。
+                      break;
+                    }
+                    // 使用 |value| 进行一些操作...
+                      console.log(value)
+                  }
+                } catch (error) {
+                  // 处理 |error|...
+                } finally {
+                  reader.releaseLock();
+                }
+              }
+            }
+            readSerial(port)
+        </script>
+    </body>
+</html>
