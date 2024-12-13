@@ -14,28 +14,32 @@
     </head>
     <body>
         <script>
-            const port = await navigator.serial.requestPort()
-            console.log(port)
-            async function readSerial(port) {
-              while (port.readable) {
-                const reader = port.readable.getReader();
-                try {
-                  for await (const { value, done } of reader) {
-                    if (done) {
-                      // |reader| 已取消。
-                      break;
+            async function doThis(){
+            
+                const port = await navigator.serial.requestPort()
+                console.log(port)
+                async function readSerial(port) {
+                  while (port.readable) {
+                    const reader = port.readable.getReader();
+                    try {
+                      for await (const { value, done } of reader) {
+                        if (done) {
+                          // |reader| 已取消。
+                          break;
+                        }
+                        // 使用 |value| 进行一些操作...
+                          console.log(value)
+                      }
+                    } catch (error) {
+                      // 处理 |error|...
+                    } finally {
+                      reader.releaseLock();
                     }
-                    // 使用 |value| 进行一些操作...
-                      console.log(value)
                   }
-                } catch (error) {
-                  // 处理 |error|...
-                } finally {
-                  reader.releaseLock();
                 }
-              }
+                readSerial(port)
             }
-            readSerial(port)
+            doThis()
         </script>
     </body>
 </html>
