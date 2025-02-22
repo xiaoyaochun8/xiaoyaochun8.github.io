@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <title>TviewTree3</title>
+    </head>
+    <body>
+        <div class="box outBox">
+            <span class="title titleB">全部</span>
+            <div class="box">
+                <span class="title titleB">基本</span>
+                <div class="box">
+                    <span class="title titleB">PHP</span>
+                </div>
+				<div class="box">
+                    <span class="title titleB">Swoole</span>
+                </div>
+				<div class="box">
+                    <span class="title titleB">MySql</span>
+                </div>
+				<div class="box">
+                    <span class="title titleB">Redis</span>
+                </div>
+				<div class="box">
+                    <span class="title titleB">HtmlCssJs</span>
+                </div>
+				<div class="box">
+                    <span class="title titleB">UnityPanel</span>
+                </div>
+				<div class="box">
+                    <span class="title titleB">Lua</span>
+                </div>
+            </div>
+			<div class="box">
+                <span class="title titleB">第二优先</span>
+                <div class="box">
+                    <span class="title titleB">Python</span>
+                </div>
+				<div class="box">
+                    <span class="title titleB">Cpp</span>
+                </div>
+				<div class="box">
+                    <span class="title titleB">Scratch3</span>
+                </div>
+				<div class="box">
+                    <span class="title titleB">积木</span>
+                </div>
+            </div>
+			<div class="box">
+                <span class="title titleB">第三优先</span>
+                <div class="box">
+                    <span class="title titleB">Go</span>
+                </div>
+				<div class="box">
+                    <span class="title titleB">Java</span>
+                </div>
+				<div class="box">
+                    <span class="title titleB">Android</span>
+                </div>
+				<div class="box">
+                    <span class="title titleB">小程序</span>
+                </div>
+            </div>
+		</div>
+
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+            $('.title').on('click', function(evt){
+                var obj = $(evt.currentTarget);
+                if(obj.hasClass('titleA')){
+                    obj.removeClass('titleA');
+                    obj.addClass('titleB');
+                    obj.parent().find('div').show();
+                }else{
+                    obj.addClass('titleA');
+                    obj.removeClass('titleB');
+                    obj.parent().find('div').hide();
+                }
+            });
+        </script>
+
+        <style>
+            .box{
+                margin-left: 30px;
+                margin-top: 5px;
+            }
+            .outBox{
+                margin-left: 0px;
+                margin-top: 5px;
+            }
+            .box .title{
+                border: solid 1px red;
+                background: lightblue;
+            }
+            .box .titleA:before{
+                content: "+ ";
+                background: white;
+            }
+            .box .titleB:before{
+                content: "- ";
+                background: white;
+            }
+        </style>
+    </body>
+</html>
