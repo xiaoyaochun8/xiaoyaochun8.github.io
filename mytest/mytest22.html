@@ -3,7 +3,7 @@
     <head>
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta charset="utf-8">
-        <title>3js-module-impoortfile</title>
+        <title>3js-module-impoortfile-latest</title>
         <style>
             body { margin: 0; }
         </style>
@@ -16,6 +16,16 @@
         <script type="module">
             import * as THREE from 'https://unpkg.com/three@latest/build/three.module.js';
             console.log('threejs version:'+THREE.REVISION);
+			
+			import WebGL from 'https://unpkg.com/three@latest/examples/jsm/capabilities/WebGL.js';
+
+			if ( WebGL.isWebGL2Available() ) {
+				// Initiate function or other initializations here
+				console.log('isWebGL2Available')
+			} else {
+				const warning = WebGL.getWebGL2ErrorMessage();
+				console.log(warning)
+			}
 			
 			//scene
 			const scene = new THREE.Scene();
