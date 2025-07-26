@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta charset="utf-8">
+        <title>threejs-场景-j3dframe</title>
+        <style>
+            body { margin: 0; }
+            #menu {
+                border: solid 0px red;
+                position: absolute;
+                width: 100vw;
+                height: 100vh;
+                z-index: 99;
+                display: flex;
+                justify-content: space-between;
+                flex-direction: column;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="menu">
+            <div id="top">
+                <button onclick="doPlay()">播放视频</button>
+                <button>xx</button>
+            </div>
+            <div id="bottom">
+                <button>xx</button>
+                <button>xx</button>
+            </div>
+        </div>
+        <div id="joystickLeft"></div>
+        <div id="joystickRight"></div>
+        <script>
+            function doPlay(){
+                let doPlayEvent = new Event('doPlay');
+                window.dispatchEvent(doPlayEvent);
+            }
+        </script>
+        <script src="https://cdn.bootcdn.net/ajax/libs/nipplejs/0.10.2/nipplejs.min.js"></script>
+        <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+        <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.162.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.162.0/examples/jsm/",
+                "J3dFrame": "./../frame/J3dFrame.js"
+            }
+        }
+        </script>
+        <script type="module">
+import { J3dFrame } from 'J3dFrame';
+
+const App = new J3dFrame();
+App.outputVersion();
+App.init({
+            far : 500,
+        });
+App.addHelpers();
+App.addFlyControls({
+            movementSpeed : 20,
+            rollSpeed : 24,
+        });
+App.addJoyStick(App);
+// App.addLand();
+App.addText3D('草', './../9001/KaiTi_Regular.json', App.scene, 1, -70, -40, 0);
+App.cameraGroup.position.set( 0, 20, 200 );
+
+var animate = function() {
+    App.update();
+    App.render();
+}
+App.setAnimationLoop(animate);
+
+window.addEventListener('doPlay', function(event){
+    console.log('doPlay');
+});
+        </script>
+    </body>
+</html>
