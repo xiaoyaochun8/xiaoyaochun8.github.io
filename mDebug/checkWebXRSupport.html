@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,user-scalable=no"/> 
+        <title>checkWebXRSupport</title>
+    </head>
+    <body>
+
+        <div id="msg"></div>
+        <script>
+			function isWebVRAPIAvailable(){
+				return 'getVRDisplays' in navigator;
+			}
+			
+			var str = "浏览器是否支持ES6的检测:<br>";
+			if(isWebVRAPIAvailable()){
+				str += "webVRApi is supported.<br>";
+			}else{
+				str += "webVRApi is not supported.<br>";
+			}
+			if (navigator.xr){
+				str += "webXRApi is supported.<br>";
+			}else{
+				str += "webXRApi is not supported.<br>";
+			}
+			document.getElementById('msg').innerHTML = str;
+        </script>
+
+    </body>
+</html>
