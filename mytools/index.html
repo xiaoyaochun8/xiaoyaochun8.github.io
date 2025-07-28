@@ -12,6 +12,7 @@
             <div class="item" onclick="goTo3('mytools/windowWH')">窗口宽高</div>
             <div class="item" onclick="goTo3('mDebug/BrowserInfo')">BrowserInfo</div>
             <div class="item" onclick="goTo3('mDebug/checkES6Support')">checkES6Support</div>
+            <div class="item" onclick="goTo4('https://ruanyf.github.io/es-checker/index.cn.html')">es-checker</div>
             <div class="item" onclick="goTo3('mDebug/eruda')">eruda</div>
             <div class="item" onclick="goTo3('mDebug/VConsole')">VConsole</div>
         </div>
@@ -25,6 +26,9 @@
         //isNav
         function goTo3(name){
             rpUtil.gotoPageWithPath(name);
+        }
+        function goTo4(url){
+            rpUtil.gotoPageWithUrl(url);
         }
     </script>
     
