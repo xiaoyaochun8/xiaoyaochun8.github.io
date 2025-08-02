@@ -69,6 +69,7 @@ function main(img) {
         startX = event.touches[0].clientX;
         startY = event.touches[0].clientY;
         isDrawing = true;
+        return false;
     });
     
     canvas.addEventListener("touchmove", (event) => {
@@ -81,6 +82,7 @@ function main(img) {
             startX = x2;
             startY = y2;
         }
+        return false;
     });
     
     canvas.addEventListener("touchend", (event) => {
@@ -91,6 +93,7 @@ function main(img) {
             y = 0;
             isDrawing = false;
         }
+        return false;
     });
 }
 
