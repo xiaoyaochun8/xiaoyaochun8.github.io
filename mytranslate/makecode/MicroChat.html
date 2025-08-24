@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html font-size="62.5%">
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>makecode</title>
+    <script type="text/javascript" src="../common/js/rpUtil.js"></script>
+</head>
+<body>
+    <div class="con">
+        <div class="title">Micro Chat</div>
+        <div class="list">
+            <div class="item">
+            Build your own social network made of micro:bits.
+            <br><hr>
+            用micro:bits构建自己的社交网络。
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            From the 无线 Toolbox category, drag a radio set group block into the on start block. This will act as the channel over which we'll send messages. Only micro:bits who are in the same group will be able to send and receive messages between them.
+            <br><hr>
+            从无线 工具箱类别，拖动无线电机组块进入在起跑线上。这将作为我们发送消息的渠道。只有同一组中的micro:bit才能在它们之间发送和接收消息。
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            From the Input Toolbox category, drag an on button A pressed block onto the Workspace.
+            <br><hr>
+            从输入工具箱类别，拖动在按钮上按下工作区上的块。
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            From the 无线 category, drag a radio send string block into the on button A pressed block and type a message. When we press button A on our micro:bit, we'll send this message to every micro:bit nearby in group 1.
+            <br><hr>
+            从无线 类别，拖动a无线电发送字符串块进入按下按钮，然后键入消息。当我们按下micro:bit上的按钮A时，我们会将此消息发送到组1中附近的每个micro:bit。
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            Now leFrom the 无线 category, drag an on radio received string block onto the Workspace.
+            <br><hr>
+            从无线 类别，拖动将无线电接收到的字符串块上传到工作区。
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            From the Basic category, get a show string block and drop it in the on radio received string block.
+            <br><hr>
+            从基本类别，得到一个显示字符串块并将其放入在无线电接收到的字符串块上。
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            Pull the receivedString variable block out of the on received string block and put it into the show string block replacing "Hello!"
+            <br><hr>
+            拉一下receivedString变量块已从在接收到的字符串块上并将其放入显示字符串块替换“Hello！”
+            </div>
+        </div>
+
+        
+        <div class="list">
+            <div class="item">
+            Let's test our code! In the micro:bit on-screen simulator, press button A. You should see a second micro:bit appear. Now try pressing A again. Do you see your message appear on the second micro:bit? ⭐ Great job! ⭐
+            <br><hr>
+            让我们测试一下我们的代码！在micro:bit屏幕模拟器中，按下按钮A。您应该会看到第二个micro:bit出现。现在再按一次A。你看到你的信息出现在第二个micro:bit上了吗？ ⭐ 干得好！ ⭐
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            If you have a micro:bit device, connect it to your computer and click the  button. Follow the instructions to transfer your code onto the micro:bit. If you have two micro:bits, download the program to each one. Press button A on one and see if the other gets the message!
+            <br><hr>
+            如果您有micro:bit设备，请将其连接到计算机并单击按钮。按照说明将代码传输到micro:bit上。如果你有两个micro:bit，请将程序下载到每个micro:bit。按下其中一个按钮A，看看另一个是否收到消息！
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            Go further - try using different buttons to send a mix of messages
+            <br><hr>
+            更进一步-尝试使用不同的按钮发送混合消息
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        //isNav
+        function goTo3(name){
+            rpUtil.gotoPageWithPath(name);
+        }
+        function goTo4(url){
+            rpUtil.gotoPageWithUrl(url);
+        }
+    </script>
+    
+    <style>
+        body {
+            background:aliceblue;
+            margin:0;
+            padding:0;
+            font-size:1rem;
+        }
+        .con {
+            border:dotted 1px lightgray;
+            background:lavender;
+            height:100vh;
+        }
+        .title {
+            border:dotted 1px lightgray;
+            margin:0 auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: space-around;
+        }
+        .nav {
+            border:dotted 1px lightgray;
+            margin:1rem auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: space-around;
+            cursor:pointer;
+        }
+        .list {
+            border:dotted 1px lightgray;
+            margin:1rem auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: flex-start;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        .list .item {
+            border:dotted 1px lightgray;
+            height:auto;
+            background:#afbee7;
+        }
+    </style>
+</body>
+</html>
