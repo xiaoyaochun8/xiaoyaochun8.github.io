@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html font-size="62.5%">
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>makecode</title>
+    <script type="text/javascript" src="../common/js/rpUtil.js"></script>
+</head>
+<body>
+    <div class="con">
+        <div class="title">Name Tag</div>
+        <div class="list">
+            <div class="item">
+            Scroll your name on the screen
+            <br><hr>
+            在屏幕上滚动显示你的名字
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            Turn your micro:bit into a digital name tag
+            <br><hr>
+            把你的micro:bit变成一个数字姓名牌
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            Click on the Basic category in the Toolbox. Drag a show string block into the forever block. Then in the show string block, change the text from "Hello!" to your name.
+            <br><hr>
+            点击工具箱中的“基本类别”。将一个“显示字符串”积木拖到“永远”积木中。然后在“显示字符串”积木中，将文本从“Hello!”更改为你的名字。
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            Look at the micro:bit simulator on the screen. Do you see your name scrolling across? ⭐ Great job! ⭐ You've turned the micro:bit into a digital name tag!
+            <br><hr>
+            看看屏幕上的micro:bit模拟器。你看到你的名字在滚动显示了吗？⭐干得好！⭐你已经把micro:bit变成了一个数字姓名牌！
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            If you have a micro:bit device, connect it to your computer and click the  button. Follow the instructions to transfer your code onto the micro:bit and watch your name appear in lights!
+            <br><hr>
+            如果你有一个micro:bit设备，将它连接到你的电脑并点击按钮。按照指示将你的代码传输到micro:bit上，然后看着你的名字在灯光中闪烁！
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            Go further - try adding more show string blocks to create a story! Learn more about how the micro:bit lights work by watching this video.
+            <br><hr>
+            更进一步——尝试添加更多显示字符串块来创作一个故事！通过观看此视频，深入了解micro:bit灯的工作原理。
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        //isNav
+        function goTo3(name){
+            rpUtil.gotoPageWithPath(name);
+        }
+        function goTo4(url){
+            rpUtil.gotoPageWithUrl(url);
+        }
+    </script>
+    
+    <style>
+        body {
+            background:aliceblue;
+            margin:0;
+            padding:0;
+            font-size:1rem;
+        }
+        .con {
+            border:dotted 1px lightgray;
+            background:lavender;
+            height:100vh;
+        }
+        .title {
+            border:dotted 1px lightgray;
+            margin:0 auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: space-around;
+        }
+        .nav {
+            border:dotted 1px lightgray;
+            margin:1rem auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: space-around;
+            cursor:pointer;
+        }
+        .list {
+            border:dotted 1px lightgray;
+            margin:1rem auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: flex-start;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        .list .item {
+            border:dotted 1px lightgray;
+            height:auto;
+            background:#afbee7;
+        }
+    </style>
+</body>
+</html>
