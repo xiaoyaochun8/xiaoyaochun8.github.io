@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html font-size="62.5%">
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>makecode</title>
+    <script type="text/javascript" src="../common/js/rpUtil.js"></script>
+</head>
+<body>
+    <div class="con">
+        <div class="title">Dice</div>
+        <div class="list">
+            <div class="item">
+            Shake the dice and see what number comes up!
+            <br><hr>
+            摇骰子，看看会出现什么数字！
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            Let's create some digital 🎲 dice 🎲 with our micro:bit!
+            <br><hr>
+            让我们创造一些数字🎲 骰子🎲 使用我们的micro:bit！
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            The on shake block runs code when you shake 👋 the micro:bit. From the Basic category, get a show number block and place it inside the on shake block to display a number.
+            <br><hr>
+            The 当你摇动时，在shake块上运行代码👋 micro:bit。从基本类别，得到一个显示数字块并将其放置在在震动块上显示数字。
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            Press the white SHAKE button on the micro:bit on-screen simulator, or move your cursor quickly back and forth over the simulator. Do you see the number 0 appear? ⭐ Great job! ⭐
+            <br><hr>
+            按下micro:bit屏幕模拟器上的白色SHAKE按钮，或在模拟器上快速来回移动光标。你看到数字0出现了吗？ ⭐ 干得好！ ⭐
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            But we don't want to show 0 on our dice all the time. From the Math Toolbox category, drag a pick random block and drop it into the show number block replacing the 0.
+            <br><hr>
+            但我们不想一直在骰子上显示0。从数学工具箱类别，拖动随机选取块并将其放入显示数字块替换0。
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            A typical dice shows values from 1 to 6 dots. So, in the pick random block, change the minimum value to 1 and the maximum value to 6.
+            <br><hr>
+            一个典型的骰子显示1到6个点的值。所以，在选择随机块，将最小值更改为1，将最大值更改为6。
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            Press the white SHAKE button again on the micro:bit simulator. Do you see random numbers between 1 and 6 appear? ⭐ Great job! ⭐
+            <br><hr>
+            再次按下micro:bit模拟器上的白色SHAKE按钮。你看到1到6之间的随机数出现了吗？ ⭐ 干得好！ ⭐
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            If you have a micro:bit device, connect it to your computer and click the  button. Follow the instructions to transfer your code onto the micro:bit. Once your code has been downloaded, attach your micro:bit to a battery pack and use it as digital 🎲 dice for your next boardgame!
+            <br><hr>
+            如果您有micro:bit设备，请将其连接到计算机并单击按钮。按照说明将代码传输到micro:bit上。下载代码后，将micro:bit连接到电池组并将其用作数字🎲 为你的下一场棋盘游戏掷骰子！
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            Go further - Try adding some Music blocks to make a sound when you shake your dice, or use the micro:bit LED lights to show number values. Want to learn how the micro:bit motion detector or accelerometer works? Watch this video.
+            <br><hr>
+            更进一步-尝试添加一些音乐块，以便在摇动骰子时发出声音，或者使用micro:bit LED灯显示数值。想了解micro:bit运动检测器或加速度计的工作原理吗？观看此视频。
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        //isNav
+        function goTo3(name){
+            rpUtil.gotoPageWithPath(name);
+        }
+        function goTo4(url){
+            rpUtil.gotoPageWithUrl(url);
+        }
+    </script>
+    
+    <style>
+        body {
+            background:aliceblue;
+            margin:0;
+            padding:0;
+            font-size:1rem;
+        }
+        .con {
+            border:dotted 1px lightgray;
+            background:lavender;
+            height:100vh;
+        }
+        .title {
+            border:dotted 1px lightgray;
+            margin:0 auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: space-around;
+        }
+        .nav {
+            border:dotted 1px lightgray;
+            margin:1rem auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: space-around;
+            cursor:pointer;
+        }
+        .list {
+            border:dotted 1px lightgray;
+            margin:1rem auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: flex-start;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        .list .item {
+            border:dotted 1px lightgray;
+            height:auto;
+            background:#afbee7;
+        }
+    </style>
+</body>
+</html>
