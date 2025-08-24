@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html font-size="62.5%">
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>makecode</title>
+    <script type="text/javascript" src="../common/js/rpUtil.js"></script>
+</head>
+<body>
+    <div class="con">
+        <div class="title">Pet Hamster</div>
+        <div class="list">
+            <div class="item">
+            Interact with your very own micro:bit hamster named Cyrus.
+            <br><hr>
+            与你自己的名为赛勒斯的微型小仓鼠互动。
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            Cyrus is a very sleepy hamster. In fact, Cyrus is almost always sleeping.
+
+■ From the Basic category, find show icon [ ] and snap it into your on start container. Set it to show the asleep -_- face.
+💡 In the show icon dropdown menu options, you can hover to see what each design is called!
+            <br><hr>
+            赛勒斯是一只很困的仓鼠。事实上，赛勒斯几乎总是睡着。
+
+■ 从基本类别，查找显示图标[]并将其卡入您的启动容器。将其设置为显示睡着的脸。
+💡 在显示图标下拉菜单选项中，您可以悬停以查看每个设计的名称！
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            Pressing Cyrus's logo tickles them!
+
+■ From Input, find the on logo [pressed] container and drag it into your workspace.
+■ Go to Basic and grab another show icon [ ]. Snap it into your empty on logo [pressed] container. Set the icon (Cyrus's face) to happy :).
+            <br><hr>
+            按下赛勒斯的标志会让他们发痒！
+
+■ From 输入，找到在logo[按下]容器上，将其拖动到您的工作区中。
+■ 首选基本款和另一款显示图标[]。将其卡入空的印有徽标[按压]的容器中。将图标（赛勒斯的脸）设置为快乐：）。
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            ■ From the 音乐 category, get a play [melody jump up] [in background] and add it to the bottom of your on logo [pressed] container. Change the playback mode to [until done].
+            <br><hr>
+            ■ 从音乐 类别，获取a播放[旋律跳起来][在背景中]，并将其添加到您的图标[按下]容器的底部。将播放模式更改为[直到完成]。
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            Whenever Cyrus is shaken, they get sad 🙁
+
+■ From Input, find on [shake] and drag it into your workspace.
+■ From the Basic category, grab show icon [ ] and snap it into your new on [shake] container. Set the icon (Cyrus's face) to sad :(.
+            <br><hr>
+            每当赛勒斯动摇时，他们都会难过🙁
+
+■ From 输入，查找打开[摇动]并将其拖动到您的工作区。
+■ 从基本类别，抓斗显示图标[]并将其卡入新的[摇动]容器中。将图标（赛勒斯的脸）设置为悲伤：（。
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            ■ From the 音乐 category, find the play [melody dadadum] [in background] block and add it to the bottom of your on [shake] container. Change the playback mode to [until done]. ■ Click on the dropdown and set it so Cyrus plays a sad sound until done.
+            <br><hr>
+            ■ 从音乐 类别，查找播放[旋律达达杜姆][背景]块，并将其添加到[摇动]容器的底部。将播放模式更改为[直到完成]。 ■ 点击下拉菜单并将其设置为Cyrus播放悲伤的声音，直到完成。
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            Let's ensure that Cyrus will always go back to sleep after being shaken or tickled.
+
+■ Right click the show icon[-_-] block in your workspace (inside the on start container) and choose Duplicate.
+■ Snap your copied block in at the very bottom of your on [shake] container.
+            <br><hr>
+            让我们确保赛勒斯在被摇晃或挠痒后总是会重新入睡。
+
+■ 右键单击工作区（启动时容器内）中的显示图标[-_-]块，然后选择复制。
+■ 将复制的块放在[摇动]容器的最底部。
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            ■ Duplicate the show icon[-_-] block again and this time snap it in at the very bottom of your on logo [pressed] container.
+            <br><hr>
+            ■ 再次复制显示图标[-_-]块，这次将其卡入徽标[按下]容器的最底部。
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            Check out the simulator and make sure your speakers are on 🔊
+
+Play with Cyrus to see how they react 🐹
+Click on the SHAKE button to shake Cyrus.
+Touch the gold logo at the top to tickle Cyrus.
+
+If you have a new micro:bit (the one with the shiny gold logo at the top), download this code and try it out!
+            <br><hr>
+            查看模拟器，确保扬声器已打开🔊
+
+与赛勒斯一起玩，看看他们的反应🐹
+点击“摇动”按钮摇动赛勒斯。
+触摸顶部的金色标志，逗乐赛勒斯。
+
+如果你有一个新的micro:bit（顶部有闪亮的金色标志），下载这段代码并尝试一下！
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        //isNav
+        function goTo3(name){
+            rpUtil.gotoPageWithPath(name);
+        }
+        function goTo4(url){
+            rpUtil.gotoPageWithUrl(url);
+        }
+    </script>
+    
+    <style>
+        body {
+            background:aliceblue;
+            margin:0;
+            padding:0;
+            font-size:1rem;
+        }
+        .con {
+            border:dotted 1px lightgray;
+            background:lavender;
+            height:100vh;
+        }
+        .title {
+            border:dotted 1px lightgray;
+            margin:0 auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: space-around;
+        }
+        .nav {
+            border:dotted 1px lightgray;
+            margin:1rem auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: space-around;
+            cursor:pointer;
+        }
+        .list {
+            border:dotted 1px lightgray;
+            margin:1rem auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: flex-start;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        .list .item {
+            border:dotted 1px lightgray;
+            height:auto;
+            background:#afbee7;
+        }
+    </style>
+</body>
+</html>
