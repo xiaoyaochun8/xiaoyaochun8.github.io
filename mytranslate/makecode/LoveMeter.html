@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html font-size="62.5%">
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>makecode</title>
+    <script type="text/javascript" src="../common/js/rpUtil.js"></script>
+</head>
+<body>
+    <div class="con">
+        <div class="title">Love Meter</div>
+        <div class="list">
+            <div class="item">
+            Is the micro:bit is feeling the love, see how much!
+            <br><hr>
+            是微：一点就是感受到爱，看有多深！
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            How much love 😍 are you emitting today? Create a 💓 LOVE METER 💓 machine with your micro:bit!
+            <br><hr>
+            多少爱😍 你今天会发光吗？创建一个💓 爱情测量仪💓 机器和你的micro:bit！
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            We'll use this on pin pressed block to run code when pin 0 on the micro:bit is pressed. From the Basic Toolbox category, drag a show number block and drop into the on pin pressed block.
+            <br><hr>
+            我们会用这个当micro:bit上的引脚0被按下时，在引脚按压块上运行代码。从基本工具箱类别，拖动显示数字块并放入在销压块上。
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            From the Math category, get a pick random block and drop it into the show number block replacing 0.
+            <br><hr>
+            从数学类，得了随机选取块并将其放入显示数字块替换0。
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            Now let's be sure to label our Love Machine! From the Basic Toolbox category, drag an on start block and drop it anywhere on the Workspace. Then get a show string block and place it in the on start block. Type the words "LOVE METER" into the show string block.
+            <br><hr>
+            现在，让我们一定要给我们的爱情机器贴上标签！从基本工具箱类别，拖动在开始块上，将其放置在工作区的任何位置。然后得到一个显示字符串块并将其放置在在起跑线上。在表格中键入“爱情表”显示字符串块。
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            Let's test our code. Press Pin 0 on the micro:bit on-screen simulator (bottom left). Numbers between 0-25 = 🖤 No Love, 26-50 = 🫶 BFF Love, 51-75 = 💘 Brokenhearted Love, 76-100 = 💖🔥 Fiery Hot Love!
+            <br><hr>
+            让我们测试一下我们的代码。按下micro:bit屏幕模拟器（左下）上的引脚0。0-25之间的数字=🖤 没有爱，26-50=🫶 BFF爱情，51-75=💘 失恋，76胜100负=💖🔥 火热的爱情！
+            </div>
+        </div>
+        <div class="list">
+            <div class="item">
+            If you have a micro:bit device, connect it to your computer and click the  button. Follow the instructions to transfer your code onto the micro:bit. Once your code has been downloaded, hold the GND pin with one hand and touch the 0 pin with the other hand. Your micro:bit 💓 LOVE METER 💓 machine will detect the love current flowing through your body!
+            <br><hr>
+            如果您有micro:bit设备，请将其连接到计算机并单击按钮。按照说明将代码传输到micro:bit上。下载代码后，用一只手握住GND引脚，用另一只手触摸0引脚。你的micro:bit💓 爱情测量仪💓 机器会检测到流过你身体的爱的电流！
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        //isNav
+        function goTo3(name){
+            rpUtil.gotoPageWithPath(name);
+        }
+        function goTo4(url){
+            rpUtil.gotoPageWithUrl(url);
+        }
+    </script>
+    
+    <style>
+        body {
+            background:aliceblue;
+            margin:0;
+            padding:0;
+            font-size:1rem;
+        }
+        .con {
+            border:dotted 1px lightgray;
+            background:lavender;
+            height:100vh;
+        }
+        .title {
+            border:dotted 1px lightgray;
+            margin:0 auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: space-around;
+        }
+        .nav {
+            border:dotted 1px lightgray;
+            margin:1rem auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: space-around;
+            cursor:pointer;
+        }
+        .list {
+            border:dotted 1px lightgray;
+            margin:1rem auto;
+            background:#e3fae7;
+            display:flex;
+            justify-content: flex-start;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        .list .item {
+            border:dotted 1px lightgray;
+            height:auto;
+            background:#afbee7;
+        }
+    </style>
+</body>
+</html>
