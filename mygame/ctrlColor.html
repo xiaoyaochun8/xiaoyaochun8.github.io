@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta charset="utf-8">
+		<title>控制RGBA</title>
+		<style>
+			* {}
+			table {width:100%;height:700px;}
+			a {border:solid 1px gray;background:lightgray;padding:1px;text-decoration:none;}
+			#box {width:70%;height:80px;border:solid 1px red;background:rgb(255,255,255);opacity:1;}
+			#num1,#num2,#num3,#num4 {font-size:30px;width:70%;}
+			input {width:70%;height:auto;maigin:0;padding:0;}
+		</style>
+	</head>
+	<body>
+		<table style="">
+			<tr valign="middle" style="height:350px;">
+				<td align="center">
+					<div id="box"></div>
+				</td>
+			</tr>
+			<tr>
+				<td align="center">
+					Red：<input type="range" id="red" min="0" max="255" step="1" value="255" onmousemove="show()" ontouchmove="show()"/><br/>
+                    Green：<input type="range" id="green" min="0" max="255" step="1" value="255" onmousemove="show()" ontouchmove="show()"/><br/>
+                    Blue：<input type="range" id="blue" min="0" max="255" step="1" value="255" onmousemove="show()" ontouchmove="show()"/><br/>
+                    Alpha：<input type="range" id="alpha" min="0" max="1" step="0.1" value="1" onmousemove="show()" ontouchmove="show()"/>
+				</td>
+			</tr>
+			<tr>
+				<td align="center">
+					Red：<input type="text" id="num1" disabled/><br/>
+					Green：<input type="text" id="num2" disabled/><br/>
+					Blue：<input type="text" id="num3" disabled/><br/>
+					Alpha：<input type="text" id="num4" disabled/><br/>
+				</td>
+			</tr>
+		</table>
+	</body>
+	<script type="text/javascript">
+        var r = 255;
+        var g = 255;
+        var b = 255;
+        var a = 255;
+		var red = document.getElementById("red");
+		var green = document.getElementById("green");
+		var blue = document.getElementById("blue");
+		var alpha = document.getElementById("alpha");
+		var e = document.getElementById('box');
+		var num1 = document.getElementById('num1');
+		var num2 = document.getElementById('num2');
+		var num3 = document.getElementById('num3');
+		var num4 = document.getElementById('num4');
+		function show(){
+			r = red.value;
+			g = green.value;
+			b = blue.value;
+			a = alpha.value;
+            e.style.background = 'rgb('+r+','+g+','+b+')';
+            e.style.opacity = a;
+            num1.value = r;
+            num2.value = g;
+            num3.value = b;
+            num4.value = a;
+		}
+	</script>
+    
+    <script type="text/javascript" src="../common/js/commonBack.js"></script>
+</html>
