@@ -1,11 +1,59 @@
 window.onload = (event) => {
     // console.log(event);
     var img=document.getElementById("pic1");
-    main(img);
+    main(img, 'p0');
 }
 var currColor = 'red';
 var bgColor = 'white';
 var lineWidth = 5;
+var aryPicInfo = {
+    p0:[474,397],
+    p1:[640,600],
+    p2:[700,416],
+    p3:[700,408],
+    p4:[900,600],
+    p5:[474,379],
+    p6:[474,379],
+    p7:[474,379],
+    p8:[474,379],
+    p9:[474,355],
+    p10:[474,379],
+    p11:[474,379],
+    p12:[474,379],
+    p13:[474,355],
+    p14:[474,476],
+    p15:[474,355],
+    p16:[474,355],
+    p17:[474,379],
+    p18:[474,272],
+    p19:[474,336],
+    p20:[474,287],
+    p21:[474,293],
+    p22:[474,379],
+    p23:[474,379],
+    p24:[474,379],
+    p25:[474,379],
+    p26:[474,379],
+    p27:[474,379],
+    p28:[474,379],
+    p29:[474,379],
+    p30:[474,379],
+    p31:[474,379],
+    p32:[474,379],
+    p33:[474,387],
+    p34:[474,379],
+    p35:[474,341],
+    p36:[474,474],
+    p37:[474,494],
+    p38:[474,355],
+    p39:[700,500],
+    p40:[641,472],
+    p41:[800,450],
+    p42:[640,61],
+    p43:[620,429],
+    p44:[1500,1000],
+    p45:[900,600],
+};
 function setColor(color){
     currColor = color
 }
@@ -28,7 +76,7 @@ function selectPic(obj){
     var popPicSelector = document.querySelector(".popPicSelector");
     popPicSelector.style.display = 'none';
     var img=document.getElementById(obj.id);
-    main(img);
+    main(img, obj.id);
 }
 function clean(){
     if (!confirm("你确定要清除吗？")) {
@@ -37,7 +85,7 @@ function clean(){
     bgColor = 'white';
     main();
 }
-function main(img) {
+function main(img, id) {
     const canvas = document.getElementById("canvas");
     // 设置画布的宽高
     canvas.width = window.innerWidth;
@@ -51,7 +99,10 @@ function main(img) {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
     if(img){
-        ctx.drawImage(img,0,100);
+        var picWidth = aryPicInfo[id][0];
+        var picHeight = aryPicInfo[id][1];
+        var tmpHeight = canvas.width / (picWidth / picHeight);
+        ctx.drawImage(img, 0, 100, canvas.width, tmpHeight);
     }
     
     let isDrawing = false;
