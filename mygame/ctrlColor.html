@@ -22,26 +22,26 @@
 			</tr>
 			<tr>
 				<td align="center">
-					Red：<input type="range" id="red" min="0" max="255" step="1" value="255" onmousemove="show()" onchange="show()" ontouchmove="show()"/><br/>
-                    Green：<input type="range" id="green" min="0" max="255" step="1" value="255" onmousemove="show()" onchange="show()" ontouchmove="show()"/><br/>
-                    Blue：<input type="range" id="blue" min="0" max="255" step="1" value="255" onmousemove="show()" onchange="show()" ontouchmove="show()"/><br/>
+					Red：<input type="range" id="red" min="0" max="255" step="1" value="0" onmousemove="show()" onchange="show()" ontouchmove="show()"/><br/>
+                    Green：<input type="range" id="green" min="0" max="255" step="1" value="0" onmousemove="show()" onchange="show()" ontouchmove="show()"/><br/>
+                    Blue：<input type="range" id="blue" min="0" max="255" step="1" value="0" onmousemove="show()" onchange="show()" ontouchmove="show()"/><br/>
                     Alpha：<input type="range" id="alpha" min="0" max="1" step="0.1" value="1" onmousemove="show()" onchange="show()" ontouchmove="show()"/>
 				</td>
 			</tr>
 			<tr>
 				<td align="center">
-					Red：<input type="text" id="num1" value="255" disabled/><br/>
-					Green：<input type="text" id="num2" value="255" disabled/><br/>
-					Blue：<input type="text" id="num3" value="255" disabled/><br/>
+					Red：<input type="text" id="num1" value="0" disabled/><br/>
+					Green：<input type="text" id="num2" value="0" disabled/><br/>
+					Blue：<input type="text" id="num3" value="0" disabled/><br/>
 					Alpha：<input type="text" id="num4" value="1" disabled/><br/>
 				</td>
 			</tr>
 		</table>
 	</body>
 	<script type="text/javascript">
-        var r = 255;
-        var g = 255;
-        var b = 255;
+        var r = 0;
+        var g = 0;
+        var b = 0;
         var a = 1;
 		var red = document.getElementById("red");
 		var green = document.getElementById("green");
