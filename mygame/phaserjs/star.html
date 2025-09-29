@@ -29,6 +29,7 @@
                 this.load.image('star', 'star.png');
             }
             var star;
+            var tween;
             var posX = 100;
             var posY = 100;
             var isPlayAnim = false;
@@ -39,13 +40,18 @@
                 document.querySelector('canvas').addEventListener("touchstart", (event) => {
                     console.log(event);
                     if(isPlayAnim){
-                        return;
+                        //return;
                     }
                     x = event.touches[0].clientX;
                     y = event.touches[0].clientY;
                     console.log(x,y);
                     
-                    this.tweens.add({
+                    if(tween){
+                        //tween.stop();
+                        //tween.complete();
+                    }
+                    
+                    tween = this.tweens.add({
                         targets: star,
                         x: {from: posX, to: x},
                         y: {from: posY, to: y},
