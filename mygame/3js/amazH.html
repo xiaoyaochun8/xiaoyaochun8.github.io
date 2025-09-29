@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>threejs-场景-amaz</title>
+        <style>
+            body { margin: 0; }
+            #menu {
+                border: solid 0px red;
+                position: absolute;
+                width: 100vw;
+                height: 100vh;
+                z-index: 99;
+                display: flex;
+                justify-content: space-between;
+                flex-direction: column;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="menu">
+            <div id="top">
+            </div>
+            <div id="bottom">
+                <button onclick="lookAtInner()">直升机内视角</button>
+                <button onclick="lookAtOuter()">直升机外视角</button>
+            </div>
+        </div>
+        <div id="joystickLeft"></div>
+        <div id="joystickRight"></div>
+        <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+        <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.162.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.162.0/examples/jsm/",
+                "J3dFrame": "./frame/J3dFrame.js",
+                "MyFlyControlsH": "./frame/MyFlyControlsH162.js"
+            }
+        }
+        </script>
+        <script>
+            function lookAtInner(){
+                let event = new Event('lookAtInder');
+                window.dispatchEvent(event);
+            }
+            function lookAtOuter(){
+                let event = new Event('lookAtOuter');
+                window.dispatchEvent(event);
+            }
+        </script>
+        <script src="https://cdn.bootcdn.net/ajax/libs/nipplejs/0.10.2/nipplejs.min.js"></script>
+        <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+        <script type="module">
+import { J3dFrame } from 'J3dFrame';
+import { FlyControls } from 'MyFlyControlsH';
+
+const App = new J3dFrame();
+App.outputVersion();
+App.init({
+            far : 500,
+        });
+App.addHelpers();
+App.addFlyControls({
+            movementSpeed : 10,
+            rollSpeed : 64,
+        },FlyControls);     
+App.addJoyStick(App);
+
+var animate = function() {
+    App.update();
+    if(arrowModel && isInnerMode == 0){
+        if(App.flyControls.moveState.left == 1){
+            arrowModel.rotation.z = App.degToRad( -20 );
+            arrowModel.rotation.y = App.degToRad( 190 );
+            App.camera.rotation.z = App.degToRad( 10 );
+        }else{
+            arrowModel.rotation.z = App.degToRad( 0 );
+            arrowModel.rotation.y = App.degToRad( 180 );
+            App.camera.rotation.z = App.degToRad( 0 );
+            if(App.flyControls.moveState.right == 1){
+                arrowModel.rotation.z = App.degToRad( 20 );
+                arrowModel.rotation.y = App.degToRad( 170 );
+                App.camera.rotation.z = App.degToRad( -10 );
+            }
+        }
+        if(App.flyControls.moveState.up == 1){
+            arrowModel.rotation.x = App.degToRad( 20 );
+        }else{
+            arrowModel.rotation.x = App.degToRad( 0 );
+            if(App.flyControls.moveState.down == 1){
+                arrowModel.rotation.x = App.degToRad( -40 );
+            }
+        }
+    }
+    if(helicopterRotorTop){
+        helicopterRotorTop.rotation.y += 0.1;
+    }
+	App.render();
+}
+
+App.setAnimationLoop(animate);
+
+//一层
+//中心
+var xfsModel = App.loadModel('./res/XiaoFangShuan.gltf', App.scene, 1, 0, 0, 0);
+addArrow(App.cameraGroup, ['./res/Helicopter1.obj']);
+App.makeModelOfWheel(0, 0, 90, 0, 0, 0);
+App.makeModelOfWheel(-30, 0, 30, 0, 0, 0);
+App.makeModelOfWheel(-10, 0, -30, 0, 0, 0);
+
+setTimeout(function(){
+    App.cameraGroup.position.set( 0, 10, 200 );
+    App.camera.lookAt(App.scene.position);
+    console.log(arrowModel);
+},1000);
+
+
+var arrowModel = null;
+var helicopterRotorTop = null;
+function addArrow(cameraGroup, filePath){
+    var callBack = function ( model ) {
+            model.rotation.y = App.degToRad( 180 );
+            model.position.y = -5;
+            model.position.z = -10;
+            App.cameraGroup.add( model );
+            arrowModel = model;
+
+            for(var i in model.children){
+                console.log(model.children[i].name)
+                if(model.children[i].name == 'Helicopter1 RotorTop'){
+                    helicopterRotorTop = model.children[i];
+                }
+            }
+        };
+    App.loadModel(filePath[0], App.scene, 0.005, 0, 0, 0-10, callBack);
+}
+var isInnerMode = 0;
+window.addEventListener('lookAtInder', function(event){
+    arrowModel.position.y = -1;
+    arrowModel.position.z = 0.1;
+    isInnerMode = 1;
+});
+window.addEventListener('lookAtOuter', function(event){
+    arrowModel.position.y = -5;
+    arrowModel.position.z = -10;
+    isInnerMode = 0;
+});
+
+//var isPlayAudio = false;
+//var _moveState = {};
+//_moveState.left = 0;
+//_moveState.right = 0;
+//_moveState.up = 0;
+//_moveState.down = 0;
+//window.addEventListener( 'keydown', onKeyDown );
+//window.addEventListener( 'keyup', onKeyUp );
+//function onKeyDown( event ) {
+//    switch ( event.code ) {
+//        case 'KeyA': _moveState.left = 1; break;
+//        case 'KeyD': _moveState.right = 1; break;
+//        case 'KeyR': _moveState.up = 1; break;
+//        case 'KeyF': _moveState.down = 1; break;
+//    }
+//    if(!isPlayAudio){
+//        isPlayAudio = true;
+//        App.loadAudio('./../../audio/Helicopter.mp3', true);
+//        App.loadAudio('./../../audio/Helicopter_talk.mp3');
+//    }
+//}
+//function onKeyUp( event ) {
+//    switch ( event.code ) {
+//        case 'KeyA': _moveState.left = 0; break;
+//        case 'KeyD': _moveState.right = 0; break;
+//        case 'KeyR': _moveState.up = 0; break;
+//        case 'KeyF': _moveState.down = 0; break;
+//    }
+//}
+        </script>
+        
+        <script type="text/javascript" src="../../common/js/commonBack.js"></script>
+    </body>
+</html>
