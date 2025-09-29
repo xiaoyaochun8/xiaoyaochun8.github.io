@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta charset="utf-8">
+        <title>phaser js demo</title>
+        <style>
+            * { margin: 0; padding: 0; }
+        </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.55.2/phaser.min.js"></script>
+    </head>
+    <body>
+         <script>
+            var config = {
+                type: Phaser.AUTO,
+                width: window.innerWidth,
+                height: window.innerHeight,
+                scene: {
+                    preload: preload,
+                    create: create,
+                    update: update
+                }
+            };
+             
+            var game = new Phaser.Game(config);
+             
+            function preload ()
+            {
+                this.load.image('star', 'https://i-blog.csdnimg.cn/blog_migrate/2519a7231ea82436fad5045e8292aba9.png');
+            }
+            var star;
+            var posX = 100;
+            var posY = 100;
+            var isPlayAnim = false;
+            function create ()
+            {
+                star = this.add.image(posX, posY, 'star');
+                
+                document.querySelector('canvas').addEventListener("touchstart", (event) => {
+                    console.log(event);
+                    if(isPlayAnim){
+                        return;
+                    }
+                    x = event.touches[0].clientX;
+                    y = event.touches[0].clientY;
+                    console.log(x,y);
+                    
+                    this.tweens.add({
+                        targets: star,
+                        x: {from: posX, to: x},
+                        y: {from: posY, to: y},
+                        duration: 2000,
+                        ease: 'Sine.inOut',
+                        yoyo: false,
+                        loop: 0,
+                        onStart: started,
+                        onComplete: completed
+                    });
+                    
+                    posX = x;
+                    posY = y;
+                });
+            }
+            function started(){
+                console.log('started');
+                isPlayAnim = true;
+            }
+            function completed(){
+                console.log('completed');
+                isPlayAnim = false;
+            }
+             
+            function update ()
+            {
+            }
+            
+            
+        </script>
+        
+        <script type="text/javascript" src="../../common/js/commonBack.js"></script>
+    </body>
+</html>
