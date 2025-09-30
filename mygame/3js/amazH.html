@@ -67,7 +67,7 @@ App.init({
 App.addHelpers();
 App.addFlyControls({
             movementSpeed : 10,
-            rollSpeed : 64,
+            rollSpeed : 14,
         },FlyControls);
 App.addSky();
 App.addJoyStick(App);
@@ -75,7 +75,7 @@ App.addJoyStick(App);
 var animate = function() {
     App.update();
     if(arrowModel && isInnerMode == 0){
-        if(App.flyControls.moveState.left == 1){
+        if(App.flyControls.moveState.left == 1 || App.flyControls.moveState.yawLeft == 1){
             arrowModel.rotation.z = App.degToRad( -20 );
             arrowModel.rotation.y = App.degToRad( 190 );
             App.camera.rotation.z = App.degToRad( 10 );
@@ -83,17 +83,17 @@ var animate = function() {
             arrowModel.rotation.z = App.degToRad( 0 );
             arrowModel.rotation.y = App.degToRad( 180 );
             App.camera.rotation.z = App.degToRad( 0 );
-            if(App.flyControls.moveState.right == 1){
+            if(App.flyControls.moveState.right == 1 || App.flyControls.moveState.yawRight == 1){
                 arrowModel.rotation.z = App.degToRad( 20 );
                 arrowModel.rotation.y = App.degToRad( 170 );
                 App.camera.rotation.z = App.degToRad( -10 );
             }
         }
-        if(App.flyControls.moveState.up == 1){
+        if(App.flyControls.moveState.up == 1 || App.flyControls.moveState.pitchUp == 1){
             arrowModel.rotation.x = App.degToRad( 20 );
         }else{
             arrowModel.rotation.x = App.degToRad( 0 );
-            if(App.flyControls.moveState.down == 1){
+            if(App.flyControls.moveState.down == 1 || App.flyControls.moveState.pitchDown == 1){
                 arrowModel.rotation.x = App.degToRad( -40 );
             }
         }
