@@ -155,17 +155,19 @@ class J3dFrame{
         });
         managerLeft.on('move', function(evt, data){
             console.log(evt, data);
-            if(data.direction.angle == 'left'){
-                App.flyControls.moveState.left = 1;
-            }else if(data.direction.angle == 'right'){
-                App.flyControls.moveState.right = 1;
-            }else if(data.direction.angle == 'up'){
-                App.flyControls.moveState.forward = 1;
-            }else if(data.direction.angle == 'down'){
-                App.flyControls.moveState.back = 1;
+            if('angle' in data.direction){
+                if(data.direction.angle == 'left'){
+                    App.flyControls.moveState.left = 1;
+                }else if(data.direction.angle == 'right'){
+                    App.flyControls.moveState.right = 1;
+                }else if(data.direction.angle == 'up'){
+                    App.flyControls.moveState.forward = 1;
+                }else if(data.direction.angle == 'down'){
+                    App.flyControls.moveState.back = 1;
+                }
+                App.flyControls.updateMovementVector();
+                App.flyControls.updateRotationVector();
             }
-            App.flyControls.updateMovementVector();
-            App.flyControls.updateRotationVector();
         });
         managerLeft.on('end', function(evt, data){
             console.log(evt, data);
@@ -191,18 +193,20 @@ class J3dFrame{
         });
         managerRight.on('move', function(evt, data){
             console.log(evt, data);
-            if(data.direction.angle == 'left'){
-                //_moveState.left = 1;
-                App.flyControls.moveState.yawLeft = 1;
-            }else if(data.direction.angle == 'right'){
-                App.flyControls.moveState.yawRight = 1;
-            }else if(data.direction.angle == 'up'){
-                App.flyControls.moveState.pitchUp = 1;
-            }else if(data.direction.angle == 'down'){
-                App.flyControls.moveState.pitchDown = 1;
+            if('angle' in data.direction){
+                if(data.direction.angle == 'left'){
+                    //_moveState.left = 1;
+                    App.flyControls.moveState.yawLeft = 1;
+                }else if(data.direction.angle == 'right'){
+                    App.flyControls.moveState.yawRight = 1;
+                }else if(data.direction.angle == 'up'){
+                    App.flyControls.moveState.pitchUp = 1;
+                }else if(data.direction.angle == 'down'){
+                    App.flyControls.moveState.pitchDown = 1;
+                }
+                App.flyControls.updateMovementVector();
+                App.flyControls.updateRotationVector();
             }
-            App.flyControls.updateMovementVector();
-            App.flyControls.updateRotationVector();
         });
         managerRight.on('end', function(evt, data){
             console.log(evt, data);
