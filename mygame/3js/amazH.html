@@ -24,6 +24,7 @@
             <div id="bottom">
                 <button onclick="lookAtInner()">直升机内视角</button>
                 <button onclick="lookAtOuter()">直升机外视角</button>
+                <button onclick="reStartPlay()">重新开始</button>
             </div>
         </div>
         <div id="joystickLeft"></div>
@@ -47,6 +48,9 @@
             function lookAtOuter(){
                 let event = new Event('lookAtOuter');
                 window.dispatchEvent(event);
+            }
+            function reStartPlay(){
+                location.reload();
             }
         </script>
         <script src="https://cdn.bootcdn.net/ajax/libs/nipplejs/0.10.2/nipplejs.min.js"></script>
