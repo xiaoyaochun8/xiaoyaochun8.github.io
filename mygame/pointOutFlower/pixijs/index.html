@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta charset="utf-8" />
+        <title>指点生花</title>
+        <!-- 引入 pixi -->
+        <script src="pixi.min.js"></script>
+        <!-- 引入 graphics-extras，特殊图形的包 --->
+        <script src="graphics-extras.min.js"></script>
+        <style>
+        * {
+            margin:0;
+            padding:0;
+            overflow:hidden;
+        }
+        #canvas {
+            box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.4);
+            border: solid 0px red;
+        }
+        </style>
+    </head>
+    <body>
+        <script>
+            // 创建画布
+            let app = new PIXI.Application({
+              width: window.innerWidth,
+              height: window.innerHeight
+            })
+
+            // 将画布添加到页面
+            document.body.appendChild(app.view)
+
+            app.ticker.add((delta) => {
+                // 让矩形旋转起来
+                //graphics.rotation += 0.1 * delta
+                for(i in sprites){
+                    sprites[i].rotation += 0.01 * delta
+                }
+            })
+            
+            app.view.addEventListener("touchstart", (event) => {
+                x = event.touches[0].clientX;
+                y = event.touches[0].clientY;
+                drawSprite(app, x, y);
+            });
+            var sprites = [];
+            function drawSprite(app, x, y){
+                var size = Math.random()*20+10;
+                var width = size;
+                var height = size;
+                var posX = x - width/2;
+                var posY = y - height/2;
+                var color = Math.floor(Math.random()*16777215);
+                // 创建图形类
+                var graphics = new PIXI.Graphics()
+                // 设置填充颜色 beginFill(颜色, 不透明度)
+                graphics.beginFill(color, 1)
+                // 创建环形，只传入4个参数 x, y, 内圆半径, 外圆半径
+                graphics.drawTorus(posX, posY, width/2, width, 0.5, 5.5)
+                // 绘制操作
+                graphics.endFill()
+                // 将绘制好的图形添加到画布中
+                app.stage.addChild(graphics)
+                // 修改矩形的轴心点
+                graphics.pivot.set(posX, posY)
+                // 将矩形移动到画布中间
+                graphics.x = posX + width/2
+                graphics.y = posY + height/2
+                sprites.push(graphics)
+            }
+        </script>
+    </body>
+</html>
