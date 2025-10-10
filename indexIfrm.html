@@ -14,13 +14,11 @@
 		}
 	</style>
     <script type="text/javascript">
-    	
-   		function myTest(){
-            console.log('aaaaa');
+        window.addEventListener('message', function(event){
+            console.log(event);
             var iframe = document.querySelector('iframe');
-            console.log(iframe.contentWindow.history);
-        }
-   		window.myTest = myTest;
+            iframe.contentWindow.history.back();
+        });
     </script>
 </head>
 <body>
