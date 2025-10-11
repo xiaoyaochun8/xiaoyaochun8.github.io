@@ -26,7 +26,7 @@
                 <button onclick="lookAtInner()">直升机内视角</button>
                 <button onclick="lookAtOuter()">直升机外视角</button>
                 <button onclick="autoDrive()">自动驾驶</button>
-                <button onclick="lookAtOuter()">自动降落</button>
+                <button onclick="autoLanding()">自动降落</button>
                 <button onclick="reStartPlay()">重新开始</button>
             </div>
         </div>
@@ -54,6 +54,10 @@
             }
             function autoDrive(){
                 let event = new Event('autoDrive');
+                window.dispatchEvent(event);
+            }
+            function autoLanding(){
+                let event = new Event('autoLanding');
                 window.dispatchEvent(event);
             }
             function reStartPlay(){
@@ -107,7 +111,9 @@ var animate = function() {
         }
     }
     if(helicopterRotorTop){
-        helicopterRotorTop.rotation.y += 0.1;
+        if(!isLanding){
+            helicopterRotorTop.rotation.y += 0.1;
+        }
     }
     TWEEN.update();
     App.render();
@@ -117,12 +123,12 @@ App.setAnimationLoop(animate);
 
 //一层
 //中心
-var xfsModel = App.loadModel('./res/XiaoFangShuan.gltf', App.scene, 1, 0, 0, 0);
+var xfsModel = App.loadModel('./res/XiaoFangShuan.gltf', App.scene, 1, -50, 0, 0);
 addArrow(App.cameraGroup, ['./res/Helicopter1.obj']);
 var targetPos = [
     {x:0,y:0,z:90},
 ];
-for(var i=1;i<20;i++){
+for(var i=1;i<15;i++){
     targetPos[i] = {x:Math.random()*20,y:Math.random()*20,z:(i)*-60+90}
 }
 for(var i in targetPos){
@@ -172,9 +178,16 @@ window.addEventListener('lookAtOuter', function(event){
 window.addEventListener('autoDrive', function(event){
     autoDrive();
 });
+window.addEventListener('autoLanding', function(event){
+    autoLanding();
+});
 
 var targetPosIndex = 0;
 function autoDrive(){
+    if(targetPosIndex >= targetPos.length){
+        return;
+    }
+    isLanding = false;
     var duration = 2000;
     TWEEN.removeAll();
     new TWEEN.Tween( App.cameraGroup.position )
@@ -187,6 +200,22 @@ function autoDrive(){
         })
         .start();
 }
+var isLanding = false;
+function autoLanding(){
+    var duration = 5000;
+    TWEEN.removeAll();
+    new TWEEN.Tween( App.cameraGroup.position )
+        .to( { x: -50, y: 53.5, z: 10 }, Math.random() * duration + duration )
+        .onUpdate(function() {
+            //App.camera.lookAt(arrowModel.position);
+        })
+        .onComplete(function() {
+            //App.camera.lookAt({x:arrowModel.position.x, y:arrowModel.position.y, z:arrowModel.position.z});
+            isLanding = true;
+        })
+        .start();
+}
+console.log(TWEEN.Easing)
 
 //var isPlayAudio = false;
 //var _moveState = {};
