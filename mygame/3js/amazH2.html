@@ -182,11 +182,16 @@ window.addEventListener('autoLanding', function(event){
     autoLanding();
 });
 
+var isPlayTweenAnim = false;
 var targetPosIndex = 0;
 function autoDrive(){
     if(targetPosIndex >= targetPos.length){
         return;
     }
+    if(isPlayTweenAnim){
+        return;
+    }
+    isPlayTweenAnim = true;
     isLanding = false;
     var duration = 2000;
     TWEEN.removeAll();
@@ -197,11 +202,16 @@ function autoDrive(){
         })
         .onComplete(function() {
             targetPosIndex++;
+            isPlayTweenAnim = false;
         })
         .start();
 }
 var isLanding = false;
 function autoLanding(){
+    if(isPlayTweenAnim){
+        return;
+    }
+    isPlayTweenAnim = true;
     var duration = 5000;
     TWEEN.removeAll();
     new TWEEN.Tween( App.cameraGroup.position )
@@ -212,6 +222,7 @@ function autoLanding(){
         .onComplete(function() {
             //App.camera.lookAt({x:arrowModel.position.x, y:arrowModel.position.y, z:arrowModel.position.z});
             isLanding = true;
+            isPlayTweenAnim = false;
         })
         .start();
 }
