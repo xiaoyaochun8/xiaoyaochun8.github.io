@@ -13,22 +13,149 @@
         </div>
         <div class="list">
             <div class="item">使用方式使用方式使用方式使用方式</div>
-			<div class="item">使用方式使用方式使用方式使用方式使用方式</div>
-		</div>
+            <div class="item">使用方式使用方式使用方式使用方式使用方式</div>
+        </div>
         <div class="list">
             <div class="item">超声波模块</div>
         </div>
         <div class="list">
-            <div class="item">使用方式使用方式使用方式使用方式</div>
-			<div class="item">使用方式使用方式使用方式使用方式使用方式</div>
-		</div>
+            <div class="item"><table>
+                <tr>
+                    <td>vcc</td><td></td><td></td>
+                </tr>
+                <tr>
+                    <td>gnd</td><td></td><td></td>
+                </tr>
+                <tr>
+                    <td>trig</td><td>p0</td><td></td>
+                </tr>
+                <tr>
+                    <td>echo</td><td>p1</td><td></td>
+                </tr>
+            </table></div>
+        </div>
         <div class="list">
             <div class="item">MP3模块</div>
         </div>
         <div class="list">
-            <div class="item">使用方式使用方式使用方式使用方式</div>
-			<div class="item">使用方式使用方式使用方式使用方式使用方式</div>
-		</div>
+            <div class="item"><table>
+                <tr>
+                    <td>5v</td><td></td><td></td>
+                </tr>
+                <tr>
+                    <td>gnd</td><td></td><td></td>
+                </tr>
+                <tr>
+                    <td>rx</td><td>p0</td><td>tx</td>
+                </tr>
+                <tr>
+                    <td>tx</td><td>p1</td><td>rx</td>
+                </tr>
+            </table></div>
+        </div>
+        <div class="list">
+            <div class="item">OLED模块</div>
+        </div>
+        <div class="list">
+            <div class="item"><table>
+                <tr>
+                    <td>5v</td><td></td><td></td>
+                </tr>
+                <tr>
+                    <td>gnd</td><td></td><td></td>
+                </tr>
+                <tr>
+                    <td>scl</td><td>p19</td><td></td>
+                </tr>
+                <tr>
+                    <td>sda</td><td>p20</td><td></td>
+                </tr>
+            </table></div>
+        </div>
+        <div class="list">
+            <div class="item">电机模块</div>
+        </div>
+        <div class="list">
+            <div class="item"><table>
+                <tr>
+                    <td>5v</td><td></td><td></td>
+                </tr>
+                <tr>
+                    <td>gnd</td><td></td><td></td>
+                </tr>
+                <tr>
+                    <td>sig</td><td>p0</td><td></td>
+                </tr>
+            </table></div>
+        </div>
+        <div class="list">
+            <div class="item">舵机模块</div>
+        </div>
+        <div class="list">
+            <div class="item"><table>
+                <tr>
+                    <td>5v</td><td></td><td></td>
+                </tr>
+                <tr>
+                    <td>gnd</td><td></td><td></td>
+                </tr>
+                <tr>
+                    <td>sig</td><td>p0</td><td></td>
+                </tr>
+            </table></div>
+        </div>
+        <div class="list">
+            <div class="item">遥控器模块</div>
+        </div>
+        <div class="list">
+            <div class="item"><table>
+                <tr>
+                    <td>vcc</td><td></td><td></td>
+                </tr>
+                <tr>
+                    <td>gnd</td><td></td><td></td>
+                </tr>
+                <tr>
+                    <td>sig</td><td>p0</td><td></td>
+                </tr>
+            </table></div>
+        </div>
+        <div class="list">
+            <div class="item">rgb灯模块</div>
+        </div>
+        <div class="list">
+            <div class="item"><table>
+                <tr>
+                    <td>gnd</td><td></td><td></td>
+                </tr>
+                <tr>
+                    <td>r</td><td>p0</td><td></td>
+                </tr>
+                <tr>
+                    <td>g</td><td>p1</td><td></td>
+                </tr>
+                <tr>
+                    <td>b</td><td>p2</td><td></td>
+                </tr>
+            </table></div>
+        </div>
+        <div class="list">
+            <div class="item">接线方案1（电机舵机遥控器）</div>
+        </div>
+        <div class="list">
+            <div class="item">电机A</div>
+            <div class="item"><table>
+                <tr>
+                    <td>5v</td><td></td><td></td>
+                </tr>
+                <tr>
+                    <td>gnd</td><td></td><td></td>
+                </tr>
+                <tr>
+                    <td>sig</td><td>p0</td><td></td>
+                </tr>
+            </table></div>
+        </div>
     </div>
     
     <script>
@@ -62,14 +189,14 @@
             cursor:pointer;
         }
         .list {
-			border: dotted 1px lightgray;
-			margin: 1rem auto;
-			background: #e3fae7;
-			display: flex;
-			justify-content: flex-start;
-			flex-direction: column;
-			flex-wrap: wrap;
-			align-items: flex-start;
+            border: dotted 1px lightgray;
+            margin: 1rem auto;
+            background: #e3fae7;
+            display: flex;
+            justify-content: flex-start;
+            flex-direction: column;
+            flex-wrap: wrap;
+            align-items: flex-start;
         }
         .list .item {
             border:dotted 1px lightgray;
@@ -81,6 +208,30 @@
             align-items: center;
             justify-content: center;
             margin: 0.3rem;
+        }
+        table {
+        width: 80%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        border: 2px solid #70aefb;
+        border-radius: 5px;
+        overflow: hidden;
+        background-color: #328ef4;
+        color: #ffffff;
+        }
+        th, td {
+        padding: 15px;
+        text-align: center;
+        border: 1px solid #70aefb;
+        }
+        thead {
+        background-color: #0056b3;
+        }
+        tbody tr:nth-child(odd) {
+        background-color: #4a90e2;
+        }
+        tbody tr:hover {
+        background-color: #003f7f;
         }
     </style>
 </body>
