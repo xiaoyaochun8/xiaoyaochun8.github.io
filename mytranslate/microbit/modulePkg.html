@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>机器人模块 Git 地址生成器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* 科技风格背景与主色调 */
+        body {
+            background-color: #0a0e17;
+            color: #e0e0e0;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(26, 76, 127, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(26, 188, 156, 0.1) 0%, transparent 20%);
+        }
+
+        /* 标题区域 */
+        .header {
+            background: linear-gradient(90deg, #1a237e, #0d47a1);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #1abc9c;
+            box-shadow: 0 0 20px rgba(26, 188, 156, 0.3);
+        }
+
+        .header h1 {
+            font-size: 28px;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(26, 188, 156, 0.5);
+        }
+
+        /* 主容器布局 */
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 30px auto;
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        /* 左侧模块列表 */
+        .module-panel {
+            width: 350px;
+            background: rgba(13, 27, 42, 0.8);
+            border: 1px solid #1abc9c;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(26, 188, 156, 0.2);
+            height: fit-content;
+        }
+
+        .panel-title {
+            color: #1abc9c;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #2c3e50;
+            font-size: 20px;
+        }
+
+        .module-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .module-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 10px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .module-item:hover {
+            background: rgba(26, 188, 156, 0.1);
+        }
+
+        .module-item input {
+            width: 18px;
+            height: 18px;
+            accent-color: #1abc9c;
+            cursor: pointer;
+        }
+
+        .module-item label {
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* 必选模块样式 */
+        .required-module {
+            color: #ff9800;
+            font-weight: bold;
+        }
+
+        /* 右侧Git列表 */
+        .git-panel {
+            flex: 1;
+            background: rgba(13, 27, 42, 0.8);
+            border: 1px solid #1abc9c;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(26, 188, 156, 0.2);
+        }
+
+        .git-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .git-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: rgba(26, 35, 126, 0.2);
+            border: 1px solid #34495e;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .git-item:hover {
+            border-color: #1abc9c;
+            box-shadow: 0 0 8px rgba(26, 188, 156, 0.3);
+        }
+
+        .git-name {
+            font-weight: 600;
+            color: #1abc9c;
+            min-width: 120px;
+        }
+
+        .git-url {
+            flex: 1;
+            padding: 0 15px;
+            word-break: break-all;
+            color: #ecf0f1;
+        }
+
+        .copy-btn {
+            padding: 8px 16px;
+            background: linear-gradient(45deg, #1abc9c, #16a085);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+
+        .copy-btn:hover {
+            box-shadow: 0 0 10px rgba(26, 188, 156, 0.5);
+        }
+
+        .copy-btn.copied {
+            background: #27ae60;
+        }
+
+        /* 空状态提示 */
+        .empty-tip {
+            text-align: center;
+            padding: 50px 0;
+            color: #7f8c8d;
+            font-size: 18px;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .module-panel {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 标题区域 -->
+    <div class="header">
+        <h1>🤖 机器人模块 Git 地址生成器</h1>
+    </div>
+
+    <!-- 主内容区 -->
+    <div class="container">
+        <!-- 左侧模块选择区 -->
+        <div class="module-panel">
+            <h2 class="panel-title">模块选择</h2>
+            <div class="module-list" id="moduleList">
+                <!-- 模块会通过JS动态生成 -->
+            </div>
+        </div>
+
+        <!-- 右侧Git地址列表区 -->
+        <div class="git-panel">
+            <h2 class="panel-title">Git 地址列表</h2>
+            <div id="gitList" class="git-list">
+                <div class="empty-tip">请勾选左侧模块查看对应Git地址</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 1. 定义模块数据、Git地址、依赖关系
+        const moduleData = {
+            "遥控器": { git: "https://github.com/xxx/remote.git", depends: [] },
+            "oled12864": { git: "https://github.com/xxx/oled12864.git", depends: [] },
+            "tft128160": { git: "https://github.com/xxx/tft128160.git", depends: [] },
+            "基础模块": { git: "https://github.com/xxx/base.git", depends: ["遥控器"], required: true },
+            "music": { git: "https://github.com/xxx/music.git", depends: [] },
+            "mp3": { git: "https://github.com/xxx/mp3.git", depends: [] },
+            "color": { git: "https://github.com/xxx/color.git", depends: [] },
+            "tft": { git: "https://github.com/xxx/tft.git", depends: [] },
+            "tft中文": { git: "https://github.com/xxx/tft-cn.git", depends: ["tft128160"] },
+            "oled": { git: "https://github.com/xxx/oled.git", depends: ["oled12864"] },
+            "oled中文": { git: "https://github.com/xxx/oled-cn.git", depends: [] },
+            "oled画画": { git: "https://github.com/xxx/oled-draw.git", depends: ["oled12864"] },
+            "oled眼睛": { git: "https://github.com/xxx/oled-eye.git", depends: ["oled12864"] },
+            "oled雪人": { git: "https://github.com/xxx/oled-snow.git", depends: ["oled"] },
+            "oled图库": { git: "https://github.com/xxx/oled-img.git", depends: ["oled"] },
+            "oled动画库": { git: "https://github.com/xxx/oled-animation.git", depends: ["oled12864"] },
+            "oled面板库": { git: "https://github.com/xxx/oled-panel.git", depends: ["oled12864"] }
+        };
+
+        // 2. 动态生成模块列表
+        const moduleListEl = document.getElementById("moduleList");
+        const gitListEl = document.getElementById("gitList");
+
+        // 渲染模块复选框
+        function renderModules() {
+            for (const [name, config] of Object.entries(moduleData)) {
+                const div = document.createElement("div");
+                div.className = "module-item";
+                
+                const input = document.createElement("input");
+                input.type = "checkbox";
+                input.id = name;
+                input.value = name;
+                
+                // 基础模块必选，默认勾选且禁用
+                if (config.required) {
+                    input.checked = true;
+                    input.disabled = true;
+                }
+
+                const label = document.createElement("label");
+                label.htmlFor = name;
+                label.textContent = name;
+                
+                // 必选模块添加样式
+                if (config.required) {
+                    label.classList.add("required-module");
+                }
+
+                // 监听勾选事件
+                input.addEventListener("change", handleModuleChange);
+
+                div.appendChild(input);
+                div.appendChild(label);
+                moduleListEl.appendChild(div);
+            }
+        }
+
+        // 3. 处理模块勾选/取消，自动处理依赖
+        function handleModuleChange(e) {
+            const moduleName = e.target.value;
+            const isChecked = e.target.checked;
+            const config = moduleData[moduleName];
+
+            // 勾选时自动勾选所有依赖
+            if (isChecked && config.depends.length > 0) {
+                config.depends.forEach(depName => {
+                    const depEl = document.getElementById(depName);
+                    if (depEl && !depEl.checked) {
+                        depEl.checked = true;
+                        // 递归处理依赖的依赖
+                        handleModuleChange({ target: depEl });
+                    }
+                });
+            }
+
+            // 更新右侧Git列表
+            updateGitList();
+        }
+
+        // 4. 更新右侧Git地址列表
+        function updateGitList() {
+            // 获取所有勾选的模块
+            const checkedModules = Array.from(
+                document.querySelectorAll(".module-item input:checked")
+            ).map(input => input.value);
+
+            // 清空列表
+            gitListEl.innerHTML = "";
+
+            if (checkedModules.length === 0) {
+                gitListEl.innerHTML = '<div class="empty-tip">请勾选左侧模块查看对应Git地址</div>';
+                return;
+            }
+
+            // 生成Git项
+            checkedModules.forEach(moduleName => {
+                const gitInfo = moduleData[moduleName];
+                const gitItem = document.createElement("div");
+                gitItem.className = "git-item";
+
+                gitItem.innerHTML = `
+                    <div class="git-name">${moduleName}</div>
+                    <div class="git-url">${gitInfo.git}</div>
+                    <button class="copy-btn" data-url="${gitInfo.git}">复制</button>
+                `;
+
+                gitListEl.appendChild(gitItem);
+            });
+
+            // 绑定复制按钮事件
+            bindCopyEvent();
+        }
+
+        // 5. 复制到剪贴板功能
+        function bindCopyEvent() {
+            const copyBtns = document.querySelectorAll(".copy-btn");
+            copyBtns.forEach(btn => {
+                btn.addEventListener("click", async function() {
+                    const url = this.dataset.url;
+                    try {
+                        await navigator.clipboard.writeText(url);
+                        this.textContent = "已复制";
+                        this.classList.add("copied");
+                        
+                        // 2秒后恢复原状
+                        setTimeout(() => {
+                            this.textContent = "复制";
+                            this.classList.remove("copied");
+                        }, 2000);
+                    } catch (err) {
+                        alert("复制失败，请手动复制");
+                    }
+                });
+            });
+        }
+
+        // 初始化页面
+        window.onload = function() {
+            renderModules();
+            updateGitList(); // 初始化显示必选模块
+        };
+    </script>
+</body>
+</html>
