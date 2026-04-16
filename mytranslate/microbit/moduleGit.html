@@ -91,6 +91,11 @@
             cursor: pointer;
         }
 
+        .module-item input:disabled {
+            cursor: not-allowed;
+            background: #ff9800;
+        }
+
         .module-item label {
             cursor: pointer;
             font-size: 16px;
@@ -156,7 +161,7 @@
             border-radius: 4px;
             cursor: pointer;
             transition: all 0.2s;
-            font-weight: 600;
+            font-weight: 60;
         }
 
         .copy-btn:hover {
@@ -247,6 +252,7 @@
                 input.type = "checkbox";
                 input.id = name;
                 input.value = name;
+                input.dataset.name = name;
                 
                 // 基础模块必选，默认勾选且禁用
                 if (config.required) {
@@ -284,14 +290,54 @@
                     const depEl = document.getElementById(depName);
                     if (depEl && !depEl.checked) {
                         depEl.checked = true;
-                        // 递归处理依赖的依赖
                         handleModuleChange({ target: depEl });
                     }
                 });
             }
 
+            // 核心：更新所有被依赖模块的必选状态
+            updateDependentRequiredStatus();
             // 更新右侧Git列表
             updateGitList();
+        }
+
+        // ==============================================
+        // 🔥 新增核心逻辑：自动设置被依赖模块为必选/可选
+        // ==============================================
+        function updateDependentRequiredStatus() {
+            // 1. 获取当前所有已勾选模块
+            const checkedModules = Array.from(
+                document.querySelectorAll(".module-item input:checked")
+            ).map(i => i.value);
+
+            // 2. 统计：哪些模块被当前选中的模块依赖
+            const requiredByOthers = new Set();
+
+            checkedModules.forEach(mod => {
+                const deps = moduleData[mod]?.depends || [];
+                deps.forEach(dep => requiredByOthers.add(dep));
+            });
+
+            // 3. 遍历所有模块，设置禁用/可选状态
+            document.querySelectorAll(".module-item input").forEach(input => {
+                const name = input.value;
+                const config = moduleData[name];
+
+                // 固定必选模块（基础模块）永远不动
+                if (config.required) return;
+
+                // 如果被其他模块依赖 → 必选（禁用取消）
+                if (requiredByOthers.has(name)) {
+                    input.checked = true;
+                    input.disabled = true;
+                    input.nextElementSibling.classList.add("required-module");
+                } 
+                // 否则 → 恢复可选状态
+                else {
+                    input.disabled = false;
+                    input.nextElementSibling.classList.remove("required-module");
+                }
+            });
         }
 
         // 4. 更新右侧Git地址列表
@@ -354,7 +400,8 @@
         // 初始化页面
         window.onload = function() {
             renderModules();
-            updateGitList(); // 初始化显示必选模块
+            updateDependentRequiredStatus();
+            updateGitList();
         };
     </script>
 </body>
