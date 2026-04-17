@@ -219,23 +219,22 @@
     <script>
         // 1. 定义模块数据、Git地址、依赖关系
         const moduleData = {
-            "遥控器": { git: "https://github.com/xxx/remote.git", depends: [] },
-            "oled12864": { git: "https://github.com/xxx/oled12864.git", depends: [] },
-            "tft128160": { git: "https://github.com/xxx/tft128160.git", depends: [] },
-            "基础模块": { git: "https://github.com/xxx/base.git", depends: ["遥控器"], required: true },
-            "music": { git: "https://github.com/xxx/music.git", depends: [] },
-            "mp3": { git: "https://github.com/xxx/mp3.git", depends: [] },
-            "color": { git: "https://github.com/xxx/color.git", depends: [] },
-            "tft": { git: "https://github.com/xxx/tft.git", depends: [] },
-            "tft中文": { git: "https://github.com/xxx/tft-cn.git", depends: ["tft128160"] },
-            "oled": { git: "https://github.com/xxx/oled.git", depends: ["oled12864"] },
-            "oled中文": { git: "https://github.com/xxx/oled-cn.git", depends: [] },
-            "oled画画": { git: "https://github.com/xxx/oled-draw.git", depends: ["oled12864"] },
-            "oled眼睛": { git: "https://github.com/xxx/oled-eye.git", depends: ["oled12864"] },
-            "oled雪人": { git: "https://github.com/xxx/oled-snow.git", depends: ["oled"] },
-            "oled图库": { git: "https://github.com/xxx/oled-img.git", depends: ["oled"] },
-            "oled动画库": { git: "https://github.com/xxx/oled-animation.git", depends: ["oled12864"] },
-            "oled面板库": { git: "https://github.com/xxx/oled-panel.git", depends: ["oled12864"] }
+            "遥控器": { git: "https://github.com/xiaoyaochun8/pxt-makerbit-ir-receiver-mq.git", depends: [] },
+            "oled12864": { git: "https://github.com/xiaoyaochun8/OLED12864_I2C_mq.git", depends: [] },
+            "tft128160": { git: "https://github.com/xiaoyaochun8/pxt-RB-TFT1.8-mq.git", depends: [] },
+            "基础模块": { git: "https://github.com/xiaoyaochun8/pxt-mqlib.git", depends: ["遥控器"], required: true },
+            "music": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-music.git", depends: [] },
+            "mp3": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-mp3.git", depends: [] },
+            "color": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-color-sensor.git", depends: [] },
+            "tft中文": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-tft-cn.git", depends: ["tft128160"] },
+            "oled": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-oled.git", depends: ["oled12864"] },
+            "oled中文": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-oled-cn.git", depends: [] },
+            "oled画画": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-oled-draw.git", depends: ["oled12864"] },
+            "oled眼睛": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-oled-eyes.git", depends: ["oled12864"] },
+            "oled雪人": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-oled-snowman.git", depends: ["oled"] },
+            "oled图库": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-oled2.git", depends: ["oled"] },
+            "oled动画库": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-oled5.git", depends: ["oled12864"] },
+            "oled面板库": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-oled4.git", depends: ["oled12864"] }
         };
 
         // 2. 动态生成模块列表
