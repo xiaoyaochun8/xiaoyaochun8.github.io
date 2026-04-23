@@ -18,7 +18,6 @@
             padding: 15px;
             user-select: none;
             overflow: hidden;
-            touch-action: none; /* 关键：消除浏览器触摸延迟 */
             font-family: "Microsoft YaHei", sans-serif;
         }
 
@@ -67,7 +66,7 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             cursor: grab;
             position: absolute;
-            will-change: left, top; /* 加速渲染 */
+            will-change: transform;
         }
 
         .yunmu-box:active {
@@ -77,7 +76,7 @@
     </style>
 </head>
 <body>
-    <h1 class="title">拼音韵母学习卡片v2</h1>
+    <h1 class="title">拼音韵母学习卡片v3</h1>
 
     <div class="btn-group">
         <button class="btn" id="sortBtn">一键排序</button>
@@ -112,10 +111,8 @@
 
         function initSort() {
             const screenW = window.innerWidth;
-            const screenH = window.innerHeight;
             const maxPerRow = Math.floor((screenW - 40) / (cardSize + cardMargin));
             const perRow = Math.min(maxPerRow, 8);
-            const totalRow = Math.ceil(yunmuList.length / perRow);
             const startX = (screenW - (perRow * (cardSize + cardMargin))) / 2;
             const startY = 110;
 
@@ -160,49 +157,64 @@
         document.getElementById('sortBtn').onclick = initSort;
         document.getElementById('shuffleBtn').onclick = shuffleCards;
 
-        // ========== 丝滑零延迟拖动 ==========
-        function makeDraggable(el) {
+        // ========== 修复：正常拖动 + 无延迟 ==========
+        function makeDraggable(element) {
             let isDragging = false;
-            let offsetX = 0, offsetY = 0;
+            let offsetX, offsetY;
 
-            // 鼠标
-            el.onmousedown = start;
-            document.onmousemove = move;
-            document.onmouseup = end;
-
-            // 触摸
-            el.ontouchstart = start;
-            document.ontouchmove = move;
-            document.ontouchend = end;
-
-            function start(e) {
-                if (e.type === 'touchstart') e = e.touches[0];
+            // 鼠标事件
+            element.addEventListener('mousedown', (e) => {
                 isDragging = true;
-                el.style.zIndex = 9999;
-                offsetX = e.clientX - el.offsetLeft;
-                offsetY = e.clientY - el.offsetTop;
-            }
+                offsetX = e.clientX - element.offsetLeft;
+                offsetY = e.clientY - element.offsetTop;
+                element.style.zIndex = 999;
+            });
 
-            function move(e) {
+            document.addEventListener('mousemove', (e) => {
                 if (!isDragging) return;
-                if (e.type === 'touchmove') e = e.touches[0];
-                
                 let x = e.clientX - offsetX;
                 let y = e.clientY - offsetY;
                 const maxX = window.innerWidth - cardSize;
                 const maxY = window.innerHeight - cardSize;
-                
                 x = Math.max(0, Math.min(x, maxX));
                 y = Math.max(0, Math.min(y, maxY));
-                
-                el.style.left = x + 'px';
-                el.style.top = y + 'px';
-            }
+                element.style.left = x + 'px';
+                element.style.top = y + 'px';
+            });
 
-            function end() {
+            document.addEventListener('mouseup', () => {
                 isDragging = false;
-                el.style.zIndex = '';
-            }
+                element.style.zIndex = '';
+            });
+
+            // 触摸事件
+            element.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                const touch = e.touches[0];
+                isDragging = true;
+                offsetX = touch.clientX - element.offsetLeft;
+                offsetY = touch.clientY - element.offsetTop;
+                element.style.zIndex = 999;
+            });
+
+            document.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                const touch = e.touches[0];
+                let x = touch.clientX - offsetX;
+                let y = touch.clientY - offsetY;
+                const maxX = window.innerWidth - cardSize;
+                const maxY = window.innerHeight - cardSize;
+                x = Math.max(0, Math.min(x, maxX));
+                y = Math.max(0, Math.min(y, maxY));
+                element.style.left = x + 'px';
+                element.style.top = y + 'px';
+            });
+
+            document.addEventListener('touchend', () => {
+                isDragging = false;
+                element.style.zIndex = '';
+            });
         }
     </script>
 </body>
