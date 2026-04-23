@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>叽里咕噜</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a0d5c 0%, #0f3460 50%, #b91d5e 100%);
+            background-attachment: fixed;
+            color: #fff;
+            padding: 20px 12px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .header .time {
+            display: inline-block;
+            margin-left: 8px;
+            vertical-align: top;
+            margin-top: 6px;
+        }
+
+        .time .time-text {
+            font-size: 20px;
+            font-weight: 500;
+            display: block;
+        }
+
+        .time .date-text {
+            font-size: 13px;
+            opacity: 0.8;
+            display: block;
+        }
+
+        .app-section h2 {
+            font-size: 18px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        /* 响应式网格：自动适配列数 */
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+        }
+
+        .app-card {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #222;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: transform 0.2s ease;
+            text-decoration: none;
+            cursor: pointer;
+        }
+		.app-card.no-open{
+			pointer-events: none; /* 禁止点击 */
+			cursor: default;      /* 鼠标变回普通样式 */
+		}
+
+        .app-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .app-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .app-card.bilibili { background-color: #f48fb1; }
+        .app-card.jellyfin { background-color: #81b1e0; }
+        .app-card.ikuai { background-color: #ffffff; }
+        .app-card.navidrome { background-color: #639df0; }
+        .app-card.ubuntu { background-color: #ffffff; }
+
+        .app-card.vscode { background-color: #ffffff; }
+        .app-card.xunlei { background-color: #ffffff; }
+        .app-card.windows { background-color: #ffffff; }
+        .app-card.wechat { background-color: #66bb6a; color: white; }
+        .app-card.qq { background-color: #ffffff; }
+
+        .app-card.openwrt { background-color: #ffffff; }
+        .app-card.blog { background-color: #ffffff; }
+        .app-card.portainer { background-color: #81c5f0; }
+        .app-card.jd { background-color: #e53935; color: white; }
+        .app-card.postgres { background-color: #ffffff; }
+
+        .app-card.sunpanel { background-color: #b2dfdb; }
+        .app-card.nextcloud { background-color: #ffffff; }
+        .app-card.nginx { background-color: #66a766; color: white; }
+        .app-card.docker { background-color: #ffffff; }
+        .app-card.homeassistant { background-color: #ffffff; }
+
+        .icon-placeholder {
+            width: 100%;
+            height: 100%;
+            border-radius: 4px;
+        }
+
+        /* 移动端适配侧边按钮 */
+        .sidebar {
+            position: fixed;
+            right: 12px;
+            bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sidebar-btn {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            border-radius: 6px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* 小屏幕手机优化 */
+        @media (max-width: 400px) {
+            .app-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .header h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>叽里咕噜 |</h1>
+            <div class="time">
+                <span class="time-text" id="timeText">15:48</span>
+                <span class="date-text" id="dateText">11-28 星期二</span>
+            </div>
+        </div>
+
+        <div class="app-section">
+            <h2>APP</h2>
+            <div class="app-grid">
+                <!-- 第一行 -->
+                <a href="yunmu.html" target="_blank" class="app-card bilibili">
+                    <div class="app-icon">
+                        <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23fff\'><path d=\'M19.198 6.134C21.403 7.605 23 9.906 23 12.5c0 2.594-1.597 4.895-3.802 6.366L21 22H3l1.802-3.134C2.597 17.395 1 15.094 1 12.5c0-2.594 1.597-4.895 3.802-6.366L3 2h18l-1.802 4.134zM7 10v4h2v-4H7zm8 0v4h2v-4h-2z\'/></svg>') center/contain no-repeat;"></div>
+                    </div>
+                    <span>韵母</span>
+                </a>
+
+                <a href="#" target="_blank" class="app-card jellyfin no-open">
+                    <div class="app-icon">
+                        <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23fff\'><path d=\'M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18l7 3.5v6.84l-7 3.5-7-3.5V7.68l7-3.5z\'/></svg>') center/contain no-repeat;"></div>
+                    </div>
+                    <span>敬请期待...</span>
+                </a>
+
+                <a href="http://ikuai.local/" target="_blank" class="app-card ikuai no-open">
+                    <div class="app-icon">
+                        <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%232563eb\'><rect width=\'24\' height=\'24\' rx=\'4\' fill=\'%234299f5\'/><text x=\'50%\' y=\'50%\' font-size=\'10\' fill=\'white\' text-anchor=\'middle\' dominant-baseline=\'middle\'>K</text></svg>') center/contain no-repeat;"></div>
+                    </div>
+                    <span>敬请期待...</span>
+                </a>
+
+                <a href="http://localhost:4533/" target="_blank" class="app-card navidrome no-open">
+                    <div class="app-icon">
+                        <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23fff\'><circle cx=\'12\' cy=\'12\' r=\'10\' fill=\'%23fff\'/><circle cx=\'12\' cy=\'12\' r=\'8\' fill=\'%23639df0\'/><circle cx=\'12\' cy=\'12\' r=\'2\' fill=\'%23fff\'/></svg>') center/contain no-repeat;"></div>
+                    </div>
+                    <span>敬请期待...</span>
+                </a>
+
+                <a href="http://localhost/" target="_blank" class="app-card ubuntu no-open">
+                    <div class="app-icon">
+                        <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23e95420\'><path d=\'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z\'/></svg>') center/contain no-repeat;"></div>
+                    </div>
+                    <span>敬请期待...</span>
+                </a>
+
+                <!-- 第二行 -->
+                <a href="vscode://" target="_blank" class="app-card vscode no-open">
+                    <div class="app-icon">
+                        <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23007acc\'><path d=\'M17 16.47V7.53L11 12l6 4.47zM2 3v18l18-9L2 3z\'/></svg>') center/contain no-repeat;"></div>
+                    </div>
+                    <span>敬请期待...</span>
+                </a>
+
+                <a href="https://pan.xunlei.com/" target="_blank" class="app-card xunlei no-open">
+                    <div class="app-icon">
+                        <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%234169e1\'><path d=\'M12 2L2 12h4v8h12v-8h4L12 2z\'/></svg>') center/contain no-repeat;"></div>
+                    </div>
+                    <span>敬请期待...</span>
+                </a>
+
+                <a href="https://windows.com/" target="_blank" class="app-card windows no-open">
+                    <div class="app-icon">
+                        <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%230078d6\'><path d=\'M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z\'/></svg>') center/contain no-repeat;"></div>
+                    </div>
+                    <span>敬请期待...</span>
+                </a>
+
+                <a href="https://wx.qq.com/" target="_blank" class="app-card wechat no-open">
+                    <div class="app-icon">
+                        <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23fff\'><path d=\'M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z\' fill=\'%23fff\'/></svg>') center/contain no-repeat;"></div>
+                    </div>
+                    <span>敬请期待...</span>
+                </a>
+
+                <a href="https://im.qq.com/" target="_blank" class="app-card qq no-open">
+                    <div class="app-icon">
+                        <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23000\'><path d=\'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z\'/></svg>') center/contain no-repeat;"></div>
+                    </div>
+                    <span>敬请期待...</span>
+                </a>
+
+                <!-- 第三行 -->
+                <a href="http://openwrt.local/" target="_blank" class="app-card openwrt no-open">
+                    <div class="app-icon">
+                        <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23000\'><circle cx=\'12\' cy=\'12\' r=\'10\' fill=\'%23fff\'/><circle cx=\'12\' cy=\'12\' r=\'8\' fill=\'%23000\'/><path d=\'M12 4v2a6 6 0 1 0 0 12v2a8 8 0 1 1 0-16z\' fill=\'%23fff\'/></svg>') center/contain no-repeat;"></div>
+                    </div>
+                    <span>敬请期待...</span>
+                </a>
+
+                <a href="https://your-blog.com/" target="_blank" class="app-card blog no-open">
+                    <div class="app-icon">
+                        <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23e67e22\'><path d=\'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-9h10v2H7v-2z\'/></svg>') center/contain no-repeat;"></div>
+                    </div>
+                    <span>敬请期待...</span>
+                </a>
+
+                <a href="http://localhost:9000/" target="_blank" class="app-card portainer no-open">
+                    <div class="app-icon">
+                        <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%2336c9f3\'><path d=\'M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l4.59-4.58L18 11l-6 6z\'/></svg>') center/contain no-repeat;"></div>
+                    </div>
+                    <span>敬请期待...</span>
+                </a>
+
+                <a href="https://www.jd.com/" target="_blank" class="app-card jd no-open">
+                    <div class="app-icon">
+                        <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23fff\'><path d=\'M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18l7 3.5v6.84l-7 3.5-7-3.5V7.68l7-3.5z\'/></svg>') center/contain no-repeat;"></div>
+                    </div>
+                    <span>敬请期待...</span>
+                </a>
+
+                <a href="http://localhost:5432/" target="_blank" class="app-card postgres no-open">
+                    <div class="app-icon">
+                        <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23336791\'><path d=\'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z\'/></svg>') center/contain no-repeat;"></div>
+                    </div>
+                    <span>敬请期待...</span>
+                </a>
+
+                <!-- 第四行 -->
+                <a href="http://localhost:3002/" target="_blank" class="app-card sunpanel no-open">
+                    <div class="app-icon">
+                        <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%2326a69a\'><path d=\'M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18l7 3.5v6.84l-7 3.5-7-3.5V7.68l7-3.5z\'/></svg>') center/contain no-repeat;"></div>
+                    </div>
+                    <span>敬请期待...</span>
+                </a>
+
+                <a href="http://localhost:8080/" target="_blank" class="app-card nextcloud no-open">
+                    <div class="app-icon">
+                        <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%230082c9\'><path d=\'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12h2v6h-2v-6zm-4 0h2v6H7v-6zm8 0h2v6h-2v-6z\'/></svg>') center/contain no-repeat;"></div>
+                    </div>
+                    <span>敬请期待...</span>
+                </a>
+
+                <a href="http://localhost:80/" target="_blank" class="app-card nginx no-open">
+                    <div class="app-icon">
+                        <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23fff\'><path d=\'M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18l7 3.5v6.84l-7 3.5-7-3.5V7.68l7-3.5z\'/></svg>') center/contain no-repeat;"></div>
+                    </div>
+                    <span>敬请期待...</span>
+                </a>
+
+                <a href="https://www.docker.com/" target="_blank" class="app-card docker no-open">
+                    <div class="app-icon">
+                        <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%232496ed\'><path d=\'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z\'/></svg>') center/contain no-repeat;"></div>
+                    </div>
+                    <span>敬请期待...</span>
+                </a>
+
+                <a href="http://localhost:8123/" target="_blank" class="app-card homeassistant no-open">
+                    <div class="app-icon">
+                        <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%2341bdf5\'><path d=\'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l4.59-4.58L18 11l-6 6z\'/></svg>') center/contain no-repeat;"></div>
+                    </div>
+                    <span>敬请期待...</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <button class="sidebar-btn">+</button>
+        <button class="sidebar-btn">🌐</button>
+        <button class="sidebar-btn" onclick="location.reload()">⟳</button>
+        <button class="sidebar-btn">⚙</button>
+    </div>
+
+    <script>
+        // 动态时间日期
+        function updateDateTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('timeText').textContent = `${hours}:${minutes}`;
+
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const week = ['日', '一', '二', '三', '四', '五', '六'][now.getDay()];
+            document.getElementById('dateText').textContent = `${month}-${day} 星期${week}`;
+        }
+
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+    </script>
+</body>
+</html>
