@@ -2,15 +2,14 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <!-- 关键：移动端适配 meta 标签 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>可拖动韵母方块</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent; /* 消除移动端点击高亮 */
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -18,48 +17,78 @@
             background-color: #f0f8ff;
             padding: 15px;
             user-select: none;
-            overflow-x: hidden; /* 禁止横向滚动 */
-            touch-action: manipulation; /* 优化移动端触摸 */
+            overflow: hidden; /* 禁止所有滚动 */
+            touch-action: manipulation;
+            font-family: "Microsoft YaHei", sans-serif;
         }
 
         .title {
             text-align: center;
-            font-size: 24px;
+            font-size: 22px;
             color: #2c3e50;
-            margin-bottom: 20px;
-            font-family: "Microsoft YaHei", sans-serif;
+            margin: 5px 0 15px;
         }
 
-        /* 韵母方块 - 移动端自动适配 */
+        /* 按钮区域 */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            font-size: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #3498db;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: 0.2s;
+        }
+
+        .btn:active {
+            transform: scale(0.96);
+            background: #2980b9;
+        }
+
+        /* 韵母卡片 */
         .yunmu-box {
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             background: linear-gradient(135deg, #74b9ff, #0984e3);
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: bold;
-            border-radius: 12px;
+            border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            cursor: move;
+            cursor: grab;
             position: absolute;
-            transition: box-shadow 0.2s;
-            font-family: "Microsoft YaHei", sans-serif;
+            transition: all 0.2s;
         }
 
         .yunmu-box:active {
+            cursor: grabbing;
             box-shadow: 0 6px 12px rgba(0,0,0,0.3);
             background: linear-gradient(135deg, #0984e3, #74b9ff);
         }
     </style>
 </head>
 <body>
-    <h1 class="title">可拖动韵母方块</h1>
+    <h1 class="title">拼音韵母学习卡片</h1>
+
+    <div class="btn-group">
+        <button class="btn" id="sortBtn">一键排序</button>
+        <button class="btn" id="shuffleBtn">一键打乱</button>
+    </div>
 
     <script>
-        // 韵母列表
+        // 韵母列表（正常顺序）
         const yunmuList = [
             'a', 'o', 'e', 'i', 'u', 'ü',
             'ai', 'ei', 'ui', 'ao', 'ou', 'iu',
@@ -67,69 +96,152 @@
             'un', 'ün', 'ang', 'eng', 'ing', 'ong'
         ];
 
-        window.onload = function() {
-            createDraggableBoxes();
+        const cardSize = 60;       // 卡片大小
+        const cardMargin = 12;     // 间距
+        let allBoxes = [];        // 保存所有卡片
+
+        window.onload = function () {
+            createCards();
+            initSort(); // 初始整齐排列（屏幕内）
         };
 
-        function createDraggableBoxes() {
-            const maxX = window.innerWidth - 80;
-            const maxY = window.innerHeight - 80;
-
+        // 创建所有韵母卡片
+        function createCards() {
             yunmuList.forEach(yunmu => {
                 const box = document.createElement('div');
                 box.className = 'yunmu-box';
                 box.textContent = yunmu;
-                box.style.left = Math.random() * maxX + 'px';
-                box.style.top = Math.random() * maxY + 'px';
-                
                 makeDraggable(box);
                 document.body.appendChild(box);
+                allBoxes.push(box);
             });
         }
 
-        // 核心：同时支持 鼠标拖动 + 移动端触摸拖动
+        // ========== 1. 智能排序：严格在屏幕可见区域内 ==========
+        function initSort() {
+            const screenW = window.innerWidth;
+            const screenH = window.innerHeight;
+            
+            // 自动计算每行最多放几个（确保不超出屏幕）
+            const maxPerRow = Math.floor((screenW - 40) / (cardSize + cardMargin));
+            const perRow = Math.min(maxPerRow, 8); // 最多一行8个，更美观
+
+            // 起始位置（居中 + 不超出屏幕）
+            const totalRow = Math.ceil(yunmuList.length / perRow);
+            const startX = (screenW - (perRow * (cardSize + cardMargin))) / 2;
+            const startY = 110;
+
+            // 防止高度超出屏幕
+            const totalHeight = startY + totalRow * (cardSize + cardMargin);
+            const safeTop = totalHeight > screenH - 100 ? screenH - totalHeight : startY;
+
+            allBoxes.forEach((box, index) => {
+                const row = Math.floor(index / perRow);
+                const col = index % perRow;
+                const x = startX + col * (cardSize + cardMargin);
+                const y = safeTop + row * (cardSize + cardMargin);
+
+                box.style.left = x + 'px';
+                box.style.top = y + 'px';
+            });
+        }
+
+        // ========== 2. 一键打乱（分散、靠下、不重叠） ==========
+        function shuffleCards() {
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+
+            const minX = 20;
+            const maxX = w - cardSize - 20;
+            const minY = h * 0.35;  // 上半部分留白
+            const maxY = h - cardSize - 20;
+
+            const positions = [];
+            const spacing = cardSize + 30;
+
+            allBoxes.forEach(box => {
+                let x, y, safe = false;
+
+                // 自动找不重叠的位置
+                for (let i = 0; i < 60; i++) {
+                    x = minX + Math.random() * (maxX - minX);
+                    y = minY + Math.random() * (maxY - minY);
+
+                    let ok = true;
+                    for (let p of positions) {
+                        const dx = Math.abs(x - p.x);
+                        const dy = Math.abs(y - p.y);
+                        if (dx < spacing && dy < spacing) {
+                            ok = false;
+                            break;
+                        }
+                    }
+                    if (ok) {
+                        safe = true;
+                        break;
+                    }
+                }
+
+                if (!safe) {
+                    x = minX + Math.random() * (maxX - minX);
+                    y = minY + Math.random() * (maxY - minY);
+                }
+
+                positions.push({ x, y });
+                box.style.left = x + 'px';
+                box.style.top = y + 'px';
+            });
+        }
+
+        // 绑定按钮
+        document.getElementById('sortBtn').onclick = initSort;
+        document.getElementById('shuffleBtn').onclick = shuffleCards;
+
+        // ========== 拖动功能（支持鼠标+触摸） ==========
         function makeDraggable(element) {
             let isDragging = false;
             let offsetX, offsetY;
 
-            // ===== 电脑端：鼠标事件 =====
-            element.addEventListener('mousedown', startDrag);
-            document.addEventListener('mousemove', drag);
-            document.addEventListener('mouseup', stopDrag);
+            // 鼠标
+            element.addEventListener('mousedown', start);
+            document.addEventListener('mousemove', move);
+            document.addEventListener('mouseup', end);
 
-            // ===== 移动端：触摸事件 =====
-            element.addEventListener('touchstart', (e) => {
-                e.preventDefault(); // 禁止浏览器默认行为
-                const touch = e.touches[0];
-                startDrag(touch);
+            // 触摸
+            element.addEventListener('touchstart', e => {
+                e.preventDefault();
+                start(e.touches[0]);
             });
-
-            document.addEventListener('touchmove', (e) => {
+            document.addEventListener('touchmove', e => {
                 if (!isDragging) return;
                 e.preventDefault();
-                const touch = e.touches[0];
-                drag(touch);
+                move(e.touches[0]);
             }, { passive: false });
+            document.addEventListener('touchend', end);
 
-            document.addEventListener('touchend', stopDrag);
-
-            // 拖动开始
-            function startDrag(e) {
+            function start(e) {
                 isDragging = true;
                 offsetX = e.clientX - element.offsetLeft;
                 offsetY = e.clientY - element.offsetTop;
                 element.style.zIndex = 999;
             }
 
-            // 拖动中
-            function drag(e) {
+            function move(e) {
                 if (!isDragging) return;
-                element.style.left = e.clientX - offsetX + 'px';
-                element.style.top = e.clientY - offsetY + 'px';
+                let x = e.clientX - offsetX;
+                let y = e.clientY - offsetY;
+
+                // 限制拖动也不超出屏幕
+                const maxX = window.innerWidth - cardSize;
+                const maxY = window.innerHeight - cardSize;
+                x = Math.max(0, Math.min(x, maxX));
+                y = Math.max(0, Math.min(y, maxY));
+
+                element.style.left = x + 'px';
+                element.style.top = y + 'px';
             }
 
-            // 拖动结束
-            function stopDrag() {
+            function end() {
                 isDragging = false;
                 element.style.zIndex = '';
             }
