@@ -17,8 +17,8 @@
             background-color: #f0f8ff;
             padding: 15px;
             user-select: none;
-            overflow: hidden; /* 禁止所有滚动 */
-            touch-action: manipulation;
+            overflow: hidden;
+            touch-action: none; /* 关键：消除浏览器触摸延迟 */
             font-family: "Microsoft YaHei", sans-serif;
         }
 
@@ -29,7 +29,6 @@
             margin: 5px 0 15px;
         }
 
-        /* 按钮区域 */
         .btn-group {
             display: flex;
             justify-content: center;
@@ -54,7 +53,6 @@
             background: #2980b9;
         }
 
-        /* 韵母卡片 */
         .yunmu-box {
             width: 60px;
             height: 60px;
@@ -69,18 +67,17 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             cursor: grab;
             position: absolute;
-            transition: all 0.2s;
+            will-change: left, top; /* 加速渲染 */
         }
 
         .yunmu-box:active {
             cursor: grabbing;
             box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-            background: linear-gradient(135deg, #0984e3, #74b9ff);
         }
     </style>
 </head>
 <body>
-    <h1 class="title">拼音韵母学习卡片</h1>
+    <h1 class="title">拼音韵母学习卡片v2</h1>
 
     <div class="btn-group">
         <button class="btn" id="sortBtn">一键排序</button>
@@ -88,24 +85,20 @@
     </div>
 
     <script>
-        // 韵母列表（正常顺序）
         const yunmuList = [
-            'a', 'o', 'e', 'i', 'u', 'ü',
-            'ai', 'ei', 'ui', 'ao', 'ou', 'iu',
-            'ie', 'üe', 'er', 'an', 'en', 'in',
-            'un', 'ün', 'ang', 'eng', 'ing', 'ong'
+            'a','o','e','i','u','ü','ai','ei','ui','ao','ou','iu',
+            'ie','üe','er','an','en','in','un','ün','ang','eng','ing','ong'
         ];
 
-        const cardSize = 60;       // 卡片大小
-        const cardMargin = 12;     // 间距
-        let allBoxes = [];        // 保存所有卡片
+        const cardSize = 60;
+        const cardMargin = 12;
+        let allBoxes = [];
 
         window.onload = function () {
             createCards();
-            initSort(); // 初始整齐排列（屏幕内）
+            initSort();
         };
 
-        // 创建所有韵母卡片
         function createCards() {
             yunmuList.forEach(yunmu => {
                 const box = document.createElement('div');
@@ -117,133 +110,98 @@
             });
         }
 
-        // ========== 1. 智能排序：严格在屏幕可见区域内 ==========
         function initSort() {
             const screenW = window.innerWidth;
             const screenH = window.innerHeight;
-            
-            // 自动计算每行最多放几个（确保不超出屏幕）
             const maxPerRow = Math.floor((screenW - 40) / (cardSize + cardMargin));
-            const perRow = Math.min(maxPerRow, 8); // 最多一行8个，更美观
-
-            // 起始位置（居中 + 不超出屏幕）
+            const perRow = Math.min(maxPerRow, 8);
             const totalRow = Math.ceil(yunmuList.length / perRow);
             const startX = (screenW - (perRow * (cardSize + cardMargin))) / 2;
             const startY = 110;
 
-            // 防止高度超出屏幕
-            const totalHeight = startY + totalRow * (cardSize + cardMargin);
-            const safeTop = totalHeight > screenH - 100 ? screenH - totalHeight : startY;
-
             allBoxes.forEach((box, index) => {
                 const row = Math.floor(index / perRow);
                 const col = index % perRow;
-                const x = startX + col * (cardSize + cardMargin);
-                const y = safeTop + row * (cardSize + cardMargin);
-
-                box.style.left = x + 'px';
-                box.style.top = y + 'px';
+                box.style.left = startX + col * (cardSize + cardMargin) + 'px';
+                box.style.top = startY + row * (cardSize + cardMargin) + 'px';
             });
         }
 
-        // ========== 2. 一键打乱（分散、靠下、不重叠） ==========
         function shuffleCards() {
             const w = window.innerWidth;
             const h = window.innerHeight;
-
             const minX = 20;
             const maxX = w - cardSize - 20;
-            const minY = h * 0.35;  // 上半部分留白
+            const minY = h * 0.35;
             const maxY = h - cardSize - 20;
-
             const positions = [];
             const spacing = cardSize + 30;
 
             allBoxes.forEach(box => {
                 let x, y, safe = false;
-
-                // 自动找不重叠的位置
                 for (let i = 0; i < 60; i++) {
                     x = minX + Math.random() * (maxX - minX);
                     y = minY + Math.random() * (maxY - minY);
-
                     let ok = true;
                     for (let p of positions) {
-                        const dx = Math.abs(x - p.x);
-                        const dy = Math.abs(y - p.y);
-                        if (dx < spacing && dy < spacing) {
-                            ok = false;
-                            break;
+                        if (Math.abs(x-p.x) < spacing && Math.abs(y-p.y) < spacing) {
+                            ok = false; break;
                         }
                     }
-                    if (ok) {
-                        safe = true;
-                        break;
-                    }
+                    if (ok) { safe = true; break; }
                 }
-
-                if (!safe) {
-                    x = minX + Math.random() * (maxX - minX);
-                    y = minY + Math.random() * (maxY - minY);
-                }
-
-                positions.push({ x, y });
-                box.style.left = x + 'px';
-                box.style.top = y + 'px';
+                if (!safe) { x = minX + Math.random()*(maxX-minX); y = minY + Math.random()*(maxY-minY); }
+                positions.push({x,y});
+                box.style.left = x+'px';
+                box.style.top = y+'px';
             });
         }
 
-        // 绑定按钮
         document.getElementById('sortBtn').onclick = initSort;
         document.getElementById('shuffleBtn').onclick = shuffleCards;
 
-        // ========== 拖动功能（支持鼠标+触摸） ==========
-        function makeDraggable(element) {
+        // ========== 丝滑零延迟拖动 ==========
+        function makeDraggable(el) {
             let isDragging = false;
-            let offsetX, offsetY;
+            let offsetX = 0, offsetY = 0;
 
             // 鼠标
-            element.addEventListener('mousedown', start);
-            document.addEventListener('mousemove', move);
-            document.addEventListener('mouseup', end);
+            el.onmousedown = start;
+            document.onmousemove = move;
+            document.onmouseup = end;
 
             // 触摸
-            element.addEventListener('touchstart', e => {
-                e.preventDefault();
-                start(e.touches[0]);
-            });
-            document.addEventListener('touchmove', e => {
-                if (!isDragging) return;
-                e.preventDefault();
-                move(e.touches[0]);
-            }, { passive: false });
-            document.addEventListener('touchend', end);
+            el.ontouchstart = start;
+            document.ontouchmove = move;
+            document.ontouchend = end;
 
             function start(e) {
+                if (e.type === 'touchstart') e = e.touches[0];
                 isDragging = true;
-                offsetX = e.clientX - element.offsetLeft;
-                offsetY = e.clientY - element.offsetTop;
-                element.style.zIndex = 999;
+                el.style.zIndex = 9999;
+                offsetX = e.clientX - el.offsetLeft;
+                offsetY = e.clientY - el.offsetTop;
             }
 
             function move(e) {
                 if (!isDragging) return;
+                if (e.type === 'touchmove') e = e.touches[0];
+                
                 let x = e.clientX - offsetX;
                 let y = e.clientY - offsetY;
-
-                // 限制拖动也不超出屏幕
                 const maxX = window.innerWidth - cardSize;
                 const maxY = window.innerHeight - cardSize;
+                
                 x = Math.max(0, Math.min(x, maxX));
                 y = Math.max(0, Math.min(y, maxY));
-
-                element.style.left = x + 'px';
-                element.style.top = y + 'px';
+                
+                el.style.left = x + 'px';
+                el.style.top = y + 'px';
             }
 
             function end() {
                 isDragging = false;
-                element.style.zIndex = '';
+                el.style.zIndex = '';
             }
         }
     </script>
