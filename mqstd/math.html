@@ -200,7 +200,7 @@
 
     <div class="game-over" id="gameOver">
         <div class="over-box">
-            <h2 class="over-title">?? 游戏结束 ??</h2>
+            <h2 class="over-title">🎉 游戏结束 🎉</h2>
             <p id="finalResult" style="font-size: 20px;"></p>
             <button class="restart-btn" onclick="restartGame()">再来一局</button>
         </div>
@@ -271,11 +271,11 @@
             }
         }
 
-        // ? 修复：真正的谷歌小恐龙图片
+        // ✅ 已替换成你提供的小恐龙图片
         function flyDino() {
             const dino = document.createElement('img');
-            // 可用的小恐龙图片链接
-            dino.src = 'https://cdn.jsdelivr.net/npm/game-icons-net/dinosaurs/trex.svg';
+            // 你指定的图片链接
+            dino.src = 'https://xiaoyaochun8.github.io/mqstd/res/dino.png';
             dino.className = 'dino';
             dino.style.objectFit = 'contain';
             
@@ -307,7 +307,7 @@
         function showGameOver() {
             document.getElementById('gameOver').style.display = 'flex';
             document.getElementById('finalResult').innerText = 
-                `你一共答对了 ${game.correct} 道题！\n太棒啦！??`;
+                `你一共答对了 ${game.correct} 道题！\n太棒啦！👍`;
         }
 
         function restartGame() {
