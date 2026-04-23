@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <!-- 关键：移动端适配 meta 标签 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
+    <title>可拖动韵母方块</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent; /* 消除移动端点击高亮 */
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: #f0f8ff;
+            padding: 15px;
+            user-select: none;
+            overflow-x: hidden; /* 禁止横向滚动 */
+            touch-action: manipulation; /* 优化移动端触摸 */
+        }
+
+        .title {
+            text-align: center;
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        /* 韵母方块 - 移动端自动适配 */
+        .yunmu-box {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            cursor: move;
+            position: absolute;
+            transition: box-shadow 0.2s;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        .yunmu-box:active {
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, #0984e3, #74b9ff);
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">可拖动韵母方块</h1>
+
+    <script>
+        // 韵母列表
+        const yunmuList = [
+            'a', 'o', 'e', 'i', 'u', 'ü',
+            'ai', 'ei', 'ui', 'ao', 'ou', 'iu',
+            'ie', 'üe', 'er', 'an', 'en', 'in',
+            'un', 'ün', 'ang', 'eng', 'ing', 'ong'
+        ];
+
+        window.onload = function() {
+            createDraggableBoxes();
+        };
+
+        function createDraggableBoxes() {
+            const maxX = window.innerWidth - 80;
+            const maxY = window.innerHeight - 80;
+
+            yunmuList.forEach(yunmu => {
+                const box = document.createElement('div');
+                box.className = 'yunmu-box';
+                box.textContent = yunmu;
+                box.style.left = Math.random() * maxX + 'px';
+                box.style.top = Math.random() * maxY + 'px';
+                
+                makeDraggable(box);
+                document.body.appendChild(box);
+            });
+        }
+
+        // 核心：同时支持 鼠标拖动 + 移动端触摸拖动
+        function makeDraggable(element) {
+            let isDragging = false;
+            let offsetX, offsetY;
+
+            // ===== 电脑端：鼠标事件 =====
+            element.addEventListener('mousedown', startDrag);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', stopDrag);
+
+            // ===== 移动端：触摸事件 =====
+            element.addEventListener('touchstart', (e) => {
+                e.preventDefault(); // 禁止浏览器默认行为
+                const touch = e.touches[0];
+                startDrag(touch);
+            });
+
+            document.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                const touch = e.touches[0];
+                drag(touch);
+            }, { passive: false });
+
+            document.addEventListener('touchend', stopDrag);
+
+            // 拖动开始
+            function startDrag(e) {
+                isDragging = true;
+                offsetX = e.clientX - element.offsetLeft;
+                offsetY = e.clientY - element.offsetTop;
+                element.style.zIndex = 999;
+            }
+
+            // 拖动中
+            function drag(e) {
+                if (!isDragging) return;
+                element.style.left = e.clientX - offsetX + 'px';
+                element.style.top = e.clientY - offsetY + 'px';
+            }
+
+            // 拖动结束
+            function stopDrag() {
+                isDragging = false;
+                element.style.zIndex = '';
+            }
+        }
+    </script>
+</body>
+</html>
