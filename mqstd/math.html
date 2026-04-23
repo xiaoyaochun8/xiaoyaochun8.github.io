@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>数学小达人</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .top-bar {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .score-area {
+            width: 120px;
+            min-height: 40px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        }
+
+        .stats {
+            background: #ff6b6b;
+            color: white;
+            padding: 10px 12px;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            text-align: right;
+        }
+
+        .question-box {
+            background: white;
+            width: 90%;
+            max-width: 400px;
+            padding: 30px 20px;
+            border-radius: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .question {
+            font-size: 32px;
+            font-weight: bold;
+            color: #4a4a4a;
+            margin-bottom: 20px;
+            min-height: 50px;
+        }
+
+        .answer-input {
+            width: 100px;
+            height: 50px;
+            border: 3px solid #ffb6c1;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 24px;
+            outline: none;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .num-keyboard {
+            display: grid;
+            grid-template-columns: repeat(3, 70px);
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .key {
+            width: 70px;
+            height: 70px;
+            background: #a8e6cf;
+            border: none;
+            border-radius: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c3e50;
+            box-shadow: 0 4px 0 #8fd9bb;
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+
+        .key:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 #8fd9bb;
+        }
+
+        .key.clear {
+            background: #ffd93d;
+            box-shadow: 0 4px 0 #ffcc00;
+        }
+
+        .key.confirm {
+            background: #6bcb77;
+            box-shadow: 0 4px 0 #4fa85a;
+            color: white;
+        }
+
+        .dino {
+            width: 35px;
+            height: 35px;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 999;
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .game-over {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .over-box {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 30px;
+            text-align: center;
+        }
+
+        .over-title {
+            font-size: 28px;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+
+        .restart-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 15px;
+            font-size: 18px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="score-area" id="scoreArea"></div>
+        <div class="stats" id="stats">总题数：10题<br>当前：1/10<br>答对：0题 | 答错：0题</div>
+    </div>
+
+    <div class="question-box">
+        <div class="question" id="question"></div>
+        <input type="number" class="answer-input" id="answerInput" readonly>
+    </div>
+
+    <div class="num-keyboard">
+        <button class="key" onclick="inputNum(1)">1</button>
+        <button class="key" onclick="inputNum(2)">2</button>
+        <button class="key" onclick="inputNum(3)">3</button>
+        <button class="key" onclick="inputNum(4)">4</button>
+        <button class="key" onclick="inputNum(5)">5</button>
+        <button class="key" onclick="inputNum(6)">6</button>
+        <button class="key" onclick="inputNum(7)">7</button>
+        <button class="key" onclick="inputNum(8)">8</button>
+        <button class="key" onclick="inputNum(9)">9</button>
+        <button class="key clear" onclick="clearInput()">清</button>
+        <button class="key" onclick="inputNum(0)">0</button>
+        <button class="key confirm" onclick="checkAnswer()">确</button>
+    </div>
+
+    <div class="game-over" id="gameOver">
+        <div class="over-box">
+            <h2 class="over-title">?? 游戏结束 ??</h2>
+            <p id="finalResult" style="font-size: 20px;"></p>
+            <button class="restart-btn" onclick="restartGame()">再来一局</button>
+        </div>
+    </div>
+
+    <script>
+        const game = {
+            total: 10,
+            current: 1,
+            correct: 0,
+            wrong: 0,
+            answer: '',
+            correctAnswer: 0
+        };
+
+        window.onload = () => {
+            generateQuestion();
+            updateStats();
+        };
+
+        function generateQuestion() {
+            const isAdd = Math.random() > 0.3;
+            let a, b;
+            
+            if (isAdd) {
+                a = Math.floor(Math.random() * 15) + 1;
+                b = Math.floor(Math.random() * (20 - a)) + 1;
+                game.correctAnswer = a + b;
+                document.getElementById('question').innerText = `${a} + ${b} =`;
+            } else {
+                a = Math.floor(Math.random() * 15) + 5;
+                b = Math.floor(Math.random() * a) + 1;
+                game.correctAnswer = a - b;
+                document.getElementById('question').innerText = `${a} - ${b} =`;
+            }
+            
+            clearInput();
+        }
+
+        function inputNum(num) {
+            if (game.answer.length < 3) {
+                game.answer += num;
+                document.getElementById('answerInput').value = game.answer;
+            }
+        }
+
+        function clearInput() {
+            game.answer = '';
+            document.getElementById('answerInput').value = '';
+        }
+
+        function checkAnswer() {
+            if (game.answer === '') return;
+
+            if (parseInt(game.answer) === game.correctAnswer) {
+                game.correct++;
+                flyDino();
+            } else {
+                game.wrong++;
+            }
+
+            game.current++;
+            if (game.current > game.total) {
+                showGameOver();
+            } else {
+                generateQuestion();
+                updateStats();
+            }
+        }
+
+        // ? 修复：真正的谷歌小恐龙图片
+        function flyDino() {
+            const dino = document.createElement('img');
+            // 可用的小恐龙图片链接
+            dino.src = 'https://cdn.jsdelivr.net/npm/game-icons-net/dinosaurs/trex.svg';
+            dino.className = 'dino';
+            dino.style.objectFit = 'contain';
+            
+            document.body.appendChild(dino);
+            
+            setTimeout(() => {
+                dino.style.left = '30px';
+                dino.style.bottom = 'calc(100vh - 60px)';
+                dino.style.opacity = '0';
+            }, 100);
+
+            setTimeout(() => {
+                const scoreArea = document.getElementById('scoreArea');
+                const icon = document.createElement('img');
+                icon.src = dino.src;
+                icon.style.width = '28px';
+                icon.style.height = '28px';
+                icon.style.objectFit = 'contain';
+                scoreArea.appendChild(icon);
+                document.body.removeChild(dino);
+            }, 800);
+        }
+
+        function updateStats() {
+            document.getElementById('stats').innerText = 
+                `总题数：${game.total}题\n当前：${game.current}/${game.total}\n答对：${game.correct}题 | 答错：${game.wrong}题`;
+        }
+
+        function showGameOver() {
+            document.getElementById('gameOver').style.display = 'flex';
+            document.getElementById('finalResult').innerText = 
+                `你一共答对了 ${game.correct} 道题！\n太棒啦！??`;
+        }
+
+        function restartGame() {
+            game.current = 1;
+            game.correct = 0;
+            game.wrong = 0;
+            document.getElementById('scoreArea').innerHTML = '';
+            document.getElementById('gameOver').style.display = 'none';
+            generateQuestion();
+            updateStats();
+        }
+    </script>
+</body>
+</html>
