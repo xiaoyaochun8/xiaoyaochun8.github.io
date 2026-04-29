@@ -219,6 +219,7 @@
     <script>
         // 1. 定义模块数据、Git地址、依赖关系
         const moduleData = {
+            "中文字库100": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-oledtft-wb.git", depends: [] },
             "遥控器": { git: "https://github.com/xiaoyaochun8/pxt-makerbit-ir-receiver-mq.git", depends: [] },
             "oled12864": { git: "https://github.com/xiaoyaochun8/OLED12864_I2C_mq.git", depends: [] },
             "tft128160": { git: "https://github.com/xiaoyaochun8/pxt-RB-TFT1.8-mq.git", depends: [] },
@@ -226,8 +227,9 @@
             "music": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-music.git", depends: [] },
             "mp3": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-mp3.git", depends: [] },
             "color": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-color-sensor.git", depends: [] },
-            "tft中文": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-tft-cn.git", depends: ["tft128160"] },
-            "oled中文": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-oled-cn.git", depends: [] },
+            "tft中文": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-tft-cn.git", depends: ["tft128160","中文字库100"] },
+            "tft图库": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-tft-arcade-pics.git", depends: ["tft128160"] },
+            "oled中文": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-oled-cn.git", depends: ["中文字库100"] },
             "oled画画": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-oled-draw.git", depends: ["oled12864"] },
             "oled眼睛": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-oled-eyes.git", depends: ["oled12864"] },
             "oled表情": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-oled-faces.git", depends: ["oled12864"] },
