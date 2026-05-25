@@ -197,10 +197,8 @@
             "遥控器": { git: "https://github.com/xiaoyaochun8/pxt-makerbit-ir-receiver-mq.git", depends: [], note: "红外遥控接收" },
             "oled12864": { git: "https://github.com/xiaoyaochun8/OLED12864_I2C_mq.git", depends: [], note: "0.96寸OLED屏" },
             "tft128160": { git: "https://github.com/xiaoyaochun8/pxt-RB-TFT1.8-mq.git", depends: [], note: "1.8寸TFT彩屏" },
-            "基础模块": { git: "https://github.com/xiaoyaochun8/pxt-mqlib.git", depends: [], required: true, note: "系统核心，必选" },
+            "基础模块": { git: "https://github.com/xiaoyaochun8/pxt-mqlib.git", depends: [], required: true, note: "舵机、电机、红绿蓝黄灯、mp3、颜色识别" },
             "music": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-music.git", depends: [], note: "蜂鸣器音乐" },
-            "mp3": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-mp3.git", depends: [], note: "MP3播放模块" },
-            "color": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-color-sensor.git", depends: [], note: "颜色传感器" },
             "tft中文": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-tft-cn.git", depends: ["tft128160","中文字库"], note: "TFT中文显示" },
             "tft图库": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-tft-arcade-pics.git", depends: ["tft128160"], note: "TFT图片库" },
             "tft表情": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-tft-faces.git", depends: ["tft128160"], note: "TFT表情动画" },
@@ -213,7 +211,9 @@
             "oled图库": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-oled2.git", depends: ["oled12864"], note: "OLED图片库" },
             "oled面板库": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-oled4.git", depends: ["oled12864"], note: "OLED面板UI" },
             "oled动画库": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-oled5.git", depends: ["oled12864"], note: "OLED多动画" },
-            "oled雷达动画": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-oled-anim-radar.git", depends: ["oled12864"], note: "雷达扫描动画" }
+            "oled雷达动画": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-oled-anim-radar.git", depends: ["oled12864"], note: "雷达扫描动画" },
+            "mp3": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-mp3.git", depends: [], note: "MP3播放模块" },
+            "color": { git: "https://github.com/xiaoyaochun8/pxt-mqlib-color-sensor.git", depends: [], note: "颜色传感器" }
         };
 
         const moduleListEl = document.getElementById("moduleList");
