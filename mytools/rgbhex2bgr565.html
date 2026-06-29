@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>RGB 转 BGR565</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 0;
+        }
+        .input-group {
+            margin: 20px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            outline: none;
+        }
+        input:focus {
+            border-color: #007bff;
+        }
+        .result {
+            padding: 15px;
+            background: #e9f7ff;
+            border-radius: 6px;
+            font-size: 18px;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #0056b3;
+        }
+        .tip {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>RGB 转 BGR565</h2>
+        
+        <div class="input-group">
+            <label>输入 RGB 十六进制</label>
+            <input type="text" id="rgbInput" placeholder="例如：FF5737 或 #FF5737" value="#FF5737">
+            <div class="tip">支持带 # 或不带 # 的 6 位 RGB</div>
+        </div>
+
+        <div class="result" id="result">BGR565: 0xXXXX</div>
+    </div>
+
+    <script>
+        // 获取元素
+        const rgbInput = document.getElementById('rgbInput');
+        const resultEl = document.getElementById('result');
+
+        // 转换函数：RGB Hex → BGR565
+        function rgbToBgr565(hex) {
+            // 1. 清理输入，去掉 #
+            hex = hex.replace(/^#/, '');
+            
+            // 2. 提取 R G B
+            const r = parseInt(hex.substr(0, 2), 16);
+            const g = parseInt(hex.substr(2, 2), 16);
+            const b = parseInt(hex.substr(4, 2), 16);
+            
+            // 3. 压缩到 565 格式
+            const r5 = (r >> 3) & 0x1F; // 红 5位
+            const g6 = (g >> 2) & 0x3F; // 绿 6位
+            const b5 = (b >> 3) & 0x1F; // 蓝 5位
+            
+            // 4. 组合成 BGR565（注意顺序：B G R）
+            const bgr565 = (b5 << 11) | (g6 << 5) | r5;
+            
+            return bgr565;
+        }
+
+        // 更新结果
+        function update() {
+            const value = rgbInput.value.trim();
+            try {
+                const bgr565 = rgbToBgr565(value);
+                // 输出十六进制格式（带0x前缀）
+                resultEl.textContent = `BGR565: 0x${bgr565.toString(16).toUpperCase()}`;
+            } catch (e) {
+                resultEl.textContent = '格式错误，请输入 6 位 RGB';
+            }
+        }
+
+        // 监听输入变化
+        rgbInput.addEventListener('input', update);
+        // 初始化
+        update();
+    </script>
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>批量JPG转BMP（统一裁剪区域）</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .upload {
+            text-align: center;
+            margin: 20px 0;
+        }
+        input[type="file"] {
+            padding: 8px;
+            font-size: 14px;
+        }
+        .canvas-box {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+        }
+        #canvas {
+            border: 2px solid #ddd;
+            max-width: 100%;
+            background: #fff;
+        }
+        .crop-info {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+        .btns {
+            text-align: center;
+            margin: 20px 0;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 0 8px;
+        }
+        button.danger { background: #dc3545; }
+        button.success { background: #28a745; }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h2>批量 JPG 转 BMP（统一裁剪区域）</h2>
+
+    <div class="upload">
+        <input type="file" id="fileInput" accept="image/*" multiple>
+    </div>
+
+    <div class="canvas-box">
+        <canvas id="canvas"></canvas>
+    </div>
+
+    <div class="crop-info">
+        拖拽设置统一裁剪区域 | 宽度：<span id="w">0</span> | 高度：<span id="h">0</span>
+    </div>
+
+    <div class="btns">
+        <button onclick="clearCrop()">清除裁剪框</button>
+        <button class="success" onclick="exportAllBMP()">批量导出 BMP</button>
+    </div>
+</div>
+
+<script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const fileInput = document.getElementById('fileInput');
+    const wEl = document.getElementById('w');
+    const hEl = document.getElementById('h');
+
+    // 全局数据
+    let images = [];         // 所有图片
+    let firstImage = null;   // 第一张图（用于预览裁剪）
+    
+    // 统一裁剪参数（所有图片共用）
+    let cropX = 0, cropY = 0, cropW = 0, cropH = 0;
+    let startX = 0, startY = 0;
+    let isDragging = false;
+
+    // 批量上传
+    fileInput.onchange = async (e) => {
+        const files = Array.from(e.target.files);
+        if (!files.length) return;
+
+        images = [];
+        clearCrop();
+
+        // 读取所有图片
+        for (const file of files) {
+            const src = await readFileAsDataURL(file);
+            images.push(src);
+        }
+
+        // 加载第一张预览
+        loadPreviewImage(images[0]);
+    };
+
+    // 读取文件
+    function readFileAsDataURL(file) {
+        return new Promise(resolve => {
+            const reader = new FileReader();
+            reader.onload = ev => resolve(ev.target.result);
+            reader.readAsDataURL(file);
+        });
+    }
+
+    // 加载预览图（第一张）
+    function loadPreviewImage(src) {
+        firstImage = new Image();
+        firstImage.onload = () => {
+            canvas.width = firstImage.width;
+            canvas.height = firstImage.height;
+            redraw();
+            updateSize();
+        };
+        firstImage.src = src;
+    }
+
+    // 鼠标裁剪
+    canvas.onmousedown = (e) => {
+        const r = canvas.getBoundingClientRect();
+        startX = e.clientX - r.left;
+        startY = e.clientY - r.top;
+        isDragging = true;
+    };
+    canvas.onmousemove = (e) => {
+        if (!isDragging) return;
+        const r = canvas.getBoundingClientRect();
+        const x = e.clientX - r.left;
+        const y = e.clientY - r.top;
+        
+        cropX = Math.min(startX, x);
+        cropY = Math.min(startY, y);
+        cropW = Math.abs(x - startX);
+        cropH = Math.abs(y - startY);
+        
+        redraw();
+    };
+    canvas.onmouseup = () => {
+        isDragging = false;
+        updateSize();
+    };
+
+    // 重绘
+    function redraw() {
+        if (!firstImage) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(firstImage, 0, 0);
+        
+        // 画裁剪框
+        if (cropW > 0 && cropH > 0) {
+            ctx.strokeStyle = '#0f0';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([5, 3]);
+            ctx.strokeRect(cropX, cropY, cropW, cropH);
+            ctx.setLineDash([]);
+        }
+    }
+
+    // 清除裁剪
+    function clearCrop() {
+        cropX = cropY = cropW = cropH = 0;
+        redraw();
+        updateSize();
+    }
+
+    // 更新尺寸
+    function updateSize() {
+        if (!firstImage) return;
+        const w = cropW || firstImage.width;
+        const h = cropH || firstImage.height;
+        wEl.textContent = Math.round(w);
+        hEl.textContent = Math.round(h);
+    }
+
+    // 批量导出（所有图片使用同一个裁剪区域）
+    async function exportAllBMP() {
+        if (!images.length) {
+            alert('请先上传图片！');
+            return;
+        }
+
+        for (let i = 0; i < images.length; i++) {
+            const src = images[i];
+            const img = new Image();
+            
+            await new Promise(resolve => {
+                img.onload = resolve;
+                img.src = src;
+            });
+
+            // 统一裁剪参数
+            const cx = cropX || 0;
+            const cy = cropY || 0;
+            const cw = cropW || img.width;
+            const ch = cropH || img.height;
+
+            // 裁剪
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = cw;
+            tempCanvas.height = ch;
+            const tCtx = tempCanvas.getContext('2d');
+            tCtx.drawImage(img, cx, cy, cw, ch, 0, 0, cw, ch);
+
+            // 转 BMP 下载
+            const bmpData = canvasToBMP(tempCanvas);
+            const blob = new Blob([bmpData], { type: 'image/bmp' });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `crop_${i + 1}.bmp`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        alert('批量导出完成！');
+    }
+
+    // Canvas 转 BMP
+    function canvasToBMP(canvas) {
+        const w = canvas.width;
+        const h = canvas.height;
+        const imgData = canvas.getContext('2d').getImageData(0, 0, w, h);
+        const pixels = imgData.data;
+        const pad = (4 - (w * 3) % 4) % 4;
+        const size = 54 + (w * 3 + pad) * h;
+
+        const buf = new ArrayBuffer(size);
+        const bytes = new Uint8Array(buf);
+        const view = new DataView(buf);
+
+        bytes.set([0x42, 0x4D], 0);
+        view.setUint32(2, size, true);
+        view.setUint32(10, 54, true);
+        view.setUint32(14, 40, true);
+        view.setInt32(18, w, true);
+        view.setInt32(22, -h, true);
+        view.setUint16(26, 1, true);
+        view.setUint16(28, 24, true);
+
+        let p = 54;
+        for (let y = 0; y < h; y++) {
+            for (let x = 0; x < w; x++) {
+                const i = (y * w + x) * 4;
+                bytes[p++] = pixels[i + 2];
+                bytes[p++] = pixels[i + 1];
+                bytes[p++] = pixels[i + 0];
+            }
+            for (let j = 0; j < pad; j++) bytes[p++] = 0;
+        }
+        return bytes;
+    }
+</script>
+</body>
+</html>

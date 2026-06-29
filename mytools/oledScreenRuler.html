@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PS风格画布 - 带十字辅助线</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            padding: 20px;
+            background: #2c2c2c;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* 上传按钮 */
+        .upload-btn {
+            padding: 8px 16px;
+            background: #409eff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .upload-btn:hover {
+            background: #337ecc;
+        }
+        #fileInput {
+            display: none;
+        }
+
+        /* 布局容器 */
+        .wrapper {
+            display: inline-block;
+            position: relative;
+        }
+        .row {
+            display: flex;
+        }
+
+        /* 左上角占位 */
+        .corner {
+            width: 30px;
+            height: 30px;
+            background: #333;
+            border-right: 1px solid #666;
+            border-bottom: 1px solid #666;
+        }
+
+        /* 顶部标尺 */
+        .top-ruler {
+            height: 30px;
+            background: #333;
+            border-bottom: 1px solid #666;
+            position: relative;
+        }
+
+        /* 左侧标尺 */
+        .left-ruler {
+            width: 30px;
+            background: #333;
+            border-right: 1px solid #666;
+            position: relative;
+        }
+
+        /* 画布容器 */
+        .canvas-box {
+            position: relative;
+            width: 640px;
+            height: 320px;
+            background: #ffffff;
+            border: 1px solid #666;
+            cursor: crosshair;
+            overflow: hidden;
+        }
+
+        /* 上传图片 */
+        #uploadedImage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: none;
+            z-index: 10;
+        }
+
+        /* 坐标气泡 */
+        #tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            pointer-events: none;
+            display: none;
+            z-index: 999;
+            white-space: nowrap;
+        }
+
+        /* 标尺刻度 */
+        .ruler-line {
+            position: absolute;
+            background: #999;
+        }
+        .ruler-text {
+            position: absolute;
+            font-size: 10px;
+            color: #ccc;
+        }
+
+        /* ===================== 鼠标十字辅助线（新增） ===================== */
+        .guide-line {
+            position: absolute;
+            background: #0099ff;
+            pointer-events: none;
+            z-index: 100;
+            display: none;
+        }
+        /* 垂直辅助线（Y轴） */
+        #vGuide {
+            top: 30px;
+            bottom: 0;
+            width: 1px;
+        }
+        /* 水平辅助线（X轴） */
+        #hGuide {
+            left: 30px;
+            right: 0;
+            height: 1px;
+        }
+    </style>
+</head>
+<body>
+    <label class="upload-btn" for="fileInput">上传图片</label>
+    <input type="file" id="fileInput" accept="image/*">
+
+    <div class="wrapper">
+        <!-- 辅助线容器 -->
+        <div class="guide-line" id="vGuide"></div>
+        <div class="guide-line" id="hGuide"></div>
+
+        <div class="row">
+            <div class="corner"></div>
+            <div class="top-ruler" id="topRuler"></div>
+        </div>
+        <div class="row">
+            <div class="left-ruler" id="leftRuler"></div>
+            <div class="canvas-box" id="canvas">
+                <img id="uploadedImage" alt="上传图片">
+            </div>
+        </div>
+    </div>
+
+    <div id="tooltip"></div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const uploadedImage = document.getElementById('uploadedImage');
+        const topRuler = document.getElementById('topRuler');
+        const leftRuler = document.getElementById('leftRuler');
+        const tooltip = document.getElementById('tooltip');
+        const fileInput = document.getElementById('fileInput');
+        
+        // 辅助线元素
+        const vGuide = document.getElementById('vGuide');
+        const hGuide = document.getElementById('hGuide');
+
+        // 原始尺寸 & 放大5倍
+        const ORIGIN_W = 128;
+        const ORIGIN_H = 64;
+        const SCALE = 5;
+        const CANVAS_W = ORIGIN_W * SCALE;
+        const CANVAS_H = ORIGIN_H * SCALE;
+
+        // 设置标尺尺寸
+        topRuler.style.width = CANVAS_W + 'px';
+        leftRuler.style.height = CANVAS_H + 'px';
+
+        // 绘制顶部标尺
+        function drawTopRuler() {
+            for (let x = 0; x <= ORIGIN_W; x++) {
+                const pos = x * SCALE;
+                const line = document.createElement('div');
+                line.className = 'ruler-line';
+                line.style.left = pos + 'px';
+                line.style.bottom = '0';
+                line.style.width = '1px';
+                line.style.height = x % 8 === 0 ? '14px' : '7px';
+                topRuler.appendChild(line);
+
+                if (x % 16 === 0) {
+                    const text = document.createElement('div');
+                    text.className = 'ruler-text';
+                    text.style.left = pos + 'px';
+                    text.style.top = '2px';
+                    text.style.transform = 'translateX(-50%)';
+                    text.innerText = x;
+                    topRuler.appendChild(text);
+                }
+            }
+        }
+
+        // 绘制左侧标尺
+        function drawLeftRuler() {
+            for (let y = 0; y <= ORIGIN_H; y++) {
+                const pos = y * SCALE;
+                const line = document.createElement('div');
+                line.className = 'ruler-line';
+                line.style.top = pos + 'px';
+                line.style.right = '0';
+                line.style.height = '1px';
+                line.style.width = y % 8 === 0 ? '14px' : '7px';
+                leftRuler.appendChild(line);
+
+                if (y % 16 === 0) {
+                    const text = document.createElement('div');
+                    text.className = 'ruler-text';
+                    text.style.top = pos + 'px';
+                    text.style.right = '2px';
+                    text.style.transform = 'translateY(-50%)';
+                    text.innerText = y;
+                    leftRuler.appendChild(text);
+                }
+            }
+        }
+
+        // 鼠标坐标 + 辅助线移动
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const wrapRect = document.querySelector('.wrapper').getBoundingClientRect();
+            
+            // 计算坐标
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+            const rawX = Math.floor(mouseX / SCALE);
+            const rawY = Math.floor(mouseY / SCALE);
+
+            const x = Math.max(0, Math.min(rawX, ORIGIN_W));
+            const y = Math.max(0, Math.min(rawY, ORIGIN_H));
+
+            // 更新坐标提示
+            tooltip.innerText = `X: ${x}  Y: ${y}`;
+            tooltip.style.display = 'block';
+            tooltip.style.left = e.clientX + 12 + 'px';
+            tooltip.style.top = e.clientY + 12 + 'px';
+
+            // ===================== 移动辅助线（新增） =====================
+            vGuide.style.display = 'block';
+            hGuide.style.display = 'block';
+            // 垂直辅助线位置
+            vGuide.style.left = (e.clientX - wrapRect.left) + 'px';
+            // 水平辅助线位置
+            hGuide.style.top = (e.clientY - wrapRect.top) + 'px';
+        });
+
+        // 鼠标离开：隐藏提示 + 辅助线
+        canvas.addEventListener('mouseleave', () => {
+            tooltip.style.display = 'none';
+            vGuide.style.display = 'none';
+            hGuide.style.display = 'none';
+        });
+
+        // 上传图片
+        fileInput.addEventListener('change', (e) =>
+ {
+            const file = e.target.files[0];
+            if (!file || !file.type.startsWith('image/')) {
+                alert('请选择图片文件');
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = ev => {
+                uploadedImage.src = ev.target.result;
+                uploadedImage.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // 初始化
+        drawTopRuler();
+        drawLeftRuler();
+    </script>
+</body>
+</html>

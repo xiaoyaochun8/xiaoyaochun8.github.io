@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RGB 转 BGR565 转换器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .converter-box {
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2d3748;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        .rgb-inputs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .rgb-inputs input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 16px;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        .rgb-inputs input:focus {
+            border-color: #4299e1;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #4299e1;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-bottom: 25px;
+        }
+
+        button:hover {
+            background-color: #3182ce;
+        }
+
+        .result-group {
+            padding: 20px;
+            background-color: #f7fafc;
+            border-radius: 6px;
+        }
+
+        .result-item {
+            margin-bottom: 15px;
+        }
+
+        .result-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .result-label {
+            font-size: 14px;
+            color: #718096;
+        }
+
+        .result-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-top: 5px;
+            word-break: break-all;
+        }
+
+        .color-preview {
+            width: 100%;
+            height: 60px;
+            border-radius: 6px;
+            margin-top: 15px;
+            border: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="converter-box">
+        <h2>RGB 转 BGR565 转换工具</h2>
+        
+        <div class="input-group">
+            <label>请输入 RGB 颜色值 (0-255)</label>
+            <div class="rgb-inputs">
+                <input type="number" id="r" min="0" max="255" placeholder="红(R)">
+                <input type="number" id="g" min="0" max="255" placeholder="绿(G)">
+                <input type="number" id="b" min="0" max="255" placeholder="蓝(B)">
+            </div>
+        </div>
+
+        <button onclick="convertRGBtoBGR565()">转换为 BGR565</button>
+
+        <div class="result-group">
+            <div class="result-item">
+                <span class="result-label">BGR565 十进制值：</span>
+                <div class="result-value" id="bgr565-dec">-</div>
+            </div>
+            <div class="result-item">
+                <span class="result-label">BGR565 十六进制值：</span>
+                <div class="result-value" id="bgr565-hex">-</div>
+            </div>
+            <div class="color-preview" id="color-preview"></div>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * RGB 转 BGR565 核心算法
+         * BGR565格式：B(5位) G(6位) R(5位) → 合并为16位数据
+         */
+        function convertRGBtoBGR565() {
+            // 获取输入值
+            let r = parseInt(document.getElementById('r').value) || 0;
+            let g = parseInt(document.getElementById('g').value) || 0;
+            let b = parseInt(document.getElementById('b').value) || 0;
+
+            // 限制数值范围 0-255
+            r = Math.max(0, Math.min(255, r));
+            g = Math.max(0, Math.min(255, g));
+            b = Math.max(0, Math.min(255, b));
+
+            // 核心：BGR565 转换公式
+            let bgr565 = ((b & 0xF8) << 8) | ((g & 0xFC) << 3) | (r >> 3);
+
+            // 显示结果
+            document.getElementById('bgr565-dec').textContent = bgr565;
+            document.getElementById('bgr565-hex').textContent = '0x' + bgr565.toString(16).toUpperCase().padStart(4, '0');
+            
+            // 更新颜色预览
+            document.getElementById('color-preview').style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+        }
+    </script>
+</body>
+</html>

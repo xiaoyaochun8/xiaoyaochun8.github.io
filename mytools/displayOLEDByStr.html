@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>BGR565 TFT 模拟器</title>
+    <style>
+        *{box-sizing:border-box;font-family: system-ui, sans-serif;}
+        body{background:#1e1e1e;color:#fff;padding:20px;}
+        .container{max-width:900px;margin:0 auto;}
+        canvas{
+            border:3px solid #666;
+            background:#000;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+        }
+        textarea{
+            width:100%;height:120px;
+            background:#2d2d2d;color:#fff;
+            border:1px solid #555;
+            padding:10px;font-size:14px;
+            margin:10px 0;
+        }
+        button{
+            padding:10px 20px;background:#007acc;color:#fff;border:none;
+            border-radius:4px;cursor:pointer;font-size:16px;
+        }
+        button:hover{background:#0099ff}
+        .panel{display:flex;gap:20px;align-items:flex-start;}
+        @media(max-width:700px){.panel{flex-direction:column;}}
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>BGR565 TFT 屏幕模拟器</h2>
+    <div class="panel">
+        <div>
+            <p>TFT 分辨率：</p>
+            <input type="number" id="w" value="128" style="width:70px"> ×
+            <input type="number" id="h" value="128" style="width:70px">
+            <p>BGR565 数组（0x 开头，逗号分隔）：</p>
+            <textarea id="data">0x0000,0xFFFF,0xF800,0x07E0,0x001F,0xFFE0,0x07FF,0xF81F</textarea>
+            <br>
+            <button onclick="drawTFT()">绘制 TFT 屏幕</button>
+        </div>
+        <canvas id="tft"></canvas>
+    </div>
+</div>
+
+<script>
+function bgr565ToRgb(color565) {
+    // BGR565 结构: B[4:0] G[5:0] R[4:0]
+    const b = (color565 >> 11) & 0x1F;
+    const g = (color565 >> 5) & 0x3F;
+    const r = color565 & 0x1F;
+
+    // 扩展到 8 位
+    const R = (r << 3) | (r >> 2);
+    const G = (g << 2) | (g >> 4);
+    const B = (b << 3) | (b >> 2);
+
+    return { r: R, g: G, b: B };
+}
+
+function drawTFT() {
+    const w = parseInt(document.getElementById('w').value) || 128;
+    const h = parseInt(document.getElementById('h').value) || 128;
+    const text = document.getElementById('data').value.trim();
+
+    // 解析数组
+    const strArr = text.split(/[, \n]+/).filter(s => s);
+    const colorArr = strArr.map(s => {
+        try {
+            return eval(s);
+        } catch (e) {
+            return 0;
+        }
+    });
+
+    const canvas = document.getElementById('tft');
+    canvas.width = w;
+    canvas.height = h;
+    const ctx = canvas.getContext('2d');
+
+    const imgData = ctx.createImageData(w, h);
+    const buf = imgData.data;
+
+    for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
+            const idx = y * w + x;
+            const c = colorArr[idx % colorArr.length];
+            const { r, g, b } = bgr565ToRgb(c);
+
+            const pos = (y * w + x) * 4;
+            buf[pos] = r;
+            buf[pos + 1] = g;
+            buf[pos + 2] = b;
+            buf[pos + 3] = 255;
+        }
+    }
+
+    ctx.putImageData(imgData, 0, 0);
+}
+
+// 初始绘制
+window.onload = drawTFT;
+</script>
+</body>
+</html>
