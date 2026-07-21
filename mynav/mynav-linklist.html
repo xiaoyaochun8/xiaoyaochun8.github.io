@@ -4,6 +4,7 @@
         <title>mynav</title>
         <!--<meta name = "viewport" content = "width = device-width, initial-scale = 1, shrink-to-fit = no">-->
         <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+        <script type="text/javascript" src="../common/js/rpUtil.js"></script>
     </head>
     <body>
         <h4>行业日报：</h4>
@@ -16,7 +17,13 @@
         <a href="https://modelscope.cn/" target="_blank">modelscope</a>
         <h4>工具箱：</h4>
         <a href="https://ai-bot.cn/ target="_blank">AI工具集</a>
+        <a href="javascript:goTo3('myapp/index')">myapp</a>
+        <a href="javascript:goTo3('mytools/index')">mytools</a>
+        <a href="javascript:goTo3('mytest/index')">mytest</a>
         <h4>书签：</h4>
+        <a href="javascript:goTo3('mynav/mynav6')">编程导航</a>
+        <a href="javascript:goTo3('qw/knowledge/myNav')">myNavPage</a>
+        <a href="javascript:goTo3('qw/knowledge/myNav2')">myNavPage2</a>
         <h4>常用站点：</h4>
         <a href="https://cn.bing.com/" target="_blank">bing</a>
         <a href="https://www.baidu.com/" target="_blank">baidu</a>
@@ -43,6 +50,10 @@
         </style>
         
         <script>
+            //isNav
+            function goTo3(name){
+                rpUtil.gotoPageWithPath(name);
+            }
         </script>
     </body>
 </html>
