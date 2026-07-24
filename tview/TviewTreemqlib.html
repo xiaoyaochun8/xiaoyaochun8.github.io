@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <title>TviewTreemq</title>
+    </head>
+    <body>
+        <div class="box outBox">
+            <span class="title titleB">mb</span>
+            <div class="box">
+                <span class="title titleB">@mqlib</span>
+                <div class="box">
+                    <span class="title titleB">电机（调试中）</span>
+                </div>
+                <div class="box">
+                    <span class="title titleB">红绿蓝黄灯</span>
+                </div>
+                <div class="box">
+                    <span class="title titleB">@mp3</span>
+                </div>
+                <div class="box">
+                    <span class="title titleB">@colorSensor</span>
+                </div>
+                <div class="box">
+                    <span class="title titleB">@music</span>
+                </div>
+                <div class="box">
+                    <span class="title titleB">tft</span>
+                    <div class="box">
+                        <span class="title titleB">@tft-cn</span>
+                    </div>
+                    <div class="box">
+                        <span class="title titleB">@tft-arcade-pics</span>
+                    </div>
+                    <div class="box">
+                        <span class="title titleB">@tft-faces（调试中）</span>
+                    </div>
+                    <div class="box">
+                        <span class="title titleB">@tft-tlight（调试中）</span>
+                    </div>
+                </div>
+                <div class="box">
+                    <span class="title titleB">oled</span>
+                    <div class="box">
+                        <span class="title titleB">@oled-cn</span>
+                    </div>
+                    <div class="box">
+                        <span class="title titleB">@oled-draw</span>
+                    </div>
+                    <div class="box">
+                        <span class="title titleB">@oled-eyes</span>
+                    </div>
+                    <div class="box">
+                        <span class="title titleB">@oled-faces</span>
+                    </div>
+                    <div class="box">
+                        <span class="title titleB">@oled-snowman</span>
+                    </div>
+                    <div class="box">
+                        <span class="title titleB">@oled-2-图库</span>
+                    </div>
+                    <div class="box">
+                        <span class="title titleB">@oled-4-面板库</span>
+                    </div>
+                    <div class="box">
+                        <span class="title titleB">@oled-5-动画库</span>
+                    </div>
+                    <div class="box">
+                        <span class="title titleB">@oled-anim-radar</span>
+                    </div>
+                </div>
+                <div class="box">
+                    <span class="title titleB">@esp8266</span>
+                </div>
+            </div>
+            <div class="box">
+                <span class="title titleB">@Sonar</span>
+            </div>
+            <div class="box">
+                <span class="title titleB">@TM1650</span>
+            </div>
+            <div class="box">
+                <span class="title titleB">MakerBit</span>
+                <div class="box">
+                    <span class="title titleB">@IR Receiver</span>
+                </div>
+            </div>
+            <div class="box">
+                <span class="title titleB">@OLED12864_I2C</span>
+            </div>
+            <div class="box">
+                <span class="title titleB">@RB-TFT18-V2</span>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script>
+            $('.title').on('click', function(evt){
+                var obj = $(evt.currentTarget);
+                if(obj.hasClass('titleA')){
+                    obj.removeClass('titleA');
+                    obj.addClass('titleB');
+                    obj.parent().find('div').show();
+                }else{
+                    obj.addClass('titleA');
+                    obj.removeClass('titleB');
+                    obj.parent().find('div').hide();
+                }
+            });
+        </script>
+
+        <style>
+            .box{
+                margin-left: 30px;
+                margin-top: 5px;
+            }
+            .outBox{
+                margin-left: 0px;
+                margin-top: 5px;
+            }
+            .box .title{
+                border: solid 1px red;
+                background: lightblue;
+            }
+            .box .titleA:before{
+                content: "+ ";
+                background: white;
+            }
+            .box .titleB:before{
+                content: "- ";
+                background: white;
+            }
+        </style>
+    </body>
+</html>
