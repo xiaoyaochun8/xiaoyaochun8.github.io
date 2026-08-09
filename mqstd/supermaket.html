@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小开心超市收银台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "微软雅黑", sans-serif;
+        }
+        body {
+            min-height: 100vh;
+            background-color: #fff4fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .cashier-box {
+            background: #ffffff;
+            width: 360px;
+            padding: 40px 30px;
+            border-radius: 24px;
+            box-shadow: 0 6px 16px #ffc6e0;
+            text-align: center;
+            border: 4px solid #ffb8da;
+        }
+        h1 {
+            color: #ff68a2;
+            font-size: 26px;
+            margin-bottom: 35px;
+        }
+        .input-area {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        input {
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 2px solid #ffc2dd;
+            font-size: 16px;
+            outline: none;
+            transition: 0.2s;
+        }
+        input:focus {
+            border-color: #ff78ad;
+        }
+        #payBtn {
+            margin-top: 12px;
+            padding: 14px;
+            border-radius: 14px;
+            border: none;
+            background-color: #ff78ad;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        #payBtn:hover {
+            background-color: #ff599b;
+        }
+        .success-text {
+            display: none;
+        }
+        .success-text h2 {
+            font-size: 28px;
+            color: #36c97b;
+            margin-bottom: 16px;
+        }
+        .goods-info {
+            font-size: 18px;
+            color: #444;
+            margin-bottom: 10px;
+        }
+        .success-text p {
+            font-size: 16px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="cashier-box">
+        <h1>🛒 小开心超市收银台</h1>
+
+        <div class="input-area" id="formPanel">
+            <input type="text" id="goodsName" placeholder="请输入物品名称">
+            <input type="number" step="0.01" id="goodsPrice" placeholder="请输入物品价格">
+            <button id="payBtn">💰 立即支付</button>
+        </div>
+
+        <div class="success-text" id="successPanel">
+            <h2>✅ 付款成功！</h2>
+            <div class="goods-info" id="showInfo"></div>
+            <p>感谢光临小开心超市~</p>
+        </div>
+    </div>
+
+    <script>
+        const formPanel = document.getElementById('formPanel');
+        const successPanel = document.getElementById('successPanel');
+        const payBtn = document.getElementById('payBtn');
+        const showInfo = document.getElementById('showInfo');
+
+        payBtn.addEventListener('click', function(){
+            const name = document.getElementById('goodsName').value.trim();
+            const price = document.getElementById('goodsPrice').value.trim();
+
+            if(!name || !price){
+                alert("请填写物品名称和价格！");
+                return;
+            }
+
+            // 将商品信息展示到成功页面
+            showInfo.innerText = `商品：${name}　金额：￥${price}`;
+            formPanel.style.display = "none";
+            successPanel.style.display = "block";
+        });
+    </script>
+</body>
+</html>
+<!-- 
+用html做一个小开心超市收银台，实现以下功能：
+1. 打开页面后，显示标题小开心超市收银台，显示一个物品输入框，一个价格输入框，一个支付按钮
+2. 填写物品名称和价格后，点击支付按钮，隐藏物品输入框和价格输入框和支付按钮，显示付款成功
+3. 页面配色风格卡通可爱
+-->
