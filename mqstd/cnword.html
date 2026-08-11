@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>可拖动汉字方块</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: #f0f8ff;
+            padding: 15px;
+            user-select: none;
+            overflow: hidden;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 22px;
+            color: #2c3e50;
+            margin: 5px 0 15px;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            font-size: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #3498db;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: 0.2s;
+        }
+
+        .btn:active {
+            transform: scale(0.96);
+            background: #2980b9;
+        }
+
+        .yunmu-box {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 44px;
+            font-weight: bold;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            cursor: grab;
+            position: absolute;
+            will-change: transform;
+        }
+
+        .yunmu-box:active {
+            cursor: grabbing;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">汉字卡片</h1>
+
+    <div class="btn-group">
+        <button class="btn" id="sortBtn">一键排序</button>
+        <button class="btn" id="shuffleBtn">一键打乱</button>
+    </div>
+
+    <script>
+        var sChars2 = '衣 小 猫 豆 对 鼠 果 白 洗 笑 画 只 字 楼 娃 兔 太 笑 太 阳 公 抱 开 少 阳 先 后 看 是 下 风 猴 爸 公 后 见 不 左 石 狗 妈 抱 朵 头 毛 右 红 拿 中 开 吹 想 牛 顶 子 扛 奶 吸 回 好 山 面 会 真 地 水 家 来 上 大 喜 黑 升 烧 见 走 车 捉 欢 窗';
+        var yunmuList = sChars2.split(' ');
+        //const yunmuList = [
+        //    '你','我','他'
+        //];
+
+        const cardSize = 60;
+        const cardMargin = 12;
+        let allBoxes = [];
+
+        window.onload = function () {
+            createCards();
+            initSort();
+        };
+
+        function createCards() {
+            yunmuList.forEach(yunmu => {
+                const box = document.createElement('div');
+                box.className = 'yunmu-box';
+                box.textContent = yunmu;
+                makeDraggable(box);
+                document.body.appendChild(box);
+                allBoxes.push(box);
+            });
+        }
+
+        function initSort() {
+            const screenW = window.innerWidth;
+            const maxPerRow = Math.floor((screenW - 40) / (cardSize + cardMargin));
+            const perRow = Math.min(maxPerRow, 8);
+            const startX = (screenW - (perRow * (cardSize + cardMargin))) / 2;
+            const startY = 110;
+
+            allBoxes.forEach((box, index) => {
+                const row = Math.floor(index / perRow);
+                const col = index % perRow;
+                box.style.left = startX + col * (cardSize + cardMargin) + 'px';
+                box.style.top = startY + row * (cardSize + cardMargin) + 'px';
+            });
+        }
+
+        function shuffleCards() {
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+            const minX = 20;
+            const maxX = w - cardSize - 20;
+            const minY = h * 0.35;
+            const maxY = h - cardSize - 20;
+            const positions = [];
+            const spacing = cardSize + 30;
+
+            allBoxes.forEach(box => {
+                let x, y, safe = false;
+                for (let i = 0; i < 60; i++) {
+                    x = minX + Math.random() * (maxX - minX);
+                    y = minY + Math.random() * (maxY - minY);
+                    let ok = true;
+                    for (let p of positions) {
+                        if (Math.abs(x-p.x) < spacing && Math.abs(y-p.y) < spacing) {
+                            ok = false; break;
+                        }
+                    }
+                    if (ok) { safe = true; break; }
+                }
+                if (!safe) { x = minX + Math.random()*(maxX-minX); y = minY + Math.random()*(maxY-minY); }
+                positions.push({x,y});
+                box.style.left = x+'px';
+                box.style.top = y+'px';
+            });
+        }
+
+        document.getElementById('sortBtn').onclick = initSort;
+        document.getElementById('shuffleBtn').onclick = shuffleCards;
+
+        // ========== 修复：正常拖动 + 无延迟 ==========
+        function makeDraggable(element) {
+            let isDragging = false;
+            let offsetX, offsetY;
+
+            // 鼠标事件
+            element.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                offsetX = e.clientX - element.offsetLeft;
+                offsetY = e.clientY - element.offsetTop;
+                element.style.zIndex = 999;
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                let x = e.clientX - offsetX;
+                let y = e.clientY - offsetY;
+                const maxX = window.innerWidth - cardSize;
+                const maxY = window.innerHeight - cardSize;
+                x = Math.max(0, Math.min(x, maxX));
+                y = Math.max(0, Math.min(y, maxY));
+                element.style.left = x + 'px';
+                element.style.top = y + 'px';
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+                element.style.zIndex = '';
+            });
+
+            // 触摸事件
+            element.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                const touch = e.touches[0];
+                isDragging = true;
+                offsetX = touch.clientX - element.offsetLeft;
+                offsetY = touch.clientY - element.offsetTop;
+                element.style.zIndex = 999;
+            });
+
+            document.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                const touch = e.touches[0];
+                let x = touch.clientX - offsetX;
+                let y = touch.clientY - offsetY;
+                const maxX = window.innerWidth - cardSize;
+                const maxY = window.innerHeight - cardSize;
+                x = Math.max(0, Math.min(x, maxX));
+                y = Math.max(0, Math.min(y, maxY));
+                element.style.left = x + 'px';
+                element.style.top = y + 'px';
+            });
+
+            document.addEventListener('touchend', () => {
+                isDragging = false;
+                element.style.zIndex = '';
+            });
+        }
+    </script>
+</body>
+</html>

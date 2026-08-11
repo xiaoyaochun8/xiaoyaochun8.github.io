@@ -1,0 +1,147 @@
+<input type="text" /> <button>检查</button>
+<button onclick="showChar()">抽奖</button>
+<div id="box">
+	<div id="charBox" class="alpha" style="font-size:10rem"></div>
+</div>
+
+<script>
+var sChars = '兄 母 少 田 高 儿 老 山 足 牛 大 市 同 毛 小 学 家 心 虎 亲 和 千 生 门 鸟 日 头 香 雨 禾 光 雪 花 虫 秋 冬 开 手 空 风 春 夏 水 子 土 人 月 片 看 空 火 草 听 石 白 岁 耳 户 起 公 自 明 床 孙 见 近 时 无 音 黑 晨 有 飞 万 前 又 沙 西 衣 立 木 弓 目 羊 在 中 珠 农 节 吃 鱼 不 好 羽 王 穴 舟 送 分 问 尺 黄 平 话 师 长 桃 牙 友 短 李 齿 福 一 乐 力 朋 别 乐 金 半 我 采 本 年 云 言 直 成 女 父 住 文 当 个 苦 马 身 多 松 车 午 只 坐 叶 众 知 主 竹 去 声 犬 发 会 条 加 笑 后 共 然 欠 晚 阴 走 灭 里 今 过 但 来 对 还 边 真 外 天 回 林 工 八 医 果 是 说 元 瓜 到 九 业 把 要 十 刀 青 阳 被 北 没 米 为 从 国 全 才 办 跑 你 他 叫 样 己 次 打 点 可 很 亮 红 川 树 方 放 向 梅 色 海 经 谷 五 穿 号 饱 太 这 斤 豆 快 那 比 做 清 原 爷 彩 干 南 孩 作 皮 先 包 语 页 广 脸 再 习 画 龙 贝 桌 反 兴 哥 杨 吵 乱 夜 细 争 就 巨 专 几 象 敢 常 相 保 用 答 所 失 灵 活 处 受 突';
+var sChars2 = '衣 小 猫 豆 对 鼠 果 白 洗 笑 画 只 字 楼 娃 兔 太 笑 太 阳 公 抱 开 少 阳 先 后 看 是 下 风 猴 爸 公 后 见 不 左 石 狗 妈 抱 朵 头 毛 右 红 拿 中 开 吹 想 牛 顶 子 扛 奶 吸 回 好 山 面 会 真 地 水 家 来 上 大 喜 黑 升 烧 见 走 车 捉 欢 窗';
+var sChars3 = '寒 仔 放 球 兔 颜 短 什 吹 细 热 做 松 色 脸 吃 翻 飘 照 龙 亮 鸡 黄 尖 害 高 蛋 灯 盈 鸭 叶 圆 跳 它 外 边 爷 躲 孔 问 远 火 眨 围 胡 乐 哪 雀 绿 听 提 亲 翘 胡 萝 卜 遮 飞 咪 新 虾 变 尾 多 马 面 鼻 堆 巴 谁 虫 雪 镜 到 冰 人 天 耳 儿 要';
+
+var aryChars = sChars.split(' ');
+var aryChars2 = sChars2.split(' ');
+var aryChars3 = sChars3.split(' ');
+console.log(aryChars);
+console.log(aryChars2);
+console.log(aryChars3);
+
+var aryCharsAll = [...aryChars, ...aryChars2, ...aryChars3];
+console.log(aryCharsAll);
+var aryUniq = Array.from(new Set(aryCharsAll));
+console.log(aryUniq);
+
+function checkText(){
+	for(var i in sChars){
+		if(aryWords[i].indexOf('a') > -1){
+			break;
+		}
+	}
+}
+function showChar(){
+	var aryAnim = ['alpha', 'move', 'rotate', 'scale', 'shake']
+	var index = Math.floor(Math.random() * aryUniq.length);
+	var index2 = Math.floor(Math.random() * aryAnim.length);
+	var o = document.querySelector('#charBox');
+	o.innerHTML = aryUniq[index];
+	o.className = 'anim '+aryAnim[index2];
+	speak(aryUniq[index]);
+}
+try {
+    var speech = new SpeechSynthesisUtterance()
+    var SpeechRecognition = SpeechRecognition;
+    var recognition = new SpeechRecognition()
+
+} catch(e) {
+    // error.innerHTML = "此设备不支持 Web Speech API"
+    // error.classList.remove("close")                
+}
+
+function speak(s) {
+    speech.text = s
+    speech.volume = 1
+    speech.rate=10
+    speech.pitch=2
+    window.speechSynthesis.speak(speech)
+}
+
+function tapToSpeak() {
+    recognition.onstart = function() { }
+
+    recognition.onresult = function(event) {
+        const curr = event.resultIndex
+        const transcript = event.results[curr][0].transcript
+        speechToText.value = transcript
+    }
+
+    recognition.onerror = function(ev) {
+        console.error(ev)
+    }
+
+    recognition.start()
+}
+</script>
+
+<style>
+body {
+	background: #C7EDCC;
+}
+#box {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.anim
+{
+    width: 30%;
+    height: 30%;
+    background: white;
+    animation-duration: 5s;
+    animation-timing-function: ease;
+    animation-delay: 1s;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-play-state: running;
+}
+.alpha
+{
+    animation-name: animAlpha;
+}
+@keyframes animAlpha
+{
+    0%   {opacity:0}
+    100% {opacity:1}
+}
+
+.move
+{
+    animation-name: animMove;
+}
+@keyframes animMove
+{
+    0%   {transform:translate(0px,0px)}
+    100% {transform:translate(200px,200px)}
+}
+
+.rotate
+{
+    animation-name: animRotate;
+}
+@keyframes animRotate
+{
+    0%   {}
+    100% {transform:rotate(45deg)}
+}
+
+.scale
+{
+    animation-name: animScale;
+}
+@keyframes animScale
+{
+    0%   {}
+    100% {transform:scale(2,2)}
+}
+
+.shake
+{
+    animation-name: animShake;
+}
+@keyframes animShake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+  20%, 40%, 60%, 80% { transform: translateX(10px); }
+}
+</style>
