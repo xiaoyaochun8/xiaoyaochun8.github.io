@@ -507,5 +507,200 @@
         updateDateTime();
         setInterval(updateDateTime, 1000);
     </script>
+    
+    
+    
+    
+    
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{min-height:100vh;background:#f0fdf4;overflow:hidden}
+.capybara{
+    position:fixed;
+    left:50px;
+    bottom:60px;
+    width:160px;
+    cursor:grab;
+    user-select:none;
+    z-index:99999;
+}
+.capybara:active{cursor:grabbing}
+.pet-svg{
+    width:100%;
+    display:block;
+    transform-origin:center bottom;
+}
+/* 走路呼吸动画 */
+@keyframes breathe {
+    0%,100% {transform: scale(1);}
+    50% {transform: scale(1.03);}
+}
+/* 游泳浮动动画 */
+@keyframes swim {
+    0%,100% {transform: translateY(0) rotate(-3deg);}
+    50% {transform: translateY(-6px) rotate(3deg);}
+}
+.walk-animate{animation: breathe 3s ease-in-out infinite;}
+.swim-animate{animation: swim 1.2s ease-in-out infinite;}
+.tip{
+    position:absolute;
+    top:-40px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#fff;
+    padding:4px 10px;
+    border-radius:12px;
+    font-size:13px;
+    white-space:nowrap;
+    opacity:0;
+    transition:opacity 0.3s;
+    box-shadow:0 2px 6px rgba(0,0,0,0.15);
+}
+.capybara:hover .tip{opacity:1}
+</style>
+<div class="capybara" id="pet">
+    <div class="tip">点我切换表情，可以拖动哦</div>
+    <div id="petSvgWrap" class="pet-svg walk-animate">
+<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+  <g id="face-normal">
+    <!--身体-->
+    <ellipse cx="100" cy="110" rx="72" ry="42" fill="#b48c64"/>
+    <!--头-->
+    <ellipse cx="145" cy="72" rx="40" ry="34" fill="#b48c64"/>
+    <ellipse cx="158" cy="76" rx="22" ry="18" fill="#c9a886"/>
+    <!--耳朵-->
+    <ellipse cx="170" cy="46" rx="12" ry="16" fill="#a07854"/>
+    <ellipse cx="130" cy="44" rx="10" ry="14" fill="#a07854"/>
+    <!--眼睛正常-->
+    <circle cx="168" cy="66" r="3.2" fill="#222"/>
+    <circle cx="142" cy="64" r="3.2" fill="#222"/>
+    <!--鼻子嘴-->
+    <ellipse cx="172" cy="86" rx="9" ry="6" fill="#6b4c38"/>
+    <path d="M166 92 Q172 96 178 92" stroke="#503828" stroke-width="2" fill="none"/>
+    <!--四肢-->
+    <ellipse cx="46" cy="118" rx="14" ry="9" fill="#a07854"/>
+    <ellipse cx="72" cy="124" rx="14" ry="9" fill="#a07854"/>
+    <ellipse cx="124" cy="126" rx="14" ry="9" fill="#a07854"/>
+  </g>
+  <g id="face-happy" style="display:none">
+    <ellipse cx="100" cy="110" rx="72" ry="42" fill="#b48c64"/>
+    <ellipse cx="145" cy="72" rx="40" ry="34" fill="#b48c64"/>
+    <ellipse cx="158" cy="76" rx="22" ry="18" fill="#c9a886"/>
+    <ellipse cx="170" cy="46" rx="12" ry="16" fill="#a07854"/>
+    <ellipse cx="130" cy="44" rx="10" ry="14" fill="#a07854"/>
+    <path d="M164 63 Q168 60 172 63" stroke="#222" stroke-width="2.2" fill="none"/>
+    <path d="M138 61 Q142 58 146 61" stroke="#222" stroke-width="2.2" fill="none"/>
+    <ellipse cx="172" cy="86" rx="9" ry="6" fill="#6b4c38"/>
+    <path d="M164 91 Q172 100 180 91" stroke="#503828" stroke-width="2" fill="none"/>
+    <ellipse cx="46" cy="118" rx="14" ry="9" fill="#a07854"/>
+    <ellipse cx="72" cy="124" rx="14" ry="9" fill="#a07854"/>
+    <ellipse cx="124" cy="126" rx="14" ry="9" fill="#a07854"/>
+  </g>
+  <g id="face-sleep" style="display:none">
+    <ellipse cx="100" cy="110" rx="72" ry="42" fill="#b48c64"/>
+    <ellipse cx="145" cy="72" rx="40" ry="34" fill="#b48c64"/>
+    <ellipse cx="158" cy="76" rx="22" ry="18" fill="#c9a886"/>
+    <ellipse cx="170" cy="46" rx="12" ry="16" fill="#a07854"/>
+    <ellipse cx="130" cy="44" rx="10" ry="14" fill="#a07854"/>
+    <path d="M162 65 L174 65" stroke="#222" stroke-width="2"/>
+    <path d="M136 63 L148 63" stroke="#222" stroke-width="2"/>
+    <ellipse cx="172" cy="86" rx="9" ry="6" fill="#6b4c38"/>
+    <path d="M166 93 Q172 95 178 93" stroke="#503828" stroke-width="1.8" fill="none"/>
+    <ellipse cx="46" cy="118" rx="14" ry="9" fill="#a07854"/>
+    <ellipse cx="72" cy="124" rx="14" ry="9" fill="#a07854"/>
+    <ellipse cx="124" cy="126" rx="14" ry="9" fill="#a07854"/>
+  </g>
+</svg>
+    </div>
+</div>
+
+<script>
+const pet = document.getElementById('pet');
+const wrap = document.getElementById('petSvgWrap');
+const faceNormal = document.getElementById('face-normal');
+const faceHappy = document.getElementById('face-happy');
+const faceSleep = document.getElementById('face-sleep');
+
+//表情数组
+const faces = [faceNormal, faceHappy, faceSleep];
+let faceIdx = 0;
+
+//拖拽
+let isDrag = false;
+let offsetX, offsetY;
+pet.addEventListener('mousedown', e=>{
+    isDrag = true;
+    offsetX = e.clientX - pet.offsetLeft;
+    offsetY = e.clientY - pet.offsetTop;
+});
+document.addEventListener('mousemove', e=>{
+    if(!isDrag) return;
+    const maxX = window.innerWidth - pet.offsetWidth;
+    const maxY = window.innerHeight - pet.offsetHeight;
+    let x = e.clientX - offsetX;
+    let y = e.clientY - offsetY;
+    x = Math.max(0, Math.min(x, maxX));
+    y = Math.max(0, Math.min(y, maxY));
+    pet.style.left = x+'px';
+    pet.style.top = y+'px';
+});
+document.addEventListener('mouseup', ()=>isDrag=false);
+
+//点击切换表情
+pet.addEventListener('click',e=>{
+    if(isDrag) return;
+    faces.forEach(f=>f.style.display="none");
+    faceIdx = (faceIdx+1) % faces.length;
+    faces[faceIdx].style.display="block";
+});
+
+//自动游走
+let moveX = 1.2;
+let moveY = 0.6;
+
+function autoWalk(){
+    if(isDrag){
+        requestAnimationFrame(autoWalk);
+        return;
+    }
+    let left = parseFloat(pet.style.left) || 50;
+    let top = parseFloat(pet.style.top) || window.innerHeight - 220;
+    const maxX = window.innerWidth - pet.offsetWidth;
+    const maxY = window.innerHeight - pet.offsetHeight;
+
+    left += moveX;
+    top += moveY;
+
+    if(left <=0 || left >= maxX) moveX *= -1;
+    if(top <=0 || top >= maxY) moveY *= -1;
+
+    //随机转向
+    if(Math.random() < 0.003){
+        moveX = (Math.random()*2-1)*1.4;
+        moveY = (Math.random()*2-1)*1.4;
+    }
+
+    pet.style.left = left+'px';
+    pet.style.top = top+'px';
+    wrap.style.transform = moveX<0 ? 'scaleX(-1)' : 'scaleX(1)';
+
+    requestAnimationFrame(autoWalk);
+}
+autoWalk();
+
+//定时切换游泳/走路动画
+setInterval(()=>{
+    if(Math.random()>0.6){
+        wrap.classList.remove('walk-animate');
+        wrap.classList.add('swim-animate');
+    }else{
+        wrap.classList.remove('swim-animate');
+        wrap.classList.add('walk-animate');
+    }
+},6000);
+</script>
+    
+    
+    
 </body>
 </html>
