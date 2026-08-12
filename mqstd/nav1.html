@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>å½é‡Œå’•å™œ</title>
+    <title>ß´Àï¹¾àà</title>
     <style>
         * {
             margin: 0;
@@ -58,7 +58,7 @@
             display: block;
         }
 
-        /* è¡¨ç›˜æ—¶é’Ÿæ ·å¼ */
+        /* ±íÅÌÊ±ÖÓÑùÊ½ */
         .clock {
             width: 80px;
             height: 80px;
@@ -73,7 +73,7 @@
             position: relative;
             width: 100%;
             height: 100%;
-            transform: translateY(-3px); /* è°ƒæ•´æŒ‡é’ˆå±…ä¸­ */
+            transform: translateY(-3px); /* µ÷ÕûÖ¸Õë¾ÓÖĞ */
         }
 
         .clock-mark {
@@ -96,7 +96,7 @@
             border-radius: 1px;
         }
 
-        /* 12ä¸ªå°æ—¶åˆ»åº¦ */
+        /* 12¸öĞ¡Ê±¿Ì¶È */
         .clock-mark:nth-child(1) { transform: translateX(-50%) rotate(0deg); }
         .clock-mark:nth-child(2) { transform: translateX(-50%) rotate(30deg); }
         .clock-mark:nth-child(3) { transform: translateX(-50%) rotate(60deg); }
@@ -110,7 +110,7 @@
         .clock-mark:nth-child(11) { transform: translateX(-50%) rotate(300deg); }
         .clock-mark:nth-child(12) { transform: translateX(-50%) rotate(330deg); }
 
-        /* æŒ‡é’ˆæ ·å¼ */
+        /* Ö¸ÕëÑùÊ½ */
         .hand {
             position: absolute;
             bottom: 50%;
@@ -156,7 +156,7 @@
             font-weight: 600;
         }
 
-        /* å“åº”å¼ç½‘æ ¼ï¼šè‡ªåŠ¨é€‚é…åˆ—æ•° */
+        /* ÏìÓ¦Ê½Íø¸ñ£º×Ô¶¯ÊÊÅäÁĞÊı */
         .app-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -178,8 +178,8 @@
             cursor: pointer;
         }
         .app-card.no-open{
-            pointer-events: none; /* ç¦æ­¢ç‚¹å‡» */
-            cursor: default;      /* é¼ æ ‡å˜å›æ™®é€šæ ·å¼ */
+            pointer-events: none; /* ½ûÖ¹µã»÷ */
+            cursor: default;      /* Êó±ê±ä»ØÆÕÍ¨ÑùÊ½ */
         }
 
         .app-card:hover {
@@ -226,7 +226,7 @@
             border-radius: 4px;
         }
 
-        /* ç§»åŠ¨ç«¯é€‚é…ä¾§è¾¹æŒ‰é’® */
+        /* ÒÆ¶¯¶ËÊÊÅä²à±ß°´Å¥ */
         .sidebar {
             position: fixed;
             right: 12px;
@@ -250,7 +250,7 @@
             font-size: 16px;
         }
 
-        /* å°å±å¹•æ‰‹æœºä¼˜åŒ– */
+        /* Ğ¡ÆÁÄ»ÊÖ»úÓÅ»¯ */
         @media (max-width: 400px) {
             .app-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -277,15 +277,15 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>å½é‡Œå’•å™œ |</h1>
+            <h1>ß´Àï¹¾àà |</h1>
             <div class="time">
                 <div class="digital-time">
                     <span class="time-text" id="timeText">15:48:00</span>
-                    <span class="date-text" id="dateText">11-28 æ˜ŸæœŸäºŒ</span>
+                    <span class="date-text" id="dateText">11-28 ĞÇÆÚ¶ş</span>
                 </div>
-                <!-- è¡¨ç›˜æ—¶é’Ÿ -->
+                <!-- ±íÅÌÊ±ÖÓ -->
                 <div class="clock">
-                    <!-- 12ä¸ªå°æ—¶åˆ»åº¦ -->
+                    <!-- 12¸öĞ¡Ê±¿Ì¶È -->
                     <div class="clock-mark"></div>
                     <div class="clock-mark"></div>
                     <div class="clock-mark"></div>
@@ -312,23 +312,23 @@
         <div class="app-section">
             <h2>APP</h2>
             <div class="app-grid">
-                <!-- ç¬¬ä¸€è¡Œ -->
+                <!-- µÚÒ»ĞĞ -->
                 <a href="yunmu.html" target="_blank" class="app-card bilibili">
                     <div class="app-icon">
                         <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23fff\'><path d=\'M19.198 6.134C21.403 7.605 23 9.906 23 12.5c0 2.594-1.597 4.895-3.802 6.366L21 22H3l1.802-3.134C2.597 17.395 1 15.094 1 12.5c0-2.594 1.597-4.895 3.802-6.366L3 2h18l-1.802 4.134zM7 10v4h2v-4H7zm8 0v4h2v-4h-2z\'/></svg>') center/contain no-repeat;"></div>
                     </div>
-                    <span>éŸµæ¯æ‹–æ‹–æ‹–</span>
+                    <span>ÔÏÄ¸ÍÏÍÏÍÏ</span>
                 </a>
 
                 <a href="math.html" target="_blank" class="app-card jellyfin">
                     <div class="app-icon">
                         <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23fff\'><path d=\'M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18l7 3.5v6.84l-7 3.5-7-3.5V7.68l7-3.5z\'/></svg>') center/contain no-repeat;"></div>
                     </div>
-                    <span>æ•°å­¦å°æé¾™</span>
+                    <span>ÊıÑ§Ğ¡¿ÖÁú</span>
                 </a>
 
-                <!-- å…¶ä»–APPå¡ç‰‡ä¿æŒä¸å˜ -->
-                <!-- æ³¨é‡Šæ‰çš„éƒ¨åˆ†çœç•¥ -->
+                <!-- ÆäËûAPP¿¨Æ¬±£³Ö²»±ä -->
+                <!-- ×¢ÊÍµôµÄ²¿·ÖÊ¡ÂÔ -->
 
                 <a href="https://makecode.microbit.org/#editor" target="_blank" class="app-card ikuai">
                     <div class="app-icon">
@@ -341,122 +341,122 @@
                     <div class="app-icon">
                         <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23fff\'><circle cx=\'12\' cy=\'12\' r=\'10\' fill=\'%23fff\'/><circle cx=\'12\' cy=\'12\' r=\'8\' fill=\'%23639df0\'/><circle cx=\'12\' cy=\'12\' r=\'2\' fill=\'%23fff\'/></svg>') center/contain no-repeat;"></div>
                     </div>
-                    <span>å°å–µç¼–ç¨‹</span>
+                    <span>Ğ¡ß÷±à³Ì</span>
                 </a>
 
                 <a href="cnword.html" target="_blank" class="app-card ubuntu">
                     <div class="app-icon">
                         <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23e95420\'><path d=\'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z\'/></svg>') center/contain no-repeat;"></div>
                     </div>
-                    <span>æ±‰å­—æ‹–æ‹–æ‹–</span>
+                    <span>ºº×ÖÍÏÍÏÍÏ</span>
                 </a>
 
-                <!-- ç¬¬äºŒè¡Œ -->
+                <!-- µÚ¶şĞĞ -->
                 <a href="calc.html" target="_blank" class="app-card vscode">
                     <div class="app-icon">
                         <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23007acc\'><path d=\'M17 16.47V7.53L11 12l6 4.47zM2 3v18l18-9L2 3z\'/></svg>') center/contain no-repeat;"></div>
                     </div>
-                    <span>æ•°å­—æ‹–æ‹–æ‹–</span>
+                    <span>Êı×ÖÍÏÍÏÍÏ</span>
                 </a>
 
                 <!--<a href="https://pan.xunlei.com/" target="_blank" class="app-card xunlei no-open">
                     <div class="app-icon">
                         <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%234169e1\'><path d=\'M12 2L2 12h4v8h12v-8h4L12 2z\'/></svg>') center/contain no-repeat;"></div>
                     </div>
-                    <span>æ•¬è¯·æœŸå¾…...</span>
+                    <span>¾´ÇëÆÚ´ı...</span>
                 </a>
 
                 <a href="https://windows.com/" target="_blank" class="app-card windows no-open">
                     <div class="app-icon">
                         <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%230078d6\'><path d=\'M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z\'/></svg>') center/contain no-repeat;"></div>
                     </div>
-                    <span>æ•¬è¯·æœŸå¾…...</span>
+                    <span>¾´ÇëÆÚ´ı...</span>
                 </a>
 
                 <a href="https://wx.qq.com/" target="_blank" class="app-card wechat no-open">
                     <div class="app-icon">
                         <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23fff\'><path d=\'M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z\' fill=\'%23fff\'/></svg>') center/contain no-repeat;"></div>
                     </div>
-                    <span>æ•¬è¯·æœŸå¾…...</span>
+                    <span>¾´ÇëÆÚ´ı...</span>
                 </a>
 
                 <a href="https://im.qq.com/" target="_blank" class="app-card qq no-open">
                     <div class="app-icon">
                         <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23000\'><path d=\'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z\'/></svg>') center/contain no-repeat;"></div>
                     </div>
-                    <span>æ•¬è¯·æœŸå¾…...</span>
+                    <span>¾´ÇëÆÚ´ı...</span>
                 </a>-->
 
-                <!-- ç¬¬ä¸‰è¡Œ -->
+                <!-- µÚÈıĞĞ -->
                 <!--<a href="http://openwrt.local/" target="_blank" class="app-card openwrt no-open">
                     <div class="app-icon">
                         <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23000\'><circle cx=\'12\' cy=\'12\' r=\'10\' fill=\'%23fff\'/><circle cx=\'12\' cy=\'12\' r=\'8\' fill=\'%23000\'/><path d=\'M12 4v2a6 6 0 1 0 0 12v2a8 8 0 1 1 0-16z\' fill=\'%23fff\'/></svg>') center/contain no-repeat;"></div>
                     </div>
-                    <span>æ•¬è¯·æœŸå¾…...</span>
+                    <span>¾´ÇëÆÚ´ı...</span>
                 </a>
 
                 <a href="https://your-blog.com/" target="_blank" class="app-card blog no-open">
                     <div class="app-icon">
                         <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23e67e22\'><path d=\'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-9h10v2H7v-2z\'/></svg>') center/contain no-repeat;"></div>
                     </div>
-                    <span>æ•¬è¯·æœŸå¾…...</span>
+                    <span>¾´ÇëÆÚ´ı...</span>
                 </a>
 
                 <a href="http://localhost:9000/" target="_blank" class="app-card portainer no-open">
                     <div class="app-icon">
                         <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%2336c9f3\'><path d=\'M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l4.59-4.58L18 11l-6 6z\'/></svg>') center/contain no-repeat;"></div>
                     </div>
-                    <span>æ•¬è¯·æœŸå¾…...</span>
+                    <span>¾´ÇëÆÚ´ı...</span>
                 </a>
 
                 <a href="https://www.jd.com/" target="_blank" class="app-card jd no-open">
                     <div class="app-icon">
                         <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23fff\'><path d=\'M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18l7 3.5v6.84l-7 3.5-7-3.5V7.68l7-3.5z\'/></svg>') center/contain no-repeat;"></div>
                     </div>
-                    <span>æ•¬è¯·æœŸå¾…...</span>
+                    <span>¾´ÇëÆÚ´ı...</span>
                 </a>
 
                 <a href="http://localhost:5432/" target="_blank" class="app-card postgres no-open">
                     <div class="app-icon">
                         <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23336791\'><path d=\'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z\'/></svg>') center/contain no-repeat;"></div>
                     </div>
-                    <span>æ•¬è¯·æœŸå¾…...</span>
+                    <span>¾´ÇëÆÚ´ı...</span>
                 </a>-->
 
-                <!-- ç¬¬å››è¡Œ -->
+                <!-- µÚËÄĞĞ -->
                 <!--<a href="http://localhost:3002/" target="_blank" class="app-card sunpanel no-open">
                     <div class="app-icon">
                         <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%2326a69a\'><path d=\'M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18l7 3.5v6.84l-7 3.5-7-3.5V7.68l7-3.5z\'/></svg>') center/contain no-repeat;"></div>
                     </div>
-                    <span>æ•¬è¯·æœŸå¾…...</span>
+                    <span>¾´ÇëÆÚ´ı...</span>
                 </a>
 
                 <a href="http://localhost:8080/" target="_blank" class="app-card nextcloud no-open">
                     <div class="app-icon">
                         <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%230082c9\'><path d=\'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12h2v6h-2v-6zm-4 0h2v6H7v-6zm8 0h2v6h-2v-6z\'/></svg>') center/contain no-repeat;"></div>
                     </div>
-                    <span>æ•¬è¯·æœŸå¾…...</span>
+                    <span>¾´ÇëÆÚ´ı...</span>
                 </a>
 
                 <a href="http://localhost:80/" target="_blank" class="app-card nginx no-open">
                     <div class="app-icon">
                         <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23fff\'><path d=\'M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18l7 3.5v6.84l-7 3.5-7-3.5V7.68l7-3.5z\'/></svg>') center/contain no-repeat;"></div>
                     </div>
-                    <span>æ•¬è¯·æœŸå¾…...</span>
+                    <span>¾´ÇëÆÚ´ı...</span>
                 </a>
 
                 <a href="https://www.docker.com/" target="_blank" class="app-card docker no-open">
                     <div class="app-icon">
                         <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%232496ed\'><path d=\'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z\'/></svg>') center/contain no-repeat;"></div>
                     </div>
-                    <span>æ•¬è¯·æœŸå¾…...</span>
+                    <span>¾´ÇëÆÚ´ı...</span>
                 </a>
 
                 <a href="http://localhost:8123/" target="_blank" class="app-card homeassistant no-open">
                     <div class="app-icon">
                         <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%2341bdf5\'><path d=\'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l4.59-4.58L18 11l-6 6z\'/></svg>') center/contain no-repeat;"></div>
                     </div>
-                    <span>æ•¬è¯·æœŸå¾…...</span>
+                    <span>¾´ÇëÆÚ´ı...</span>
                 </a>-->
             </div>
         </div>
@@ -464,46 +464,46 @@
 
     <div class="sidebar">
         <button class="sidebar-btn">+</button>
-        <button class="sidebar-btn">ğŸŒ</button>
-        <button class="sidebar-btn" onclick="location.reload()">âŸ³</button>
-        <button class="sidebar-btn">âš™</button>
+        <button class="sidebar-btn">??</button>
+        <button class="sidebar-btn" onclick="location.reload()">?</button>
+        <button class="sidebar-btn">?</button>
     </div>
 
     <script>
-        // è·å–æŒ‡é’ˆå…ƒç´ 
+        // »ñÈ¡Ö¸ÕëÔªËØ
         const hourHand = document.getElementById('hourHand');
         const minHand = document.getElementById('minHand');
         const secHand = document.getElementById('secHand');
 
-        // åŠ¨æ€æ—¶é—´æ—¥æœŸå’Œæ—¶é’ŸæŒ‡é’ˆ
+        // ¶¯Ì¬Ê±¼äÈÕÆÚºÍÊ±ÖÓÖ¸Õë
         function updateDateTime() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
             const seconds = String(now.getSeconds()).padStart(2, '0');
             
-            // æ›´æ–°æ•°å­—æ—¶é—´
+            // ¸üĞÂÊı×ÖÊ±¼ä
             document.getElementById('timeText').textContent = `${hours}:${minutes}:${seconds}`;
 
-            // æ›´æ–°æ—¥æœŸ
+            // ¸üĞÂÈÕÆÚ
             const year = now.getFullYear();
             const month = String(now.getMonth() + 1).padStart(2, '0');
             const day = String(now.getDate()).padStart(2, '0');
-            const week = ['æ—¥', 'ä¸€', 'äºŒ', 'ä¸‰', 'å››', 'äº”', 'å…­'][now.getDay()];
-            document.getElementById('dateText').textContent = `${year}-${month}-${day} æ˜ŸæœŸ${week}`;
+            const week = ['ÈÕ', 'Ò»', '¶ş', 'Èı', 'ËÄ', 'Îå', 'Áù'][now.getDay()];
+            document.getElementById('dateText').textContent = `${year}-${month}-${day} ĞÇÆÚ${week}`;
 
-            // è®¡ç®—æŒ‡é’ˆæ—‹è½¬è§’åº¦
+            // ¼ÆËãÖ¸ÕëĞı×ª½Ç¶È
             const secondsDegrees = (seconds / 60) * 360;
             const minutesDegrees = (minutes / 60) * 360 + (seconds / 60) * 6;
             const hoursDegrees = ((hours % 12) / 12) * 360 + (minutes / 60) * 30;
 
-            // åº”ç”¨æ—‹è½¬
+            // Ó¦ÓÃĞı×ª
             secHand.style.transform = `translateX(-50%) rotate(${secondsDegrees}deg)`;
             minHand.style.transform = `translateX(-50%) rotate(${minutesDegrees}deg)`;
             hourHand.style.transform = `translateX(-50%) rotate(${hoursDegrees}deg)`;
         }
 
-        // åˆå§‹åŒ–å¹¶æ¯ç§’æ›´æ–°
+        // ³õÊ¼»¯²¢Ã¿Ãë¸üĞÂ
         updateDateTime();
         setInterval(updateDateTime, 1000);
     </script>
@@ -513,8 +513,6 @@
     
     
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{min-height:100vh;background:#f0fdf4;overflow:hidden}
 .capybara{
     position:fixed;
     left:50px;
@@ -530,12 +528,12 @@ body{min-height:100vh;background:#f0fdf4;overflow:hidden}
     display:block;
     transform-origin:center bottom;
 }
-/* èµ°è·¯å‘¼å¸åŠ¨ç”» */
+/* ×ßÂ·ºôÎü¶¯»­ */
 @keyframes breathe {
     0%,100% {transform: scale(1);}
     50% {transform: scale(1.03);}
 }
-/* æ¸¸æ³³æµ®åŠ¨åŠ¨ç”» */
+/* ÓÎÓ¾¸¡¶¯¶¯»­ */
 @keyframes swim {
     0%,100% {transform: translateY(0) rotate(-3deg);}
     50% {transform: translateY(-6px) rotate(3deg);}
@@ -555,29 +553,30 @@ body{min-height:100vh;background:#f0fdf4;overflow:hidden}
     opacity:0;
     transition:opacity 0.3s;
     box-shadow:0 2px 6px rgba(0,0,0,0.15);
+    color: blueviolet;
 }
 .capybara:hover .tip{opacity:1}
 </style>
 <div class="capybara" id="pet">
-    <div class="tip">ç‚¹æˆ‘åˆ‡æ¢è¡¨æƒ…ï¼Œå¯ä»¥æ‹–åŠ¨å“¦</div>
+    <div class="tip">µãÎÒÇĞ»»±íÇé£¬¿ÉÒÔÍÏ¶¯Å¶</div>
     <div id="petSvgWrap" class="pet-svg walk-animate">
 <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
   <g id="face-normal">
-    <!--èº«ä½“-->
+    <!--ÉíÌå-->
     <ellipse cx="100" cy="110" rx="72" ry="42" fill="#b48c64"/>
-    <!--å¤´-->
+    <!--Í·-->
     <ellipse cx="145" cy="72" rx="40" ry="34" fill="#b48c64"/>
     <ellipse cx="158" cy="76" rx="22" ry="18" fill="#c9a886"/>
-    <!--è€³æœµ-->
+    <!--¶ú¶ä-->
     <ellipse cx="170" cy="46" rx="12" ry="16" fill="#a07854"/>
     <ellipse cx="130" cy="44" rx="10" ry="14" fill="#a07854"/>
-    <!--çœ¼ç›æ­£å¸¸-->
+    <!--ÑÛ¾¦Õı³£-->
     <circle cx="168" cy="66" r="3.2" fill="#222"/>
     <circle cx="142" cy="64" r="3.2" fill="#222"/>
-    <!--é¼»å­å˜´-->
+    <!--±Ç×Ó×ì-->
     <ellipse cx="172" cy="86" rx="9" ry="6" fill="#6b4c38"/>
     <path d="M166 92 Q172 96 178 92" stroke="#503828" stroke-width="2" fill="none"/>
-    <!--å››è‚¢-->
+    <!--ËÄÖ«-->
     <ellipse cx="46" cy="118" rx="14" ry="9" fill="#a07854"/>
     <ellipse cx="72" cy="124" rx="14" ry="9" fill="#a07854"/>
     <ellipse cx="124" cy="126" rx="14" ry="9" fill="#a07854"/>
@@ -621,11 +620,11 @@ const faceNormal = document.getElementById('face-normal');
 const faceHappy = document.getElementById('face-happy');
 const faceSleep = document.getElementById('face-sleep');
 
-//è¡¨æƒ…æ•°ç»„
+//±íÇéÊı×é
 const faces = [faceNormal, faceHappy, faceSleep];
 let faceIdx = 0;
 
-//æ‹–æ‹½
+//ÍÏ×§
 let isDrag = false;
 let offsetX, offsetY;
 pet.addEventListener('mousedown', e=>{
@@ -646,7 +645,7 @@ document.addEventListener('mousemove', e=>{
 });
 document.addEventListener('mouseup', ()=>isDrag=false);
 
-//ç‚¹å‡»åˆ‡æ¢è¡¨æƒ…
+//µã»÷ÇĞ»»±íÇé
 pet.addEventListener('click',e=>{
     if(isDrag) return;
     faces.forEach(f=>f.style.display="none");
@@ -654,7 +653,7 @@ pet.addEventListener('click',e=>{
     faces[faceIdx].style.display="block";
 });
 
-//è‡ªåŠ¨æ¸¸èµ°
+//×Ô¶¯ÓÎ×ß
 let moveX = 1.2;
 let moveY = 0.6;
 
@@ -674,7 +673,7 @@ function autoWalk(){
     if(left <=0 || left >= maxX) moveX *= -1;
     if(top <=0 || top >= maxY) moveY *= -1;
 
-    //éšæœºè½¬å‘
+    //Ëæ»ú×ªÏò
     if(Math.random() < 0.003){
         moveX = (Math.random()*2-1)*1.4;
         moveY = (Math.random()*2-1)*1.4;
@@ -688,7 +687,7 @@ function autoWalk(){
 }
 autoWalk();
 
-//å®šæ—¶åˆ‡æ¢æ¸¸æ³³/èµ°è·¯åŠ¨ç”»
+//¶¨Ê±ÇĞ»»ÓÎÓ¾/×ßÂ·¶¯»­
 setInterval(()=>{
     if(Math.random()>0.6){
         wrap.classList.remove('walk-animate');
