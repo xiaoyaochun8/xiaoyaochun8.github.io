@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>叽里咕噜</title>
+    <script type="text/javascript" src="../common/js/rpUtil.js"></script>
     <style>
         * {
             margin: 0;
@@ -359,14 +360,14 @@
                     <span>数字拖拖拖</span>
                 </a>
 
-                <!--<a href="https://pan.xunlei.com/" target="_blank" class="app-card xunlei no-open">
+                <a href="javascript:goTo3('mygame/index')" target="_blank" class="app-card xunlei">
                     <div class="app-icon">
                         <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%234169e1\'><path d=\'M12 2L2 12h4v8h12v-8h4L12 2z\'/></svg>') center/contain no-repeat;"></div>
                     </div>
-                    <span>敬请期待...</span>
+                    <span>MY GAME</span>
                 </a>
 
-                <a href="https://windows.com/" target="_blank" class="app-card windows no-open">
+                <!--<a href="https://windows.com/" target="_blank" class="app-card windows no-open">
                     <div class="app-icon">
                         <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%230078d6\'><path d=\'M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z\'/></svg>') center/contain no-repeat;"></div>
                     </div>
@@ -699,7 +700,12 @@ setInterval(()=>{
 },6000);
 </script>
     
-    
+    <script>
+        //isNav
+        function goTo3(name){
+            rpUtil.gotoPageWithPath(name);
+        }
+    </script>
     
 </body>
 </html>
