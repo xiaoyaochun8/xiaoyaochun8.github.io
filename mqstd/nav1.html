@@ -360,7 +360,7 @@
                     <span>数字拖拖拖</span>
                 </a>
 
-                <a href="javascript:goTo3('mygame/index')" target="_blank" class="app-card xunlei">
+                <a href="javascript:goTo3('mygame/index')" class="app-card xunlei">
                     <div class="app-icon">
                         <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%234169e1\'><path d=\'M12 2L2 12h4v8h12v-8h4L12 2z\'/></svg>') center/contain no-repeat;"></div>
                     </div>
@@ -703,7 +703,10 @@ setInterval(()=>{
     <script>
         //isNav
         function goTo3(name){
-            rpUtil.gotoPageWithPath(name);
+            var url = rpUtil.getUrlByPageWithPath(name);
+            console.log(url);
+            //rpUtil.gotoPageWithPath(name);
+            location.href = url;
         }
     </script>
     

@@ -9,6 +9,9 @@ const rpUtil = {
         location.href = 'https://xiaoyaochun8.github.io/'+pageName+'.html';
         //location.href = '../'+pageName+'.html';
     },
+    getUrlByPageWithPath: function(pageName){
+        return 'https://xiaoyaochun8.github.io/'+pageName+'.html';
+    },
     gotoPageWithUrl: function(url){
         location.href = url;
     },
