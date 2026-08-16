@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>随机选书工具</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", sans-serif;
+        }
+        html, body {
+            height: 100vh;
+            overflow: hidden;
+            background: #12141d;
+            color: #fff;
+        }
+        .container {
+            height: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            position: relative;
+        }
+        .control-bar {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            justify-content: center;
+        }
+        input[type="number"] {
+            width: 120px;
+            height: 42px;
+            font-size: 18px;
+            padding: 0 12px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+        }
+        #randomBtn {
+            height: 42px;
+            padding: 0 28px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(45deg, #6366f1, #a855f7);
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        #randomBtn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        #randomBtn:hover:not(:disabled) {
+            transform: scale(1.03);
+        }
+        .book-wrap {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            flex: 1;
+            max-height: 70vh;
+        }
+        .book-item {
+            height: 100%;
+            background: #1e2230;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            border: 2px solid #33384b;
+            transition: all 0.15s ease;
+        }
+        /* 跑马灯滚动闪烁动画 */
+        .book-item.rolling {
+            animation: marqueeFlash 0.12s infinite alternate;
+            border-color: #818cf8;
+            box-shadow: 0 0 16px #6366f160;
+        }
+        /* 选中样式 */
+        .book-item.selected {
+            border-color: #facc15;
+            box-shadow: 0 0 22px #facc1577;
+            background: #2c2818;
+        }
+        @keyframes marqueeFlash {
+            from { opacity: 0.55; transform: scale(0.96) rotate(-1deg); }
+            to { opacity: 1; transform: scale(1.02) rotate(1deg); }
+        }
+        .tip {
+            text-align: center;
+            font-size: 16px;
+            color: #aaa;
+            min-height: 24px;
+        }
+        /* 礼花画布全屏覆盖 */
+        #fireworkCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+<canvas id="fireworkCanvas"></canvas>
+<div class="container">
+    <div class="control-bar">
+        <label>选取数量：</label>
+        <input type="number" id="numInput" min="1" max="9" value="2">
+        <button id="randomBtn">开始随机抽取</button>
+    </div>
+
+    <div class="book-wrap" id="bookBox"></div>
+    <div class="tip" id="resultTip"></div>
+</div>
+
+<script>
+    const bookList = [
+        "书籍0",
+        "书籍1",
+        "书籍2",
+        "书籍3",
+        "书籍4",
+        "书籍5",
+        "书籍6",
+        "书籍7",
+        "书籍8"
+    ];
+    const bookBox = document.getElementById('bookBox');
+    const numInput = document.getElementById('numInput');
+    const randomBtn = document.getElementById('randomBtn');
+    const resultTip = document.getElementById('resultTip');
+    const canvas = document.getElementById('fireworkCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let bookDomList = [];
+    let confettiList = [];
+
+    // 画布自适应
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // 纸屑粒子类
+    class Confetti {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() - canvas.height;
+            this.size = Math.random() * 8 + 4;
+            this.speedY = Math.random() * 3 + 2;
+            this.speedX = Math.random() * 4 - 2;
+            this.rotate = Math.random() * 360;
+            this.rotateSpeed = Math.random() * 10 - 5;
+            this.color = `hsl(${Math.random() * 360},70%,60%)`;
+        }
+        update() {
+            this.y += this.speedY;
+            this.x += this.speedX;
+            this.rotate += this.rotateSpeed;
+        }
+        draw() {
+            ctx.save();
+            ctx.translate(this.x, this.y);
+            ctx.rotate(this.rotate * Math.PI / 180);
+            ctx.fillStyle = this.color;
+            ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+            ctx.restore();
+        }
+    }
+
+    // 启动礼花纸屑
+    function startConfetti() {
+        confettiList = [];
+        for (let i = 0; i < 180; i++) {
+            confettiList.push(new Confetti());
+        }
+        function loop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = confettiList.length - 1; i >= 0; i--) {
+                const p = confettiList[i];
+                p.update();
+                p.draw();
+                if (p.y > canvas.height) {
+                    confettiList.splice(i, 1);
+                }
+            }
+            if (confettiList.length > 0) {
+                requestAnimationFrame(loop);
+            }
+        }
+        loop();
+    }
+
+    // 渲染9本书
+    function initBooks() {
+        bookBox.innerHTML = '';
+        bookDomList = [];
+        bookList.forEach((name, idx) => {
+            const div = document.createElement('div');
+            div.className = 'book-item';
+            div.innerText = name;
+            div.dataset.index = idx;
+            bookBox.appendChild(div);
+            bookDomList.push(div);
+        });
+    }
+
+    // 重置所有状态
+    function resetAll() {
+        bookDomList.forEach(el => {
+            el.classList.remove('rolling', 'selected');
+        });
+        resultTip.innerText = '';
+    }
+
+    // 获取随机N个不重复索引
+    function getRandomSelect(total, count) {
+        const arr = Array.from({ length: total }, (_, i) => i);
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr.slice(0, count);
+    }
+
+    randomBtn.onclick = async () => {
+        const selectNum = parseInt(numInput.value);
+        if (isNaN(selectNum) || selectNum < 1 || selectNum > 9) {
+            resultTip.innerText = "请输入1~9之间的数字！";
+            return;
+        }
+        randomBtn.disabled = true;
+        resetAll();
+
+        const duration = 2000;
+        const startTime = Date.now();
+        const targetIndexs = getRandomSelect(9, selectNum);
+
+        function animateRoll() {
+            const now = Date.now();
+            const pass = now - startTime;
+            if (pass >= duration) {
+                bookDomList.forEach(dom => dom.classList.remove('rolling'));
+                bookDomList.forEach((dom, idx) => {
+                    if (targetIndexs.includes(idx)) {
+                        dom.classList.add('selected');
+                    }
+                });
+                const selectedNames = targetIndexs.map(i => bookList[i]);
+                resultTip.innerText = `✅ 抽取完成：${selectedNames.join("、")}`;
+                startConfetti();
+                randomBtn.disabled = false;
+                return;
+            }
+            bookDomList.forEach(dom => dom.classList.add('rolling'));
+            requestAnimationFrame(animateRoll);
+        }
+        animateRoll();
+    }
+
+    initBooks();
+</script>
+</body>
+</html>
