@@ -374,19 +374,19 @@
                     <span>阅读选书器</span>
                 </a>
 
-                <a href="cnwordsg.html" target="_blank" class="app-card wechat">
+                <!--<a href="https://wx.qq.com/" target="_blank" class="app-card wechat no-open">
                     <div class="app-icon">
                         <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23fff\'><path d=\'M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z\' fill=\'%23fff\'/></svg>') center/contain no-repeat;"></div>
                     </div>
-                    <span>三国汉字卡片</span>
+                    <span>敬请期待...</span>
                 </a>
 
-                <a href="cnword12g.html" target="_blank" class="app-card qq">
+                <a href="https://im.qq.com/" target="_blank" class="app-card qq no-open">
                     <div class="app-icon">
                         <div class="icon-placeholder" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23000\'><path d=\'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z\'/></svg>') center/contain no-repeat;"></div>
                     </div>
-                    <span>黄金十二宫</span>
-                </a>
+                    <span>敬请期待...</span>
+                </a>-->
 
                 <!-- 第三行 -->
                 <!--<a href="http://openwrt.local/" target="_blank" class="app-card openwrt no-open">
@@ -521,6 +521,8 @@
     width:160px;
     cursor:grab;
     user-select:none;
+    touch-action: none;
+    -webkit-touch-callout: none;
     z-index:99999;
 }
 .capybara:active{cursor:grabbing}
@@ -620,9 +622,11 @@ const wrap = document.getElementById('petSvgWrap');
 const faceNormal = document.getElementById('face-normal');
 const faceHappy = document.getElementById('face-happy');
 const faceSleep = document.getElementById('face-sleep');
+
 //表情数组
 const faces = [faceNormal, faceHappy, faceSleep];
 let faceIdx = 0;
+
 //拖拽
 let isDrag = false;
 let offsetX, offsetY;
@@ -643,6 +647,7 @@ document.addEventListener('mousemove', e=>{
     pet.style.top = y+'px';
 });
 document.addEventListener('mouseup', ()=>isDrag=false);
+
 //点击切换表情
 pet.addEventListener('click',e=>{
     if(isDrag) return;
@@ -650,6 +655,7 @@ pet.addEventListener('click',e=>{
     faceIdx = (faceIdx+1) % faces.length;
     faces[faceIdx].style.display="block";
 });
+
 // ========== 新增移动端触摸拖拽兼容，不改动上方原有代码 ==========
 // 统一获取坐标工具函数
 function getPointPos(e) {
@@ -666,8 +672,9 @@ pet.addEventListener('touchstart', e => {
     isDrag = true;
     offsetX = pos.clientX - pet.offsetLeft;
     offsetY = pos.clientY - pet.offsetTop;
-},{passive:true});
-// 触摸滑动，增加 passive:false
+    e.preventDefault();
+});
+// 触摸滑动
 document.addEventListener('touchmove', e => {
     if (!isDrag) return;
     e.preventDefault();
@@ -680,15 +687,17 @@ document.addEventListener('touchmove', e => {
     y = Math.max(0, Math.min(y, maxY));
     pet.style.left = x + 'px';
     pet.style.top = y + 'px';
-}, {passive: false});
+});
 // 触摸抬起/取消
 document.addEventListener('touchend', () => isDrag = false);
 document.addEventListener('touchcancel', () => isDrag = false);
-//❗ 删除原来这行错误代码 pet.addEventListener('touchmove', e => e.stopPropagation());
+// 屏蔽触摸拖动误触发click表情切换
+pet.addEventListener('touchmove', e => e.stopPropagation());
 
 //自动游走
 let moveX = 1.2;
 let moveY = 0.6;
+
 function autoWalk(){
     if(isDrag){
         requestAnimationFrame(autoWalk);
@@ -698,21 +707,27 @@ function autoWalk(){
     let top = parseFloat(pet.style.top) || window.innerHeight - 220;
     const maxX = window.innerWidth - pet.offsetWidth;
     const maxY = window.innerHeight - pet.offsetHeight;
+
     left += moveX;
     top += moveY;
+
     if(left <=0 || left >= maxX) moveX *= -1;
     if(top <=0 || top >= maxY) moveY *= -1;
+
     //随机转向
     if(Math.random() < 0.003){
         moveX = (Math.random()*2-1)*1.4;
         moveY = (Math.random()*2-1)*1.4;
     }
+
     pet.style.left = left+'px';
     pet.style.top = top+'px';
     wrap.style.transform = moveX<0 ? 'scaleX(-1)' : 'scaleX(1)';
+
     requestAnimationFrame(autoWalk);
 }
 autoWalk();
+
 //定时切换游泳/走路动画
 setInterval(()=>{
     if(Math.random()>0.6){
