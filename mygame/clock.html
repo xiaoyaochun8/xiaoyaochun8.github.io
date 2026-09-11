@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Three.js 淡绿色表盘时钟</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden;background:
+  radial-gradient(circle at 30% 20%, #b5b5b5 0%, #9a9a9a 45%, #828282 100%);}
+canvas{display:block;width:100%;height:100%;touch-action:none;}
+</style>
+</head>
+<body>
+<script src="https://cdn.bootcdn.net/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script>
+const scene = new THREE.Scene();
+
+// 场景背景同步调亮为中性浅灰
+scene.background = new THREE.Color(0x999999);
+
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.set(0, 0, 7);
+
+const renderer = new THREE.WebGLRenderer({antialias:true});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+// 灯光：稍微降一点，避免浅灰背景下整体过曝
+const ambientLight = new THREE.AmbientLight(0xffffff, 1.0);
+scene.add(ambientLight);
+const dirLight = new THREE.DirectionalLight(0xffffff, 0.7);
+dirLight.position.set(3, 5, 6);
+scene.add(dirLight);
+
+const clockGroup = new THREE.Group();
+scene.add(clockGroup);
+
+// ========== 绿色表盘底盘 ==========
+const diskGeo = new THREE.CylinderGeometry(2.0, 2.0, 0.08, 64);
+const diskMat = new THREE.MeshBasicMaterial({
+    color: 0x9be07c
+});
+const disk = new THREE.Mesh(diskGeo, diskMat);
+disk.rotation.x = Math.PI / 2;
+disk.position.z = 0;
+clockGroup.add(disk);
+
+// 外圈金属表壳
+const outerRingGeo = new THREE.TorusGeometry(2.14, 0.12, 16, 64);
+const outerRingMat = new THREE.MeshStandardMaterial({
+    color: 0x999999,
+    metalness: 0.8,
+    roughness: 0.3
+});
+const outerRing = new THREE.Mesh(outerRingGeo, outerRingMat);
+outerRing.rotation.x = Math.PI / 2;
+outerRing.position.z = 0.05;
+clockGroup.add(outerRing);
+
+// 刻度
+const tickMat = new THREE.MeshBasicMaterial({ color: 0x111111 });
+const outerRadius = 1.96;
+for(let i = 0; i < 60; i++){
+    const angle = i * Math.PI * 2 / 60;
+    let length, width, height;
+    if(i % 15 === 0){
+        length = 0.34;
+        width = 0.055;
+        height = 0.06;
+    }else if(i % 5 === 0){
+        length = 0.24;
+        width = 0.04;
+        height = 0.05;
+    }else{
+        length = 0.12;
+        width = 0.02;
+        height = 0.03;
+    }
+    const geo = new THREE.BoxGeometry(length, width, height);
+    const mesh = new THREE.Mesh(geo, tickMat);
+    geo.translate(-length / 2, 0, 0);
+    mesh.position.x = Math.cos(angle) * outerRadius;
+    mesh.position.y = Math.sin(angle) * outerRadius;
+    mesh.position.z = 0.11;
+    mesh.rotation.z = angle;
+    clockGroup.add(mesh);
+}
+
+// 指针
+const hourHandGeo = new THREE.BoxGeometry(0.11, 1.1, 0.08);
+hourHandGeo.translate(0, 0.55, 0);
+const hourHand = new THREE.Mesh(hourHandGeo, new THREE.MeshBasicMaterial({ color: 0x111111 }));
+hourHand.position.z = 0.14;
+clockGroup.add(hourHand);
+
+const minHandGeo = new THREE.BoxGeometry(0.075, 1.5, 0.07);
+minHandGeo.translate(0, 0.75, 0);
+const minHand = new THREE.Mesh(minHandGeo, new THREE.MeshBasicMaterial({ color: 0x222222 }));
+minHand.position.z = 0.15;
+clockGroup.add(minHand);
+
+const secHandGeo = new THREE.BoxGeometry(0.035, 1.74, 0.04);
+secHandGeo.translate(0, 0.87, 0);
+const secHand = new THREE.Mesh(secHandGeo, new THREE.MeshBasicMaterial({ color: 0xd92121 }));
+secHand.position.z = 0.16;
+clockGroup.add(secHand);
+
+// 中心圆点
+const centerGeo = new THREE.CylinderGeometry(0.06, 0.06, 0.1, 16);
+const center = new THREE.Mesh(centerGeo, new THREE.MeshBasicMaterial({ color: 0x333333 }));
+center.rotation.x = Math.PI / 2;
+center.position.z = 0.17;
+clockGroup.add(center);
+
+clockGroup.rotation.x = 0.22;
+clockGroup.rotation.y = 0.12;
+
+// 动画
+function animate(){
+    requestAnimationFrame(animate);
+    const now = new Date();
+    const hours = now.getHours() % 12;
+    const mins = now.getMinutes();
+    const secs = now.getSeconds();
+    const ms = now.getMilliseconds();
+
+    const secAngle = - (secs + ms / 1000) * (Math.PI * 2 / 60);
+    const minAngle = - (mins + secs / 60) * (Math.PI * 2 / 60);
+    const hourAngle = - (hours + mins / 60) * (Math.PI * 2 / 12);
+
+    secHand.rotation.z = secAngle;
+    minHand.rotation.z = minAngle;
+    hourHand.rotation.z = hourAngle;
+
+    renderer.render(scene, camera);
+}
+animate();
+
+// 移动端适配
+function onResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+}
+window.addEventListener('resize', onResize);
+window.addEventListener('orientationchange', onResize);
+</script>
+</body>
+</html>
