@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Babylon Clock</title>
+  <style>
+    html, body {
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: #d8f5c8;
+      touch-action: none;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    #renderCanvas {
+      width: 100%;
+      height: 100%;
+      touch-action: none;
+      display: block;
+    }
+  </style>
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+</head>
+<body>
+  <canvas id="renderCanvas"></canvas>
+  <script>
+    const canvas = document.getElementById("renderCanvas");
+    const engine = new BABYLON.Engine(canvas, true, {
+      preserveDrawingBuffer: true,
+      stencil: true
+    });
+
+    const createScene = function () {
+      const scene = new BABYLON.Scene(engine);
+      // 页面背景淡绿
+      scene.clearColor = new BABYLON.Color4(0.85, 0.96, 0.78, 1);
+
+      // 相机
+      const camera = new BABYLON.UniversalCamera("cam", new BABYLON.Vector3(0, 0, 20), scene);
+      camera.setTarget(BABYLON.Vector3.Zero());
+      camera.detachControl();
+
+      // 灯光
+      const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, -1), scene);
+      light.intensity = 1.2;
+      const dirLight = new BABYLON.DirectionalLight("dir", new BABYLON.Vector3(0, -0.5, -1), scene);
+      dirLight.intensity = 0.4;
+
+      // ===== 表盘（淡绿色） =====
+      const dial = BABYLON.MeshBuilder.CreateCylinder("dial", {
+        diameter: 6, height: 0.05, tessellation: 64
+      }, scene);
+      dial.rotation.x = Math.PI / 2;
+
+      const dialMat = new BABYLON.StandardMaterial("dialMat", scene);
+      dialMat.diffuseColor = new BABYLON.Color3(0.75, 0.95, 0.65); // 清新淡绿
+      dialMat.specularColor = new BABYLON.Color3(0.05, 0.1, 0.05);
+      dial.material = dialMat;
+
+      // 外圈（深绿色）
+      const ring = BABYLON.MeshBuilder.CreateTorus("ring", {
+        diameter: 6.2, thickness: 0.2, tessellation: 64
+      }, scene);
+      ring.rotation.x = Math.PI / 2;
+
+      const ringMat = new BABYLON.StandardMaterial("ringMat", scene);
+      ringMat.diffuseColor = new BABYLON.Color3(0.2, 0.6, 0.25); // 生机绿
+      ring.material = ringMat;
+
+      // 刻度（深绿）
+      const tickMat = new BABYLON.StandardMaterial("tickMat", scene);
+      tickMat.diffuseColor = new BABYLON.Color3(0.1, 0.45, 0.15);
+
+      for (let i = 0; i < 12; i++) {
+        const angle = (i / 12) * Math.PI * 2;
+        const tick = BABYLON.MeshBuilder.CreateBox("tick" + i, {
+          width: 0.15, height: 0.4, depth: 0.08
+        }, scene);
+
+        tick.material = tickMat;
+        tick.position.x = Math.cos(angle) * 2.5;
+        tick.position.y = Math.sin(angle) * 2.5;
+        tick.position.z = 0.1;
+        tick.rotation.z = angle;
+      }
+
+      // 数字贴图（深绿色文字）
+      const tex = new BABYLON.DynamicTexture("numTex", { width: 512, height: 512 }, scene, false);
+      const ctx = tex.getContext();
+      ctx.clearRect(0, 0, 512, 512);
+      ctx.fillStyle = "#0a6e1a"; // 深绿数字
+      ctx.font = "bold 36px Arial";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      for (let i = 1; i <= 12; i++) {
+        const angle = (i / 12) * Math.PI * 2 - Math.PI / 2;
+        const r = 200;
+        const x = 256 + Math.cos(angle) * r;
+        const y = 256 + Math.sin(angle) * r;
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(angle + Math.PI / 2);
+        ctx.fillText(i.toString(), 0, 0);
+        ctx.restore();
+      }
+      tex.update();
+      const numPlane = BABYLON.MeshBuilder.CreatePlane("nums", { size: 5.5 }, scene);
+      numPlane.position.z = 0.12;
+      const numMat = new BABYLON.StandardMaterial("numMat", scene);
+      numMat.emissiveTexture = tex;
+      numMat.diffuseColor = new BABYLON.Color3(0, 0, 0);
+      numMat.specularColor = new BABYLON.Color3(0, 0, 0);
+      numPlane.material = numMat;
+
+      // ===== 指针工厂 =====
+      function createHand(name, length, width, color, z) {
+        const pivot = new BABYLON.TransformNode(name + "_pivot", scene);
+        pivot.position.z = z;
+
+        const hand = BABYLON.MeshBuilder.CreateBox(name, {
+          width: width, height: length, depth: 0.15
+        }, scene);
+
+        const mat = new BABYLON.StandardMaterial(name + "Mat", scene);
+        mat.diffuseColor = color;
+        hand.material = mat;
+
+        hand.parent = pivot;
+        hand.position.y = length / 2;
+        return pivot;
+      }
+
+      // 时针/分针用深绿，秒针用橙红做点缀
+      const hourHand   = createHand("hour",   1.3, 0.22, new BABYLON.Color3(0.05, 0.35, 0.1), 0.30);
+      const minuteHand = createHand("minute", 2.0, 0.15, new BABYLON.Color3(0.05, 0.35, 0.1), 0.40);
+      const secondHand = createHand("second", 2.3, 0.06, new BABYLON.Color3(1, 0.3, 0.1), 0.50);
+
+      // 中心帽
+      const cap = BABYLON.MeshBuilder.CreateCylinder("cap", {
+        diameter: 0.35, height: 0.2, tessellation: 32
+      }, scene);
+      cap.rotation.x = Math.PI / 2;
+      cap.position.z = 0.55;
+
+      const capMat = new BABYLON.StandardMaterial("capMat", scene);
+      capMat.diffuseColor = new BABYLON.Color3(0.1, 0.4, 0.15);
+      cap.material = capMat;
+
+      // ===== 走时 =====
+      scene.onBeforeRenderObservable.add(() => {
+        const now = new Date();
+        const s = now.getSeconds() + now.getMilliseconds() / 1000;
+        const m = now.getMinutes() + s / 60;
+        const h = (now.getHours() % 12) + m / 60;
+
+        secondHand.rotation.z = (s / 60) * Math.PI * 2;
+        minuteHand.rotation.z = (m / 60) * Math.PI * 2;
+        hourHand.rotation.z   = (h / 12) * Math.PI * 2;
+      });
+
+      return scene;
+    };
+
+    const scene = createScene();
+    engine.runRenderLoop(() => scene.render());
+    window.addEventListener("resize", () => engine.resize());
+    document.addEventListener("touchmove", function (e) { e.preventDefault(); }, { passive: false });
+  </script>
+</body>
+</html>
