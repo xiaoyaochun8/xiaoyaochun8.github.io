@@ -135,6 +135,12 @@ function animate(){
     secHand.rotation.z = secAngle;
     minHand.rotation.z = minAngle;
     hourHand.rotation.z = hourAngle;
+    
+    //丝滑
+    //outerRing.rotation.x += 0.05
+    //outerRing.rotation.y -= 0.01
+    
+    outerRing.rotation.y -= 0.005
 
     renderer.render(scene, camera);
 }
