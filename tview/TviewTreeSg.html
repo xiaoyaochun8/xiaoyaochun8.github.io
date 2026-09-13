@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <title>TviewTree</title>
+    </head>
+    <body>
+        <div class="box outBox">
+            <span class="title titleB">SG</span>
+            <div class="box">
+                <span class="title titleB">SG1</span>
+                <div class="box">
+                    <span class="title titleB">1~10季</span>
+                </div>
+            </div>
+            <div class="box">
+                <span class="title titleB">SGA</span>
+                <div class="box">
+                    <span class="title titleB">1～5季</span>
+                </div>
+            </div>
+            <div class="box">
+                <span class="title titleB">SGU</span>
+                <div class="box">
+                    <span class="title titleB">1～2季（每季20集）</span>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script>
+            $('.title').on('click', function(evt){
+                var obj = $(evt.currentTarget);
+                if(obj.hasClass('titleA')){
+                    obj.removeClass('titleA');
+                    obj.addClass('titleB');
+                    obj.parent().find('div').show();
+                }else{
+                    obj.addClass('titleA');
+                    obj.removeClass('titleB');
+                    obj.parent().find('div').hide();
+                }
+            });
+        </script>
+
+        <style>
+            .box{
+                margin-left: 30px;
+                margin-top: 5px;
+            }
+            .outBox{
+                margin-left: 0px;
+                margin-top: 5px;
+            }
+            .box .title{
+                border: solid 1px red;
+                background: lightblue;
+            }
+            .box .titleA:before{
+                content: "+ ";
+                background: white;
+            }
+            .box .titleB:before{
+                content: "- ";
+                background: white;
+            }
+        </style>
+    </body>
+</html>
