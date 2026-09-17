@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <!-- 移动端适配 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课程表2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+        .full-screen-img {
+            width: 100vw;
+            height: 100vh;
+            object-fit: contain; /* 等比缩放，完整显示图片，不会裁切 */
+            background-color: #000; /* 图片留白区域底色 */
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <img class="full-screen-img" src="./res/kcb2.jpg" alt="全屏图片">
+</body>
+</html>
