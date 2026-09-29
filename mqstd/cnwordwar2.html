@@ -11,21 +11,80 @@
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
         }
-
         body {
             min-height: 100vh;
-            background-color: #f0f8ff;
-            padding: 15px;
+            background: linear-gradient(135deg, #f0f8ff, #e6f2ff);
+            padding: 20px 15px;
             user-select: none;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
             font-family: "Microsoft YaHei", sans-serif;
         }
-
+        .title {
+            text-align: center;
+            font-size: clamp(24px,5vw,36px);
+            color: #2c3e50;
+            margin-bottom: 24px;
+            letter-spacing: 4px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            max-width: 720px;
+            margin: 0 auto;
+            border-collapse: separate;
+            border-spacing: 12px;
+        }
+        td {
+            text-align: center;
+            vertical-align: middle;
+            padding: 16px 8px;
+            font-size: clamp(18px,4vw,24px);
+            border-radius: 12px;
+            background: #ffffff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            transition: all 0.25s ease;
+            cursor: default;
+        }
+        td:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+        }
+        /* 等级标题行样式 */
+        tr:first-child td {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+            color: #fff;
+            font-weight: bold;
+        }
+        /* 分级配色 */
+        tr td:nth-child(1) {
+            background: linear-gradient(135deg,#fef6e4,#fff8e8);
+            color:#a1582a;
+        }
+        tr td:nth-child(3) {
+            background: linear-gradient(135deg,#e8f4fd,#dceffb);
+            color:#286090;
+        }
+        tr td:nth-child(5) {
+            background: linear-gradient(135deg,#fceef2,#fbdce4);
+            color:#a23b57;
+        }
+        /* 中间分隔符 "-" */
+        td:nth-child(2), td:nth-child(4) {
+            background: transparent;
+            box-shadow: none;
+            font-weight:bold;
+            color:#888;
+            padding:0;
+        }
+        td:nth-child(2):hover, td:nth-child(4):hover {
+            transform:none;
+            box-shadow:none;
+        }
     </style>
 </head>
 <body>
     <h1 class="title">汉字战争汉字卡片2</h1>
-
     <table>
         <tr>
             <td>一级</td><td>-</td><td>二级</td><td>-</td><td>三级</td>
