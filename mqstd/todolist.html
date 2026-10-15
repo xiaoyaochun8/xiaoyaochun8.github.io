@@ -171,6 +171,29 @@
         border-color:#222;
     }
 
+    /*删除角标按钮，仅done时显示*/
+    .plaque-del{
+        position:absolute;
+        top:2px;
+        right:2px;
+        width:22px;
+        height:22px;
+        border-radius:50%;
+        background:#aa3333;
+        color:#fff;
+        font-size:18px;
+        line-height:22px;
+        text-align:center;
+        cursor:pointer;
+        display:none;
+    }
+    .plaque.done .plaque-del{
+        display:block;
+    }
+    .plaque-del:hover{
+        background:#cc4444;
+    }
+
     .plaque::before {
         content: "";
         position: absolute;
@@ -281,7 +304,7 @@
     <div class="board">
         <div class="board-title">已完成</div>
         <div class="plaque-area" id="doneList"></div>
-        <div class="tip tip-small">点击恢复回督办｜长按彻底删除</div>
+        <div class="tip tip-small">点击木牌恢复回督办｜点×永久删除</div>
     </div>
 </div>
 
@@ -292,7 +315,6 @@
     const doneList = document.getElementById("doneList");
     const STORAGE_KEY = "plaque_tasks_v2";
 
-    //加载：active待办，done已完成
     function loadTasks() {
         const raw = localStorage.getItem(STORAGE_KEY);
         if(raw){
@@ -305,7 +327,6 @@
         localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     }
 
-    //渲染全部
     function renderAll(){
         urgentList.innerHTML="";
         doneList.innerHTML="";
@@ -319,7 +340,6 @@
         updateEmptyTip();
     }
 
-    //isDone true=已完成灰牌子
     function createPlaque(text, isDone) {
         const plaque = document.createElement("div");
         plaque.className = "plaque" + (isDone?" done":"");
@@ -330,41 +350,20 @@
         textDiv.innerText = text;
         plaque.appendChild(textDiv);
 
-        let longPressTimer=null;
-        let skipClick = false; // 标记：长按触发后，跳过click事件
+        //删除角标按钮
+        const delBtn = document.createElement("div");
+        delBtn.className = "plaque-del";
+        delBtn.innerText = "×";
+        plaque.appendChild(delBtn);
 
-        //鼠标按下启动长按
-        plaque.addEventListener("mousedown",()=>{
-            skipClick = false;
-            longPressTimer = setTimeout(()=>{
-                //长按：彻底删除，增加确认弹窗
-                if(isDone){
-                    skipClick = true; //禁止后续click
-                    if(confirm(`确定要永久删除【${text}】吗？此操作不可恢复！`)){
-                        let data = loadTasks();
-                        const idx = data.done.indexOf(text);
-                        if(idx>-1) data.done.splice(idx,1);
-                        saveTasks(data);
-                        renderAll();
-                    }
-                }
-            },600);
-        });
-        //松开清除长按
-        plaque.addEventListener("mouseup",()=>clearTimeout(longPressTimer));
-        plaque.addEventListener("mouseleave",()=>clearTimeout(longPressTimer));
-
+        //木牌本体点击
         plaque.addEventListener("click",function(){
-            if (skipClick) return; //长按触发过，直接阻止click逻辑
-            clearTimeout(longPressTimer);
             let data = loadTasks();
             if(!isDone){
-                //待办点击 →移入已完成
                 const idx = data.active.indexOf(text);
                 if(idx>-1) data.active.splice(idx,1);
                 data.done.push(text);
             }else{
-                //已完成点击 →恢复到督办
                 const idx = data.done.indexOf(text);
                 if(idx>-1) data.done.splice(idx,1);
                 data.active.push(text);
@@ -372,6 +371,19 @@
             saveTasks(data);
             renderAll();
         });
+
+        //删除按钮点击，阻止冒泡，不会触发木牌本体click
+        delBtn.addEventListener("click",function(e){
+            e.stopPropagation();
+            if(confirm(`确定要永久删除【${text}】吗？此操作不可恢复！`)){
+                let data = loadTasks();
+                const idx = data.done.indexOf(text);
+                if(idx>-1) data.done.splice(idx,1);
+                saveTasks(data);
+                renderAll();
+            }
+        });
+
         return plaque;
     }
 
