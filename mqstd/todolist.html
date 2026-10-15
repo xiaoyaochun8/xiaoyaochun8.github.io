@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>酒楼任务挂牌</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: "KaiTi", "STKaiti", "楷体", serif;
+        background:
+            radial-gradient(circle at top, rgba(255, 220, 150, 0.25), transparent 60%),
+            linear-gradient(180deg, #3a2418 0%, #5b3a22 45%, #8b5a2b 100%);
+        min-height: 100vh;
+        padding: 20px;
+        color: #f4e4c1;
+    }
+
+    .container {
+        max-width: 720px;
+        margin: 0 auto;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 34px;
+        letter-spacing: 6px;
+        color: #ffe29a;
+        text-shadow:
+            0 0 8px rgba(0, 0, 0, 0.8),
+            2px 2px 0 #2a1608;
+        margin-bottom: 8px;
+    }
+
+    .subtitle {
+        text-align: center;
+        font-size: 16px;
+        color: #e8c878;
+        margin-bottom: 24px;
+        letter-spacing: 3px;
+    }
+
+    .input-panel {
+        display: flex;
+        gap: 10px;
+        background: rgba(0, 0, 0, 0.35);
+        border: 2px solid #8b6f47;
+        border-radius: 14px;
+        padding: 14px;
+        margin-bottom: 28px;
+        box-shadow:
+            inset 0 0 20px rgba(0, 0, 0, 0.6),
+            0 6px 18px rgba(0, 0, 0, 0.45);
+    }
+
+    .input-panel input {
+        flex: 1;
+        padding: 12px 16px;
+        border: 2px solid #a07848;
+        border-radius: 10px;
+        background: #fdf6e3;
+        color: #3a2418;
+        font-size: 18px;
+        font-family: "KaiTi", "STKaiti", "楷体", serif;
+        outline: none;
+    }
+
+    .input-panel input:focus {
+        border-color: #d4a24c;
+        box-shadow: 0 0 0 3px rgba(212, 162, 76, 0.25);
+    }
+
+    .input-panel button {
+        padding: 12px 22px;
+        border: 2px solid #d4a24c;
+        border-radius: 10px;
+        background: linear-gradient(180deg, #c0392b, #7a1f14);
+        color: #fff7d6;
+        font-size: 18px;
+        font-family: "KaiTi", "STKaiti", "楷体", serif;
+        letter-spacing: 2px;
+        cursor: pointer;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    .input-panel button:hover {
+        background: linear-gradient(180deg, #d94a3b, #8f2a1c);
+    }
+
+    .board {
+        background:
+            repeating-linear-gradient(
+                90deg,
+                rgba(120, 72, 30, 0.35) 0px,
+                rgba(120, 72, 30, 0.35) 2px,
+                transparent 2px,
+                transparent 14px
+            ),
+            linear-gradient(180deg, #6b4423, #4a2c16);
+        border: 4px solid #3a2418;
+        border-radius: 18px;
+        padding: 20px;
+        min-height: 420px;
+        position: relative;
+        box-shadow:
+            inset 0 0 30px rgba(0, 0, 0, 0.55),
+            0 10px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .board::before {
+        content: "";
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        height: 6px;
+        background: linear-gradient(90deg, #d4a24c, #f4d57a, #d4a24c);
+        border-radius: 3px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    }
+
+    .board-title {
+        text-align: center;
+        font-size: 26px;
+        color: #ffe29a;
+        letter-spacing: 5px;
+        margin: 18px 0 16px;
+        text-shadow:
+            2px 2px 0 #2a1608,
+            0 0 10px rgba(255, 200, 100, 0.4);
+        border-bottom: 2px dashed #a07848;
+        padding-bottom: 10px;
+    }
+
+    .plaque-area {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        justify-content: center;
+        align-content: flex-start;
+        min-height: 340px;
+        padding-top: 8px;
+    }
+
+    .plaque {
+        width: 110px;
+        height: 130px;
+        background: linear-gradient(180deg, #d94a3b, #7a1f14);
+        border: 3px solid #2a0a06;
+        border-radius: 10px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow:
+            inset 0 0 12px rgba(0, 0, 0, 0.45),
+            0 6px 12px rgba(0, 0, 0, 0.45);
+        transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+    }
+
+    .plaque::before {
+        content: "";
+        position: absolute;
+        top: -14px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 22px;
+        height: 22px;
+        background: radial-gradient(circle at 30% 30%, #ffe29a, #b8842a);
+        border: 2px solid #3a2418;
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .plaque::after {
+        content: "";
+        position: absolute;
+        top: -28px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 2px;
+        height: 16px;
+        background: #3a2418;
+    }
+
+    .plaque:hover {
+        transform: translateY(-6px) rotate(-1deg);
+        box-shadow:
+            inset 0 0 12px rgba(0, 0, 0, 0.45),
+            0 12px 20px rgba(0, 0, 0, 0.55);
+    }
+
+    .plaque-text {
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+        font-size: 22px;
+        color: #fff4d6;
+        font-weight: bold;
+        letter-spacing: 4px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    }
+
+    .tip {
+        text-align: center;
+        margin-top: 14px;
+        font-size: 14px;
+        color: #e8c878;
+        letter-spacing: 2px;
+    }
+
+    .empty {
+        width: 100%;
+        text-align: center;
+        color: #c9a96a;
+        font-size: 15px;
+        margin-top: 40px;
+        letter-spacing: 2px;
+    }
+
+    @media (max-width: 720px) {
+        h1 {
+            font-size: 28px;
+        }
+
+        .plaque {
+            width: 100px;
+            height: 120px;
+        }
+
+        .plaque-text {
+            font-size: 20px;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>每日任务挂牌</h1>
+    <div class="subtitle">— 酒楼任务牌 · 点击摘牌 —</div>
+
+    <div class="input-panel">
+        <input id="taskInput" type="text" placeholder="输入任务，最多10个字" maxlength="10" />
+        <button id="addBtn">挂上牌子</button>
+    </div>
+
+    <div class="board">
+        <div class="board-title">挂牌督办</div>
+        <div class="plaque-area" id="urgentList"></div>
+        <div class="tip">点击木牌即可摘牌</div>
+    </div>
+</div>
+
+<script>
+    const taskInput = document.getElementById("taskInput");
+    const addBtn = document.getElementById("addBtn");
+    const urgentList = document.getElementById("urgentList");
+    const STORAGE_KEY = "plaque_tasks";
+
+    // 读取本地存储
+    function loadTasks() {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+    }
+
+    // 保存到本地存储
+    function saveTasks(tasks) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+    }
+
+    // 渲染全部牌子
+    function renderAll() {
+        urgentList.innerHTML = "";
+        const tasks = loadTasks();
+        tasks.forEach(text => {
+            urgentList.appendChild(createPlaque(text));
+        });
+        updateEmptyTip();
+    }
+
+    function createPlaque(text) {
+        const plaque = document.createElement("div");
+        plaque.className = "plaque";
+
+        const textDiv = document.createElement("div");
+        textDiv.className = "plaque-text";
+        textDiv.innerText = text;
+        plaque.appendChild(textDiv);
+
+        plaque.addEventListener("click", function () {
+            plaque.style.transform = "scale(0.6) rotate(8deg)";
+            plaque.style.opacity = "0";
+            setTimeout(() => {
+                // 删除内存数据并持久化
+                let list = loadTasks();
+                const idx = list.indexOf(text);
+                if(idx > -1) list.splice(idx,1);
+                saveTasks(list);
+                renderAll();
+            }, 260);
+        });
+        return plaque;
+    }
+
+    function addTask() {
+        const val = taskInput.value.trim();
+
+        if (!val) {
+            alert("请输入任务内容");
+            return;
+        }
+        if (val.length > 10) {
+            alert("任务不能超过10个字");
+            return;
+        }
+
+        let list = loadTasks();
+        list.push(val);
+        saveTasks(list);
+        renderAll();
+        taskInput.value = "";
+    }
+
+    function updateEmptyTip() {
+        const oldTip = urgentList.querySelector(".empty");
+        if (oldTip) oldTip.remove();
+
+        if (urgentList.children.length === 0) {
+            const tip = document.createElement("div");
+            tip.className = "empty";
+            tip.innerText = "此处暂无任务";
+            urgentList.appendChild(tip);
+        }
+    }
+
+    addBtn.addEventListener("click", addTask);
+    taskInput.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") addTask();
+    });
+
+    // 页面加载恢复牌子
+    renderAll();
+</script>
+
+</body>
+</html>
