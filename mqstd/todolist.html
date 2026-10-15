@@ -200,11 +200,20 @@
     .plaque-text {
         writing-mode: vertical-rl;
         text-orientation: upright;
-        font-size: 22px;
+        font-size: 20px;
         color: #fff4d6;
         font-weight: bold;
-        letter-spacing: 4px;
+        letter-spacing: 2px;
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+
+        /* 关键：往下移动，避开顶部挂孔 */
+        margin-top: 22px;
+        padding: 0 6px;
+
+        /* 防止文字溢出牌子 */
+        max-height: 90px;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .tip {
