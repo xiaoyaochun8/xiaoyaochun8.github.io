@@ -106,11 +106,12 @@
         border: 4px solid #3a2418;
         border-radius: 18px;
         padding: 20px;
-        min-height: 420px;
+        min-height: 320px;
         position: relative;
         box-shadow:
             inset 0 0 30px rgba(0, 0, 0, 0.55),
             0 10px 24px rgba(0, 0, 0, 0.5);
+        margin-bottom:24px;
     }
 
     .board::before {
@@ -144,7 +145,7 @@
         gap: 16px;
         justify-content: center;
         align-content: flex-start;
-        min-height: 340px;
+        min-height: 240px;
         padding-top: 8px;
     }
 
@@ -156,13 +157,18 @@
         border-radius: 10px;
         position: relative;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
         cursor: pointer;
         box-shadow:
             inset 0 0 12px rgba(0, 0, 0, 0.45),
             0 6px 12px rgba(0, 0, 0, 0.45);
         transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+    }
+    /*已完成灰化木牌*/
+    .plaque.done{
+        background: linear-gradient(180deg,#777,#444);
+        border-color:#222;
     }
 
     .plaque::before {
@@ -177,6 +183,9 @@
         border: 2px solid #3a2418;
         border-radius: 50%;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    .plaque.done::before{
+        background: radial-gradient(circle at 30% 30%,#aaa,#666);
     }
 
     .plaque::after {
@@ -205,15 +214,14 @@
         font-weight: bold;
         letter-spacing: 2px;
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-
-        /* 关键：往下移动，避开顶部挂孔 */
-        margin-top: 22px;
-        padding: 0 6px;
-
-        /* 防止文字溢出牌子 */
-        max-height: 90px;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        margin-top:22px;
+        padding:0 6px;
+        max-height:90px;
+        overflow:hidden;
+        text-overflow:ellipsis;
+    }
+    .plaque.done .plaque-text{
+        color:#cccccc;
     }
 
     .tip {
@@ -222,6 +230,10 @@
         font-size: 14px;
         color: #e8c878;
         letter-spacing: 2px;
+    }
+    .tip-small{
+        font-size:13px;
+        color:#b8a070;
     }
 
     .empty {
@@ -237,14 +249,12 @@
         h1 {
             font-size: 28px;
         }
-
         .plaque {
             width: 100px;
             height: 120px;
         }
-
         .plaque-text {
-            font-size: 20px;
+            font-size: 18px;
         }
     }
 </style>
@@ -256,14 +266,22 @@
     <div class="subtitle">— 酒楼任务牌 · 点击摘牌 —</div>
 
     <div class="input-panel">
-        <input id="taskInput" type="text" placeholder="输入任务，最多10个字" maxlength="10" />
-        <button id="addBtn">挂上<br>牌子</button>
+        <input id="taskInput" type="text" placeholder="输入任务，最多8个字" maxlength="8" />
+        <button id="addBtn">挂上牌子</button>
     </div>
 
+    <!-- 挂牌督办区域 -->
     <div class="board">
         <div class="board-title">挂牌督办</div>
         <div class="plaque-area" id="urgentList"></div>
-        <div class="tip">点击木牌即可摘牌</div>
+        <div class="tip">点击木牌摘至已完成区</div>
+    </div>
+
+    <!-- 已完成区域 -->
+    <div class="board">
+        <div class="board-title">已完成</div>
+        <div class="plaque-area" id="doneList"></div>
+        <div class="tip tip-small">点击恢复回督办｜长按彻底删除</div>
     </div>
 </div>
 
@@ -271,82 +289,120 @@
     const taskInput = document.getElementById("taskInput");
     const addBtn = document.getElementById("addBtn");
     const urgentList = document.getElementById("urgentList");
-    const STORAGE_KEY = "plaque_tasks";
+    const doneList = document.getElementById("doneList");
+    const STORAGE_KEY = "plaque_tasks_v2";
 
-    // 读取本地存储
+    //加载：active待办，done已完成
     function loadTasks() {
         const raw = localStorage.getItem(STORAGE_KEY);
-        return raw ? JSON.parse(raw) : [];
+        if(raw){
+            return JSON.parse(raw);
+        }
+        return {active:[], done:[]};
     }
 
-    // 保存到本地存储
-    function saveTasks(tasks) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+    function saveTasks(data) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     }
 
-    // 渲染全部牌子
-    function renderAll() {
-        urgentList.innerHTML = "";
-        const tasks = loadTasks();
-        tasks.forEach(text => {
-            urgentList.appendChild(createPlaque(text));
+    //渲染全部
+    function renderAll(){
+        urgentList.innerHTML="";
+        doneList.innerHTML="";
+        const data = loadTasks();
+        data.active.forEach(text=>{
+            urgentList.appendChild(createPlaque(text,false));
+        });
+        data.done.forEach(text=>{
+            doneList.appendChild(createPlaque(text,true));
         });
         updateEmptyTip();
     }
 
-    function createPlaque(text) {
+    //isDone true=已完成灰牌子
+    function createPlaque(text, isDone) {
         const plaque = document.createElement("div");
-        plaque.className = "plaque";
+        plaque.className = "plaque" + (isDone?" done":"");
+        plaque.dataset.text = text;
 
         const textDiv = document.createElement("div");
         textDiv.className = "plaque-text";
         textDiv.innerText = text;
         plaque.appendChild(textDiv);
 
-        plaque.addEventListener("click", function () {
-            plaque.style.transform = "scale(0.6) rotate(8deg)";
-            plaque.style.opacity = "0";
-            setTimeout(() => {
-                // 删除内存数据并持久化
-                let list = loadTasks();
-                const idx = list.indexOf(text);
-                if(idx > -1) list.splice(idx,1);
-                saveTasks(list);
-                renderAll();
-            }, 260);
+        let longPressTimer=null;
+        let skipClick = false; // 标记：长按触发后，跳过click事件
+
+        //鼠标按下启动长按
+        plaque.addEventListener("mousedown",()=>{
+            skipClick = false;
+            longPressTimer = setTimeout(()=>{
+                //长按：彻底删除，增加确认弹窗
+                if(isDone){
+                    skipClick = true; //禁止后续click
+                    if(confirm(`确定要永久删除【${text}】吗？此操作不可恢复！`)){
+                        let data = loadTasks();
+                        const idx = data.done.indexOf(text);
+                        if(idx>-1) data.done.splice(idx,1);
+                        saveTasks(data);
+                        renderAll();
+                    }
+                }
+            },600);
+        });
+        //松开清除长按
+        plaque.addEventListener("mouseup",()=>clearTimeout(longPressTimer));
+        plaque.addEventListener("mouseleave",()=>clearTimeout(longPressTimer));
+
+        plaque.addEventListener("click",function(){
+            if (skipClick) return; //长按触发过，直接阻止click逻辑
+            clearTimeout(longPressTimer);
+            let data = loadTasks();
+            if(!isDone){
+                //待办点击 →移入已完成
+                const idx = data.active.indexOf(text);
+                if(idx>-1) data.active.splice(idx,1);
+                data.done.push(text);
+            }else{
+                //已完成点击 →恢复到督办
+                const idx = data.done.indexOf(text);
+                if(idx>-1) data.done.splice(idx,1);
+                data.active.push(text);
+            }
+            saveTasks(data);
+            renderAll();
         });
         return plaque;
     }
 
     function addTask() {
         const val = taskInput.value.trim();
-
         if (!val) {
             alert("请输入任务内容");
             return;
         }
-        if (val.length > 10) {
-            alert("任务不能超过10个字");
+        if (val.length > 8) {
+            alert("任务不能超过8个字");
             return;
         }
-
-        let list = loadTasks();
-        list.push(val);
-        saveTasks(list);
+        let data = loadTasks();
+        data.active.push(val);
+        saveTasks(data);
         renderAll();
         taskInput.value = "";
     }
 
     function updateEmptyTip() {
-        const oldTip = urgentList.querySelector(".empty");
-        if (oldTip) oldTip.remove();
-
-        if (urgentList.children.length === 0) {
-            const tip = document.createElement("div");
-            tip.className = "empty";
-            tip.innerText = "此处暂无任务";
-            urgentList.appendChild(tip);
-        }
+        [urgentList,doneList].forEach(list=>{
+            const oldTip = list.querySelector(".empty");
+            if(oldTip) oldTip.remove();
+            if(list.children.length===0){
+                const tip = document.createElement("div");
+                tip.className="empty";
+                tip.innerText="此处暂无任务";
+                list.appendChild(tip);
+            }
+        })
     }
 
     addBtn.addEventListener("click", addTask);
@@ -354,7 +410,6 @@
         if (e.key === "Enter") addTask();
     });
 
-    // 页面加载恢复牌子
     renderAll();
 </script>
 
