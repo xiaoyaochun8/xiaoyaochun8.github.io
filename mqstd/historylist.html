@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国历史朝代一览</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "SimSun", "STSong", serif;
+            background-color: #2c241c;
+            color: #e8d9c3;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2344382b' fill-opacity='0.3'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            padding: 30px 20px;
+            line-height: 1.7;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.4rem;
+            color: #d4b886;
+            margin-bottom: 40px;
+            letter-spacing: 6px;
+            text-shadow: 2px 2px 4px #000;
+        }
+        .dynasties-list {
+            display: grid;
+            gap:14px;
+        }
+        .dyn-item {
+            background-color: #3b3024;
+            border:1px solid #63523e;
+            padding:18px 22px;
+            border-radius:6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .dyn-item:hover {
+            background-color:#4c3e2f;
+            border-color:#b89763;
+            transform: translateX(4px);
+        }
+        .dyn-header {
+            display:flex;
+            justify-content: space-between;
+            align-items:center;
+            margin-bottom:8px;
+        }
+        .dyn-name {
+            font-size:1.4rem;
+            color:#f0c888;
+            font-weight:bold;
+        }
+        .dyn-time {
+            color:#c9b394;
+            font-size:0.95rem;
+        }
+        .dyn-brief {
+            font-size:0.92rem;
+            color:#d8c7b0;
+        }
+
+        /* 弹窗遮罩 */
+        .modal-mask {
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background-color:rgba(0,0,0,0.75);
+            display:none;
+            align-items:center;
+            justify-content:center;
+            z-index:999;
+            padding:20px;
+        }
+        .modal-box {
+            width:100%;
+            max-width:720px;
+            max-height:85vh;
+            overflow-y:auto;
+            background-color:#342b20;
+            border:2px solid #94784e;
+            border-radius:8px;
+            padding:28px;
+            color:#efe2cd;
+        }
+        .modal-box h2 {
+            color:#f2cc8f;
+            margin-bottom:16px;
+            padding-bottom:10px;
+            border-bottom:1px solid #6b5842;
+        }
+        .close-btn {
+            float:right;
+            background:#614f3a;
+            color:#fff;
+            border:none;
+            padding:6px 14px;
+            border-radius:4px;
+            cursor:pointer;
+            font-family: serif;
+        }
+        .close-btn:hover {
+            background:#846b4c;
+        }
+        .detail-block {
+            margin:14px 0;
+        }
+        .detail-block h4 {
+            color:#e6bc77;
+            margin:8px 0 4px;
+        }
+        /* 滚动条美化 */
+        .modal-box::-webkit-scrollbar {
+            width:6px;
+        }
+        .modal-box::-webkit-scrollbar-thumb {
+            background:#705c43;
+            border-radius:3px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>华夏历代王朝</h1>
+    <div class="dynasties-list" id="listWrap"></div>
+</div>
+
+<!--弹窗-->
+<div class="modal-mask" id="modalMask">
+    <div class="modal-box">
+        <button class="close-btn" id="closeBtn">关闭</button>
+        <div id="modalContent"></div>
+    </div>
+</div>
+
+<script>
+const dynastyData = [
+    {
+        name:"三皇五帝·尧舜禹",
+        time:"约前10000—约前2070",
+        duration:"约8000年（上古传说时代）",
+        hero:"燧人氏、伏羲、神农；黄帝、颛顼、帝喾、尧、舜、大禹",
+        novel:"《上古神话传说》、《山海经》",
+        event:"燧人取火、伏羲画八卦、神农尝百草、黄帝涿鹿之战、尧舜禅让、大禹治水",
+        detail:"属于上古部落联盟时代，多出自古籍传说。三皇开创文明根基，五帝为华夏部落共主。尧传舜、舜传禹，实行禅让制，大禹建立夏朝，终结部落联盟时代。炎黄被奉为华夏人文始祖。"
+    },
+    {
+        name:"夏朝",
+        time:"约前2070—约前1600",
+        duration:"约470年",
+        hero:"大禹、启、桀",
+        novel:"《大禹治水》相关传说",
+        event:"大禹治水、启建夏朝、太康失国、夏桀暴政",
+        detail:"夏朝史载为华夏第一个世袭制王朝，大禹平定洪水，传位于儿子启，结束禅让制。末代君主桀残暴无道，最终被商汤所灭。多来源于上古文献与考古二里头文化。"
+    },
+    {
+        name:"商朝",
+        time:"约前1600—前1046",
+        duration:"约554年",
+        hero:"商汤、盘庚、武丁、纣王、姜子牙",
+        novel:"《封神演义》（封神榜）",
+        event:"商汤灭夏、盘庚迁殷、武丁中兴、牧野之战",
+        detail:"商朝成熟使用甲骨文，青铜文明鼎盛。盘庚迁都殷，后世也称殷商。《封神演义》（封神榜）以商末周初为背景，姜子牙辅佐周武王伐纣，纣王暴虐，周武王会盟诸侯于牧野，商朝覆灭。"
+    },
+    {
+        name:"西周",
+        time:"前1046—前771",
+        duration:"275年",
+        hero:"周武王、周公旦、周幽王",
+        novel:"《东周列国志》（前传）",
+        event:"武王伐纣、周公制礼作乐、分封诸侯、烽火戏诸侯",
+        detail:"周朝前期，定都镐京。确立礼乐制度与分封制。烽火戏诸侯后犬戎攻破镐京，西周灭亡，平王东迁开启东周时代。"
+    },
+    {
+        name:"东周‑春秋",
+        time:"前770—前476",
+        duration:"294年",
+        hero:"齐桓公、晋文公、楚庄王、孔子、老子",
+        novel:"《东周列国志》",
+        event:"平王东迁、春秋五霸、诸侯会盟、百家思想萌芽",
+        detail:"东周前半段为春秋时代。周天子权威衰落，大国争霸。孔子、老子等思想家诞生，礼乐逐步崩坏。"
+    },
+    {
+        name:"东周‑战国",
+        time:"前475—前221",
+        duration:"254年",
+        hero:"秦孝公、孙膑、廉颇、屈原",
+        novel:"《东周列国志》",
+        event:"三家分晋、战国七雄、变法浪潮、合纵连横、秦灭六国",
+        detail:"东周后半段战国时代，战争愈发惨烈。各国掀起变法运动，百家争鸣达到顶峰，最终秦国完成大一统。"
+    },
+    {
+        name:"秦朝",
+        time:"前221—前207",
+        duration:"14年",
+        hero:"秦始皇、李斯、蒙恬、项羽",
+        novel:"《秦帝》等历史小说",
+        event:"统一六国、书同文车同轨、修筑长城、沙丘之变、陈胜吴广起义",
+        detail:"中国第一个大一统中央集权帝国。废分封设郡县。严刑重役，二世而亡。楚汉争霸序幕由此拉开。"
+    },
+    {
+        name:"西汉",
+        time:"前202—公元8",
+        duration:"210年",
+        hero:"刘邦、韩信、卫青、霍去病、汉武帝",
+        novel:"《史记》相关故事",
+        event:"楚汉争霸、文景之治、汉武盛世、张骞出使西域",
+        detail:"汉朝前期，定都长安。国力强盛，开辟丝绸之路。罢黜百家独尊儒术。后王莽篡汉，西汉终结。"
+    },
+    {
+        name:"东汉",
+        time:"25—220",
+        duration:"195年",
+        hero:"刘秀、班超、曹操、刘备",
+        novel:"《三国演义》",
+        event:"光武中兴、明章之治、党锢之祸、黄巾起义",
+        detail:"刘秀光复汉室，定都洛阳。中后期外戚宦官交替专权。黄巾起义后天下大乱，进入三国‑魏蜀吴时代。"
+    },
+    {
+        name:"三国‑魏蜀吴",
+        time:"220—280",
+        duration:"60年",
+        hero:"曹操、刘备、关羽、张飞、诸葛亮",
+        novel:"《三国演义》",
+        event:"赤壁之战、夷陵之战、三分天下、司马篡魏",
+        detail:"魏、蜀、吴三足鼎立。《三国演义》使这一段历史家喻户晓。人才辈出，权谋与战争交织，三国纷争数十年，最终归于晋朝。"
+    },
+    {
+        name:"西晋",
+        time:"266—316",
+        duration:"50年",
+        hero:"司马炎、司马衷",
+        novel:"《六朝志怪》",
+        event:"三国归晋、太康之治、八王之乱、永嘉之乱",
+        detail:"短暂完成全国统一。后期皇室内乱八王之乱，北方少数民族南下，永嘉之乱后西晋灭亡。"
+    },
+    {
+        name:"东晋",
+        time:"317—420",
+        duration:"103年",
+        hero:"祖逖、谢安、王羲之",
+        novel:"《六朝志怪》",
+        event:"衣冠南渡、祖逖北伐、淝水之战",
+        detail:"晋室南迁，定都建康。北方陷入五胡十六国混战。淝水之战以少胜多大败前秦，之后政权更迭进入南北朝。"
+    },
+    {
+        name:"南北朝",
+        time:"420—589",
+        duration:"169年",
+        hero:"刘裕、拓跋宏、陈霸先",
+        novel:"无知名通俗小说",
+        event:"孝文帝汉化改革、南北对峙、佛教兴盛",
+        detail:"南北政权分裂。北方少数民族汉化，民族大融合。佛教大规模发展。最终由隋朝完成全国统一。"
+    },
+    {
+        name:"隋朝",
+        time:"581—618",
+        duration:"37年",
+        hero:"隋文帝杨坚、隋炀帝杨广",
+        novel:"《隋唐演义》",
+        event:"统一全国、开创科举、开凿大运河、隋末农民起义",
+        detail:"结束数百年分裂。创立科举制度，修建大运河。滥用民力，天下大乱，很快被唐朝取代。"
+    },
+    {
+        name:"唐朝",
+        time:"618—907",
+        duration:"289年",
+        hero:"李世民、李靖、武则天、郭子仪",
+        novel:"《隋唐演义》",
+        event:"贞观之治、开元盛世、安史之乱、黄巢起义",
+        detail:"古代鼎盛王朝，开放包容，诗歌文化巅峰。安史之乱后由盛转衰。藩镇割据，唐末覆灭进入五代十国。"
+    },
+    {
+        name:"五代十国",
+        time:"907—979",
+        duration:"72年",
+        hero:"朱温、李存勖、柴荣",
+        novel:"《残唐五代史演义》",
+        event:"唐朝灭亡、中原五朝更迭、南方诸国并立、后周北伐",
+        detail:"唐末大分裂时期。中原先后更迭后梁、后唐、后晋、后汉、后周，南方并存十余个割据政权。后周大将赵匡胤发动陈桥兵变建立宋朝，逐步结束乱世。"
+    },
+    {
+        name:"宋朝",
+        time:"960—1279",
+        duration:"319年",
+        hero:"赵匡胤、岳飞、文天祥、包拯、宋江",
+        novel:"《说岳全传》、《水浒传》",
+        event:"陈桥兵变、澶渊之盟、靖康之耻、梁山起义、崖山海战",
+        detail:"北宋南宋两阶段。经济文化科技高度繁荣，重文抑武。对外军事偏弱。《水浒传》以北宋末年宋江起义为原型。靖康之变北宋灭亡，南宋亡于蒙元。"
+    },
+    {
+        name:"元朝",
+        time:"1271—1368",
+        duration:"97年",
+        hero:"成吉思汗、忽必烈",
+        novel:"部分《元杂剧》",
+        event:"大一统、四等人制、红巾军起义",
+        detail:"蒙古族建立大一统王朝，疆域辽阔。民族矛盾尖锐。元末农民大起义，朱元璋崛起推翻元朝。"
+    },
+    {
+        name:"明朝",
+        time:"1368—1644",
+        duration:"276年",
+        hero:"朱元璋、郑和、戚继光、袁崇焕",
+        novel:"《明朝那些事儿》（通俗）、《西游记》",
+        event:"洪武之治、郑和下西洋、土木堡之变、抗倭、李自成进京",
+        detail:"汉人最后一个封建大一统王朝。强化皇权，七下西洋。后期内忧外患，李自成攻破北京，崇祯自缢。"
+    },
+    {
+        name:"清朝",
+        time:"1636—1912",
+        duration:"276年",
+        hero:"努尔哈赤、康熙、左宗棠",
+        novel:"《红楼梦》",
+        event:"入关定中原、康乾盛世、鸦片战争、太平天国、辛亥革命",
+        detail:"中国最后一个封建王朝。前期疆域巩固，后期闭关锁国遭遇列强入侵。辛亥革命推翻帝制，两千多年封建时代终结。"
+    },
+    {
+        name:"中华民国",
+        time:"1912—1949",
+        duration:"37年",
+        hero:"孙中山",
+        novel:"民国题材小说",
+        event:"辛亥革命、北伐战争、抗日战争、解放战争",
+        detail:"推翻封建帝制之后建立的共和政权。历经军阀混战、抗日战争，解放战争之后，国民党政权败退台湾。"
+    },
+    {
+        name:"中华人民共和国",
+        time:"1949—至今",
+        duration:"持续至今",
+        hero:"毛泽东、周恩来、邓小平",
+        novel:"当代文学",
+        event:"开国大典、抗美援朝、改革开放、新时代建设",
+        detail:"1949年10月1日开国大典，新中国成立。实现民族独立，开展社会主义建设与改革开放，中华民族走向伟大复兴。"
+    }
+];
+
+const listWrap = document.getElementById('listWrap');
+const modalMask = document.getElementById('modalMask');
+const modalContent = document.getElementById('modalContent');
+const closeBtn = document.getElementById('closeBtn');
+
+// 渲染列表
+dynastyData.forEach((item,idx)=>{
+    const div = document.createElement('div');
+    div.className = 'dyn-item';
+    div.dataset.index = idx;
+    div.innerHTML = `
+        <div class="dyn-header">
+            <span class="dyn-name">${item.name}</span>
+            <span class="dyn-time">${item.time}｜${item.duration}</span>
+        </div>
+        <div class="dyn-brief">人物：${item.hero}｜小说作品：${item.novel}｜重大事件：${item.event}</div>
+    `;
+    div.addEventListener('click',()=>{
+        openModal(item);
+    })
+    listWrap.appendChild(div);
+})
+
+// 打开弹窗
+function openModal(d){
+    modalContent.innerHTML = `
+        <h2>${d.name} 详细资料</h2>
+        <div class="detail-block">
+            <h4>📅 起止时间</h4>
+            <p>${d.time}，共计${d.duration}</p>
+        </div>
+        <div class="detail-block">
+            <h4>⚔️ 代表人物 / 英雄</h4>
+            <p>${d.hero}</p>
+        </div>
+        <div class="detail-block">
+            <h4>📖 相关小说文艺作品</h4>
+            <p>${d.novel}</p>
+        </div>
+        <div class="detail-block">
+            <h4>🔥 关键历史事件</h4>
+            <p>${d.event}</p>
+        </div>
+        <div class="detail-block">
+            <h4>📜 简要介绍</h4>
+            <p>${d.detail}</p>
+        </div>
+    `;
+    modalMask.style.display = 'flex';
+}
+
+// 关闭弹窗
+closeBtn.addEventListener('click',()=>{
+    modalMask.style.display = 'none';
+})
+modalMask.addEventListener('click',(e)=>{
+    if(e.target === modalMask){
+        modalMask.style.display = 'none';
+    }
+})
+</script>
+</body>
+</html>
