@@ -359,7 +359,7 @@ dynastyData.forEach((item,idx)=>{
             <span class="dyn-name">${item.name}</span>
             <span class="dyn-time">${item.time}｜${item.duration}</span>
         </div>
-        <div class="dyn-brief">人物：${item.hero}｜小说作品：${item.novel}｜重大事件：${item.event}</div>
+        <div class="dyn-brief">人物：${item.hero}｜小说作品：${item.novel}<!--｜重大事件：${item.event}--></div>
     `;
     div.addEventListener('click',()=>{
         openModal(item);
