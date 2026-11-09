@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>晚睡警示进度条（手动/自动切换）</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,sans-serif}
+body{
+  min-height:100vh;
+  background:#111;
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+}
+.box{
+  width:100%;
+  max-width:520px;
+}
+.time-info{
+  text-align:center;
+  margin-bottom:16px;
+}
+.now{
+  font-size:24px;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+.tip{
+  font-size:18px;
+  min-height:26px;
+}
+.bar-wrap{
+  width:100%;
+  height:36px;
+  background:#222;
+  border-radius:18px;
+  overflow:hidden;
+  position:relative;
+  cursor:pointer;
+}
+.bar{
+  height:100%;
+  width:0%;
+  transition:width 0.2s ease, background 0.2s ease;
+}
+.mark{
+  position:absolute;
+  top:42px;
+  font-size:12px;
+  color:#aaa;
+  transform:translateX(-50%);
+}
+.desc{
+  margin-top:40px;
+  text-align:center;
+  color:#bbb;
+  font-size:14px;
+  line-height:1.6;
+}
+.btn-wrap{
+  margin-top:24px;
+  text-align:center;
+}
+#modeBtn{
+  padding:10px 20px;
+  font-size:16px;
+  border:none;
+  border-radius:12px;
+  background:#333;
+  color:#fff;
+  cursor:pointer;
+}
+#modeBtn:hover{
+  background:#444;
+}
+</style>
+</head>
+<body>
+<div class="box">
+  <div class="time-info">
+    <div class="now" id="showTime">--:--</div>
+    <div class="tip" id="warnTip"></div>
+  </div>
+  <div class="bar-wrap" id="barWrap">
+    <div class="bar" id="progressBar"></div>
+    <div class="mark" style="left:0%">21:00</div>
+    <div class="mark" style="left:16.66%">22:00</div>
+    <div class="mark" style="left:33.33%">23:00</div>
+    <div class="mark" style="left:50%">00:00</div>
+    <div class="mark" style="left:66.66%">01:00</div>
+    <div class="mark" style="left:83.33%">02:00</div>
+    <div class="mark" style="left:100%">03:00</div>
+  </div>
+  <div class="btn-wrap">
+    <button id="modeBtn">切换为手动模式</button>
+  </div>
+  <div class="desc">
+    区间：21:00 ~ 次日 03:00<br>
+    自动：跟随系统时间｜手动：点击拖动进度条
+  </div>
+</div>
+
+<script>
+const TOTAL_SEC = 6 * 3600;
+const stages = [
+  [0, '#42b983', '✅ 准备休息，尽量23点前入睡'],
+  [3600, '#ffc107', '⚠️ 已经22点，该放下手机了'],
+  [7200, '#ff9800', '⚠️ 23点，肝脏休整时间，别再熬'],
+  [10800, '#ff5722', '🔴 凌晨0点，深度睡眠黄金期错过了'],
+  [14400, '#e53935', '🔴 凌晨1点，熬夜伤害明显加重'],
+  [18000, '#b71c1c', '🆘 凌晨2点，严重透支身体'],
+  [21600, '#7f0000', '💀 凌晨3点，高危熬夜，尽快睡觉！']
+];
+
+const barWrap = document.getElementById('barWrap');
+const progressBar = document.getElementById('progressBar');
+const showTimeEl = document.getElementById('showTime');
+const warnTipEl = document.getElementById('warnTip');
+const modeBtn = document.getElementById('modeBtn');
+
+let isAuto = true; // 默认自动模式
+let isDragging = false;
+let autoTimer = null;
+
+// 手动模式更新：根据百分比算时间
+function updateByPercent(pct){
+  pct = Math.max(0, Math.min(100, pct));
+  const offSec = pct / 100 * TOTAL_SEC;
+
+  let h = 21 + Math.floor(offSec / 3600);
+  let m = Math.floor((offSec % 3600) / 60);
+  if(h >= 24) h -= 24;
+  const timeStr = String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0');
+
+  let color = stages[0][1];
+  let text = stages[0][2];
+  for(let i=stages.length-1;i>=0;i--){
+    if(offSec >= stages[i][0]){
+      color = stages[i][1];
+      text = stages[i][2];
+      break;
+    }
+  }
+
+  progressBar.style.width = pct + '%';
+  progressBar.style.background = color;
+  showTimeEl.innerText = timeStr;
+  warnTipEl.innerText = text;
+}
+
+// 自动模式更新：读取真实系统时间
+function updateAutoNow() {
+  const now = new Date();
+  const h = now.getHours();
+  const m = now.getMinutes();
+  const curSec = h * 3600 + m * 60 + now.getSeconds();
+  const timeStr = String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0');
+
+  let offSec;
+  if (curSec < 21 * 3600) {
+    // 21点前：进度固定0%，显示真实当前时间
+    offSec = 0;
+  } else if (curSec <= 24 * 3600) {
+    offSec = curSec - 21 * 3600;
+  } else {
+    offSec = (24 * 3600 - 21 * 3600) + curSec;
+  }
+  offSec = Math.min(offSec, TOTAL_SEC);
+  const pct = offSec / TOTAL_SEC * 100;
+
+  let color = stages[0][1];
+  let text = stages[0][2];
+  for(let i=stages.length-1;i>=0;i--){
+    if(offSec >= stages[i][0]){
+      color = stages[i][1];
+      text = stages[i][2];
+      break;
+    }
+  }
+
+  progressBar.style.width = pct + '%';
+  progressBar.style.background = color;
+  showTimeEl.innerText = timeStr;
+  warnTipEl.innerText = text;
+}
+
+function getPercentFromEvent(e){
+  const rect = barWrap.getBoundingClientRect();
+  let clientX = e.touches ? e.touches[0].clientX : e.clientX;
+  let x = clientX - rect.left;
+  let pct = x / rect.width * 100;
+  return pct;
+}
+
+function switchMode(){
+  isAuto = !isAuto;
+  clearInterval(autoTimer);
+  if(isAuto){
+    modeBtn.innerText = '切换为手动模式';
+    barWrap.style.pointerEvents = 'none';
+    autoTimer = setInterval(updateAutoNow, 1000);
+    updateAutoNow();
+  }else{
+    modeBtn.innerText = '切换为自动模式';
+    barWrap.style.pointerEvents = 'auto';
+  }
+}
+
+// 拖动事件
+barWrap.addEventListener('mousedown', (e)=>{
+  if(isAuto) return;
+  isDragging = true;
+  updateByPercent(getPercentFromEvent(e));
+});
+window.addEventListener('mousemove', (e)=>{
+  if(isAuto || !isDragging) return;
+  updateByPercent(getPercentFromEvent(e));
+});
+window.addEventListener('mouseup', ()=> isDragging = false);
+
+barWrap.addEventListener('touchstart', (e)=>{
+  if(isAuto) return;
+  isDragging = true;
+  updateByPercent(getPercentFromEvent(e));
+});
+window.addEventListener('touchmove', (e)=>{
+  if(isAuto || !isDragging) return;
+  e.preventDefault();
+  updateByPercent(getPercentFromEvent(e));
+});
+window.addEventListener('touchend', ()=> isDragging = false);
+
+modeBtn.onclick = switchMode;
+
+// 页面加载默认开启自动
+autoTimer = setInterval(updateAutoNow, 1000);
+updateAutoNow();
+</script>
+</body>
+</html>
