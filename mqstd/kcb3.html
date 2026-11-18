@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>课程表</title>
+    <style>
+        body {
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        table {
+            width: 95%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+
+        th, td {
+            border: 1px solid #333;
+            text-align: center;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .section-title {
+            background-color: #e8f5e9;
+            font-weight: bold;
+            width: 50px;
+        }
+
+        .weekend-header {
+            background-color: #7e57c2 !important;
+        }
+
+        .weekend {
+            background-color: #ede7f6;
+        }
+
+        .night-header {
+            background-color: #455a64 !important;
+            color: white;
+        }
+
+        tr:nth-child(even) td:not(.weekend):not(.section-title):not(.night-header) {
+            background-color: #f9f9f9;
+        }
+
+        td:hover {
+            background-color: #e3f2fd;
+        }
+    </style>
+</head>
+<body>
+
+<h2>📅 我的课程表</h2>
+<table id="schedule-table"></table>
+
+<script>
+// ============ 🔧 在这里改配置就行 ============
+const scheduleConfig = {
+    weekdays: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+    periods: [
+        {
+            name: "上午",
+            lessons: [
+                { index: "第1节", courses: ["语文", "数学", "英语", "物理", "化学", "睡觉", "篮球"] },
+                { index: "第2节", courses: ["数学", "英语", "语文", "化学", "物理", "", "数学"] },
+                { index: "第3节", courses: ["英语", "物理", "数学", "语文", "生物", "", "编程"] },
+                { index: "第4节", courses: ["体育", "历史", "地理", "政治", "自习", "", ""] },
+            ]
+        },
+        {
+            name: "下午",
+            lessons: [
+                { index: "第5节", courses: ["生物", "语文", "", "数学", "英语", "英语", "户外"] },
+                { index: "第6节", courses: ["班会", "音乐", "", "自习", "体育", "", ""] },
+            ]
+        },
+        {
+            name: "晚上",
+            lessons: [
+                { index: "第7节", courses: ["", "", "围棋", "", "", "", ""] },
+            ]
+        }
+    ]
+};
+// =============================================
+
+// 渲染逻辑
+(function render() {
+    const table = document.getElementById("schedule-table");
+    let html = "<tr><th>时段</th><th>节次</th>";
+
+    scheduleConfig.weekdays.forEach((day, i) => {
+        if (i >= 5) {
+            html += `<th class="weekend-header">${day}</th>`;
+        } else {
+            html += `<th>${day}</th>`;
+        }
+    });
+    html += "</tr>";
+
+    scheduleConfig.periods.forEach((period, pi) => {
+        const rowCount = period.lessons.length;
+        period.lessons.forEach((lesson, idx) => {
+            html += "<tr>";
+            if (idx === 0) {
+                html += `<td class="section-title" rowspan="${rowCount}">${period.name}</td>`;
+            }
+            html += `<td>${lesson.index}</td>`;
+
+            lesson.courses.forEach((course, ci) => {
+                if (ci >= 5) {
+                    html += `<td class="weekend">${course}</td>`;
+                } else {
+                    html += `<td>${course}</td>`;
+                }
+            });
+
+            html += "</tr>";
+        });
+    });
+
+    table.innerHTML = html;
+})();
+</script>
+
+</body>
+</html>
