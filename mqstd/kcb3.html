@@ -47,12 +47,14 @@
             background-color: #ede7f6;
         }
 
-        .night-header {
-            background-color: #455a64 !important;
-            color: white;
+        .rest-row td {
+            background-color: #fff9c4 !important;
+            font-weight: bold;
+            color: #f57f17;
+            letter-spacing: 4px;
         }
 
-        tr:nth-child(even) td:not(.weekend):not(.section-title):not(.night-header) {
+        tr:nth-child(even) td:not(.weekend):not(.section-title):not(.rest-row) {
             background-color: #f9f9f9;
         }
 
@@ -74,23 +76,31 @@ const scheduleConfig = {
         {
             name: "上午",
             lessons: [
-                { index: "第1节", courses: ["语文", "数学", "英语", "物理", "化学", "睡觉", "篮球"] },
-                { index: "第2节", courses: ["数学", "英语", "语文", "化学", "物理", "", "数学"] },
-                { index: "第3节", courses: ["英语", "物理", "数学", "语文", "生物", "", "编程"] },
-                { index: "第4节", courses: ["体育", "历史", "地理", "政治", "自习", "", ""] },
+                { index: "1", courses: ["语文", "数学", "英语", "物理", "化学", "睡觉", "篮球"] },
+                { index: "2", courses: ["数学", "英语", "语文", "化学", "物理", "", "数学"] },
+                { index: "3", courses: ["国象", "物理", "数学", "语文", "生物", "", "编程"] },
+                { index: "4", courses: ["体育", "历史", "地理", "政治", "自习", "", ""] },
             ]
+        },
+        {
+            name: "午休",
+            isRest: true
         },
         {
             name: "下午",
             lessons: [
-                { index: "第5节", courses: ["生物", "语文", "", "数学", "英语", "英语", "户外"] },
-                { index: "第6节", courses: ["班会", "音乐", "", "自习", "体育", "", ""] },
+                { index: "5", courses: ["劳动", "语文", "", "数学", "英语", "英语", "户外"] },
+                { index: "6", courses: ["音乐", "音乐", "", "自习", "体育", "", ""] }
             ]
+        },
+        {
+            name: "晚休",
+            isRest: true
         },
         {
             name: "晚上",
             lessons: [
-                { index: "第7节", courses: ["", "", "围棋", "", "", "", ""] },
+                { index: "7", courses: ["", "", "围棋", "", "", "", ""] },
             ]
         }
     ]
@@ -111,7 +121,22 @@ const scheduleConfig = {
     });
     html += "</tr>";
 
-    scheduleConfig.periods.forEach((period, pi) => {
+    scheduleConfig.periods.forEach((period) => {
+        // 休息行
+        if (period.isRest) {
+            html += `<tr class="rest-row"><td class="section-title" colspan="2">${period.name}</td>`;
+            for (let i = 0; i < scheduleConfig.weekdays.length; i++) {
+                if (i >= 5) {
+                    html += `<td class="weekend">${period.name}</td>`;
+                } else {
+                    html += `<td>${period.name}</td>`;
+                }
+            }
+            html += "</tr>";
+            return;
+        }
+
+        // 正常课程行
         const rowCount = period.lessons.length;
         period.lessons.forEach((lesson, idx) => {
             html += "<tr>";
